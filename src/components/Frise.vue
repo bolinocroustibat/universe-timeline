@@ -12,8 +12,11 @@
 	import PeriodComponent from './Period.vue';
 	// import EventComponent from './Event.vue';
 
-	import periodsJson from '../json/frise_periodes.json';
-	import eventsJson from '../json/frise_evenements.json';
+	import { Period, Event } from '@/models';
+
+	import periodsJson from '../json/periods.json';
+	import eventsJson from '../json/events.json';
+
 
 	@Component({
 		components: {
@@ -24,19 +27,21 @@
 	export default class FriseComponent extends Vue {
 
 		// initial data
-		periods = periodsJson;
-		events = eventsJson;
+		periods: Array<Period> = [];
+		events: Array<Event> = [];
 
-		// lifecycle hook
+		// // Lifecycle hooks
+		// created () { },
+		// mounted () { },
+		// updated () { },
+		// destroyed () { }
 		mounted () {
-			// this.greet()
-			// console.log(this.periods.length)
-			// console.log(this.periods);
-		}
-
-		// method
-		greet () {
-			// alert('greeting: ' + this.msg)
+			periodsJson.forEach((element: any) => {
+				this.periods.push(new Period(element));
+			});
+			// eventsJson.forEach((element: any) => {
+			// 	this.periods.push(new Period(element));
+			// });
 		}
 
 	}

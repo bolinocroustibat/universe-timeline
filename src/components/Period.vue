@@ -1,22 +1,30 @@
 <template>
-	<div id="period">PERIOD {{ period.name }}</div>
+	<div id="period" :style="style">{{ period.name }}</div>
 </template>
 
 <script lang="ts">
 
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Period } from '../models';
 
-@Component
+@Component({
+	props: {
+		period: Period
+	}
+})
 export default class PeriodComponent extends Vue {
 
 	// initial data
 	props = ['period'];
 
 	// lifecycle hook
-	mounted () {
+	mounted() {
 		// this.greet()
 	}
 
+	get style() {
+		return 'background-color: #' + this.period.color + ';';
+	}
 
 }
 </script>
@@ -24,6 +32,6 @@ export default class PeriodComponent extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #period {
-
+	border: 1px solid black;
 }
 </style>
