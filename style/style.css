@@ -1,0 +1,28 @@
+*{
+	font-family: 'Open Sans', sans-serif;
+	/* font-family: 'Roboto', sans-serif; */
+}
+
+body{
+	background-color: #0C1021;
+	color: white;
+}
+		
+#zoom{
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	text-align:right;
+}
+
+.zoom-button{
+	color:black;
+	width: 70px;
+	height: 25px;
+}
+
+#frise-wrapper{
+	margin-top:80px;
+	background-color:#abcdef;
+	cursor:grab;
+}

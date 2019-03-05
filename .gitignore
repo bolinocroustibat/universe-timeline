@@ -19,3 +19,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# Les lignes commençant par '#' sont des commentaires.
+# Ignorer tous les fichiers nommés connex.php
+connex.php

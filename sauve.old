@@ -1,0 +1,27 @@
+		
+		function get_window_height(){
+			haut = Math.max( window.innerHeight, document.body.clientHeight );
+			haut = Math.max( window.innerHeight, document.body.clientHeight );
+		}
+		
+		
+		function get_window_width(){
+			if (document.body.clientWidth)
+				{
+					var width = (document.body.clientWidth);
+					// var haut = (document.body.clientHeight);
+						// Ici une version DOM (le script est entre les balises <body> et </body>) qui devrait fonctionner sur tous les navigateurs. On commence donc par détecter la présence de l'objet body dans le DOM.
+						// Si il est présent, on va mettre dans 2 variables larg et haut la largeur Set la hauteur de la fenêtre pris avec les propriétés clientWidth et clientHeight de l'objet body.
+				}
+			else
+				{
+					var width = (window.innerWidth);
+						// Cette version est purement javascript et ne fonctionne pas sous IE (les propriétés innerWidth et innerHeight de l'objet window n'ayant pas été intégrée dans ce navigateur). Si l'objet n'existe pas, on met dans nos variables la hauteur et la largeur de la page. Seulement on utilisera ici les propriété innerWidth et innerHeight de l'objet window. 
+				}
+			return width;
+
+			// document.write("La fenêtre fait "+larg+"px de large et "+haut+"px de hauteur");
+			// document.write("<div style=\"background-color:red;width:"+larg+";height:250px;\"></div>");
+
+		}
+/

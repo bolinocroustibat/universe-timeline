@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Test frise chronologique</title>
+    <script src="JsTimelineLib.js"></script>
+  </head>
+  <body>
+    <div id="test_timeline" style="width:100%;height:300px;"></div>
+    <script type="text/javascript">
+      timeline = new JsTimelineLib.JsTimeline(document.getElementById("test_timeline"));
+
+      try{
+        var periodObj = {
+          'id':'0'
+          ,'startDate':-50
+          ,'endDate':1250
+        }
+        timeline.addPeriod(periodObj);
+        
+        var periodObj = {
+          'id':'0-1'
+          ,'parentId':'0'
+          ,'startDate':-50
+          ,'endDate':500
+        }
+        timeline.addPeriod(periodObj);
+        
+        var periodObj = {
+          'id':'0-2'
+          ,'parentId':'0'
+          ,'startDate':500
+          ,'endDate':850
+        }
+        timeline.addPeriod(periodObj);
+        
+        var periodObj = {
+          'id':'0-3'
+          ,'parentId':'0'
+          ,'startDate':850
+          ,'endDate':1250
+        }
+        timeline.addPeriod(periodObj);
+        
+        var periodObj = {
+          'id':'0-1-1'
+          ,'parentId':'0-1'
+          ,'startDate':-50
+          ,'endDate':-2
+        }
+        timeline.addPeriod(periodObj);
+        
+        var periodObj = {
+          'id':'0-1-2'
+          ,'parentId':'0-1'
+          ,'startDate':-2
+          ,'endDate':144
+        }
+        timeline.addPeriod(periodObj);
+        
+        var periodObj = {
+          'id':'0-1-3'
+          ,'parentId':'0-1'
+          ,'startDate':144
+          ,'endDate':500
+        }
+        timeline.addPeriod(periodObj);
+        
+        var periodObj = {
+          'id':'0-2-1'
+          ,'parentId':'0-2'
+          ,'startDate':500
+          ,'endDate':660
+        }
+        timeline.addPeriod(periodObj);
+        
+        var periodObj = {
+          'id':'0-2-2'
+          ,'parentId':'0-2'
+          ,'startDate':660
+          ,'endDate':850
+        }
+        timeline.addPeriod(periodObj);
+        
+      } catch(error){
+        console.log(error);
+      }
+      
+      timeline.setView(-100,1300);
+      var animateTimeline = function(){
+        console.log("******************");
+        console.log("* animation test *");
+        console.log("******************");
+        console.log("");
+      
+        console.log("Ease in sine");
+        timeline.panTo(-100,600,JsTimelineLib.anim.timingFunctions.EASEINSINE,2000);
+
+        setTimeout(function(){
+          console.log("Ease out sine");;
+          timeline.panTo(-100,200,JsTimelineLib.anim.timingFunctions.EASEOUTSINE,2000);
+        },6000);
+        
+        setTimeout(function(){
+          console.log("Linear");;
+          timeline.panTo(1000,1300,JsTimelineLib.anim.timingFunctions.LINEAR,10000);
+        },10000);
+        
+        setTimeout(function(){
+          console.log("Ease in out sine");
+          timeline.panTo(-100,1300,JsTimelineLib.anim.timingFunctions.EASEINOUTCIRCULAR,2000);
+        },22000);
+        
+        setTimeout(function(){
+          console.log("Ease in quadratic");
+          timeline.panTo(-50,500,JsTimelineLib.anim.timingFunctions.EASEINQUADRATIC,2000);
+        },26000);
+        
+        setTimeout(function(){
+          console.log("Ease out quadratic");
+          timeline.panTo(-2,144,JsTimelineLib.anim.timingFunctions.EASEOUTQUADRATIC,2000);
+        },30000);
+        
+        setTimeout(function(){
+          console.log("Ease in out quadratic");
+          timeline.panTo(-50,850,JsTimelineLib.anim.timingFunctions.EASEINOUTQUADRATIC,2000);
+        },34000);
+        
+        setTimeout(function(){
+          console.log("Ease in cubic");
+          timeline.panTo(500,1250,JsTimelineLib.anim.timingFunctions.EASEINCUBIC,2000);
+        },38000);
+        
+        setTimeout(function(){
+          console.log("Ease out cubic");
+          timeline.panTo(500,850,JsTimelineLib.anim.timingFunctions.EASEOUTCUBIC,2000);
+        },42000);
+        
+        setTimeout(function(){
+          console.log("Ease in out cubic");
+          timeline.panTo(-100,1300,JsTimelineLib.anim.timingFunctions.EASEINOUTCUBIC,2000);
+        },46000);
+        
+        setTimeout(function(){
+          console.log("Ease in exponential");
+          timeline.panTo(580,1250,JsTimelineLib.anim.timingFunctions.EASEINEXP,2000);
+        },50000);
+        
+        setTimeout(function(){
+          console.log("Ease out exponential");
+          timeline.panTo(500,850,JsTimelineLib.anim.timingFunctions.EASEOUTEXP,2000);
+        },54000);
+        
+        setTimeout(function(){
+          console.log("Ease in out exponential");
+          timeline.panTo(-100,1300,JsTimelineLib.anim.timingFunctions.EASEINOUTEXP,2000);
+        },58000);
+       
+        setTimeout(function(){
+          console.log("Ease in circular");
+          timeline.panTo(144,850,JsTimelineLib.anim.timingFunctions.EASEINCIRCULAR,2000);
+        },62000);
+        
+        setTimeout(function(){
+          console.log("Ease out circular");
+          timeline.panTo(500,660,JsTimelineLib.anim.timingFunctions.EASEOUTCIRCULAR,2000);
+        },66000);
+       
+        setTimeout(function(){
+          console.log("Ease in out circular");
+          timeline.panTo(-100,1300,JsTimelineLib.anim.timingFunctions.EASEINOUTCIRCULAR,2000);
+        },70000); 
+       
+      }
+      
+      animateTimeline();
+      setInterval(animateTimeline,100000);
+      
+    </script>
+  </body>
+</html>
