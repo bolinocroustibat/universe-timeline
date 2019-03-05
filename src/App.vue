@@ -1,21 +1,28 @@
 <template>
 	<div id="app">
 		<!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-		<HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-		<div id="frise"></div>
+		<!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
+		<frise></frise>
 	</div>
 </template>
 
+
 <script lang="ts">
+
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import FriseComponent from './components/Frise.vue';
+import Period from './components/Period.vue';
+import Event from './components/Event.vue';
 
 @Component({
 	components: {
-		HelloWorld,
+		'frise': FriseComponent,
+		'period': Period,
+		'event': Event
 	},
 })
 export default class App extends Vue {}
+
 </script>
 
 <style>
