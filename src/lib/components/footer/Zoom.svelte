@@ -13,11 +13,15 @@ function increaseZoom() {
 }
 
 function handleWheel(event: WheelEvent) {
-    if (event.deltaY < 0) {
-        increaseZoom()
-    } else {
-        decreaseZoom()
-    }
+	if (event.deltaY < 0) {
+		increaseZoom()
+	} else {
+		decreaseZoom()
+	}
+}
+
+function setZoomLevel(level: number) {
+	zoomLevel.set(level + 1) // Adding 1 since level is 0-based index but zoom is 1-based
 }
 </script>
 
@@ -35,8 +39,9 @@ function handleWheel(event: WheelEvent) {
 
     <div class="flex items-center gap-1">
         {#each Array(MAX_ZOOM_LEVEL) as _, i}
-            <div 
-                class="w-3 h-3 rounded-full border border-gray-300 transition-colors"
+            <button 
+                on:click={() => setZoomLevel(i)}
+                class="w-3 h-3 rounded-full border border-gray-300 transition-colors hover:border-blue-300"
                 class:bg-blue-500={i < $zoomLevel}
                 class:border-blue-500={i < $zoomLevel}
             />
