@@ -1,7 +1,8 @@
 <script lang="ts">
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
-import { formatCentury } from "$lib/utils/formatters"
+import { formatYear } from "$lib/utils/formatters"
+import { onMount } from 'svelte'
 
 // Calculate base spacing between major ticks based on zoom level
 $: baseSpacing = 100 + $zoomLevel * 20 // From 120px to 300px
@@ -22,14 +23,48 @@ $: majorTicks = Array.from({ length: numberOfMajorTicks }, (_, i) => {
 		position: i * baseSpacing,
 	}
 })
+
+// New: Viewport tracking
+let containerElement: HTMLDivElement
+let scrollLeft = 0
+let viewportWidth = 0
+
+// Track scroll position and viewport width
+onMount(() => {
+  const observer = new ResizeObserver(entries => {
+    viewportWidth = entries[0].contentRect.width
+  })
+  
+  observer.observe(containerElement)
+  
+  return () => observer.disconnect()
+})
+
+function handleScroll(e: Event) {
+  scrollLeft = (e.target as HTMLDivElement).scrollLeft
+}
+
+// Calculate visible range
+$: visibleStartIndex = Math.max(0, Math.floor(scrollLeft / baseSpacing) - 2)
+$: visibleEndIndex = Math.min(
+  numberOfMajorTicks,
+  Math.ceil((scrollLeft + viewportWidth) / baseSpacing) + 2
+)
+
+// Generate only visible ticks
+$: visibleMajorTicks = majorTicks.slice(visibleStartIndex, visibleEndIndex)
 </script>
 
-<div class="fixed bottom-12 left-0 right-0 h-12 bg-white border-t border-gray-200 overflow-x-auto">
+<div 
+  bind:this={containerElement}
+  on:scroll={handleScroll}
+  class="fixed bottom-12 left-0 right-0 h-12 bg-white border-t border-gray-200 overflow-x-auto"
+>
   <div 
     class="h-full relative"
     style="width: {numberOfMajorTicks * baseSpacing}px"
   >
-    {#each majorTicks as tick}
+    {#each visibleMajorTicks as tick}
       <div 
         class="absolute bottom-0 flex flex-col items-center"
         style="left: {tick.position}px"
@@ -38,17 +73,15 @@ $: majorTicks = Array.from({ length: numberOfMajorTicks }, (_, i) => {
         <div class="h-6 w-0.5 bg-gray-400" />
         
         <!-- Year label -->
-        <span class="text-xs text-gray-600 mt-1">{tick.year}</span>
+        <span class="text-xs text-gray-600 mt-1">{formatYear(tick.year, "fr")}</span>
 
         <!-- Minor ticks -->
-        <div class="absolute bottom-6 flex" style="left: {baseSpacing/TIME_CONSTANTS.TICKS_PER_MAJOR}px">
-          {#each Array(TIME_CONSTANTS.TICKS_PER_MAJOR - 1) as _, j}
-            <div 
-              class="h-2 w-0.5 bg-gray-300"
-              style="margin-left: {(baseSpacing/TIME_CONSTANTS.TICKS_PER_MAJOR) * j}px"
-            />
-          {/each}
-        </div>
+        {#each Array(TIME_CONSTANTS.TICKS_PER_MAJOR - 1) as _, i}
+          <div 
+            class="absolute bottom-6 h-2 w-0.5 bg-gray-300"
+            style="left: {((i + 1) * baseSpacing/TIME_CONSTANTS.TICKS_PER_MAJOR)}px"
+          />
+        {/each}
       </div>
     {/each}
   </div>
