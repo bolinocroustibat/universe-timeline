@@ -1,0 +1,12 @@
+{
+	"javascript": {
+		"formatter": {
+			"semicolons": "asNeeded"
+		}
+	},
+	"overrides": [
+		{
+			"include": ["*.svelte"]
+		}
+	]
+}
