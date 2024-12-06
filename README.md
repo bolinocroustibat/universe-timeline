@@ -1,17 +1,22 @@
-# sv
+# Prehistory Timeline
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## Dependencies
 
-## Creating a project
+- [Bun](https://bun.sh) for the package manager
+- [SvelteKit](https://kit.svelte.dev) for the frontend framework
+- [Biome](https://biome.sh) for linting and formatting
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Coding modern Svelte with AI assistants like Cursor
 
+[svelte-llm](https://svelte-llm.khromov.se) provides developer documentation for Svelte in an LLM-ready format for coding with AI assistants like [Cursor](https://cursor.sh), so that the AI assitant knows about modern Svelte 5 syntax and patterns.
+
+For this project, add the mention `@https://svelte-llm.khromov.se/svelte-kit` when asking the AI assistant.
+
+## Contributing
+
+Lint and format the code with [Biome](https://biome.sh) with:
 ```bash
-# create a new project in the current directory
-bunx sv create
-
-# create a new project in my-app
-bunx sv create my-app
+bunx biome check --write src
 ```
 
 ## Developing
