@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { passive } from 'svelte/legacy';
+import { passive } from "svelte/legacy"
 
 import { ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
