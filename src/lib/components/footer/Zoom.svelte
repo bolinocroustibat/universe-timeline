@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { passive } from 'svelte/legacy';
+
 import { ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
 
@@ -27,10 +29,10 @@ function setZoomLevel(level: number) {
 
 <div 
     class="flex items-center gap-3"
-    on:wheel|passive={handleWheel}
+    use:passive={['wheel', () => handleWheel]}
 >
     <button 
-        on:click={decreaseZoom}
+        onclick={decreaseZoom}
         class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={$zoomLevel <= 1}
     >
@@ -40,16 +42,16 @@ function setZoomLevel(level: number) {
     <div class="flex items-center gap-1">
         {#each Array(MAX_ZOOM_LEVEL) as _, i}
             <button 
-                on:click={() => setZoomLevel(i)}
+                onclick={() => setZoomLevel(i)}
                 class="w-3 h-3 rounded-full border border-gray-300 transition-colors hover:border-blue-300"
                 class:bg-blue-500={i < $zoomLevel}
                 class:border-blue-500={i < $zoomLevel}
-            />
+></button>
         {/each}
     </div>
 
     <button 
-        on:click={increaseZoom}
+        onclick={increaseZoom}
         class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={$zoomLevel >= MAX_ZOOM_LEVEL}
     >
