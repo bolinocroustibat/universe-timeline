@@ -8,17 +8,17 @@ export const TIME_CONSTANTS = {
 
 // These could be adjusted based on future needs
 export const ZOOM_SCALES = [
-	{ level: 1, yearsPerMajorTick: 100000000 },
-	{ level: 2, yearsPerMajorTick: 30000000 },
-	{ level: 3, yearsPerMajorTick: 10000000 },
-	{ level: 4, yearsPerMajorTick: 3000000 },
-	{ level: 5, yearsPerMajorTick: 1000000 },
-	{ level: 6, yearsPerMajorTick: 300000 },
-	{ level: 7, yearsPerMajorTick: 100000 },
-	{ level: 8, yearsPerMajorTick: 30000 },
-	{ level: 9, yearsPerMajorTick: 10000 },
-	{ level: 10, yearsPerMajorTick: 3000 },
-	{ level: 11, yearsPerMajorTick: 1000 },
-	{ level: 12, yearsPerMajorTick: 300 },
-	{ level: 13, yearsPerMajorTick: 100 },
+	{ level: 1, visibleYears: 1000000000 }, // Billion years
+	{ level: 2, visibleYears: 300000000 }, // Hundred millions
+	{ level: 3, visibleYears: 100000000 }, // Hundred millions
+	{ level: 4, visibleYears: 30000000 }, // Ten millions
+	{ level: 5, visibleYears: 10000000 }, // Ten millions
+	{ level: 6, visibleYears: 3000000 }, // Millions
+	{ level: 7, visibleYears: 1000000 }, // Millions
+	{ level: 8, visibleYears: 300000 }, // Hundred thousands
+	{ level: 9, visibleYears: 100000 }, // Hundred thousands
+	{ level: 10, visibleYears: 30000 }, // Ten thousands
+	{ level: 11, visibleYears: 10000 }, // Ten thousands
+	{ level: 12, visibleYears: 3000 }, // Thousands
+	{ level: 13, visibleYears: 1000 }, // Thousands
 ] as const
