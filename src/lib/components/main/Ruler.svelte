@@ -63,13 +63,6 @@ let visibleEndIndex = $derived(
 let visibleMajorTicks = $derived(
 	majorTicks.slice(visibleStartIndex, visibleEndIndex),
 )
-// Calculate visible years range
-let visibleStartYear = $derived(
-	TIME_CONSTANTS.START_YEAR + visibleStartIndex * yearsPerMajorTick,
-)
-let visibleEndYear = $derived(
-	TIME_CONSTANTS.START_YEAR + visibleEndIndex * yearsPerMajorTick,
-)
 </script>
 
 <div 
@@ -77,11 +70,6 @@ let visibleEndYear = $derived(
   onscroll={handleScroll}
   class="fixed bottom-12 left-0 right-0 h-12 bg-white border-t border-gray-200 overflow-x-auto"
 >
-  <!-- Debug info -->
-  <div class="absolute top-0 left-4 text-red-500 text-xs">
-    Visible Years: {currentScale.visibleYears} | 
-    Range: {visibleStartYear} - {visibleEndYear}
-  </div>
 
   <div 
     class="h-full relative"
