@@ -3,7 +3,6 @@ const currentYear = new Date().getFullYear()
 export const TIME_CONSTANTS = {
 	START_YEAR: -1000000000,
 	END_YEAR: currentYear,
-	TICKS_PER_MAJOR: 10, // Number of minor ticks between major ticks
 } as const
 
 // These could be adjusted based on future needs
