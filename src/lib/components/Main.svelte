@@ -10,6 +10,9 @@ import DebugInfo from "./main/DebugInfo.svelte"
 let containerElement: HTMLDivElement = $state()
 let scrollLeft = $state(0)
 let viewportWidth = $state(0)
+let isDragging = $state(false)
+let startX = $state(0)
+let startScrollLeft = $state(0)
 
 // Track scroll position and viewport width
 onMount(() => {
@@ -81,6 +84,34 @@ let visibleMajorTicks = $derived(
 // Calculate visible years from indices
 let visibleStartYear = $derived(majorTicks[visibleStartIndex]?.year)
 let visibleEndYear = $derived(majorTicks[visibleEndIndex - 1]?.year)
+
+function handleMouseDown(e: MouseEvent) {
+	isDragging = true
+	startX = e.pageX - containerElement.offsetLeft
+	startScrollLeft = scrollLeft
+	containerElement.style.cursor = "grabbing"
+}
+
+function handleMouseMove(e: MouseEvent) {
+	if (!isDragging) return
+
+	e.preventDefault()
+	const x = e.pageX - containerElement.offsetLeft
+	const walk = x - startX
+	containerElement.scrollLeft = startScrollLeft - walk
+}
+
+function handleMouseUp() {
+	isDragging = false
+	containerElement.style.cursor = "grab"
+}
+
+function handleMouseLeave() {
+	if (isDragging) {
+		isDragging = false
+		containerElement.style.cursor = "grab"
+	}
+}
 </script>
 
 <main class="min-h-screen pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -99,10 +130,16 @@ let visibleEndYear = $derived(majorTicks[visibleEndIndex - 1]?.year)
 		/>
 	{/if}
 
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div 
 		bind:this={containerElement}
 		onscroll={handleScroll}
-		class="fixed bottom-12 left-0 right-0 h-24 bg-white border-t border-gray-200 overflow-x-auto"
+		onmousedown={handleMouseDown}
+		onmousemove={handleMouseMove}
+		onmouseup={handleMouseUp}
+		onmouseleave={handleMouseLeave}
+		class="fixed bottom-12 left-0 right-0 h-24 bg-white border-t border-gray-200 overflow-x-auto cursor-grab select-none"
 	>
 
 	<div 
