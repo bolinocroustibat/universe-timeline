@@ -2,11 +2,11 @@
 import { env } from "$env/dynamic/public"
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
+import type { TimelineTick } from "$lib/types"
 import { formatYear } from "$lib/utils/formatters"
 import { onMount } from "svelte"
 import DebugInfo from "./main/DebugInfo.svelte"
 
-// New: Viewport tracking
 let containerElement: HTMLDivElement = $state()
 let scrollLeft = $state(0)
 let viewportWidth = $state(0)
@@ -30,19 +30,29 @@ function handleScroll(e: Event) {
 let currentScale = $derived(
 	ZOOM_SCALES.find((scale) => scale.level === $zoomLevel) ?? ZOOM_SCALES[4],
 )
+let viewportYearSpan = $derived(currentScale.viewportYearSpan)
+
 // Calculate how many years are represented by one pixel
-let yearsPerPixel = $derived(currentScale.viewportYearSpan / viewportWidth)
+let yearsPerPixel: number = $derived(viewportYearSpan / viewportWidth)
+
 // Calculate years per major tick (always factor of 10)
-let yearsPerMajorTick = $derived(
-	10 ** Math.ceil(Math.log10(currentScale.viewportYearSpan / 10)),
+let yearsPerMajorTick: number = $derived(
+	10 ** Math.ceil(Math.log10(viewportYearSpan / 10)),
 )
 // Calculate how many pixels between major ticks
-let pixelsBetweenMajorTicks = $derived(yearsPerMajorTick / yearsPerPixel)
+let pixelsBetweenMajorTicks: number = $derived(
+	yearsPerMajorTick / yearsPerPixel,
+)
+
 // Calculate total number of major ticks needed
-let totalYears = $derived(TIME_CONSTANTS.END_YEAR - TIME_CONSTANTS.START_YEAR)
-let numberOfMajorTicks = $derived(Math.ceil(totalYears / yearsPerMajorTick) + 1)
+let totalYears: number = $derived(
+	TIME_CONSTANTS.END_YEAR - TIME_CONSTANTS.START_YEAR,
+)
+let numberOfMajorTicks: number = $derived(
+	Math.ceil(totalYears / yearsPerMajorTick) + 1,
+)
 // Generate major ticks array
-let majorTicks = $derived(
+let majorTicks: TimelineTick[] = $derived(
 	Array.from({ length: numberOfMajorTicks }, (_, i) => {
 		const year = Math.min(
 			TIME_CONSTANTS.START_YEAR + i * yearsPerMajorTick,
@@ -51,7 +61,7 @@ let majorTicks = $derived(
 		return {
 			year,
 			position: (year - TIME_CONSTANTS.START_YEAR) / yearsPerPixel,
-		}
+		} satisfies TimelineTick
 	}),
 )
 // Calculate visible range
@@ -76,7 +86,8 @@ let visibleEndYear = $derived(majorTicks[visibleEndIndex - 1]?.year)
 <main class="min-h-screen pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
 	{#if env.PUBLIC_DEBUG === "true"}
 		<DebugInfo
-			viewportYearSpan={currentScale.viewportYearSpan}
+			zoomLevel={$zoomLevel}
+			{viewportYearSpan}
 			{yearsPerPixel}
 			{yearsPerMajorTick}
 			{viewportWidth}

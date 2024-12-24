@@ -1,8 +1,8 @@
 <script lang="ts">
-import { zoomLevel } from "$lib/stores/zoomStore"
 import { formatYear } from "$lib/utils/formatters"
 
 interface Props {
+	zoomLevel: number
 	viewportYearSpan: number
 	yearsPerPixel: number
 	yearsPerMajorTick: number
@@ -14,6 +14,7 @@ interface Props {
 	visibleEndYear: number
 }
 const {
+	zoomLevel,
 	viewportYearSpan,
 	yearsPerPixel,
 	yearsPerMajorTick,
@@ -24,12 +25,10 @@ const {
 	visibleStartYear,
 	visibleEndYear,
 }: Props = $props()
-
-const zoom = $derived(zoomLevel)
 </script>
 
 <div class="fixed top-24 right-4 bg-black/80 text-white p-4 rounded-lg space-y-2 font-mono text-sm">
-	<div>Zoom level: {zoom}</div>
+	<div>Zoom level: {zoomLevel}</div>
 	<div>Viewport span: {formatYear(viewportYearSpan)} years</div>
 	<div>Years/px: {yearsPerPixel.toFixed(2)}</div>
 	<div>Years/tick: {formatYear(yearsPerMajorTick)}</div>

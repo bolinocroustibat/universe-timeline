@@ -6,7 +6,7 @@ import "../app.css"
 </script>
 
 <div class="min-h-screen bg-gray-800">
-  <Header />
-  <Main />
-  <Footer />
+	<Header />
+	<Main />
+	<Footer />
 </div>
