@@ -142,22 +142,22 @@ function handleMouseLeave() {
 		class="fixed bottom-12 left-0 right-0 h-24 bg-white border-t border-gray-200 overflow-x-auto cursor-grab select-none"
 	>
 
-	<div 
-		class="h-full relative"
-		style="width: {Math.ceil(totalYears / yearsPerPixel)}px"
-	>
-		{#each visibleMajorTicks as tick}
-			<div 
-			class="absolute top-0 h-full flex flex-col items-center"
-			style="left: {tick.position}px"
-			>
-			<!-- Major tick -->
-			<div class="h-1/3 w-0.5 bg-gray-400"></div>
-			
-			<!-- Year label -->
-			<span class="text-xs text-gray-600 mt-1">{formatYear(tick.year, "fr")}</span>
-			</div>
-		{/each}
+		<div 
+			class="h-full relative"
+			style="width: {Math.ceil(totalYears / yearsPerPixel)}px"
+		>
+			{#each visibleMajorTicks as tick}
+				<div 
+					class="absolute top-0 h-full flex flex-col items-center"
+					style="left: {tick.position}px"
+				>
+				<!-- Major tick -->
+				<div class="h-1/3 w-0.5 bg-gray-400"></div>
+				
+				<!-- Year label -->
+				<span class="text-xs text-gray-600 mt-1">{formatYear(tick.year, "fr")}</span>
+				</div>
+			{/each}
+		</div>
 	</div>
-  </div>
 </main>
