@@ -1,191 +1,317 @@
 [
 	{
 		"id": 1,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -13800000000,
-		"date_abs": 0,
-		"name": "Big-bang",
-		"description": "",
+		"dateAbs": 0,
+		"name": {
+			"fr": "Big-bang",
+			"en": "Big Bang"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": "bigbang.png"
 	},
 	{
 		"id": 2,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -4567000000,
-		"date_abs": 9233000000,
-		"name": "Formation du système solaire",
-		"description": "",
+		"dateAbs": 9233000000,
+		"name": {
+			"fr": "Formation du système solaire",
+			"en": "Formation of the solar system"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": "formation-systeme-solaire.png"
 	},
 	{
 		"id": 3,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -4560000000,
-		"date_abs": 9240000000,
-		"name": "Formation de la Terre",
-		"description": "",
+		"dateAbs": 9240000000,
+		"name": {
+			"fr": "Formation de la Terre",
+			"en": "Formation of Earth"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 4,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -4533000000,
-		"date_abs": 9267000000,
-		"name": "Grande collision et formation de la Lune",
-		"description": "",
+		"dateAbs": 9267000000,
+		"name": {
+			"fr": "Grande collision et formation de la Lune",
+			"en": "Giant Impact and Moon Formation"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 5,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -3600000000,
-		"date_abs": 10200000000,
-		"name": "Apparition de la vie sur Terre",
-		"description": "",
+		"dateAbs": 10200000000,
+		"name": {
+			"fr": "Apparition de la vie sur Terre",
+			"en": "Origin of Life on Earth"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 6,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -542000000,
-		"date_abs": 13258000000,
-		"name": "Fin du Précambrien",
-		"description": "",
+		"dateAbs": 13258000000,
+		"name": {
+			"fr": "Fin du Précambrien",
+			"en": "End of Precambrian"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 7,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -251000000,
-		"date_abs": 13549000000,
-		"name": "Extinction du Permien-Trias",
-		"description": "",
+		"dateAbs": 13549000000,
+		"name": {
+			"fr": "Extinction du Permien-Trias",
+			"en": "Permian-Triassic Extinction"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 8,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -230000000,
-		"date_abs": 13570000000,
-		"name": "Premiers dinosaures",
-		"description": "",
+		"dateAbs": 13570000000,
+		"name": {
+			"fr": "Premiers dinosaures",
+			"en": "First Dinosaurs"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 9,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -11400,
-		"date_abs": 13799988600,
-		"name": "Invention de l'agriculture en Occident",
-		"description": "",
+		"dateAbs": 13799988600,
+		"name": {
+			"fr": "Invention de l'agriculture en Occident",
+			"en": "Invention of Agriculture in the West"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 11,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -3500,
-		"date_abs": 13799996500,
-		"name": "Invention de l'écriture en Mésopotamie",
-		"description": "",
+		"dateAbs": 13799996500,
+		"name": {
+			"fr": "Invention de l'écriture en Mésopotamie",
+			"en": "Invention of Writing in Mesopotamia"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 12,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -563,
-		"date_abs": 13799999437,
-		"name": "Naissance de Siddhārtha Gautama (Bouddha)",
-		"description": "",
+		"dateAbs": 13799999437,
+		"name": {
+			"fr": "Naissance de Siddhārtha Gautama (Bouddha)",
+			"en": "Birth of Siddhartha Gautama (Buddha)"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 13,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -5,
-		"date_abs": 13799999995,
-		"name": "Naissance de Jésus Christ",
-		"description": "",
+		"dateAbs": 13799999995,
+		"name": {
+			"fr": "Naissance de Jésus Christ",
+			"en": "Birth of Jesus Christ"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 14,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": 476,
-		"date_abs": 13800000476,
-		"name": "Chute de l'Empire Romain",
-		"description": "",
+		"dateAbs": 13800000476,
+		"name": {
+			"fr": "Chute de l'Empire Romain",
+			"en": "Fall of the Roman Empire"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 15,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": 570,
-		"date_abs": 13800000570,
-		"name": "Naissance de Mahomet à La Mecque",
-		"description": "",
+		"dateAbs": 13800000570,
+		"name": {
+			"fr": "Naissance de Mahomet à La Mecque",
+			"en": "Birth of Muhammad in Mecca"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 16,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": 632,
-		"date_abs": 13800000632,
-		"name": "Mort de Mahomet à Médine",
-		"description": "",
+		"dateAbs": 13800000632,
+		"name": {
+			"fr": "Mort de Mahomet à Médine",
+			"en": "Death of Muhammad in Medina"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 17,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": 1492,
-		"date_abs": 13800001492,
-		"name": "Découverte de l'Amérique par Christophe Colomb",
-		"description": "",
+		"dateAbs": 13800001492,
+		"name": {
+			"fr": "Découverte de l'Amérique par Christophe Colomb",
+			"en": "Discovery of America by Christopher Columbus"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 21,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -13200000000,
-		"date_abs": 600000000,
-		"name": "Formation de la Voie Lactée, notre galaxie",
-		"description": "",
+		"dateAbs": 600000000,
+		"name": {
+			"fr": "Formation de la Voie Lactée, notre galaxie",
+			"en": "Formation of the Milky Way, our galaxy"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 22,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -9006000000,
-		"date_abs": 4794000000,
-		"name": "Formation d'Andromède, la galaxie voisine de la nôtre",
-		"description": "",
+		"dateAbs": 4794000000,
+		"name": {
+			"fr": "Formation d'Andromède, la galaxie voisine de la nôtre",
+			"en": "Formation of Andromeda, our neighboring galaxy"
+		},
+		"description": {
+			"fr": "",
+			"en": ""
+		},
 		"image": ""
 	},
 	{
 		"id": 23,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -65000000,
-		"date_abs": 13735000000,
-		"name": "Extinction Crétacé-Tertiaire",
-		"description": "Extinction des dinosaures",
+		"dateAbs": 13735000000,
+		"name": {
+			"fr": "Extinction Crétacé-Tertiaire",
+			"en": "Cretaceous-Tertiary Extinction"
+		},
+		"description": {
+			"fr": "Extinction des dinosaures",
+			"en": "Extinction of dinosaurs"
+		},
 		"image": ""
 	},
 	{
 		"id": 24,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -600000000,
-		"date_abs": 13200000000,
-		"name": "Formation du paléocontinent disparu Gondwana",
-		"description": "Le Gondwana est un supercontinent formé tout à la fin du Néoprotérozoïque. On distingue le Gondwana du Paléozoïque et celui du Mésozoïque. Entre les deux, le Gondwana a fait partie du supercontinent Pangée.",
+		"dateAbs": 13200000000,
+		"name": {
+			"fr": "Formation du paléocontinent disparu Gondwana",
+			"en": "Formation of the lost paleocontinent Gondwana"
+		},
+		"description": {
+			"fr": "Le Gondwana est un supercontinent formé tout à la fin du Néoprotérozoïque. On distingue le Gondwana du Paléozoïque et celui du Mésozoïque. Entre les deux, le Gondwana a fait partie du supercontinent Pangée.",
+			"en": "Gondwana was a supercontinent formed at the very end of the Neoproterozoic. We distinguish between Paleozoic Gondwana and Mesozoic Gondwana. Between the two, Gondwana was part of the supercontinent Pangaea."
+		},
 		"image": ""
 	},
 	{
 		"id": 25,
-		"parent_period_id": 0,
+		"parentPeriodId": 0,
 		"date": -160000000,
-		"date_abs": 13640000000,
-		"name": "Début de la fracturation du paléocontinent disparu Gondwana",
-		"description": "Le Gondwana est un supercontinent formé tout à la fin du Néoprotérozoïque. On distingue le Gondwana du Paléozoïque et celui du Mésozoïque. Entre les deux, le Gondwana a fait partie du supercontinent Pangée.",
+		"dateAbs": 13640000000,
+		"name": {
+			"fr": "Début de la fracturation du paléocontinent disparu Gondwana",
+			"en": "Beginning of the breakup of the lost paleocontinent Gondwana"
+		},
+		"description": {
+			"fr": "Le Gondwana est un supercontinent formé tout à la fin du Néoprotérozoïque. On distingue le Gondwana du Paléozoïque et celui du Mésozoïque. Entre les deux, le Gondwana a fait partie du supercontinent Pangée.",
+			"en": "Gondwana was a supercontinent formed at the very end of the Neoproterozoic. We distinguish between Paleozoic Gondwana and Mesozoic Gondwana. Between the two, Gondwana was part of the supercontinent Pangaea."
+		},
 		"image": ""
 	}
 ]

@@ -1,3 +1,9 @@
+export type SupportedLocales = "en" | "fr"
+
+export type LocalizedText = {
+	[key in SupportedLocales]: string
+}
+
 export interface Period {
 	id: number
 	parentPeriodId: number
@@ -6,19 +12,18 @@ export interface Period {
 	end: number
 	startUncertainty: number
 	duration: number
-	name: string
-	description: string
+	name: LocalizedText
+	description: LocalizedText
 	color: string
 	image: string
 }
-
 export interface Event {
 	id: number
 	parentPeriodId: number
 	date: number
 	dateAbs: number
-	name: string
-	description: string
+	name: LocalizedText
+	description: LocalizedText
 	image: string
 }
 

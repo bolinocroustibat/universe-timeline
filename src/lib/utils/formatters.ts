@@ -1,5 +1,4 @@
-// Types
-export type SupportedLocales = "en" | "fr"
+import type { SupportedLocales } from "$lib/types"
 
 // Language-specific number suffixes
 const LARGE_NUMBER_SUFFIXES: Record<
