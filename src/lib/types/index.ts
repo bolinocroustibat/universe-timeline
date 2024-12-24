@@ -1,10 +1,10 @@
 export interface Period {
 	id: number
-	parent_period_id: number
+	parentPeriodId: number
 	has_child: number
 	start: number
 	end: number
-	start_uncertainty: number
+	startUncertainty: number
 	duration: number
 	name: string
 	description: string
@@ -14,10 +14,15 @@ export interface Period {
 
 export interface Event {
 	id: number
-	parent_period_id: number
+	parentPeriodId: number
 	date: number
-	date_abs: number
+	dateAbs: number
 	name: string
 	description: string
 	image: string
+}
+
+export interface TimelineTick {
+	year: number
+	position: number
 }

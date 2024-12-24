@@ -7,17 +7,17 @@ export const TIME_CONSTANTS = {
 
 // These could be adjusted based on future needs
 export const ZOOM_SCALES = [
-	{ level: 1, visibleYears: 1000000000 }, // Billion years
-	{ level: 2, visibleYears: 300000000 }, // Hundred millions
-	{ level: 3, visibleYears: 100000000 }, // Hundred millions
-	{ level: 4, visibleYears: 30000000 }, // Ten millions
-	{ level: 5, visibleYears: 10000000 }, // Ten millions
-	{ level: 6, visibleYears: 3000000 }, // Millions
-	{ level: 7, visibleYears: 1000000 }, // Millions
-	{ level: 8, visibleYears: 300000 }, // Hundred thousands
-	{ level: 9, visibleYears: 100000 }, // Hundred thousands
-	{ level: 10, visibleYears: 30000 }, // Ten thousands
-	{ level: 11, visibleYears: 10000 }, // Ten thousands
-	{ level: 12, visibleYears: 3000 }, // Thousands
-	{ level: 13, visibleYears: 1000 }, // Thousands
+	{ level: 1, viewportYearSpan: 1000000000 }, // Billion years
+	{ level: 2, viewportYearSpan: 300000000 }, // Hundred millions
+	{ level: 3, viewportYearSpan: 100000000 }, // Hundred millions
+	{ level: 4, viewportYearSpan: 30000000 }, // Ten millions
+	{ level: 5, viewportYearSpan: 10000000 }, // Ten millions
+	{ level: 6, viewportYearSpan: 3000000 }, // Millions
+	{ level: 7, viewportYearSpan: 1000000 }, // Millions
+	{ level: 8, viewportYearSpan: 300000 }, // Hundred thousands
+	{ level: 9, viewportYearSpan: 100000 }, // Hundred thousands
+	{ level: 10, viewportYearSpan: 30000 }, // Ten thousands
+	{ level: 11, viewportYearSpan: 10000 }, // Ten thousands
+	{ level: 12, viewportYearSpan: 3000 }, // Thousands
+	{ level: 13, viewportYearSpan: 1000 }, // Thousands
 ] as const

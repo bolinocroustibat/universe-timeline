@@ -31,10 +31,10 @@ let currentScale = $derived(
 	ZOOM_SCALES.find((scale) => scale.level === $zoomLevel) ?? ZOOM_SCALES[4],
 )
 // Calculate how many years are represented by one pixel
-let yearsPerPixel = $derived(currentScale.visibleYears / viewportWidth)
+let yearsPerPixel = $derived(currentScale.viewportYearSpan / viewportWidth)
 // Calculate years per major tick (always factor of 10)
 let yearsPerMajorTick = $derived(
-	10 ** Math.ceil(Math.log10(currentScale.visibleYears / 10)),
+	10 ** Math.ceil(Math.log10(currentScale.viewportYearSpan / 10)),
 )
 // Calculate how many pixels between major ticks
 let pixelsBetweenMajorTicks = $derived(yearsPerMajorTick / yearsPerPixel)
@@ -68,18 +68,23 @@ let visibleEndIndex = $derived(
 let visibleMajorTicks = $derived(
 	majorTicks.slice(visibleStartIndex, visibleEndIndex),
 )
+// Calculate visible years from indices
+let visibleStartYear = $derived(majorTicks[visibleStartIndex]?.year)
+let visibleEndYear = $derived(majorTicks[visibleEndIndex - 1]?.year)
 </script>
 
 <main class="min-h-screen pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
 	{#if env.PUBLIC_DEBUG === "true"}
 		<DebugInfo
-			visibleYears={currentScale.visibleYears}
+			viewportYearSpan={currentScale.viewportYearSpan}
 			{yearsPerPixel}
 			{yearsPerMajorTick}
 			{viewportWidth}
 			{scrollLeft}
 			{visibleStartIndex}
 			{visibleEndIndex}
+			{visibleStartYear}
+			{visibleEndYear}
 		/>
 	{/if}
 
