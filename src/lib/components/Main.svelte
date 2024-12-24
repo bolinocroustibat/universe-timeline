@@ -1,8 +1,10 @@
 <script lang="ts">
+import { env } from "$env/dynamic/public"
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
 import { formatYear } from "$lib/utils/formatters"
 import { onMount } from "svelte"
+import DebugInfo from "./main/DebugInfo.svelte"
 
 // New: Viewport tracking
 let containerElement: HTMLDivElement = $state()
@@ -69,28 +71,40 @@ let visibleMajorTicks = $derived(
 </script>
 
 <main class="min-h-screen pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-  <div 
-    bind:this={containerElement}
-    onscroll={handleScroll}
-    class="fixed bottom-12 left-0 right-0 h-24 bg-white border-t border-gray-200 overflow-x-auto"
-  >
+	{#if env.PUBLIC_DEBUG === "true"}
+		<DebugInfo
+			visibleYears={currentScale.visibleYears}
+			{yearsPerPixel}
+			{yearsPerMajorTick}
+			{viewportWidth}
+			{scrollLeft}
+			{visibleStartIndex}
+			{visibleEndIndex}
+		/>
+	{/if}
 
-    <div 
-      class="h-full relative"
-      style="width: {Math.ceil(totalYears / yearsPerPixel)}px"
-    >
-      {#each visibleMajorTicks as tick}
-        <div 
-          class="absolute top-0 h-full flex flex-col items-center"
-          style="left: {tick.position}px"
-        >
-          <!-- Major tick -->
-          <div class="h-1/3 w-0.5 bg-gray-400"></div>
-          
-          <!-- Year label -->
-          <span class="text-xs text-gray-600 mt-1">{formatYear(tick.year, "fr")}</span>
-        </div>
-      {/each}
-    </div>
+	<div 
+		bind:this={containerElement}
+		onscroll={handleScroll}
+		class="fixed bottom-12 left-0 right-0 h-24 bg-white border-t border-gray-200 overflow-x-auto"
+	>
+
+	<div 
+		class="h-full relative"
+		style="width: {Math.ceil(totalYears / yearsPerPixel)}px"
+	>
+		{#each visibleMajorTicks as tick}
+			<div 
+			class="absolute top-0 h-full flex flex-col items-center"
+			style="left: {tick.position}px"
+			>
+			<!-- Major tick -->
+			<div class="h-1/3 w-0.5 bg-gray-400"></div>
+			
+			<!-- Year label -->
+			<span class="text-xs text-gray-600 mt-1">{formatYear(tick.year, "fr")}</span>
+			</div>
+		{/each}
+	</div>
   </div>
 </main>
