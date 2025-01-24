@@ -8,8 +8,6 @@ interface Props {
 	yearsPerMajorTick: number
 	viewportWidth: number
 	scrollLeft: number
-	visibleStartIndex: number
-	visibleEndIndex: number
 	visibleStartYear: number
 	visibleEndYear: number
 }
@@ -20,8 +18,6 @@ const {
 	yearsPerMajorTick,
 	viewportWidth,
 	scrollLeft,
-	visibleStartIndex,
-	visibleEndIndex,
 	visibleStartYear,
 	visibleEndYear,
 }: Props = $props()
@@ -34,6 +30,5 @@ const {
 	<div>Years/tick: {formatYear(yearsPerMajorTick)}</div>
 	<div>Viewport: {viewportWidth}px</div>
 	<div>Scroll position: {scrollLeft.toFixed(0)}px</div>
-	<div>Visible indices: {visibleStartIndex} → {visibleEndIndex}</div>
 	<div>Visible years: {formatYear(visibleStartYear)} → {formatYear(visibleEndYear)}</div>
 </div>

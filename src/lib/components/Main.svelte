@@ -54,36 +54,35 @@ let totalYears: number = $derived(
 let numberOfMajorTicks: number = $derived(
 	Math.ceil(totalYears / yearsPerMajorTick) + 1,
 )
-// Generate major ticks array
-let majorTicks: TimelineTick[] = $derived(
-	Array.from({ length: numberOfMajorTicks }, (_, i) => {
-		const year = Math.min(
-			TIME_CONSTANTS.START_YEAR + i * yearsPerMajorTick,
-			TIME_CONSTANTS.END_YEAR,
+
+// Generate only the ticks that are currently visible in the viewport
+let visibleMajorTicks: TimelineTick[] = $derived(
+	// Calculate visible range indices
+	(() => {
+		const startIndex = Math.max(0, Math.floor(scrollLeft / pixelsBetweenMajorTicks) - 2)
+		const endIndex = Math.min(
+			numberOfMajorTicks,
+			Math.ceil((scrollLeft + viewportWidth) / pixelsBetweenMajorTicks) + 2
 		)
-		return {
-			year,
-			position: (year - TIME_CONSTANTS.START_YEAR) / yearsPerPixel,
-		} satisfies TimelineTick
-	}),
+		
+		// Generate only the visible ticks
+		return Array.from({ length: endIndex - startIndex }, (_, i) => {
+			const index = startIndex + i
+			const year = Math.min(
+				TIME_CONSTANTS.START_YEAR + index * yearsPerMajorTick,
+				TIME_CONSTANTS.END_YEAR
+			)
+			return {
+				year,
+				position: (year - TIME_CONSTANTS.START_YEAR) / yearsPerPixel
+			} satisfies TimelineTick
+		})
+	})()
 )
-// Calculate visible range
-let visibleStartIndex = $derived(
-	Math.max(0, Math.floor(scrollLeft / pixelsBetweenMajorTicks) - 2),
-)
-let visibleEndIndex = $derived(
-	Math.min(
-		numberOfMajorTicks,
-		Math.ceil((scrollLeft + viewportWidth) / pixelsBetweenMajorTicks) + 2,
-	),
-)
-// Generate only visible ticks
-let visibleMajorTicks = $derived(
-	majorTicks.slice(visibleStartIndex, visibleEndIndex),
-)
-// Calculate visible years from indices
-let visibleStartYear = $derived(majorTicks[visibleStartIndex]?.year)
-let visibleEndYear = $derived(majorTicks[visibleEndIndex - 1]?.year)
+
+// Update these to work with the first and last visible ticks
+let visibleStartYear = $derived(visibleMajorTicks[0]?.year)
+let visibleEndYear = $derived(visibleMajorTicks[visibleMajorTicks.length - 1]?.year)
 
 function handleMouseDown(e: MouseEvent) {
 	isDragging = true
@@ -123,8 +122,6 @@ function handleMouseLeave() {
 			{yearsPerMajorTick}
 			{viewportWidth}
 			{scrollLeft}
-			{visibleStartIndex}
-			{visibleEndIndex}
 			{visibleStartYear}
 			{visibleEndYear}
 		/>
