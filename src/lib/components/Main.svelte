@@ -47,25 +47,21 @@ let pixelsBetweenMajorTicks: number = $derived(
 	yearsPerMajorTick / yearsPerPixel,
 )
 
-// Calculate total number of major ticks needed
+// Calculate total years for the timeline width
 let totalYears: number = $derived(
 	TIME_CONSTANTS.END_YEAR - TIME_CONSTANTS.START_YEAR,
-)
-let numberOfMajorTicks: number = $derived(
-	Math.ceil(totalYears / yearsPerMajorTick) + 1,
 )
 
 // Generate only the ticks that are currently visible in the viewport
 let visibleMajorTicks: TimelineTick[] = $derived(
 	// Calculate visible range indices
 	(() => {
+		// Calculate the range of tick indices that should be visible
+		// We add/subtract 2 to create a buffer for smoother scrolling
 		const startIndex = Math.max(0, Math.floor(scrollLeft / pixelsBetweenMajorTicks) - 2)
-		const endIndex = Math.min(
-			numberOfMajorTicks,
-			Math.ceil((scrollLeft + viewportWidth) / pixelsBetweenMajorTicks) + 2
-		)
+		const endIndex = Math.ceil((scrollLeft + viewportWidth) / pixelsBetweenMajorTicks) + 2
 		
-		// Generate only the visible ticks
+		// Create an array of only the visible ticks with their positions
 		return Array.from({ length: endIndex - startIndex }, (_, i) => {
 			const index = startIndex + i
 			const year = Math.min(
