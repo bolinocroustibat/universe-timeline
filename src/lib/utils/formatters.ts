@@ -1,33 +1,62 @@
 import type { SupportedLocales } from "$lib/types"
 
-// Language-specific number suffixes
-const LARGE_NUMBER_SUFFIXES: Record<
-	SupportedLocales,
-	{
+type TimeLocale = {
+	numbers: {
 		billion: { singular: string; plural: string }
 		million: { singular: string; plural: string }
 	}
-> = {
+	era: {
+		before: string
+		after: string
+		century: {
+			before: string
+			after: string
+		}
+	}
+}
+
+// Language-specific time-related strings
+const TIME_LOCALES: Record<SupportedLocales, TimeLocale> = {
 	en: {
-		billion: {
-			singular: "billion",
-			plural: "billion", // Same in English
+		numbers: {
+			billion: {
+				singular: "billion",
+				plural: "billion"
+			},
+			million: {
+				singular: "million",
+				plural: "million"
+			}
 		},
-		million: {
-			singular: "million",
-			plural: "million", // Same in English
-		},
+		era: {
+			before: " BCE",
+			after: " CE",
+			century: {
+				before: " BC",
+				after: " AD"
+			}
+		}
 	},
 	fr: {
-		billion: {
-			singular: "milliard",
-			plural: "milliards",
+		numbers: {
+			billion: {
+				singular: "milliard",
+				plural: "milliards"
+			},
+			million: {
+				singular: "million",
+				plural: "millions"
+			}
 		},
-		million: {
-			singular: "million",
-			plural: "millions",
-		},
-	},
+		era: {
+			before: " av. J.-C.",
+			after: " ap. J.-C.",
+			century: {
+				before: " av. J.-C.",
+				after: " ap. J.-C."
+			}
+		}
+	}
 }
 
 // Common formatting options
@@ -55,38 +84,59 @@ export function formatLargeNumber(
  * Formats a year with abbreviated large numbers (million/billion)
  * @param year - The year to format (negative for BCE/BC)
  * @param locale - The locale to use for formatting (defaults to 'en')
+ * @param tickInterval - The tick interval for formatting
  * @returns Formatted year string with appropriate abbreviation
  */
 export function formatYear(
 	year: number,
 	locale: SupportedLocales = "en",
+	tickInterval?: number
 ): string {
 	const absYear = Math.abs(year)
-	const suffixes = LARGE_NUMBER_SUFFIXES[locale]
+	const localeStrings = TIME_LOCALES[locale]
+	const eraSuffix = year < 0 
+		? localeStrings.era.before 
+		: localeStrings.era.after
 
-	// Format billions
-	if (absYear >= 1_000_000_000) {
-		const billions = absYear / 1_000_000_000
-		const formatted = formatLargeNumber(billions, locale, {
-			maximumFractionDigits: 1,
-		})
-		const form = billions === 1 ? "singular" : "plural"
-		return `${year < 0 ? "-" : ""}${formatted} ${suffixes.billion[form]}`
+	// Use the tickInterval to determine formatting
+	if (tickInterval) {
+		// Format billions for billion-year ticks
+		if (tickInterval >= 100_000_000) {
+			const billions = absYear / 1_000_000_000
+			const formatted = formatLargeNumber(billions, locale, {
+				maximumFractionDigits: 2,
+			})
+			const form = billions === 1 ? "singular" : "plural"
+			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.billion[form]}`
+		}
+
+		// Format millions for million-year ticks
+		if (tickInterval >= 100_000) {
+			const millions = absYear / 1_000_000
+			const formatted = formatLargeNumber(millions, locale, {
+				maximumFractionDigits: 2,
+			})
+			const form = millions === 1 ? "singular" : "plural"
+			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.million[form]}`
+		}
+
+		// Format thousands for thousand-year ticks
+		if (tickInterval >= 1_000) {
+			return `${formatLargeNumber(absYear, locale)}${eraSuffix}`
+		}
+
+		// Format centuries for century ticks
+		if (tickInterval === 100) {
+			const centuryNum = Math.abs(Math.floor(year / 100))
+			const centurySuffix = year < 0 
+				? localeStrings.era.century.before 
+				: localeStrings.era.century.after
+			return `${centuryNum}${centurySuffix}`
+		}
 	}
 
-	// Format millions
-	if (absYear >= 1_000_000) {
-		const millions = absYear / 1_000_000
-		const formatted = formatLargeNumber(millions, locale, {
-			maximumFractionDigits: 1,
-		})
-		const form = millions === 1 ? "singular" : "plural"
-		return `${year < 0 ? "-" : ""}${formatted} ${suffixes.million[form]}`
-	}
-
-	// Format regular numbers
-	const formatted = formatLargeNumber(absYear, locale)
-	return year < 0 ? `-${formatted}` : formatted
+	// Default format for years
+	return `${formatLargeNumber(absYear, locale)}${eraSuffix}`
 }
 
 /**

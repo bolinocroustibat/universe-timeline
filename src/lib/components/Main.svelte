@@ -31,9 +31,9 @@ let currentScale = $derived(
 )
 let viewportYearSpan = $derived(currentScale.viewportYearSpan)
 let yearsPerPixel: number = $derived(viewportYearSpan / viewportWidth)
-let yearsPerMajorTick: number = $derived(
-	10 ** Math.ceil(Math.log10(viewportYearSpan / 10)),
-)
+
+// Calculate years per major tick based on zoom level
+let yearsPerMajorTick: number = $derived(currentScale.tickInterval)
 
 // Generate visible ticks based on current year position
 let visibleMajorTicks: TimelineTick[] = $derived((() => {
@@ -120,7 +120,7 @@ function handleWheel(e: WheelEvent) {
 				>
 					<div class="h-1/3 w-0.5 bg-gray-400"></div>
 					<span class="text-xs text-gray-600 mt-1">
-						{formatYear(tick.year, "fr")}
+						{formatYear(tick.year, "fr", yearsPerMajorTick)}
 					</span>
 				</div>
 			{/each}
