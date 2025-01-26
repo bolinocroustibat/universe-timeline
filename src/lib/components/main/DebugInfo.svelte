@@ -7,7 +7,7 @@ interface Props {
 	yearsPerPixel: number
 	yearsPerMajorTick: number
 	viewportWidth: number
-	scrollLeft: number
+	currentYear: number
 	visibleStartYear: number
 	visibleEndYear: number
 }
@@ -17,7 +17,7 @@ const {
 	yearsPerPixel,
 	yearsPerMajorTick,
 	viewportWidth,
-	scrollLeft,
+	currentYear,
 	visibleStartYear,
 	visibleEndYear,
 }: Props = $props()
@@ -29,6 +29,6 @@ const {
 	<div>Years/px: {yearsPerPixel.toFixed(2)}</div>
 	<div>Years/tick: {formatYear(yearsPerMajorTick)}</div>
 	<div>Viewport: {viewportWidth}px</div>
-	<div>Scroll position: {scrollLeft.toFixed(0)}px</div>
+	<div>Current year: {formatYear(currentYear)}</div>
 	<div>Visible years: {formatYear(visibleStartYear)} → {formatYear(visibleEndYear)}</div>
 </div>
