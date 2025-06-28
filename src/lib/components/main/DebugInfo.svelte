@@ -6,6 +6,7 @@ interface Props {
 	viewportYearSpan: number
 	yearsPerPixel: number
 	majorTickInterval: number
+	minorTickInterval: number
 	viewportWidth: number
 	leftEdgeYear: number
 	rightEdgeYear: number
@@ -21,6 +22,7 @@ let {
 	viewportYearSpan,
 	yearsPerPixel,
 	majorTickInterval,
+	minorTickInterval,
 	viewportWidth,
 	leftEdgeYear,
 	rightEdgeYear,
@@ -37,6 +39,7 @@ let {
 	<div>Viewport span: {formatYear(viewportYearSpan)} years</div>
 	<div>Years/px: {yearsPerPixel.toFixed(2)}</div>
 	<div>Major tick interval: {formatYear(majorTickInterval)}</div>
+	<div>Minor tick interval: {formatYear(minorTickInterval)}</div>
 	<div>Viewport: {viewportWidth}px</div>
 	<div>Left edge: {formatYear(leftEdgeYear)}</div>
 	<div>Right edge: {formatYear(rightEdgeYear)}</div>

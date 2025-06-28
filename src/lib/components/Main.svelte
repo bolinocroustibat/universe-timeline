@@ -34,8 +34,9 @@ let yearsPerPixel: number = $derived(viewportYearSpan / viewportWidth)
 
 // Calculate years per major tick based on zoom level
 let majorTickInterval: number = $derived(currentScale.majorTickInterval)
+let minorTickInterval: number = $derived(currentScale.minorTickInterval)
 
-// Generate visible ticks based on current year position
+// Generate visible major ticks based on current year position
 let visibleMajorTicks: TimelineTick[] = $derived(
 	(() => {
 		const startYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
@@ -57,6 +58,38 @@ let visibleMajorTicks: TimelineTick[] = $derived(
 			) {
 				return {
 					year: majorTickYear,
+					position,
+				} satisfies TimelineTick
+			}
+			return null
+		}).filter((tick): tick is TimelineTick => tick !== null)
+	})(),
+)
+
+// Generate visible minor ticks based on current year position
+let visibleMinorTicks: TimelineTick[] = $derived(
+	(() => {
+		const startYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
+		const visibleYearSpan = viewportYearSpan + minorTickInterval * 2 // Add buffer
+
+		const startMinorTick = Math.floor(startYear / minorTickInterval)
+		const endMinorTick = Math.ceil(
+			(startYear + visibleYearSpan) / minorTickInterval,
+		)
+
+		return Array.from({ length: endMinorTick - startMinorTick }, (_, i) => {
+			const minorTickYear = (startMinorTick + i) * minorTickInterval
+			const position = (minorTickYear - startYear) / yearsPerPixel
+
+			// Only include ticks that are within the timeline boundaries
+			// AND are not major ticks (to avoid duplicates)
+			if (
+				minorTickYear >= TIME_CONSTANTS.START_YEAR &&
+				minorTickYear <= TIME_CONSTANTS.END_YEAR &&
+				minorTickYear % majorTickInterval !== 0
+			) {
+				return {
+					year: minorTickYear,
 					position,
 				} satisfies TimelineTick
 			}
@@ -174,6 +207,7 @@ function handleWheel(e: WheelEvent) {
 			{viewportYearSpan}
 			{yearsPerPixel}
 			majorTickInterval={majorTickInterval}
+			minorTickInterval={minorTickInterval}
 			{viewportWidth}
 			leftEdgeYear={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset}
 			rightEdgeYear={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset + (viewportWidth * yearsPerPixel)}
@@ -196,6 +230,17 @@ function handleWheel(e: WheelEvent) {
 		class="fixed bottom-12 left-0 right-0 h-24 bg-white border-t border-gray-200 overflow-hidden cursor-grab select-none"
 	>
 		<div class="h-full relative overflow-hidden">
+			<!-- Minor ticks (rendered first, behind major ticks) -->
+			{#each visibleMinorTicks as tick}
+				<div 
+					class="absolute top-0 h-full flex flex-col justify-start"
+					style="transform: translateX({tick.position}px)"
+				>
+					<div class="h-1/4 w-0.5 bg-gray-300"></div>
+				</div>
+			{/each}
+			
+			<!-- Major ticks (rendered second, on top) -->
 			{#each visibleMajorTicks as tick}
 				<div 
 					class="absolute top-0 h-full flex flex-col justify-start"
