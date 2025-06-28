@@ -195,14 +195,14 @@ function handleWheel(e: WheelEvent) {
 		onwheel={handleWheel}
 		class="fixed bottom-12 left-0 right-0 h-24 bg-white border-t border-gray-200 overflow-hidden cursor-grab select-none"
 	>
-		<div class="h-full relative">
+		<div class="h-full relative overflow-hidden">
 			{#each visibleMajorTicks as tick}
 				<div 
-					class="absolute top-0 h-full flex flex-col items-center"
+					class="absolute top-0 h-full flex flex-col justify-start"
 					style="transform: translateX({tick.position}px)"
 				>
 					<div class="h-1/3 w-0.5 bg-gray-400"></div>
-					<span class="text-xs text-gray-600 mt-1">
+					<span class="text-xs text-gray-600 mt-1 text-center whitespace-nowrap -ml-1/2">
 						{formatYear(tick.year, "fr", majorTickInterval)}
 					</span>
 				</div>
