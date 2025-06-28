@@ -42,14 +42,19 @@ let visibleMajorTicks: TimelineTick[] = $derived(
 		const visibleYearSpan = viewportYearSpan + majorTickInterval * 2 // Add buffer
 
 		const startMajorTick = Math.floor(startYear / majorTickInterval)
-		const endMajorTick = Math.ceil((startYear + visibleYearSpan) / majorTickInterval)
+		const endMajorTick = Math.ceil(
+			(startYear + visibleYearSpan) / majorTickInterval,
+		)
 
 		return Array.from({ length: endMajorTick - startMajorTick }, (_, i) => {
 			const majorTickYear = (startMajorTick + i) * majorTickInterval
 			const position = (majorTickYear - startYear) / yearsPerPixel
-			
+
 			// Only include ticks that are within the timeline boundaries
-			if (majorTickYear >= TIME_CONSTANTS.START_YEAR && majorTickYear <= TIME_CONSTANTS.END_YEAR) {
+			if (
+				majorTickYear >= TIME_CONSTANTS.START_YEAR &&
+				majorTickYear <= TIME_CONSTANTS.END_YEAR
+			) {
 				return {
 					year: majorTickYear,
 					position,
@@ -79,18 +84,27 @@ function handleMouseMove(e: MouseEvent) {
 	const deltaX = e.pageX - startX
 	const newLeftEdgeYearOffset = leftEdgeYearOffset - deltaX * yearsPerPixel
 	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
-	const newRightEdgeYear = newLeftEdgeYear + (viewportWidth * yearsPerPixel)
-	
+	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
+
 	// Special debug for boundary violations
 	if (newRightEdgeYear > TIME_CONSTANTS.END_YEAR) {
-		console.log("🚨 RIGHT EDGE PAST PRESENT TIME! Right edge would be:", newRightEdgeYear)
+		console.log(
+			"🚨 RIGHT EDGE PAST PRESENT TIME! Right edge would be:",
+			newRightEdgeYear,
+		)
 	}
 	if (newLeftEdgeYear < TIME_CONSTANTS.START_YEAR) {
-		console.log("🚨 LEFT EDGE BEFORE START TIME! Left edge would be:", newLeftEdgeYear)
+		console.log(
+			"🚨 LEFT EDGE BEFORE START TIME! Left edge would be:",
+			newLeftEdgeYear,
+		)
 	}
-	
+
 	// Apply boundary constraints - check both left and right edges
-	if (newRightEdgeYear <= TIME_CONSTANTS.END_YEAR && newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR) {
+	if (
+		newRightEdgeYear <= TIME_CONSTANTS.END_YEAR &&
+		newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR
+	) {
 		leftEdgeYearOffset = newLeftEdgeYearOffset
 		startX = e.pageX
 	}
@@ -114,8 +128,8 @@ function handleWheel(e: WheelEvent) {
 	e.preventDefault()
 	const newLeftEdgeYearOffset = leftEdgeYearOffset + e.deltaX * yearsPerPixel
 	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
-	const newRightEdgeYear = newLeftEdgeYear + (viewportWidth * yearsPerPixel)
-	
+	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
+
 	console.log("🖱️ Wheel:", {
 		deltaX: e.deltaX,
 		leftEdgeYearOffset,
@@ -126,19 +140,28 @@ function handleWheel(e: WheelEvent) {
 		START_YEAR: TIME_CONSTANTS.START_YEAR,
 		END_YEAR: TIME_CONSTANTS.END_YEAR,
 		isPastPresent: newRightEdgeYear > TIME_CONSTANTS.END_YEAR,
-		isBeforeStart: newLeftEdgeYear < TIME_CONSTANTS.START_YEAR
+		isBeforeStart: newLeftEdgeYear < TIME_CONSTANTS.START_YEAR,
 	})
-	
+
 	// Special debug for boundary violations
 	if (newRightEdgeYear > TIME_CONSTANTS.END_YEAR) {
-		console.log("🚨 RIGHT EDGE PAST PRESENT TIME! Right edge would be:", newRightEdgeYear)
+		console.log(
+			"🚨 RIGHT EDGE PAST PRESENT TIME! Right edge would be:",
+			newRightEdgeYear,
+		)
 	}
 	if (newLeftEdgeYear < TIME_CONSTANTS.START_YEAR) {
-		console.log("🚨 LEFT EDGE BEFORE START TIME! Left edge would be:", newLeftEdgeYear)
+		console.log(
+			"🚨 LEFT EDGE BEFORE START TIME! Left edge would be:",
+			newLeftEdgeYear,
+		)
 	}
-	
+
 	// Apply boundary constraints - check both left and right edges
-	if (newRightEdgeYear <= TIME_CONSTANTS.END_YEAR && newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR) {
+	if (
+		newRightEdgeYear <= TIME_CONSTANTS.END_YEAR &&
+		newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR
+	) {
 		leftEdgeYearOffset = newLeftEdgeYearOffset
 	}
 }
