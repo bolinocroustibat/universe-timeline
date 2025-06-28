@@ -46,14 +46,17 @@ let visibleMajorTicks: TimelineTick[] = $derived(
 
 		return Array.from({ length: endTick - startTick }, (_, i) => {
 			const tickYear = (startTick + i) * yearsPerMajorTick
-			return {
-				year: Math.max(
-					TIME_CONSTANTS.START_YEAR,
-					Math.min(tickYear, TIME_CONSTANTS.END_YEAR),
-				),
-				position: (tickYear - startYear) / yearsPerPixel,
-			} satisfies TimelineTick
-		})
+			const position = (tickYear - startYear) / yearsPerPixel
+			
+			// Only include ticks that are within the timeline boundaries
+			if (tickYear >= TIME_CONSTANTS.START_YEAR && tickYear <= TIME_CONSTANTS.END_YEAR) {
+				return {
+					year: tickYear,
+					position,
+				} satisfies TimelineTick
+			}
+			return null
+		}).filter((tick): tick is TimelineTick => tick !== null)
 	})(),
 )
 
@@ -66,6 +69,7 @@ function handleMouseDown(e: MouseEvent) {
 	isDragging = true
 	startX = e.pageX
 	containerElement.style.cursor = "grabbing"
+	console.log("🖱️ Mouse down - starting drag")
 }
 
 function handleMouseMove(e: MouseEvent) {
@@ -73,25 +77,69 @@ function handleMouseMove(e: MouseEvent) {
 	e.preventDefault()
 
 	const deltaX = e.pageX - startX
-	currentYearOffset -= deltaX * yearsPerPixel
-	startX = e.pageX
+	const newYearOffset = currentYearOffset - deltaX * yearsPerPixel
+	const newCurrentYear = TIME_CONSTANTS.START_YEAR + newYearOffset
+	
+	console.log("🖱️ Mouse move:", {
+		deltaX,
+		currentYearOffset,
+		newYearOffset,
+		currentYear: TIME_CONSTANTS.START_YEAR + currentYearOffset,
+		newCurrentYear,
+		END_YEAR: TIME_CONSTANTS.END_YEAR,
+		isPastPresent: newCurrentYear > TIME_CONSTANTS.END_YEAR
+	})
+	
+	// Special debug for dragging past present time
+	if (newCurrentYear > TIME_CONSTANTS.END_YEAR) {
+		console.log("🚨 DRAGGING PAST PRESENT TIME! Current year would be:", newCurrentYear)
+	}
+	
+	// Apply boundary constraints
+	if (newCurrentYear <= TIME_CONSTANTS.END_YEAR && newCurrentYear >= TIME_CONSTANTS.START_YEAR) {
+		currentYearOffset = newYearOffset
+		startX = e.pageX
+	}
 }
 
 function handleMouseUp() {
 	isDragging = false
 	containerElement.style.cursor = "grab"
+	console.log("🖱️ Mouse up - ending drag")
 }
 
 function handleMouseLeave() {
 	if (isDragging) {
 		isDragging = false
 		containerElement.style.cursor = "grab"
+		console.log("🖱️ Mouse leave - ending drag")
 	}
 }
 
 function handleWheel(e: WheelEvent) {
 	e.preventDefault()
-	currentYearOffset += e.deltaX * yearsPerPixel
+	const newYearOffset = currentYearOffset + e.deltaX * yearsPerPixel
+	const newCurrentYear = TIME_CONSTANTS.START_YEAR + newYearOffset
+	
+	console.log("🖱️ Wheel:", {
+		deltaX: e.deltaX,
+		currentYearOffset,
+		newYearOffset,
+		currentYear: TIME_CONSTANTS.START_YEAR + currentYearOffset,
+		newCurrentYear,
+		END_YEAR: TIME_CONSTANTS.END_YEAR,
+		isPastPresent: newCurrentYear > TIME_CONSTANTS.END_YEAR
+	})
+	
+	// Special debug for wheeling past present time
+	if (newCurrentYear > TIME_CONSTANTS.END_YEAR) {
+		console.log("🚨 WHEELING PAST PRESENT TIME! Current year would be:", newCurrentYear)
+	}
+	
+	// Apply boundary constraints
+	if (newCurrentYear <= TIME_CONSTANTS.END_YEAR && newCurrentYear >= TIME_CONSTANTS.START_YEAR) {
+		currentYearOffset = newYearOffset
+	}
 }
 </script>
 
