@@ -11,8 +11,8 @@ let containerElement: HTMLDivElement | undefined = $state()
 let viewportWidth = $state(0)
 let isDragging = $state(false)
 let startX = $state(0)
-// Track position in years instead of pixels
-let currentYearOffset = $state(0)
+// Current position (left edge of viewport)
+let leftEdgeYearOffset = $state(0)
 
 // Track scroll position and viewport width
 onMount(() => {
@@ -38,7 +38,7 @@ let yearsPerMajorTick: number = $derived(currentScale.tickInterval)
 // Generate visible ticks based on current year position
 let visibleMajorTicks: TimelineTick[] = $derived(
 	(() => {
-		const startYear = TIME_CONSTANTS.START_YEAR + currentYearOffset
+		const startYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
 		const visibleYearSpan = viewportYearSpan + yearsPerMajorTick * 2 // Add buffer
 
 		const startTick = Math.floor(startYear / yearsPerMajorTick)
@@ -77,27 +77,34 @@ function handleMouseMove(e: MouseEvent) {
 	e.preventDefault()
 
 	const deltaX = e.pageX - startX
-	const newYearOffset = currentYearOffset - deltaX * yearsPerPixel
-	const newCurrentYear = TIME_CONSTANTS.START_YEAR + newYearOffset
+	const newLeftEdgeYearOffset = leftEdgeYearOffset - deltaX * yearsPerPixel
+	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
+	const newRightEdgeYear = newLeftEdgeYear + (viewportWidth * yearsPerPixel)
 	
 	console.log("🖱️ Mouse move:", {
 		deltaX,
-		currentYearOffset,
-		newYearOffset,
-		currentYear: TIME_CONSTANTS.START_YEAR + currentYearOffset,
-		newCurrentYear,
+		leftEdgeYearOffset,
+		newLeftEdgeYearOffset,
+		leftEdgeYear: TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset,
+		newLeftEdgeYear,
+		newRightEdgeYear,
+		START_YEAR: TIME_CONSTANTS.START_YEAR,
 		END_YEAR: TIME_CONSTANTS.END_YEAR,
-		isPastPresent: newCurrentYear > TIME_CONSTANTS.END_YEAR
+		isPastPresent: newRightEdgeYear > TIME_CONSTANTS.END_YEAR,
+		isBeforeStart: newLeftEdgeYear < TIME_CONSTANTS.START_YEAR
 	})
 	
-	// Special debug for dragging past present time
-	if (newCurrentYear > TIME_CONSTANTS.END_YEAR) {
-		console.log("🚨 DRAGGING PAST PRESENT TIME! Current year would be:", newCurrentYear)
+	// Special debug for boundary violations
+	if (newRightEdgeYear > TIME_CONSTANTS.END_YEAR) {
+		console.log("🚨 RIGHT EDGE PAST PRESENT TIME! Right edge would be:", newRightEdgeYear)
+	}
+	if (newLeftEdgeYear < TIME_CONSTANTS.START_YEAR) {
+		console.log("🚨 LEFT EDGE BEFORE START TIME! Left edge would be:", newLeftEdgeYear)
 	}
 	
-	// Apply boundary constraints
-	if (newCurrentYear <= TIME_CONSTANTS.END_YEAR && newCurrentYear >= TIME_CONSTANTS.START_YEAR) {
-		currentYearOffset = newYearOffset
+	// Apply boundary constraints - check both left and right edges
+	if (newRightEdgeYear <= TIME_CONSTANTS.END_YEAR && newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR) {
+		leftEdgeYearOffset = newLeftEdgeYearOffset
 		startX = e.pageX
 	}
 }
@@ -118,27 +125,34 @@ function handleMouseLeave() {
 
 function handleWheel(e: WheelEvent) {
 	e.preventDefault()
-	const newYearOffset = currentYearOffset + e.deltaX * yearsPerPixel
-	const newCurrentYear = TIME_CONSTANTS.START_YEAR + newYearOffset
+	const newLeftEdgeYearOffset = leftEdgeYearOffset + e.deltaX * yearsPerPixel
+	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
+	const newRightEdgeYear = newLeftEdgeYear + (viewportWidth * yearsPerPixel)
 	
 	console.log("🖱️ Wheel:", {
 		deltaX: e.deltaX,
-		currentYearOffset,
-		newYearOffset,
-		currentYear: TIME_CONSTANTS.START_YEAR + currentYearOffset,
-		newCurrentYear,
+		leftEdgeYearOffset,
+		newLeftEdgeYearOffset,
+		leftEdgeYear: TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset,
+		newLeftEdgeYear,
+		newRightEdgeYear,
+		START_YEAR: TIME_CONSTANTS.START_YEAR,
 		END_YEAR: TIME_CONSTANTS.END_YEAR,
-		isPastPresent: newCurrentYear > TIME_CONSTANTS.END_YEAR
+		isPastPresent: newRightEdgeYear > TIME_CONSTANTS.END_YEAR,
+		isBeforeStart: newLeftEdgeYear < TIME_CONSTANTS.START_YEAR
 	})
 	
-	// Special debug for wheeling past present time
-	if (newCurrentYear > TIME_CONSTANTS.END_YEAR) {
-		console.log("🚨 WHEELING PAST PRESENT TIME! Current year would be:", newCurrentYear)
+	// Special debug for boundary violations
+	if (newRightEdgeYear > TIME_CONSTANTS.END_YEAR) {
+		console.log("🚨 RIGHT EDGE PAST PRESENT TIME! Right edge would be:", newRightEdgeYear)
+	}
+	if (newLeftEdgeYear < TIME_CONSTANTS.START_YEAR) {
+		console.log("🚨 LEFT EDGE BEFORE START TIME! Left edge would be:", newLeftEdgeYear)
 	}
 	
-	// Apply boundary constraints
-	if (newCurrentYear <= TIME_CONSTANTS.END_YEAR && newCurrentYear >= TIME_CONSTANTS.START_YEAR) {
-		currentYearOffset = newYearOffset
+	// Apply boundary constraints - check both left and right edges
+	if (newRightEdgeYear <= TIME_CONSTANTS.END_YEAR && newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR) {
+		leftEdgeYearOffset = newLeftEdgeYearOffset
 	}
 }
 </script>
@@ -151,7 +165,7 @@ function handleWheel(e: WheelEvent) {
 			{yearsPerPixel}
 			{yearsPerMajorTick}
 			{viewportWidth}
-			currentYear={TIME_CONSTANTS.START_YEAR + currentYearOffset}
+			currentYear={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset}
 			{visibleStartYear}
 			{visibleEndYear}
 		/>
