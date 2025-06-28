@@ -22,7 +22,18 @@ onMount(() => {
 
 	observer.observe(containerElement)
 
-	return () => observer.disconnect()
+	// Listen for zoom requests from Zoom component
+	const handleZoomRequest = (event: CustomEvent) => {
+		const newZoomLevel = event.detail.zoomLevel
+		performCenteredZoom(newZoomLevel)
+	}
+	
+	window.addEventListener('zoom-request', handleZoomRequest as EventListener)
+
+	return () => {
+		observer.disconnect()
+		window.removeEventListener('zoom-request', handleZoomRequest as EventListener)
+	}
 })
 
 // Calculate base measurements based on viewport
@@ -31,6 +42,11 @@ let currentScale = $derived(
 )
 let viewportYearSpan = $derived(currentScale.viewportYearSpan)
 let yearsPerPixel: number = $derived(viewportYearSpan / viewportWidth)
+
+// Calculate the year at the center of the viewport
+let centerYear = $derived(
+	TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset + (viewportWidth * yearsPerPixel) / 2
+)
 
 // Calculate years per major tick based on zoom level
 let majorTickInterval: number = $derived(currentScale.majorTickInterval)
@@ -212,6 +228,51 @@ function handleWheel(e: WheelEvent) {
 		leftEdgeYearOffset = newLeftEdgeYearOffset
 	}
 }
+
+// Function to perform centered zooming
+function performCenteredZoom(newZoomLevel: number) {
+	const oldCenterYear = centerYear
+	const oldViewportYearSpan = viewportYearSpan
+	
+	// Update zoom level
+	$zoomLevel = newZoomLevel
+	
+	// Calculate new viewport span and years per pixel
+	const newScale = ZOOM_SCALES.find((scale) => scale.level === newZoomLevel) ?? ZOOM_SCALES[4]
+	const newViewportYearSpan = newScale.viewportYearSpan
+	const newYearsPerPixel = newViewportYearSpan / viewportWidth
+	
+	// Calculate new left edge offset to maintain center year
+	const newLeftEdgeYearOffset = oldCenterYear - TIME_CONSTANTS.START_YEAR - (viewportWidth * newYearsPerPixel) / 2
+	
+	// Apply boundary constraints
+	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
+	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * newYearsPerPixel
+	
+	if (newRightEdgeYear <= TIME_CONSTANTS.END_YEAR && newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR) {
+		leftEdgeYearOffset = newLeftEdgeYearOffset
+	} else {
+		// If boundary constraints would be violated, adjust to fit within bounds
+		if (newRightEdgeYear > TIME_CONSTANTS.END_YEAR) {
+			// Adjust to keep right edge at END_YEAR
+			leftEdgeYearOffset = TIME_CONSTANTS.END_YEAR - TIME_CONSTANTS.START_YEAR - viewportWidth * newYearsPerPixel
+		} else if (newLeftEdgeYear < TIME_CONSTANTS.START_YEAR) {
+			// Adjust to keep left edge at START_YEAR
+			leftEdgeYearOffset = 0
+		}
+	}
+	
+	console.log("🔍 Centered zoom:", {
+		oldZoomLevel: $zoomLevel,
+		newZoomLevel,
+		oldCenterYear,
+		newCenterYear: centerYear,
+		oldViewportYearSpan,
+		newViewportYearSpan,
+		oldLeftEdgeOffset: leftEdgeYearOffset,
+		newLeftEdgeOffset: leftEdgeYearOffset
+	})
+}
 </script>
 
 <main class="min-h-screen pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -228,6 +289,7 @@ function handleWheel(e: WheelEvent) {
 			leftEdgeYearOffset={leftEdgeYearOffset}
 			{firstRenderedMajorTickYear}
 			{lastRenderedMajorTickYear}
+			{centerYear}
 			isPastPresent={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset + (viewportWidth * yearsPerPixel) > TIME_CONSTANTS.END_YEAR}
 			isBeforeStart={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset < TIME_CONSTANTS.START_YEAR}
 		/>

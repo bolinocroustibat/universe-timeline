@@ -4,12 +4,20 @@ import { zoomLevel } from "$lib/stores/zoomStore"
 
 const MAX_ZOOM_LEVEL = ZOOM_SCALES.length
 
+function dispatchZoomRequest(newZoomLevel: number) {
+	window.dispatchEvent(new CustomEvent('zoom-request', {
+		detail: { zoomLevel: newZoomLevel }
+	}))
+}
+
 function decreaseZoom() {
-	zoomLevel.update((level) => Math.max(1, level - 1))
+	const newLevel = Math.max(1, $zoomLevel - 1)
+	dispatchZoomRequest(newLevel)
 }
 
 function increaseZoom() {
-	zoomLevel.update((level) => Math.min(MAX_ZOOM_LEVEL, level + 1))
+	const newLevel = Math.min(MAX_ZOOM_LEVEL, $zoomLevel + 1)
+	dispatchZoomRequest(newLevel)
 }
 
 function handleWheel(event: WheelEvent) {
@@ -21,7 +29,8 @@ function handleWheel(event: WheelEvent) {
 }
 
 function setZoomLevel(level: number) {
-	zoomLevel.set(level + 1) // Adding 1 since level is 0-based index but zoom is 1-based
+	const newLevel = level + 1 // Adding 1 since level is 0-based index but zoom is 1-based
+	dispatchZoomRequest(newLevel)
 }
 </script>
 

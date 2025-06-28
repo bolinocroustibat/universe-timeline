@@ -13,6 +13,7 @@ interface Props {
 	leftEdgeYearOffset: number
 	firstRenderedMajorTickYear: number
 	lastRenderedMajorTickYear: number
+	centerYear: number
 	isPastPresent: boolean
 	isBeforeStart: boolean
 }
@@ -29,25 +30,49 @@ let {
 	leftEdgeYearOffset,
 	firstRenderedMajorTickYear,
 	lastRenderedMajorTickYear,
+	centerYear,
 	isPastPresent,
 	isBeforeStart,
 }: Props = $props()
 </script>
 
-<div class="fixed top-24 right-4 bg-black/80 text-white p-4 rounded-lg space-y-2 font-mono text-sm">
-	<div>Zoom level: {zoomLevel}</div>
-	<div>Viewport span: {formatYear(viewportYearSpan)} years</div>
-	<div>Years/px: {yearsPerPixel.toFixed(2)}</div>
-	<div>Major tick interval: {formatYear(majorTickInterval)}</div>
-	<div>Minor tick interval: {formatYear(minorTickInterval)}</div>
-	<div>Viewport: {viewportWidth}px</div>
-	<div>Left edge: {formatYear(leftEdgeYear)}</div>
-	<div>Right edge: {formatYear(rightEdgeYear)}</div>
-	<div>Left edge offset: {formatYear(leftEdgeYearOffset)}</div>
-	<div>Rendered major ticks: {formatYear(firstRenderedMajorTickYear)} → {formatYear(lastRenderedMajorTickYear)}</div>
-	<div class="text-xs text-gray-400">(Rendered = generated array, may include off-screen ticks)</div>
+<div class="fixed top-24 right-4 bg-black/80 text-white p-4 rounded-lg space-y-3 font-mono text-sm max-w-xs">
+	<!-- Zoom & Scale Information -->
+	<div class="space-y-1">
+		<div class="text-blue-400 font-semibold border-b border-gray-600 pb-1">Zoom & Scale</div>
+		<div>Level: {zoomLevel}</div>
+		<div>Viewport span: {formatYear(viewportYearSpan)} years</div>
+		<div>Years/px: {yearsPerPixel.toFixed(2)}</div>
+	</div>
+
+	<!-- Viewport Information -->
+	<div class="space-y-1">
+		<div class="text-green-400 font-semibold border-b border-gray-600 pb-1">Viewport</div>
+		<div>Width: {viewportWidth}px</div>
+		<div>Center: {formatYear(centerYear)}</div>
+		<div>Left edge: {formatYear(leftEdgeYear)}</div>
+		<div>Right edge: {formatYear(rightEdgeYear)}</div>
+	</div>
+
+	<!-- Tick Information -->
+	<div class="space-y-1">
+		<div class="text-yellow-400 font-semibold border-b border-gray-600 pb-1">Tick Intervals</div>
+		<div>Major: {formatYear(majorTickInterval)}</div>
+		<div>Minor: {formatYear(minorTickInterval)}</div>
+		<div class="text-xs text-gray-400 mt-1">
+			Rendered: {formatYear(firstRenderedMajorTickYear)} → {formatYear(lastRenderedMajorTickYear)}
+		</div>
+	</div>
+
+	<!-- Technical Details -->
+	<div class="space-y-1">
+		<div class="text-purple-400 font-semibold border-b border-gray-600 pb-1">Technical</div>
+		<div class="text-xs">Left offset: {formatYear(leftEdgeYearOffset)}</div>
+	</div>
+
+	<!-- Boundary Status -->
 	<div class="pt-2 border-t border-gray-600">
-		<div class="text-yellow-400">Boundary Status:</div>
+		<div class="text-red-400 font-semibold mb-1">Boundary Status</div>
 		<div class={isPastPresent ? "text-red-400" : "text-green-400"}>
 			Past present: {isPastPresent ? "YES" : "NO"}
 		</div>
