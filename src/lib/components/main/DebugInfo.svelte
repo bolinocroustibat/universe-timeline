@@ -11,8 +11,8 @@ interface Props {
 	leftEdgeYear: number
 	rightEdgeYear: number
 	leftEdgeYearOffset: number
-	visibleStartYear: number
-	visibleEndYear: number
+	firstRenderedMajorTickYear: number
+	lastRenderedMajorTickYear: number
 	isPastPresent: boolean
 	isBeforeStart: boolean
 }
@@ -27,8 +27,8 @@ let {
 	leftEdgeYear,
 	rightEdgeYear,
 	leftEdgeYearOffset,
-	visibleStartYear,
-	visibleEndYear,
+	firstRenderedMajorTickYear,
+	lastRenderedMajorTickYear,
 	isPastPresent,
 	isBeforeStart,
 }: Props = $props()
@@ -44,7 +44,8 @@ let {
 	<div>Left edge: {formatYear(leftEdgeYear)}</div>
 	<div>Right edge: {formatYear(rightEdgeYear)}</div>
 	<div>Left edge offset: {formatYear(leftEdgeYearOffset)}</div>
-	<div>Visible years: {formatYear(visibleStartYear)} → {formatYear(visibleEndYear)}</div>
+	<div>Rendered major ticks: {formatYear(firstRenderedMajorTickYear)} → {formatYear(lastRenderedMajorTickYear)}</div>
+	<div class="text-xs text-gray-400">(Rendered = generated array, may include off-screen ticks)</div>
 	<div class="pt-2 border-t border-gray-600">
 		<div class="text-yellow-400">Boundary Status:</div>
 		<div class={isPastPresent ? "text-red-400" : "text-green-400"}>
