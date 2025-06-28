@@ -39,6 +39,7 @@ function setZoomLevel(level: number) {
 
     <div class="flex items-center gap-1">
         {#each Array(MAX_ZOOM_LEVEL) as _, i}
+            <!-- svelte-ignore a11y_consider_explicit_label -->
             <button 
                 onclick={() => setZoomLevel(i)}
                 class="w-3 h-3 rounded-full border border-gray-300 transition-colors hover:border-blue-300"
