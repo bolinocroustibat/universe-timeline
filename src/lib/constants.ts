@@ -1,8 +1,6 @@
-const currentYear = new Date().getFullYear()
-
 export const TIME_CONSTANTS = {
-	START_YEAR: -1000000000,
-	END_YEAR: currentYear,
+	START_YEAR: -4000000000,
+	END_YEAR: new Date().getFullYear(),
 } as const
 
 // These could be adjusted based on future needs
