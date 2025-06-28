@@ -21,42 +21,42 @@ const TIME_LOCALES: Record<SupportedLocales, TimeLocale> = {
 		numbers: {
 			billion: {
 				singular: "billion",
-				plural: "billion"
+				plural: "billion",
 			},
 			million: {
 				singular: "million",
-				plural: "million"
-			}
+				plural: "million",
+			},
 		},
 		era: {
 			before: " BCE",
 			after: " CE",
 			century: {
 				before: " BC",
-				after: " AD"
-			}
-		}
+				after: " AD",
+			},
+		},
 	},
 	fr: {
 		numbers: {
 			billion: {
 				singular: "milliard",
-				plural: "milliards"
+				plural: "milliards",
 			},
 			million: {
 				singular: "million",
-				plural: "millions"
-			}
+				plural: "millions",
+			},
 		},
 		era: {
 			before: " av. J.-C.",
 			after: " ap. J.-C.",
 			century: {
 				before: " av. J.-C.",
-				after: " ap. J.-C."
-			}
-		}
-	}
+				after: " ap. J.-C.",
+			},
+		},
+	},
 }
 
 // Common formatting options
@@ -90,13 +90,12 @@ export function formatLargeNumber(
 export function formatYear(
 	year: number,
 	locale: SupportedLocales = "en",
-	tickInterval?: number
+	tickInterval?: number,
 ): string {
 	const absYear = Math.abs(year)
 	const localeStrings = TIME_LOCALES[locale]
-	const eraSuffix = year < 0 
-		? localeStrings.era.before 
-		: localeStrings.era.after
+	const eraSuffix =
+		year < 0 ? localeStrings.era.before : localeStrings.era.after
 
 	// Use the tickInterval to determine formatting
 	if (tickInterval) {
@@ -128,9 +127,10 @@ export function formatYear(
 		// Format centuries for century ticks
 		if (tickInterval === 100) {
 			const centuryNum = Math.abs(Math.floor(year / 100))
-			const centurySuffix = year < 0 
-				? localeStrings.era.century.before 
-				: localeStrings.era.century.after
+			const centurySuffix =
+				year < 0
+					? localeStrings.era.century.before
+					: localeStrings.era.century.after
 			return `${centuryNum}${centurySuffix}`
 		}
 	}

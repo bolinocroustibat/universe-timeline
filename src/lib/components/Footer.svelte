@@ -7,4 +7,4 @@ import Zoom from "$lib/components/footer/Zoom.svelte"
 		<p class="text-sm text-gray-600">© 2024 Your Site Name. All rights reserved.</p>
 		<Zoom />
 	</div>
-</footer> 
+</footer>

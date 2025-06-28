@@ -8,5 +8,6 @@ import "../app.css"
 <div class="min-h-screen bg-gray-800">
 	<Header />
 	<Main />
+	<slot />
 	<Footer />
 </div>

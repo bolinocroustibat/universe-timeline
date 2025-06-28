@@ -56,4 +56,4 @@ function setZoomLevel(level: number) {
     >
         <span class="text-xl">+</span>
     </button>
-</div> 
+</div>
