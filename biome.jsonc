@@ -1,0 +1,27 @@
+{
+	// Biome configuration for SvelteKit project
+	// Svelte files require special overrides due to partial support in Biome
+	// See: https://biomejs.dev/internals/language-support/#html-super-languages-support
+	"javascript": {
+		"formatter": {
+			"semicolons": "asNeeded"
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.svelte"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useConst": "off",
+						// "useImportType": "off"
+					},
+					// "correctness": {
+					// 	"noUnusedVariables": "off",
+					// 	"noUnusedImports": "off"
+					// }
+				}
+			}
+		}
+	]
+}
