@@ -36,24 +36,31 @@ let yearsPerPixel: number = $derived(viewportYearSpan / viewportWidth)
 let yearsPerMajorTick: number = $derived(currentScale.tickInterval)
 
 // Generate visible ticks based on current year position
-let visibleMajorTicks: TimelineTick[] = $derived((() => {
-	const startYear = TIME_CONSTANTS.START_YEAR + currentYearOffset
-	const visibleYearSpan = viewportYearSpan + yearsPerMajorTick * 2 // Add buffer
+let visibleMajorTicks: TimelineTick[] = $derived(
+	(() => {
+		const startYear = TIME_CONSTANTS.START_YEAR + currentYearOffset
+		const visibleYearSpan = viewportYearSpan + yearsPerMajorTick * 2 // Add buffer
 
-	const startTick = Math.floor(startYear / yearsPerMajorTick)
-	const endTick = Math.ceil((startYear + visibleYearSpan) / yearsPerMajorTick)
-	
-	return Array.from({ length: endTick - startTick }, (_, i) => {
-		const tickYear = (startTick + i) * yearsPerMajorTick
-		return {
-			year: Math.max(TIME_CONSTANTS.START_YEAR, Math.min(tickYear, TIME_CONSTANTS.END_YEAR)),
-			position: (tickYear - startYear) / yearsPerPixel
-		} satisfies TimelineTick
-	})
-})())
+		const startTick = Math.floor(startYear / yearsPerMajorTick)
+		const endTick = Math.ceil((startYear + visibleYearSpan) / yearsPerMajorTick)
+
+		return Array.from({ length: endTick - startTick }, (_, i) => {
+			const tickYear = (startTick + i) * yearsPerMajorTick
+			return {
+				year: Math.max(
+					TIME_CONSTANTS.START_YEAR,
+					Math.min(tickYear, TIME_CONSTANTS.END_YEAR),
+				),
+				position: (tickYear - startYear) / yearsPerPixel,
+			} satisfies TimelineTick
+		})
+	})(),
+)
 
 let visibleStartYear = $derived(visibleMajorTicks[0]?.year)
-let visibleEndYear = $derived(visibleMajorTicks[visibleMajorTicks.length - 1]?.year)
+let visibleEndYear = $derived(
+	visibleMajorTicks[visibleMajorTicks.length - 1]?.year,
+)
 
 function handleMouseDown(e: MouseEvent) {
 	isDragging = true
@@ -64,7 +71,7 @@ function handleMouseDown(e: MouseEvent) {
 function handleMouseMove(e: MouseEvent) {
 	if (!isDragging) return
 	e.preventDefault()
-	
+
 	const deltaX = e.pageX - startX
 	currentYearOffset -= deltaX * yearsPerPixel
 	startX = e.pageX

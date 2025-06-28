@@ -11,7 +11,8 @@ interface Props {
 	visibleStartYear: number
 	visibleEndYear: number
 }
-const {
+
+let {
 	zoomLevel,
 	viewportYearSpan,
 	yearsPerPixel,
