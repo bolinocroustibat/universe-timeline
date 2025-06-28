@@ -99,6 +99,28 @@ export function formatYear(
 
 	// Use the tickInterval to determine formatting
 	if (tickInterval) {
+		// Special case: Very round numbers should use higher-level units
+		// Check if the year is exactly divisible by a higher unit than the tick interval suggests
+		if (absYear >= 1_000_000_000 && absYear % 1_000_000_000 === 0) {
+			// Year is exactly divisible by 1 billion - use billion formatting
+			const billions = absYear / 1_000_000_000
+			const formatted = formatLargeNumber(billions, locale, {
+				maximumFractionDigits: 0,
+			})
+			const form = billions === 1 ? "singular" : "plural"
+			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.billion[form]}`
+		}
+		
+		if (absYear >= 1_000_000 && absYear % 1_000_000 === 0) {
+			// Year is exactly divisible by 1 million - use million formatting
+			const millions = absYear / 1_000_000
+			const formatted = formatLargeNumber(millions, locale, {
+				maximumFractionDigits: 0,
+			})
+			const form = millions === 1 ? "singular" : "plural"
+			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.million[form]}`
+		}
+
 		// Format billions for billion-year ticks
 		if (tickInterval >= 100_000_000) {
 			const billions = absYear / 1_000_000_000
@@ -119,20 +141,18 @@ export function formatYear(
 			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.million[form]}`
 		}
 
-		// Format thousands for thousand-year ticks
-		if (tickInterval >= 1_000) {
-			return `${formatLargeNumber(absYear, locale)}${eraSuffix}`
-		}
+		// Format thousands for less than thousand-year ticks
+		return `${formatLargeNumber(absYear, locale)}${eraSuffix}`
 
-		// Format centuries for century ticks
-		if (tickInterval === 100) {
-			const centuryNum = Math.abs(Math.floor(year / 100))
-			const centurySuffix =
-				year < 0
-					? localeStrings.era.century.before
-					: localeStrings.era.century.after
-			return `${centuryNum}${centurySuffix}`
-		}
+		// // Format centuries for century ticks
+		// if (tickInterval === 100) {
+		// 	const centuryNum = Math.abs(Math.floor(year / 100))
+		// 	const centurySuffix =
+		// 		year < 0
+		// 			? localeStrings.era.century.before
+		// 			: localeStrings.era.century.after
+		// 	return `${centuryNum}${centurySuffix}`
+		// }
 	}
 
 	// Default format for years
