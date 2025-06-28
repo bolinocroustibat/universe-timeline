@@ -1,0 +1,7 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- Use `$derived` or `$effect` instead of `$:` for reactive statements in Svelte 5 components.
+- Refactor any `$:` usage to the new Svelte 5 reactivity APIs.

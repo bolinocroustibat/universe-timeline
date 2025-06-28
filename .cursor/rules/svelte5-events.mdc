@@ -1,0 +1,7 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- Use `onclick`, `onkeydown`, `oninput`, `onchange`, and `onsubmit` instead of `on:click`, `on:keydown`, `on:input`, `on:change`, and `on:submit` in Svelte 5 components.
+- Update all event bindings to the new syntax when editing or creating Svelte files.

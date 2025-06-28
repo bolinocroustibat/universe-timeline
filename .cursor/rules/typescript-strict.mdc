@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- All TypeScript code must comply with strict mode settings.
+- Avoid use of `any` type unless absolutely necessary and justified with a comment.
+- Prefer explicit types for function parameters and return values.

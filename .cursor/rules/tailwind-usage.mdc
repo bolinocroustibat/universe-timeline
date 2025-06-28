@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- Use Tailwind CSS utility classes for all component styling.
+- Avoid writing custom CSS unless a utility class cannot achieve the desired effect.
+- Ensure responsive design by using Tailwind's responsive utilities.
