@@ -7,7 +7,7 @@ import { formatYear } from "$lib/utils/formatters"
 import { onMount } from "svelte"
 import DebugInfo from "./main/DebugInfo.svelte"
 
-let containerElement: HTMLDivElement = $state()
+let containerElement: HTMLDivElement | undefined = $state()
 let viewportWidth = $state(0)
 let isDragging = $state(false)
 let startX = $state(0)
