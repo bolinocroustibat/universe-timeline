@@ -22,24 +22,13 @@ function increaseZoom() {
 	dispatchZoomRequest(newLevel)
 }
 
-function handleWheel(event: WheelEvent) {
-	if (event.deltaY < 0) {
-		increaseZoom()
-	} else {
-		decreaseZoom()
-	}
-}
-
 function setZoomLevel(level: number) {
 	const newLevel = level + 1 // level is 0-based index, zoom levels are 1-based
 	dispatchZoomRequest(newLevel)
 }
 </script>
 
-<div 
-    class="flex items-center gap-3"
-    onwheel={(event) => handleWheel(event)}
->
+<div class="flex items-center gap-3">
     <button 
         onclick={decreaseZoom}
         class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
