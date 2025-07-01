@@ -71,22 +71,11 @@ let visibleMajorTicks: TimelineTick[] = $derived(
 			(startYear + visibleYearSpan) / majorTickInterval,
 		)
 
-		// console.log("🔍 Tick generation debug:", {
-		// 	startYear,
-		// 	visibleYearSpan,
-		// 	startMajorTick,
-		// 	endMajorTick,
-		// 	majorTickInterval,
-		// 	generatedTicks: endMajorTick - startMajorTick
-		// })
-
 		const ticks = Array.from(
 			{ length: endMajorTick - startMajorTick },
 			(_, i) => {
 				const majorTickYear = (startMajorTick + i) * majorTickInterval
 				const position = (majorTickYear - startYear) / yearsPerPixel
-
-				// console.log(`🔍 Tick ${i}: year=${majorTickYear}, position=${position}, inBounds=${majorTickYear >= TIME_CONSTANTS.START_YEAR && majorTickYear <= TIME_CONSTANTS.END_YEAR}`)
 
 				// Only include ticks that are within the timeline boundaries
 				if (
@@ -102,7 +91,6 @@ let visibleMajorTicks: TimelineTick[] = $derived(
 			},
 		).filter((tick): tick is TimelineTick => tick !== null)
 
-		// console.log("🔍 Generated ticks:", ticks.map(t => ({ year: t.year, position: t.position })))
 		return ticks
 	})(),
 )
@@ -149,7 +137,6 @@ function handleMouseDown(e: MouseEvent) {
 	isDragging = true
 	startX = e.pageX
 	containerElement.style.cursor = "grabbing"
-	console.log("🖱️ Mouse down - starting drag")
 }
 
 function handleMouseMove(e: MouseEvent) {
@@ -160,20 +147,6 @@ function handleMouseMove(e: MouseEvent) {
 	const newLeftEdgeYearOffset = leftEdgeYearOffset - deltaX * yearsPerPixel
 	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
 	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
-
-	// Special debug for boundary violations
-	if (newRightEdgeYear > TIME_CONSTANTS.END_YEAR) {
-		console.log(
-			"🚨 RIGHT EDGE PAST PRESENT TIME! Right edge would be:",
-			newRightEdgeYear,
-		)
-	}
-	if (newLeftEdgeYear < TIME_CONSTANTS.START_YEAR) {
-		console.log(
-			"🚨 LEFT EDGE BEFORE START TIME! Left edge would be:",
-			newLeftEdgeYear,
-		)
-	}
 
 	// Apply boundary constraints - check both left and right edges
 	if (
@@ -189,14 +162,12 @@ function handleMouseUp() {
 	if (!containerElement) return
 	isDragging = false
 	containerElement.style.cursor = "grab"
-	console.log("🖱️ Mouse up - ending drag")
 }
 
 function handleMouseLeave() {
 	if (isDragging && containerElement) {
 		isDragging = false
 		containerElement.style.cursor = "grab"
-		console.log("🖱️ Mouse leave - ending drag")
 	}
 }
 
@@ -207,7 +178,6 @@ function handleWheel(e: WheelEvent) {
 	// Get mouse cursor position relative to the container
 	const rect = containerElement.getBoundingClientRect()
 	const mouseX = e.clientX - rect.left
-	const mouseY = e.clientY - rect.top
 
 	// Calculate the year at the mouse cursor position
 	const leftEdgeYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
@@ -237,20 +207,6 @@ function handleWheel(e: WheelEvent) {
 	const newLeftEdgeYearOffset = leftEdgeYearOffset + e.deltaX * yearsPerPixel
 	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
 	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
-
-	// Special debug for boundary violations
-	if (newRightEdgeYear > TIME_CONSTANTS.END_YEAR) {
-		console.log(
-			"🚨 RIGHT EDGE PAST PRESENT TIME! Right edge would be:",
-			newRightEdgeYear,
-		)
-	}
-	if (newLeftEdgeYear < TIME_CONSTANTS.START_YEAR) {
-		console.log(
-			"🚨 LEFT EDGE BEFORE START TIME! Left edge would be:",
-			newLeftEdgeYear,
-		)
-	}
 
 	// Apply boundary constraints - check both left and right edges
 	if (
@@ -328,7 +284,6 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 		/>
 	{/if}
 
-	<!-- Main Timeline Container -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div 
 		bind:this={containerElement}
