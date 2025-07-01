@@ -23,14 +23,20 @@ let {
 
 // Load events from JSON file
 let events: Event[] = $state([])
+let isLoading = $state(true)
 
 // Load events on component mount
 onMount(async () => {
 	try {
-		const response = await fetch("/src/data/events.json")
+		const response = await fetch("/events.json")
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`)
+		}
 		events = await response.json()
 	} catch (error) {
-		console.error("Failed to load events:", error)
+		console.error("EventsZone: Failed to load events:", error)
+	} finally {
+		isLoading = false
 	}
 })
 
@@ -47,33 +53,36 @@ function getEventPosition(eventDate: number): number {
 }
 </script>
 
-<div class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden">
-	<div class="h-full relative overflow-hidden">
+<div class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden relative">
+	
+	{#if isLoading}
+		<!-- Loading state -->
+		<div class="absolute inset-0 flex items-center justify-center">
+			<div class="text-gray-500">Loading events...</div>
+		</div>
+	{:else}
 		<!-- Events will be rendered here -->
 		{#each visibleEvents as event}
 			<div 
-				class="absolute top-4 bg-white rounded-lg shadow-md p-3 max-w-xs border border-gray-200"
-				style="transform: translateX({getEventPosition(event.date)}px)"
+				class="absolute bg-white rounded-lg shadow-lg p-4 max-w-xs border border-gray-200 hover:shadow-xl transition-shadow cursor-pointer z-10"
+				style="left: {getEventPosition(event.date)}px; bottom: 20px;"
 			>
-				<div class="font-semibold text-sm text-gray-800">
+				<div class="font-semibold text-sm text-gray-800 mb-1">
 					{event.name.fr}
 				</div>
-				<div class="text-xs text-gray-600 mt-1">
+				<div class="text-xs text-blue-600 font-medium mb-2">
 					{formatYear(event.date)}
 				</div>
 				{#if event.description.fr}
-					<div class="text-xs text-gray-500 mt-2">
+					<div class="text-xs text-gray-600 leading-relaxed">
 						{event.description.fr}
 					</div>
 				{/if}
+				<!-- Event marker line -->
+				<div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-0.5 h-8 bg-blue-500"></div>
 			</div>
 		{/each}
-		
-		<!-- Debug info -->
-		<div class="absolute bottom-4 left-4 bg-black/80 text-white p-2 rounded text-xs">
-			Events: {visibleEvents.length} visible
-			<br>
-			Viewport: {formatYear(leftEdgeYear)} → {formatYear(rightEdgeYear)}
-		</div>
-	</div>
+	{/if}
+	
+
 </div>

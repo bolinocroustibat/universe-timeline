@@ -14,6 +14,11 @@ let startX = $state(0)
 // Current position (left edge of viewport)
 let leftEdgeYearOffset = $state(0)
 
+// Event debug data
+let totalEvents = $state(0)
+let visibleEvents = $state(0)
+let isLoadingEvents = $state(true)
+
 // Track scroll position and viewport width
 onMount(() => {
 	const observer = new ResizeObserver((entries) => {
@@ -200,6 +205,8 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 	class="flex-1 w-full overflow-hidden flex flex-col"
 	onwheel={handleWheel}
 >
+
+	
 	{#if env.PUBLIC_DEBUG === "true"}
 		<DebugInfo
 			zoomLevel={$zoomLevel}
@@ -214,6 +221,9 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 			{centerYear}
 			isPastPresent={rightEdgeYear > TIME_CONSTANTS.END_YEAR}
 			isBeforeStart={leftEdgeYear < TIME_CONSTANTS.START_YEAR}
+			totalEvents={0}
+			visibleEvents={0}
+			isLoadingEvents={false}
 		/>
 	{/if}
 

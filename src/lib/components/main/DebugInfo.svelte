@@ -14,6 +14,10 @@ interface Props {
 	centerYear: number
 	isPastPresent: boolean
 	isBeforeStart: boolean
+	// Event-related debug info
+	totalEvents: number
+	visibleEvents: number
+	isLoadingEvents: boolean
 }
 
 let {
@@ -29,10 +33,13 @@ let {
 	centerYear,
 	isPastPresent,
 	isBeforeStart,
+	totalEvents,
+	visibleEvents,
+	isLoadingEvents,
 }: Props = $props()
 </script>
 
-<div class="fixed top-24 right-4 bg-black/80 text-white p-4 rounded-lg space-y-3 font-mono text-sm max-w-xs">
+<div class="fixed top-4 right-4 bg-black/80 text-white p-4 rounded-lg space-y-3 font-mono text-sm max-w-xs z-[9999]">
 	<!-- Zoom & Scale Information -->
 	<div class="space-y-1">
 		<div class="text-blue-400 font-semibold border-b border-gray-600 pb-1">Zoom & Scale</div>
@@ -61,6 +68,16 @@ let {
 	<div class="space-y-1">
 		<div class="text-purple-400 font-semibold border-b border-gray-600 pb-1">Technical</div>
 		<div class="text-xs">Left offset: {formatYear(leftEdgeYearOffset)}</div>
+	</div>
+
+	<!-- Events Information -->
+	<div class="space-y-1">
+		<div class="text-orange-400 font-semibold border-b border-gray-600 pb-1">Events</div>
+		<div>Total: {totalEvents}</div>
+		<div>Visible: {visibleEvents}</div>
+		<div class={isLoadingEvents ? "text-yellow-400" : "text-green-400"}>
+			Loading: {isLoadingEvents ? "YES" : "NO"}
+		</div>
 	</div>
 
 	<!-- Boundary Status -->
