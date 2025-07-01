@@ -5,7 +5,6 @@ import EventsZone from "$lib/components/main/EventsZone.svelte"
 import TimelineZone from "$lib/components/main/TimelineZone.svelte"
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
-import type { TimelineTick } from "$lib/types"
 import { onMount } from "svelte"
 
 let containerElement: HTMLDivElement | undefined = $state()
@@ -56,81 +55,9 @@ let centerYear = $derived(
 		(viewportWidth * yearsPerPixel) / 2,
 )
 
-// Calculate years per major tick based on zoom level
+// Calculate years per major tick based on zoom level (for debug info)
 let majorTickInterval: number = $derived(currentScale.majorTickInterval)
 let minorTickInterval: number = $derived(currentScale.minorTickInterval)
-
-// Generate visible major ticks based on current year position
-let visibleMajorTicks: TimelineTick[] = $derived(
-	(() => {
-		const startYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
-		const visibleYearSpan = viewportYearSpan + majorTickInterval * 2 // Add buffer
-
-		const startMajorTick = Math.floor(startYear / majorTickInterval)
-		const endMajorTick = Math.ceil(
-			(startYear + visibleYearSpan) / majorTickInterval,
-		)
-
-		const ticks = Array.from(
-			{ length: endMajorTick - startMajorTick },
-			(_, i) => {
-				const majorTickYear = (startMajorTick + i) * majorTickInterval
-				const position = (majorTickYear - startYear) / yearsPerPixel
-
-				// Only include ticks that are within the timeline boundaries
-				if (
-					majorTickYear >= TIME_CONSTANTS.START_YEAR &&
-					majorTickYear <= TIME_CONSTANTS.END_YEAR
-				) {
-					return {
-						year: majorTickYear,
-						position,
-					} satisfies TimelineTick
-				}
-				return null
-			},
-		).filter((tick): tick is TimelineTick => tick !== null)
-
-		return ticks
-	})(),
-)
-
-// Generate visible minor ticks based on current year position
-let visibleMinorTicks: TimelineTick[] = $derived(
-	(() => {
-		const startYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
-		const visibleYearSpan = viewportYearSpan + minorTickInterval * 2 // Add buffer
-
-		const startMinorTick = Math.floor(startYear / minorTickInterval)
-		const endMinorTick = Math.ceil(
-			(startYear + visibleYearSpan) / minorTickInterval,
-		)
-
-		return Array.from({ length: endMinorTick - startMinorTick }, (_, i) => {
-			const minorTickYear = (startMinorTick + i) * minorTickInterval
-			const position = (minorTickYear - startYear) / yearsPerPixel
-
-			// Only include ticks that are within the timeline boundaries
-			// AND are not major ticks (to avoid duplicates)
-			if (
-				minorTickYear >= TIME_CONSTANTS.START_YEAR &&
-				minorTickYear <= TIME_CONSTANTS.END_YEAR &&
-				minorTickYear % majorTickInterval !== 0
-			) {
-				return {
-					year: minorTickYear,
-					position,
-				} satisfies TimelineTick
-			}
-			return null
-		}).filter((tick): tick is TimelineTick => tick !== null)
-	})(),
-)
-
-let firstRenderedMajorTickYear = $derived(visibleMajorTicks[0]?.year)
-let lastRenderedMajorTickYear = $derived(
-	visibleMajorTicks[visibleMajorTicks.length - 1]?.year,
-)
 
 function handleMouseDown(e: MouseEvent) {
 	if (!containerElement) return
@@ -276,8 +203,6 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 			leftEdgeYear={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset}
 			rightEdgeYear={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset + (viewportWidth * yearsPerPixel)}
 			leftEdgeYearOffset={leftEdgeYearOffset}
-			{firstRenderedMajorTickYear}
-			{lastRenderedMajorTickYear}
 			{centerYear}
 			isPastPresent={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset + (viewportWidth * yearsPerPixel) > TIME_CONSTANTS.END_YEAR}
 			isBeforeStart={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset < TIME_CONSTANTS.START_YEAR}
@@ -294,6 +219,6 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 		class="flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none"
 	>
 		<EventsZone {viewportYearSpan} zoomLevel={$zoomLevel} />
-		<TimelineZone {visibleMajorTicks} {visibleMinorTicks} {majorTickInterval} />
+		<TimelineZone {viewportWidth} {leftEdgeYearOffset} {viewportYearSpan} {yearsPerPixel} />
 	</div>
 </main>

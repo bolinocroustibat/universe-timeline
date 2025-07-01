@@ -11,8 +11,6 @@ interface Props {
 	leftEdgeYear: number
 	rightEdgeYear: number
 	leftEdgeYearOffset: number
-	firstRenderedMajorTickYear: number
-	lastRenderedMajorTickYear: number
 	centerYear: number
 	isPastPresent: boolean
 	isBeforeStart: boolean
@@ -28,8 +26,6 @@ let {
 	leftEdgeYear,
 	rightEdgeYear,
 	leftEdgeYearOffset,
-	firstRenderedMajorTickYear,
-	lastRenderedMajorTickYear,
 	centerYear,
 	isPastPresent,
 	isBeforeStart,
@@ -59,9 +55,6 @@ let {
 		<div class="text-yellow-400 font-semibold border-b border-gray-600 pb-1">Tick Intervals</div>
 		<div>Major: {formatYear(majorTickInterval)}</div>
 		<div>Minor: {formatYear(minorTickInterval)}</div>
-		<div class="text-xs text-gray-400 mt-1">
-			Rendered: {formatYear(firstRenderedMajorTickYear)} → {formatYear(lastRenderedMajorTickYear)}
-		</div>
 	</div>
 
 	<!-- Technical Details -->
