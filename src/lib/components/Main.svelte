@@ -1,11 +1,12 @@
 <script lang="ts">
 import { env } from "$env/dynamic/public"
+import DebugInfo from "$lib/components/main/DebugInfo.svelte"
+import EventsZone from "$lib/components/main/EventsZone.svelte"
+import TimelineZone from "$lib/components/main/TimelineZone.svelte"
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
 import type { TimelineTick } from "$lib/types"
-import { formatYear } from "$lib/utils/formatters"
 import { onMount } from "svelte"
-import DebugInfo from "./main/DebugInfo.svelte"
 
 let containerElement: HTMLDivElement | undefined = $state()
 let viewportWidth = $state(0)
@@ -337,42 +338,7 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 		onmouseleave={handleMouseLeave}
 		class="flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none"
 	>
-		<!-- Events and Periods Display Zone -->
-		<div class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden">
-			<div class="h-full relative overflow-hidden">
-				<!-- Events and periods will be rendered here -->
-				<!-- This zone will respond to zoom/pan changes through the shared state -->
-				<div class="p-4 text-gray-500 text-center">
-					Events and periods display zone
-					<br>
-					<small>Zoom level: {$zoomLevel} | Viewport: {formatYear(viewportYearSpan)} years</small>
-				</div>
-			</div>
-		</div>
-
-		<!-- Timeline Zone -->
-		<div class="w-full flex-[1] bg-white border-t border-slate-200 overflow-hidden relative">
-			<!-- Minor ticks (rendered first, behind major ticks) -->
-			{#each visibleMinorTicks as tick}
-				<div 
-					class="absolute top-0 h-full flex flex-col justify-start"
-					style="transform: translateX({tick.position}px)"
-				>
-					<div class="h-1/2 w-0.5 bg-gray-300"></div>
-				</div>
-			{/each}
-			<!-- Major ticks (rendered second, on top) -->
-			{#each visibleMajorTicks as tick}
-				<div 
-					class="absolute top-0 h-full flex flex-col justify-start"
-					style="transform: translateX({tick.position}px)"
-				>
-					<div class="h-2/3 w-0.5 bg-gray-400"></div>
-					<span class="text-xs text-gray-600 mt-1 text-center whitespace-nowrap -ml-1/2">
-						{formatYear(tick.year, "fr", majorTickInterval)}
-					</span>
-				</div>
-			{/each}
-		</div>
+		<EventsZone {viewportYearSpan} zoomLevel={$zoomLevel} />
+		<TimelineZone {visibleMajorTicks} {visibleMinorTicks} {majorTickInterval} />
 	</div>
 </main>
