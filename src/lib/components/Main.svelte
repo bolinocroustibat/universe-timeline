@@ -189,22 +189,30 @@ function handleMouseLeave() {
 
 function handleWheel(e: WheelEvent) {
 	e.preventDefault()
+	
+	// Get mouse cursor position relative to the container
+	const rect = containerElement.getBoundingClientRect()
+	const mouseX = e.clientX - rect.left
+	const mouseY = e.clientY - rect.top
+	
+	// Calculate the year at the mouse cursor position
+	const leftEdgeYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
+	const mouseCursorYear = leftEdgeYear + (mouseX * yearsPerPixel)
+
+	// Handle mousewheel up/down for zooming
+	if (e.deltaY !== 0) {
+		const zoomDirection = e.deltaY > 0 ? -1 : 1 // Positive deltaY = mouseWheelDown = zoom out
+		const newZoomLevel = Math.max(1, Math.min(13, $zoomLevel + zoomDirection))
+		
+		if (newZoomLevel !== $zoomLevel) {
+			performCenteredZoom(newZoomLevel, mouseCursorYear)
+		}
+	}
+	
+	// Handle horizontal scrolling (existing functionality)
 	const newLeftEdgeYearOffset = leftEdgeYearOffset + e.deltaX * yearsPerPixel
 	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
 	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
-
-	console.log("🖱️ Wheel:", {
-		deltaX: e.deltaX,
-		leftEdgeYearOffset,
-		newLeftEdgeYearOffset,
-		leftEdgeYear: TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset,
-		newLeftEdgeYear,
-		newRightEdgeYear,
-		START_YEAR: TIME_CONSTANTS.START_YEAR,
-		END_YEAR: TIME_CONSTANTS.END_YEAR,
-		isPastPresent: newRightEdgeYear > TIME_CONSTANTS.END_YEAR,
-		isBeforeStart: newLeftEdgeYear < TIME_CONSTANTS.START_YEAR,
-	})
 
 	// Special debug for boundary violations
 	if (newRightEdgeYear > TIME_CONSTANTS.END_YEAR) {
@@ -230,8 +238,8 @@ function handleWheel(e: WheelEvent) {
 }
 
 // Function to perform centered zooming
-function performCenteredZoom(newZoomLevel: number) {
-	const oldCenterYear = centerYear
+function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
+	const oldCenterYear = targetCenterYear ?? centerYear
 	const oldViewportYearSpan = viewportYearSpan
 	
 	// Update zoom level
@@ -242,7 +250,7 @@ function performCenteredZoom(newZoomLevel: number) {
 	const newViewportYearSpan = newScale.viewportYearSpan
 	const newYearsPerPixel = newViewportYearSpan / viewportWidth
 	
-	// Calculate new left edge offset to maintain center year
+	// Calculate new left edge offset to maintain target center year
 	const newLeftEdgeYearOffset = oldCenterYear - TIME_CONSTANTS.START_YEAR - (viewportWidth * newYearsPerPixel) / 2
 	
 	// Apply boundary constraints
@@ -261,17 +269,6 @@ function performCenteredZoom(newZoomLevel: number) {
 			leftEdgeYearOffset = 0
 		}
 	}
-	
-	console.log("🔍 Centered zoom:", {
-		oldZoomLevel: $zoomLevel,
-		newZoomLevel,
-		oldCenterYear,
-		newCenterYear: centerYear,
-		oldViewportYearSpan,
-		newViewportYearSpan,
-		oldLeftEdgeOffset: leftEdgeYearOffset,
-		newLeftEdgeOffset: leftEdgeYearOffset
-	})
 }
 </script>
 
