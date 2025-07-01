@@ -59,6 +59,14 @@ let centerYear = $derived(
 let majorTickInterval: number = $derived(currentScale.majorTickInterval)
 let minorTickInterval: number = $derived(currentScale.minorTickInterval)
 
+// Calculate viewport boundaries
+let leftEdgeYear = $derived(TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset)
+let rightEdgeYear = $derived(
+	TIME_CONSTANTS.START_YEAR +
+		leftEdgeYearOffset +
+		viewportWidth * yearsPerPixel,
+)
+
 function handleMouseDown(e: MouseEvent) {
 	if (!containerElement) return
 	isDragging = true
@@ -200,12 +208,12 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 			majorTickInterval={majorTickInterval}
 			minorTickInterval={minorTickInterval}
 			{viewportWidth}
-			leftEdgeYear={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset}
-			rightEdgeYear={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset + (viewportWidth * yearsPerPixel)}
+			{leftEdgeYear}
+			{rightEdgeYear}
 			leftEdgeYearOffset={leftEdgeYearOffset}
 			{centerYear}
-			isPastPresent={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset + (viewportWidth * yearsPerPixel) > TIME_CONSTANTS.END_YEAR}
-			isBeforeStart={TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset < TIME_CONSTANTS.START_YEAR}
+			isPastPresent={rightEdgeYear > TIME_CONSTANTS.END_YEAR}
+			isBeforeStart={leftEdgeYear < TIME_CONSTANTS.START_YEAR}
 		/>
 	{/if}
 
@@ -218,7 +226,21 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 		onmouseleave={handleMouseLeave}
 		class="flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none"
 	>
-		<EventsZone {viewportYearSpan} zoomLevel={$zoomLevel} />
-		<TimelineZone {viewportWidth} {leftEdgeYearOffset} {viewportYearSpan} {yearsPerPixel} />
+		<EventsZone 
+			zoomLevel={$zoomLevel}
+			{viewportWidth}
+			{viewportYearSpan}
+			{yearsPerPixel}
+			{leftEdgeYear}
+			{rightEdgeYear}
+		/>
+		<TimelineZone 
+			zoomLevel={$zoomLevel}
+			{viewportWidth}
+			{viewportYearSpan}
+			{yearsPerPixel}
+			{leftEdgeYear}
+			{rightEdgeYear}
+		/>
 	</div>
 </main>

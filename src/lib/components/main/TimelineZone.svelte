@@ -1,26 +1,29 @@
 <script lang="ts">
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
-import { zoomLevel } from "$lib/stores/zoomStore"
 import type { TimelineTick } from "$lib/types"
 import { formatYear } from "$lib/utils/formatters"
 
 interface Props {
+	zoomLevel: number
 	viewportWidth: number
-	leftEdgeYearOffset: number
 	viewportYearSpan: number
 	yearsPerPixel: number
+	leftEdgeYear: number
+	rightEdgeYear: number
 }
 
 let {
+	zoomLevel,
 	viewportWidth,
-	leftEdgeYearOffset,
 	viewportYearSpan,
 	yearsPerPixel,
+	leftEdgeYear,
+	rightEdgeYear,
 }: Props = $props()
 
 // Calculate years per major tick based on zoom level
 const currentScale = $derived(
-	ZOOM_SCALES.find((scale) => scale.level === $zoomLevel) ?? ZOOM_SCALES[4],
+	ZOOM_SCALES.find((scale) => scale.level === zoomLevel) ?? ZOOM_SCALES[4],
 )
 const majorTickInterval: number = $derived(currentScale.majorTickInterval)
 const minorTickInterval: number = $derived(currentScale.minorTickInterval)
@@ -28,19 +31,18 @@ const minorTickInterval: number = $derived(currentScale.minorTickInterval)
 // Generate visible major ticks based on current year position
 const visibleMajorTicks: TimelineTick[] = $derived(
 	(() => {
-		const startYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
 		const visibleYearSpan = viewportYearSpan + majorTickInterval * 2 // Add buffer
 
-		const startMajorTick = Math.floor(startYear / majorTickInterval)
+		const startMajorTick = Math.floor(leftEdgeYear / majorTickInterval)
 		const endMajorTick = Math.ceil(
-			(startYear + visibleYearSpan) / majorTickInterval,
+			(leftEdgeYear + visibleYearSpan) / majorTickInterval,
 		)
 
 		const ticks = Array.from(
 			{ length: endMajorTick - startMajorTick },
 			(_, i) => {
 				const majorTickYear = (startMajorTick + i) * majorTickInterval
-				const position = (majorTickYear - startYear) / yearsPerPixel
+				const position = (majorTickYear - leftEdgeYear) / yearsPerPixel
 
 				// Only include ticks that are within the timeline boundaries
 				if (
@@ -63,17 +65,16 @@ const visibleMajorTicks: TimelineTick[] = $derived(
 // Generate visible minor ticks based on current year position
 const visibleMinorTicks: TimelineTick[] = $derived(
 	(() => {
-		const startYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
 		const visibleYearSpan = viewportYearSpan + minorTickInterval * 2 // Add buffer
 
-		const startMinorTick = Math.floor(startYear / minorTickInterval)
+		const startMinorTick = Math.floor(leftEdgeYear / minorTickInterval)
 		const endMinorTick = Math.ceil(
-			(startYear + visibleYearSpan) / minorTickInterval,
+			(leftEdgeYear + visibleYearSpan) / minorTickInterval,
 		)
 
 		return Array.from({ length: endMinorTick - startMinorTick }, (_, i) => {
 			const minorTickYear = (startMinorTick + i) * minorTickInterval
-			const position = (minorTickYear - startYear) / yearsPerPixel
+			const position = (minorTickYear - leftEdgeYear) / yearsPerPixel
 
 			// Only include ticks that are within the timeline boundaries
 			// AND are not major ticks (to avoid duplicates)
