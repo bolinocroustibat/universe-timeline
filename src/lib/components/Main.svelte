@@ -27,12 +27,15 @@ onMount(() => {
 		const newZoomLevel = event.detail.zoomLevel
 		performCenteredZoom(newZoomLevel)
 	}
-	
-	window.addEventListener('zoom-request', handleZoomRequest as EventListener)
+
+	window.addEventListener("zoom-request", handleZoomRequest as EventListener)
 
 	return () => {
 		observer.disconnect()
-		window.removeEventListener('zoom-request', handleZoomRequest as EventListener)
+		window.removeEventListener(
+			"zoom-request",
+			handleZoomRequest as EventListener,
+		)
 	}
 })
 
@@ -45,7 +48,9 @@ let yearsPerPixel: number = $derived(viewportYearSpan / viewportWidth)
 
 // Calculate the year at the center of the viewport
 let centerYear = $derived(
-	TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset + (viewportWidth * yearsPerPixel) / 2
+	TIME_CONSTANTS.START_YEAR +
+		leftEdgeYearOffset +
+		(viewportWidth * yearsPerPixel) / 2,
 )
 
 // Calculate years per major tick based on zoom level
@@ -72,24 +77,27 @@ let visibleMajorTicks: TimelineTick[] = $derived(
 		// 	generatedTicks: endMajorTick - startMajorTick
 		// })
 
-		const ticks = Array.from({ length: endMajorTick - startMajorTick }, (_, i) => {
-			const majorTickYear = (startMajorTick + i) * majorTickInterval
-			const position = (majorTickYear - startYear) / yearsPerPixel
+		const ticks = Array.from(
+			{ length: endMajorTick - startMajorTick },
+			(_, i) => {
+				const majorTickYear = (startMajorTick + i) * majorTickInterval
+				const position = (majorTickYear - startYear) / yearsPerPixel
 
-			// console.log(`🔍 Tick ${i}: year=${majorTickYear}, position=${position}, inBounds=${majorTickYear >= TIME_CONSTANTS.START_YEAR && majorTickYear <= TIME_CONSTANTS.END_YEAR}`)
+				// console.log(`🔍 Tick ${i}: year=${majorTickYear}, position=${position}, inBounds=${majorTickYear >= TIME_CONSTANTS.START_YEAR && majorTickYear <= TIME_CONSTANTS.END_YEAR}`)
 
-			// Only include ticks that are within the timeline boundaries
-			if (
-				majorTickYear >= TIME_CONSTANTS.START_YEAR &&
-				majorTickYear <= TIME_CONSTANTS.END_YEAR
-			) {
-				return {
-					year: majorTickYear,
-					position,
-				} satisfies TimelineTick
-			}
-			return null
-		}).filter((tick): tick is TimelineTick => tick !== null)
+				// Only include ticks that are within the timeline boundaries
+				if (
+					majorTickYear >= TIME_CONSTANTS.START_YEAR &&
+					majorTickYear <= TIME_CONSTANTS.END_YEAR
+				) {
+					return {
+						year: majorTickYear,
+						position,
+					} satisfies TimelineTick
+				}
+				return null
+			},
+		).filter((tick): tick is TimelineTick => tick !== null)
 
 		// console.log("🔍 Generated ticks:", ticks.map(t => ({ year: t.year, position: t.position })))
 		return ticks
@@ -189,36 +197,36 @@ function handleMouseLeave() {
 
 function handleWheel(e: WheelEvent) {
 	e.preventDefault()
-	
+
 	// Get mouse cursor position relative to the container
 	const rect = containerElement.getBoundingClientRect()
 	const mouseX = e.clientX - rect.left
 	const mouseY = e.clientY - rect.top
-	
+
 	// Calculate the year at the mouse cursor position
 	const leftEdgeYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
-	const mouseCursorYear = leftEdgeYear + (mouseX * yearsPerPixel)
+	const mouseCursorYear = leftEdgeYear + mouseX * yearsPerPixel
 
 	// Handle mousewheel up/down for zooming
 	if (e.deltaY !== 0) {
 		const zoomDirection = e.deltaY > 0 ? -1 : 1 // Positive deltaY = mouseWheelDown = zoom out
 		const newZoomLevel = Math.max(1, Math.min(15, $zoomLevel + zoomDirection))
-		
+
 		if (newZoomLevel !== $zoomLevel) {
 			performCenteredZoom(newZoomLevel, mouseCursorYear)
 		}
 	}
-	
+
 	// Handle pinch-to-zoom on trackpad
 	if (e.deltaZ !== 0) {
 		const pinchDirection = e.deltaZ > 0 ? 1 : -1 // Positive deltaZ = pinch out = zoom in
 		const newZoomLevel = Math.max(1, Math.min(15, $zoomLevel + pinchDirection))
-		
+
 		if (newZoomLevel !== $zoomLevel) {
 			performCenteredZoom(newZoomLevel, mouseCursorYear)
 		}
 	}
-	
+
 	// Handle horizontal scrolling (existing functionality)
 	const newLeftEdgeYearOffset = leftEdgeYearOffset + e.deltaX * yearsPerPixel
 	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
@@ -250,30 +258,39 @@ function handleWheel(e: WheelEvent) {
 // Function to perform centered zooming
 function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 	const oldCenterYear = targetCenterYear ?? centerYear
-	const oldViewportYearSpan = viewportYearSpan
-	
+
 	// Update zoom level
 	$zoomLevel = newZoomLevel
-	
+
 	// Calculate new viewport span and years per pixel
-	const newScale = ZOOM_SCALES.find((scale) => scale.level === newZoomLevel) ?? ZOOM_SCALES[4]
+	const newScale =
+		ZOOM_SCALES.find((scale) => scale.level === newZoomLevel) ?? ZOOM_SCALES[4]
 	const newViewportYearSpan = newScale.viewportYearSpan
 	const newYearsPerPixel = newViewportYearSpan / viewportWidth
-	
+
 	// Calculate new left edge offset to maintain target center year
-	const newLeftEdgeYearOffset = oldCenterYear - TIME_CONSTANTS.START_YEAR - (viewportWidth * newYearsPerPixel) / 2
-	
+	const newLeftEdgeYearOffset =
+		oldCenterYear -
+		TIME_CONSTANTS.START_YEAR -
+		(viewportWidth * newYearsPerPixel) / 2
+
 	// Apply boundary constraints
 	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
 	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * newYearsPerPixel
-	
-	if (newRightEdgeYear <= TIME_CONSTANTS.END_YEAR && newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR) {
+
+	if (
+		newRightEdgeYear <= TIME_CONSTANTS.END_YEAR &&
+		newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR
+	) {
 		leftEdgeYearOffset = newLeftEdgeYearOffset
 	} else {
 		// If boundary constraints would be violated, adjust to fit within bounds
 		if (newRightEdgeYear > TIME_CONSTANTS.END_YEAR) {
 			// Adjust to keep right edge at END_YEAR
-			leftEdgeYearOffset = TIME_CONSTANTS.END_YEAR - TIME_CONSTANTS.START_YEAR - viewportWidth * newYearsPerPixel
+			leftEdgeYearOffset =
+				TIME_CONSTANTS.END_YEAR -
+				TIME_CONSTANTS.START_YEAR -
+				viewportWidth * newYearsPerPixel
 		} else if (newLeftEdgeYear < TIME_CONSTANTS.START_YEAR) {
 			// Adjust to keep left edge at START_YEAR
 			leftEdgeYearOffset = 0

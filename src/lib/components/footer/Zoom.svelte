@@ -5,9 +5,11 @@ import { zoomLevel } from "$lib/stores/zoomStore"
 const MAX_ZOOM_LEVEL = ZOOM_SCALES.length
 
 function dispatchZoomRequest(newZoomLevel: number) {
-	window.dispatchEvent(new CustomEvent('zoom-request', {
-		detail: { zoomLevel: newZoomLevel }
-	}))
+	window.dispatchEvent(
+		new CustomEvent("zoom-request", {
+			detail: { zoomLevel: newZoomLevel },
+		}),
+	)
 }
 
 function decreaseZoom() {

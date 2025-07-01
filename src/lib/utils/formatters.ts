@@ -110,7 +110,7 @@ export function formatYear(
 			const form = billions === 1 ? "singular" : "plural"
 			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.billion[form]}`
 		}
-		
+
 		if (absYear >= 1_000_000 && absYear % 1_000_000 === 0) {
 			// Year is exactly divisible by 1 million - use million formatting
 			const millions = absYear / 1_000_000
