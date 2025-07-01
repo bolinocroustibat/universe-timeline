@@ -20,7 +20,9 @@ onMount(() => {
 		viewportWidth = entries[0].contentRect.width
 	})
 
-	observer.observe(containerElement)
+	if (containerElement) {
+		observer.observe(containerElement)
+	}
 
 	// Listen for zoom requests from Zoom component
 	const handleZoomRequest = (event: CustomEvent) => {
@@ -142,6 +144,7 @@ let lastRenderedMajorTickYear = $derived(
 )
 
 function handleMouseDown(e: MouseEvent) {
+	if (!containerElement) return
 	isDragging = true
 	startX = e.pageX
 	containerElement.style.cursor = "grabbing"
@@ -182,13 +185,14 @@ function handleMouseMove(e: MouseEvent) {
 }
 
 function handleMouseUp() {
+	if (!containerElement) return
 	isDragging = false
 	containerElement.style.cursor = "grab"
 	console.log("🖱️ Mouse up - ending drag")
 }
 
 function handleMouseLeave() {
-	if (isDragging) {
+	if (isDragging && containerElement) {
 		isDragging = false
 		containerElement.style.cursor = "grab"
 		console.log("🖱️ Mouse leave - ending drag")
@@ -197,6 +201,7 @@ function handleMouseLeave() {
 
 function handleWheel(e: WheelEvent) {
 	e.preventDefault()
+	if (!containerElement) return
 
 	// Get mouse cursor position relative to the container
 	const rect = containerElement.getBoundingClientRect()
