@@ -209,6 +209,16 @@ function handleWheel(e: WheelEvent) {
 		}
 	}
 	
+	// Handle pinch-to-zoom on trackpad
+	if (e.deltaZ !== 0) {
+		const pinchDirection = e.deltaZ > 0 ? 1 : -1 // Positive deltaZ = pinch out = zoom in
+		const newZoomLevel = Math.max(1, Math.min(13, $zoomLevel + pinchDirection))
+		
+		if (newZoomLevel !== $zoomLevel) {
+			performCenteredZoom(newZoomLevel, mouseCursorYear)
+		}
+	}
+	
 	// Handle horizontal scrolling (existing functionality)
 	const newLeftEdgeYearOffset = leftEdgeYearOffset + e.deltaX * yearsPerPixel
 	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
