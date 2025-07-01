@@ -299,7 +299,10 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 }
 </script>
 
-<main class="min-h-screen pt-20 pb-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+<main 
+	class="h-screen pt-20 pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden"
+	onwheel={handleWheel}
+>
 	{#if env.PUBLIC_DEBUG === "true"}
 		<DebugInfo
 			zoomLevel={$zoomLevel}
@@ -319,6 +322,7 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 		/>
 	{/if}
 
+	<!-- Main Timeline Container -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div 
 		bind:this={containerElement}
@@ -326,32 +330,47 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 		onmousemove={handleMouseMove}
 		onmouseup={handleMouseUp}
 		onmouseleave={handleMouseLeave}
-		onwheel={handleWheel}
-		class="fixed bottom-12 left-0 right-0 h-24 bg-white border-t border-gray-200 overflow-hidden cursor-grab select-none"
+		class="h-full flex flex-col overflow-hidden cursor-grab select-none -mx-4 sm:-mx-6 lg:-mx-8"
 	>
-		<div class="h-full relative overflow-hidden">
-			<!-- Minor ticks (rendered first, behind major ticks) -->
-			{#each visibleMinorTicks as tick}
-				<div 
-					class="absolute top-0 h-full flex flex-col justify-start"
-					style="transform: translateX({tick.position}px)"
-				>
-					<div class="h-1/4 w-0.5 bg-gray-300"></div>
+		<!-- Events and Periods Display Zone -->
+		<div class="flex-1 bg-slate-500 border-b border-slate-200 overflow-hidden">
+			<div class="h-full relative overflow-hidden">
+				<!-- Events and periods will be rendered here -->
+				<!-- This zone will respond to zoom/pan changes through the shared state -->
+				<div class="p-4 text-gray-500 text-center">
+					Events and periods display zone
+					<br>
+					<small>Zoom level: {$zoomLevel} | Viewport: {formatYear(viewportYearSpan)} years</small>
 				</div>
-			{/each}
-			
-			<!-- Major ticks (rendered second, on top) -->
-			{#each visibleMajorTicks as tick}
-				<div 
-					class="absolute top-0 h-full flex flex-col justify-start"
-					style="transform: translateX({tick.position}px)"
-				>
-					<div class="h-1/3 w-0.5 bg-gray-400"></div>
-					<span class="text-xs text-gray-600 mt-1 text-center whitespace-nowrap -ml-1/2">
-						{formatYear(tick.year, "fr", majorTickInterval)}
-					</span>
-				</div>
-			{/each}
+			</div>
+		</div>
+
+		<!-- Timeline Zone -->
+		<div class="h-24 bg-white border-t border-slate-200 overflow-hidden">
+			<div class="h-full relative overflow-hidden">
+				<!-- Minor ticks (rendered first, behind major ticks) -->
+				{#each visibleMinorTicks as tick}
+					<div 
+						class="absolute top-0 h-full flex flex-col justify-start"
+						style="transform: translateX({tick.position}px)"
+					>
+						<div class="h-1/4 w-0.5 bg-gray-300"></div>
+					</div>
+				{/each}
+				
+				<!-- Major ticks (rendered second, on top) -->
+				{#each visibleMajorTicks as tick}
+					<div 
+						class="absolute top-0 h-full flex flex-col justify-start"
+						style="transform: translateX({tick.position}px)"
+					>
+						<div class="h-1/3 w-0.5 bg-gray-400"></div>
+						<span class="text-xs text-gray-600 mt-1 text-center whitespace-nowrap -ml-1/2">
+							{formatYear(tick.year, "fr", majorTickInterval)}
+						</span>
+					</div>
+				{/each}
+			</div>
 		</div>
 	</div>
 </main>
