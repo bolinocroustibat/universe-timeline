@@ -63,20 +63,20 @@ let visibleMajorTicks: TimelineTick[] = $derived(
 			(startYear + visibleYearSpan) / majorTickInterval,
 		)
 
-		console.log("🔍 Tick generation debug:", {
-			startYear,
-			visibleYearSpan,
-			startMajorTick,
-			endMajorTick,
-			majorTickInterval,
-			generatedTicks: endMajorTick - startMajorTick
-		})
+		// console.log("🔍 Tick generation debug:", {
+		// 	startYear,
+		// 	visibleYearSpan,
+		// 	startMajorTick,
+		// 	endMajorTick,
+		// 	majorTickInterval,
+		// 	generatedTicks: endMajorTick - startMajorTick
+		// })
 
 		const ticks = Array.from({ length: endMajorTick - startMajorTick }, (_, i) => {
 			const majorTickYear = (startMajorTick + i) * majorTickInterval
 			const position = (majorTickYear - startYear) / yearsPerPixel
 
-			console.log(`🔍 Tick ${i}: year=${majorTickYear}, position=${position}, inBounds=${majorTickYear >= TIME_CONSTANTS.START_YEAR && majorTickYear <= TIME_CONSTANTS.END_YEAR}`)
+			// console.log(`🔍 Tick ${i}: year=${majorTickYear}, position=${position}, inBounds=${majorTickYear >= TIME_CONSTANTS.START_YEAR && majorTickYear <= TIME_CONSTANTS.END_YEAR}`)
 
 			// Only include ticks that are within the timeline boundaries
 			if (
@@ -91,7 +91,7 @@ let visibleMajorTicks: TimelineTick[] = $derived(
 			return null
 		}).filter((tick): tick is TimelineTick => tick !== null)
 
-		console.log("🔍 Generated ticks:", ticks.map(t => ({ year: t.year, position: t.position })))
+		// console.log("🔍 Generated ticks:", ticks.map(t => ({ year: t.year, position: t.position })))
 		return ticks
 	})(),
 )
