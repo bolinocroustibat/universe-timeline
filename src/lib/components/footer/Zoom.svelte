@@ -29,7 +29,7 @@ function handleWheel(event: WheelEvent) {
 }
 
 function setZoomLevel(level: number) {
-	const newLevel = level + 1 // Adding 1 since level is 0-based index but zoom is 1-based
+	const newLevel = level + 1 // level is 0-based index, zoom levels are 1-based
 	dispatchZoomRequest(newLevel)
 }
 </script>
