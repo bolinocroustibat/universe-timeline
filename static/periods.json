@@ -6,6 +6,7 @@
 		"start": -4567000000,
 		"end": -4000000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 567000000,
 		"name": {
 			"en": "Hadean",
@@ -25,6 +26,7 @@
 		"start": -4000000000,
 		"end": -2500000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 1500000000,
 		"name": {
 			"en": "Archean",
@@ -44,6 +46,7 @@
 		"start": -2500000000,
 		"end": -541000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 1959000000,
 		"name": {
 			"en": "Proterozoic",
@@ -63,6 +66,7 @@
 		"start": -541000000,
 		"end": 2015,
 		"startUncertainty": 1000000,
+		"endUncertainty": 0,
 		"duration": 541002015,
 		"name": {
 			"en": "Phanerozoic",
@@ -82,6 +86,7 @@
 		"start": -2500000000,
 		"end": -1600000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 900000000,
 		"name": {
 			"en": "Paleoproterozoic",
@@ -101,6 +106,7 @@
 		"start": -1600000000,
 		"end": -1000000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 600000000,
 		"name": {
 			"en": "Mesoproterozoic",
@@ -120,6 +126,7 @@
 		"start": -1000000000,
 		"end": -541000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 459000000,
 		"name": {
 			"en": "Neoproterozoic",
@@ -139,6 +146,7 @@
 		"start": -2500000000,
 		"end": -2300000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 200000000,
 		"name": {
 			"en": "Siderian",
@@ -158,6 +166,7 @@
 		"start": -2300000000,
 		"end": -2050000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 250000000,
 		"name": {
 			"en": "Rhyacian",
@@ -177,6 +186,7 @@
 		"start": -2050000000,
 		"end": -1800000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 250000000,
 		"name": {
 			"en": "Orosirian",
@@ -196,6 +206,7 @@
 		"start": -1800000000,
 		"end": -1600000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 200000000,
 		"name": {
 			"en": "Statherian",
@@ -215,6 +226,7 @@
 		"start": -4000000000,
 		"end": -3600000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 400000000,
 		"name": {
 			"en": "Eoarchean",
@@ -234,6 +246,7 @@
 		"start": -3600000000,
 		"end": -3200000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 400000000,
 		"name": {
 			"en": "Paleoarchean",
@@ -253,6 +266,7 @@
 		"start": -3200000000,
 		"end": -2800000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 400000000,
 		"name": {
 			"en": "Mesoarchean",
@@ -272,6 +286,7 @@
 		"start": -2800000000,
 		"end": -2500000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 300000000,
 		"name": {
 			"en": "Neoarchean",
@@ -291,6 +306,7 @@
 		"start": -1600000000,
 		"end": -1400000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 200000000,
 		"name": {
 			"en": "Calymmian",
@@ -310,6 +326,7 @@
 		"start": -1400000000,
 		"end": -1200000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 200000000,
 		"name": {
 			"en": "Ectasian",
@@ -329,6 +346,7 @@
 		"start": -1200000000,
 		"end": -1000000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 200000000,
 		"name": {
 			"en": "Stenian",
@@ -348,6 +366,7 @@
 		"start": -1000000000,
 		"end": -850000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 150000000,
 		"name": {
 			"en": "Tonian",
@@ -367,6 +386,7 @@
 		"start": -850000000,
 		"end": -635000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 215000000,
 		"name": {
 			"en": "Cryogenian",
@@ -386,6 +406,7 @@
 		"start": -635000000,
 		"end": -541000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 94000000,
 		"name": {
 			"en": "Ediacaran",
@@ -405,6 +426,7 @@
 		"start": -850000000,
 		"end": -650000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 200000000,
 		"name": {
 			"en": "Sturtian",
@@ -424,6 +446,7 @@
 		"start": -650000000,
 		"end": -635000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 15000000,
 		"name": {
 			"en": "Varangian",
@@ -443,6 +466,7 @@
 		"start": -541000000,
 		"end": -252170000,
 		"startUncertainty": 1000000,
+		"endUncertainty": 60000,
 		"duration": 288830000,
 		"name": {
 			"en": "Paleozoic",
@@ -462,6 +486,7 @@
 		"start": -252170000,
 		"end": -66000000,
 		"startUncertainty": 60000,
+		"endUncertainty": 0,
 		"duration": 186170000,
 		"name": {
 			"en": "Mesozoic",
@@ -481,6 +506,7 @@
 		"start": -66000000,
 		"end": 2015,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 66002015,
 		"name": {
 			"en": "Cenozoic",
@@ -500,6 +526,7 @@
 		"start": -541000000,
 		"end": -485400000,
 		"startUncertainty": 1000000,
+		"endUncertainty": 0,
 		"duration": 55600000,
 		"name": {
 			"en": "Cambrian",
@@ -519,6 +546,7 @@
 		"start": -485400000,
 		"end": -443400000,
 		"startUncertainty": 1900000,
+		"endUncertainty": 0,
 		"duration": 42000000,
 		"name": {
 			"en": "Ordovician",
@@ -538,6 +566,7 @@
 		"start": -443800000,
 		"end": -419200000,
 		"startUncertainty": 1500000,
+		"endUncertainty": 0,
 		"duration": 24600000,
 		"name": {
 			"en": "Silurian",
@@ -557,6 +586,7 @@
 		"start": -419200000,
 		"end": -358900000,
 		"startUncertainty": 3200000,
+		"endUncertainty": 0,
 		"duration": 60300000,
 		"name": {
 			"en": "Devonian",
@@ -576,6 +606,7 @@
 		"start": -358900000,
 		"end": -298900000,
 		"startUncertainty": 400000,
+		"endUncertainty": 0,
 		"duration": 60000000,
 		"name": {
 			"en": "Carboniferous",
@@ -595,6 +626,7 @@
 		"start": -298900000,
 		"end": -252170000,
 		"startUncertainty": 150000,
+		"endUncertainty": 0,
 		"duration": 46730000,
 		"name": {
 			"en": "Permian",
@@ -614,6 +646,7 @@
 		"start": -252170000,
 		"end": -201300000,
 		"startUncertainty": 60000,
+		"endUncertainty": 0,
 		"duration": 50870000,
 		"name": {
 			"en": "Triassic",
@@ -633,6 +666,7 @@
 		"start": -201300000,
 		"end": -145000000,
 		"startUncertainty": 200000,
+		"endUncertainty": 0,
 		"duration": 56300000,
 		"name": {
 			"en": "Jurassic",
@@ -652,6 +686,7 @@
 		"start": -145000000,
 		"end": -66000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 79000000,
 		"name": {
 			"en": "Cretaceous",
@@ -671,6 +706,7 @@
 		"start": -66000000,
 		"end": -23030000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 42970000,
 		"name": {
 			"en": "Paleogene",
@@ -690,6 +726,7 @@
 		"start": -23030000,
 		"end": -2580000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 20450000,
 		"name": {
 			"en": "Neogene",
@@ -709,6 +746,7 @@
 		"start": -2580000,
 		"end": 2015,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 2582015,
 		"name": {
 			"en": "Quaternary",
@@ -728,6 +766,7 @@
 		"start": -541000000,
 		"end": -521000000,
 		"startUncertainty": 1000000,
+		"endUncertainty": 0,
 		"duration": 20000000,
 		"name": {
 			"en": "Terreneuvian",
@@ -747,6 +786,7 @@
 		"start": -521000000,
 		"end": -509000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 12000000,
 		"name": {
 			"en": "Series 2",
@@ -766,6 +806,7 @@
 		"start": -509000000,
 		"end": -497000000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 12000000,
 		"name": {
 			"en": "Series 3",
@@ -785,6 +826,7 @@
 		"start": -497000000,
 		"end": -485400000,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 11600000,
 		"name": {
 			"en": "Furongian",
@@ -804,6 +846,7 @@
 		"start": -11700,
 		"end": 2015,
 		"startUncertainty": 0,
+		"endUncertainty": 0,
 		"duration": 13715,
 		"name": {
 			"en": "Holocene",
@@ -823,6 +866,7 @@
 		"start": -470000000,
 		"end": -458400000,
 		"startUncertainty": 1400000,
+		"endUncertainty": 0,
 		"duration": 11600000,
 		"name": {
 			"en": "Middle Ordovician",
@@ -842,6 +886,7 @@
 		"start": -485400000,
 		"end": -470000000,
 		"startUncertainty": 1900000,
+		"endUncertainty": 0,
 		"duration": 15400000,
 		"name": {
 			"en": "Lower Ordovician",
@@ -861,6 +906,7 @@
 		"start": -458400000,
 		"end": -443400000,
 		"startUncertainty": 900000,
+		"endUncertainty": 0,
 		"duration": 15000000,
 		"name": {
 			"en": "Upper Ordovician",
