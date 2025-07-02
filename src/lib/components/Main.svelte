@@ -14,11 +14,6 @@ let startX = $state(0)
 // Current position (left edge of viewport)
 let leftEdgeYearOffset = $state(0)
 
-// Event debug data
-let totalEvents = $state(0)
-let visibleEvents = $state(0)
-let isLoadingEvents = $state(true)
-
 // Track scroll position and viewport width
 onMount(() => {
 	const observer = new ResizeObserver((entries) => {
