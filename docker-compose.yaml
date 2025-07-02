@@ -1,5 +1,33 @@
 services:
-  app:
+  # db:
+  #   container_name: prehistory-timeline-db
+  #   image: postgres:17
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "${DB_PORT:-5432}:5432"
+  #   environment:
+  #     - POSTGRES_DB=${POSTGRES_DB}
+  #     - POSTGRES_USER=${POSTGRES_USER:-postgres}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+
+  # api:
+  #   container_name: prehistory-timeline-api
+  #   image: ghcr.io/bolinocroustibat/prehistory-timeline-api:${TAG:-latest}
+  #   build:
+  #     context: ./api
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - static_volume:/app/static
+  #   ports:
+  #     - "${API_PORT:-8000}:8000"
+  #   environment:
+  #     - ENVIRONMENT=${ENVIRONMENT:-unknown}
+  #     - DEBUG=${PUBLIC_DEBUG:-false}
+
+  frontend:
     container_name: prehistory-timeline-frontend
     image: ghcr.io/bolinocroustibat/prehistory-timeline-frontend:${TAG:-latest}
     build: .
@@ -10,5 +38,5 @@ services:
       - ./static:/app/static
     environment:
       - VITE_ENV=${VITE_ENV}
-      - PUBLIC_DEBUG=${PUBLIC_DEBUG}
+      - PUBLIC_DEBUG=${PUBLIC_DEBUG:-false}
       - LOCALE=${LOCALE}
