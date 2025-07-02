@@ -101,7 +101,7 @@ const visibleMinorTicks: TimelineTick[] = $derived(
 			class="absolute top-0 h-full flex flex-col justify-start"
 			style="transform: translateX({tick.position}px)"
 		>
-			<div class="h-1/2 w-0.5 bg-gray-300"></div>
+			<div class="h-1/2 w-px bg-gray-300"></div>
 		</div>
 	{/each}
 	<!-- Major ticks (rendered second, on top) -->
@@ -110,7 +110,7 @@ const visibleMinorTicks: TimelineTick[] = $derived(
 			class="absolute top-0 h-full flex flex-col justify-start"
 			style="transform: translateX({tick.position}px)"
 		>
-			<div class="h-2/3 w-0.5 bg-gray-400"></div>
+			<div class="h-2/3 w-px bg-gray-400"></div>
 			<span class="text-xs text-gray-600 mt-1 text-center whitespace-nowrap -ml-1/2">
 				{formatYear(tick.year, "fr", majorTickInterval)}
 			</span>

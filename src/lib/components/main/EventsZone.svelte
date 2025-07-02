@@ -51,6 +51,36 @@ const visibleEvents = $derived(
 function getEventPosition(eventDate: number): number {
 	return (eventDate - leftEdgeYear) / yearsPerPixel
 }
+
+// Simple overlap detection - stack events vertically when they overlap
+function getEventYPosition(eventDate: number, eventIndex: number): number {
+	const baseY = 20
+	const eventHeight = 80
+	const verticalSpacing = 25
+	
+	let maxY = baseY
+	
+	// Check if this event overlaps with any previous events
+	for (let i = 0; i < eventIndex; i++) {
+		const prevEvent = visibleEvents[i]
+		const prevX = getEventPosition(prevEvent.date)
+		const prevY = getEventYPosition(prevEvent.date, i)
+		const currentX = getEventPosition(eventDate)
+		
+		// Check for horizontal overlap (approximate event width of 200px)
+		const horizontalOverlap = 
+			currentX < prevX + 200 + verticalSpacing &&
+			currentX + 200 + verticalSpacing > prevX
+		
+		if (horizontalOverlap) {
+			// Stack this event above the overlapping event
+			const stackY = prevY + eventHeight + verticalSpacing
+			maxY = Math.max(maxY, stackY)
+		}
+	}
+	
+	return maxY
+}
 </script>
 
 <div class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden relative">
@@ -62,16 +92,16 @@ function getEventPosition(eventDate: number): number {
 		</div>
 	{:else}
 		<!-- Events will be rendered here -->
-		{#each visibleEvents as event}
+		{#each visibleEvents as event, index}
 			<div 
 				class="absolute bg-white rounded-lg shadow-lg p-4 max-w-xs border border-gray-200 hover:shadow-xl transition-shadow cursor-pointer z-10"
-				style="left: {getEventPosition(event.date)}px; bottom: 20px;"
+				style="transform: translateX({getEventPosition(event.date)}px); bottom: {getEventYPosition(event.date, index)}px;"
 			>
 				<div class="font-semibold text-sm text-gray-800 mb-1">
 					{event.name.fr}
 				</div>
 				<div class="text-xs text-blue-600 font-medium mb-2">
-					{formatYear(event.date)}
+					{formatYear(event.date, "fr")}
 				</div>
 				{#if event.description.fr}
 					<div class="text-xs text-gray-600 leading-relaxed">
@@ -79,7 +109,7 @@ function getEventPosition(eventDate: number): number {
 					</div>
 				{/if}
 				<!-- Event marker line -->
-				<div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full w-0.5 h-8 bg-blue-500"></div>
+				<div class="absolute bottom-0 left-0 translate-y-full w-px bg-blue-500" style="height: {getEventYPosition(event.date, index) + 8}px;"></div>
 			</div>
 		{/each}
 	{/if}
