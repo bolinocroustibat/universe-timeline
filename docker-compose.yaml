@@ -1,0 +1,14 @@
+services:
+  app:
+    container_name: prehistory-timeline-frontend
+    image: ghcr.io/bolinocroustibat/prehistory-timeline-frontend:${TAG:-latest}
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    volumes:
+      - ./static:/app/static
+    environment:
+      - VITE_ENV=${VITE_ENV}
+      - PUBLIC_DEBUG=${PUBLIC_DEBUG}
+      - LOCALE=${LOCALE}
