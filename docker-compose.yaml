@@ -1,6 +1,6 @@
 services:
   # db:
-  #   container_name: prehistory-timeline-db
+  #   container_name: universe-timeline-db
   #   image: postgres:17
   #   volumes:
   #     - postgres_data:/var/lib/postgresql/data
@@ -12,8 +12,8 @@ services:
   #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
 
   # api:
-  #   container_name: prehistory-timeline-api
-  #   image: ghcr.io/bolinocroustibat/prehistory-timeline-api:${TAG:-latest}
+  #   container_name: universe-timeline-api
+  #   image: ghcr.io/bolinocroustibat/universe-timeline-api:${TAG:-latest}
   #   build:
   #     context: ./api
   #     dockerfile: Dockerfile
@@ -28,8 +28,8 @@ services:
   #     - DEBUG=${PUBLIC_DEBUG:-false}
 
   frontend:
-    container_name: prehistory-timeline-frontend
-    image: ghcr.io/bolinocroustibat/prehistory-timeline-frontend:${TAG:-latest}
+    container_name: universe-timeline-frontend
+    image: ghcr.io/bolinocroustibat/universe-timeline-frontend:${TAG:-latest}
     build: .
     restart: unless-stopped
     ports:

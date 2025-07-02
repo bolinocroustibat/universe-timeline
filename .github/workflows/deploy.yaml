@@ -113,7 +113,7 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: "adrien-carpentier"
-          SENTRY_PROJECT: "prehistory-timeline"
+          SENTRY_PROJECT: "universe-timeline"
         with:
           environment: production
           release: ${{ github.ref_name }}

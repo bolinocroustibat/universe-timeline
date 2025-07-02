@@ -1,4 +1,6 @@
-# Prehistory Timeline
+# The Timeline of the Universe
+
+An interactive web application for exploring and visualizing the complete history of the universe from the Big Bang to present day through a zoomable timeline interface.
 
 ## Dependencies
 

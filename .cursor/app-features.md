@@ -1,7 +1,7 @@
-# Prehistory Timeline App
+# The Timeline of the Universe App
 
 ## Project Overview
-An interactive web application for exploring and visualizing prehistory through a zoomable timeline interface. Built with Svelte 5, TypeScript, and Tailwind CSS.
+An interactive web application for exploring and visualizing the complete history of the universe from the Big Bang to present day through a zoomable timeline interface. Built with Svelte 5, TypeScript, and Tailwind CSS.
 
 ## Core Features
 
@@ -39,11 +39,10 @@ The app supports 15 zoom levels with different time spans:
 - Level 15: 1,000 years per viewport (century scale)
 
 ### Data Structure
-- **Time Constants**: Start year (-13.8 billion), End year (current year)
-- **Zoom Scales**: Predefined configurations for each zoom level with major/minor tick intervals
-- **Timeline Ticks**: Generated dynamically based on current position and zoom
-- **Events Data**: JSON-based event storage with French content
-- **Event Types**: Structured event data with names, dates, and descriptions
+- **Periods**: Geological and cosmological time periods with hierarchical structure
+- **Events**: Historical events with precise dates and uncertainty ranges
+- **Localization**: French and English content support
+- **Uncertainty Handling**: Both periods and events support uncertainty ranges for scientific accuracy
 
 ### UI Components
 - **Header**: Fixed top navigation with app title
