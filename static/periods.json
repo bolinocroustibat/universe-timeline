@@ -8,12 +8,12 @@
 		"startUncertainty": 0,
 		"duration": 567000000,
 		"name": {
-			"fr": "Hadéen",
-			"en": "Hadean"
+			"en": "Hadean",
+			"fr": "Hadéen"
 		},
 		"description": {
-			"fr": "Formation des océans par condensation de l'eau de l'atmosphère composée de N2, de CO2 et de CH4",
-			"en": "Formation of oceans through condensation of water from the atmosphere composed of N2, CO2, and CH4"
+			"en": "Formation of oceans through condensation of water from the atmosphere composed of N2, CO2, and CH4",
+			"fr": "Formation des océans par condensation de l'eau de l'atmosphère composée de N2, de CO2 et de CH4"
 		},
 		"color": "b2238c",
 		"image": null
@@ -27,12 +27,12 @@
 		"startUncertainty": 0,
 		"duration": 1500000000,
 		"name": {
-			"fr": "Archéen",
-			"en": "Archean"
+			"en": "Archean",
+			"fr": "Archéen"
 		},
 		"description": {
-			"fr": "Émergence de la vie",
-			"en": "Emergence of life"
+			"en": "Emergence of life",
+			"fr": "Émergence de la vie"
 		},
 		"color": "ed0d8a",
 		"image": null
@@ -46,12 +46,12 @@
 		"startUncertainty": 0,
 		"duration": 1959000000,
 		"name": {
-			"fr": "Protérozoïque",
-			"en": "Proterozoic"
+			"en": "Proterozoic",
+			"fr": "Protérozoïque"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -65,12 +65,12 @@
 		"startUncertainty": 1000000,
 		"duration": 541002015,
 		"name": {
-			"fr": "Phanérozoïque",
-			"en": "Phanerozoic"
+			"en": "Phanerozoic",
+			"fr": "Phanérozoïque"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "ee00ee",
 		"image": null
@@ -84,12 +84,12 @@
 		"startUncertainty": 0,
 		"duration": 900000000,
 		"name": {
-			"fr": "Paléoprotérozoïque",
-			"en": "Paleoproterozoic"
+			"en": "Paleoproterozoic",
+			"fr": "Paléoprotérozoïque"
 		},
 		"description": {
-			"fr": "Premiers eucaryotes. Atmosphère riche en dioxygène, cause de la grande oxydation. Glaciation huronienne.",
-			"en": "First eukaryotes. Oxygen-rich atmosphere, cause of the Great Oxidation Event. Huronian glaciation."
+			"en": "First eukaryotes. Oxygen-rich atmosphere, cause of the Great Oxidation Event. Huronian glaciation.",
+			"fr": "Premiers eucaryotes. Atmosphère riche en dioxygène, cause de la grande oxydation. Glaciation huronienne."
 		},
 		"color": "F74370",
 		"image": null
@@ -103,12 +103,12 @@
 		"startUncertainty": 0,
 		"duration": 600000000,
 		"name": {
-			"fr": "Mésoprotérozoïque",
-			"en": "Mesoproterozoic"
+			"en": "Mesoproterozoic",
+			"fr": "Mésoprotérozoïque"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "FDB462",
 		"image": null
@@ -122,12 +122,12 @@
 		"startUncertainty": 0,
 		"duration": 459000000,
 		"name": {
-			"fr": "Néoprotérozoïque",
-			"en": "Neoproterozoic"
+			"en": "Neoproterozoic",
+			"fr": "Néoprotérozoïque"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "FEB342",
 		"image": null
@@ -141,12 +141,12 @@
 		"startUncertainty": 0,
 		"duration": 200000000,
 		"name": {
-			"fr": "Sidérien",
-			"en": "Siderian"
+			"en": "Siderian",
+			"fr": "Sidérien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -160,12 +160,12 @@
 		"startUncertainty": 0,
 		"duration": 250000000,
 		"name": {
-			"fr": "Rhyacien",
-			"en": "Rhyacian"
+			"en": "Rhyacian",
+			"fr": "Rhyacien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -179,12 +179,12 @@
 		"startUncertainty": 0,
 		"duration": 250000000,
 		"name": {
-			"fr": "Orosirien",
-			"en": "Orosirian"
+			"en": "Orosirian",
+			"fr": "Orosirien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -198,12 +198,12 @@
 		"startUncertainty": 0,
 		"duration": 200000000,
 		"name": {
-			"fr": "Stathérien",
-			"en": "Statherian"
+			"en": "Statherian",
+			"fr": "Stathérien"
 		},
 		"description": {
-			"fr": "Émergence du continent Columbia",
-			"en": "Emergence of the Columbia continent"
+			"en": "Emergence of the Columbia continent",
+			"fr": "Émergence du continent Columbia"
 		},
 		"color": "",
 		"image": null
@@ -217,12 +217,12 @@
 		"startUncertainty": 0,
 		"duration": 400000000,
 		"name": {
-			"fr": "Eoarchéen",
-			"en": "Eoarchean"
+			"en": "Eoarchean",
+			"fr": "Eoarchéen"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "D8168A",
 		"image": null
@@ -236,12 +236,12 @@
 		"startUncertainty": 0,
 		"duration": 400000000,
 		"name": {
-			"fr": "Paléoarchéen",
-			"en": "Paleoarchean"
+			"en": "Paleoarchean",
+			"fr": "Paléoarchéen"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "F4449F",
 		"image": null
@@ -255,12 +255,12 @@
 		"startUncertainty": 0,
 		"duration": 400000000,
 		"name": {
-			"fr": "Mésoarchéen",
-			"en": "Mesoarchean"
+			"en": "Mesoarchean",
+			"fr": "Mésoarchéen"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "F7689F",
 		"image": null
@@ -274,12 +274,12 @@
 		"startUncertainty": 0,
 		"duration": 300000000,
 		"name": {
-			"fr": "Néoarchéen",
-			"en": "Neoarchean"
+			"en": "Neoarchean",
+			"fr": "Néoarchéen"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "F99BC1",
 		"image": null
@@ -293,12 +293,12 @@
 		"startUncertainty": 0,
 		"duration": 200000000,
 		"name": {
-			"fr": "Calymmien",
-			"en": "Calymmian"
+			"en": "Calymmian",
+			"fr": "Calymmien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -312,12 +312,12 @@
 		"startUncertainty": 0,
 		"duration": 200000000,
 		"name": {
-			"fr": "Ectasien",
-			"en": "Ectasian"
+			"en": "Ectasian",
+			"fr": "Ectasien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -331,12 +331,12 @@
 		"startUncertainty": 0,
 		"duration": 200000000,
 		"name": {
-			"fr": "Sténien",
-			"en": "Stenian"
+			"en": "Stenian",
+			"fr": "Sténien"
 		},
 		"description": {
-			"fr": "Eucaryotes multicellulaires",
-			"en": "Multicellular eukaryotes"
+			"en": "Multicellular eukaryotes",
+			"fr": "Eucaryotes multicellulaires"
 		},
 		"color": "",
 		"image": null
@@ -350,12 +350,12 @@
 		"startUncertainty": 0,
 		"duration": 150000000,
 		"name": {
-			"fr": "Tonien",
-			"en": "Tonian"
+			"en": "Tonian",
+			"fr": "Tonien"
 		},
 		"description": {
-			"fr": "Formation du continent Rodinia",
-			"en": "Formation of the Rodinia continent"
+			"en": "Formation of the Rodinia continent",
+			"fr": "Formation du continent Rodinia"
 		},
 		"color": "",
 		"image": null
@@ -369,12 +369,12 @@
 		"startUncertainty": 0,
 		"duration": 215000000,
 		"name": {
-			"fr": "Cryogénien",
-			"en": "Cryogenian"
+			"en": "Cryogenian",
+			"fr": "Cryogénien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -388,12 +388,12 @@
 		"startUncertainty": 0,
 		"duration": 94000000,
 		"name": {
-			"fr": "Édiacarien",
-			"en": "Ediacaran"
+			"en": "Ediacaran",
+			"fr": "Édiacarien"
 		},
 		"description": {
-			"fr": "Faune de l'Édiacarien",
-			"en": "Ediacaran fauna"
+			"en": "Ediacaran fauna",
+			"fr": "Faune de l'Édiacarien"
 		},
 		"color": "",
 		"image": null
@@ -407,12 +407,12 @@
 		"startUncertainty": 0,
 		"duration": 200000000,
 		"name": {
-			"fr": "Sturtien",
-			"en": "Sturtian"
+			"en": "Sturtian",
+			"fr": "Sturtien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -426,12 +426,12 @@
 		"startUncertainty": 0,
 		"duration": 15000000,
 		"name": {
-			"fr": "Varangien",
-			"en": "Varangian"
+			"en": "Varangian",
+			"fr": "Varangien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -445,12 +445,12 @@
 		"startUncertainty": 1000000,
 		"duration": 288830000,
 		"name": {
-			"fr": "Paléozoïque",
-			"en": "Paleozoic"
+			"en": "Paleozoic",
+			"fr": "Paléozoïque"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -464,12 +464,12 @@
 		"startUncertainty": 60000,
 		"duration": 186170000,
 		"name": {
-			"fr": "Mésozoïque",
-			"en": "Mesozoic"
+			"en": "Mesozoic",
+			"fr": "Mésozoïque"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -483,12 +483,12 @@
 		"startUncertainty": 0,
 		"duration": 66002015,
 		"name": {
-			"fr": "Cénozoïque",
-			"en": "Cenozoic"
+			"en": "Cenozoic",
+			"fr": "Cénozoïque"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -502,12 +502,12 @@
 		"startUncertainty": 1000000,
 		"duration": 55600000,
 		"name": {
-			"fr": "Cambrien",
-			"en": "Cambrian"
+			"en": "Cambrian",
+			"fr": "Cambrien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -521,12 +521,12 @@
 		"startUncertainty": 1900000,
 		"duration": 42000000,
 		"name": {
-			"fr": "Ordovicien",
-			"en": "Ordovician"
+			"en": "Ordovician",
+			"fr": "Ordovicien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -540,12 +540,12 @@
 		"startUncertainty": 1500000,
 		"duration": 24600000,
 		"name": {
-			"fr": "Silurien",
-			"en": "Silurian"
+			"en": "Silurian",
+			"fr": "Silurien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -559,12 +559,12 @@
 		"startUncertainty": 3200000,
 		"duration": 60300000,
 		"name": {
-			"fr": "Dévonien",
-			"en": "Devonian"
+			"en": "Devonian",
+			"fr": "Dévonien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -578,12 +578,12 @@
 		"startUncertainty": 400000,
 		"duration": 60000000,
 		"name": {
-			"fr": "Carbonifère",
-			"en": "Carboniferous"
+			"en": "Carboniferous",
+			"fr": "Carbonifère"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -597,12 +597,12 @@
 		"startUncertainty": 150000,
 		"duration": 46730000,
 		"name": {
-			"fr": "Permien",
-			"en": "Permian"
+			"en": "Permian",
+			"fr": "Permien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -616,12 +616,12 @@
 		"startUncertainty": 60000,
 		"duration": 50870000,
 		"name": {
-			"fr": "Trias",
-			"en": "Triassic"
+			"en": "Triassic",
+			"fr": "Trias"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -635,12 +635,12 @@
 		"startUncertainty": 200000,
 		"duration": 56300000,
 		"name": {
-			"fr": "Jurassique",
-			"en": "Jurassic"
+			"en": "Jurassic",
+			"fr": "Jurassique"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -654,12 +654,12 @@
 		"startUncertainty": 0,
 		"duration": 79000000,
 		"name": {
-			"fr": "Crétacé",
-			"en": "Cretaceous"
+			"en": "Cretaceous",
+			"fr": "Crétacé"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -673,12 +673,12 @@
 		"startUncertainty": 0,
 		"duration": 42970000,
 		"name": {
-			"fr": "Paléogène",
-			"en": "Paleogene"
+			"en": "Paleogene",
+			"fr": "Paléogène"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -692,12 +692,12 @@
 		"startUncertainty": 0,
 		"duration": 20450000,
 		"name": {
-			"fr": "Néogène",
-			"en": "Neogene"
+			"en": "Neogene",
+			"fr": "Néogène"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -711,12 +711,12 @@
 		"startUncertainty": 0,
 		"duration": 2582015,
 		"name": {
-			"fr": "Quaternaire",
-			"en": "Quaternary"
+			"en": "Quaternary",
+			"fr": "Quaternaire"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -730,12 +730,12 @@
 		"startUncertainty": 1000000,
 		"duration": 20000000,
 		"name": {
-			"fr": "Terreneuvien",
-			"en": "Terreneuvian"
+			"en": "Terreneuvian",
+			"fr": "Terreneuvien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -749,12 +749,12 @@
 		"startUncertainty": 0,
 		"duration": 12000000,
 		"name": {
-			"fr": "Série 2",
-			"en": "Series 2"
+			"en": "Series 2",
+			"fr": "Série 2"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -768,12 +768,12 @@
 		"startUncertainty": 0,
 		"duration": 12000000,
 		"name": {
-			"fr": "Série 3",
-			"en": "Series 3"
+			"en": "Series 3",
+			"fr": "Série 3"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -787,12 +787,12 @@
 		"startUncertainty": 0,
 		"duration": 11600000,
 		"name": {
-			"fr": "Furongien",
-			"en": "Furongian"
+			"en": "Furongian",
+			"fr": "Furongien"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -806,12 +806,12 @@
 		"startUncertainty": 0,
 		"duration": 13715,
 		"name": {
-			"fr": "Holocène",
-			"en": "Holocene"
+			"en": "Holocene",
+			"fr": "Holocène"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -825,12 +825,12 @@
 		"startUncertainty": 1400000,
 		"duration": 11600000,
 		"name": {
-			"fr": "Ordovicien Moyen",
-			"en": "Middle Ordovician"
+			"en": "Middle Ordovician",
+			"fr": "Ordovicien Moyen"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -844,12 +844,12 @@
 		"startUncertainty": 1900000,
 		"duration": 15400000,
 		"name": {
-			"fr": "Ordovicien Inférieur",
-			"en": "Lower Ordovician"
+			"en": "Lower Ordovician",
+			"fr": "Ordovicien Inférieur"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null
@@ -863,12 +863,12 @@
 		"startUncertainty": 900000,
 		"duration": 15000000,
 		"name": {
-			"fr": "Ordovicien Supérieur",
-			"en": "Upper Ordovician"
+			"en": "Upper Ordovician",
+			"fr": "Ordovicien Supérieur"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"color": "",
 		"image": null

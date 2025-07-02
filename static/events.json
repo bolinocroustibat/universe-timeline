@@ -5,12 +5,12 @@
 		"date": -13787000000,
 		"dateUncertainty": 20000000,
 		"name": {
-			"fr": "Big-bang",
-			"en": "Big Bang"
+			"en": "Big Bang",
+			"fr": "Big-bang"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": "bigbang.png"
 	},
@@ -20,12 +20,12 @@
 		"date": -4567000000,
 		"dateUncertainty": 50000000,
 		"name": {
-			"fr": "Formation du système solaire",
-			"en": "Formation of the solar system"
+			"en": "Formation of the solar system",
+			"fr": "Formation du système solaire"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": "formation-systeme-solaire.png"
 	},
@@ -35,12 +35,12 @@
 		"date": -4540000000,
 		"dateUncertainty": 50000000,
 		"name": {
-			"fr": "Formation de la Terre",
-			"en": "Formation of Earth"
+			"en": "Formation of Earth",
+			"fr": "Formation de la Terre"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -50,12 +50,12 @@
 		"date": -4533000000,
 		"dateUncertainty": 100000000,
 		"name": {
-			"fr": "Grande collision et formation de la Lune",
-			"en": "Giant Impact and Moon Formation"
+			"en": "Giant Impact and Moon Formation",
+			"fr": "Grande collision et formation de la Lune"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -65,12 +65,12 @@
 		"date": -3800000000,
 		"dateUncertainty": 200000000,
 		"name": {
-			"fr": "Apparition de la vie sur Terre",
-			"en": "Origin of Life on Earth"
+			"en": "Origin of Life on Earth",
+			"fr": "Apparition de la vie sur Terre"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -80,12 +80,12 @@
 		"date": -542000000,
 		"dateUncertainty": 1000000,
 		"name": {
-			"fr": "Explosion cambrienne",
-			"en": "Cambrian Explosion"
+			"en": "Cambrian Explosion",
+			"fr": "Explosion cambrienne"
 		},
 		"description": {
-			"fr": "Apparition soudaine de la plupart des phylums animaux modernes",
-			"en": "Sudden appearance of most modern animal phyla"
+			"en": "Sudden appearance of most modern animal phyla",
+			"fr": "Apparition soudaine de la plupart des phylums animaux modernes"
 		},
 		"image": ""
 	},
@@ -95,12 +95,12 @@
 		"date": -251000000,
 		"dateUncertainty": 1000000,
 		"name": {
-			"fr": "Extinction du Permien-Trias",
-			"en": "Permian-Triassic Extinction"
+			"en": "Permian-Triassic Extinction",
+			"fr": "Extinction du Permien-Trias"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -110,12 +110,12 @@
 		"date": -230000000,
 		"dateUncertainty": 10000000,
 		"name": {
-			"fr": "Premiers dinosaures",
-			"en": "First Dinosaurs"
+			"en": "First Dinosaurs",
+			"fr": "Premiers dinosaures"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -125,12 +125,12 @@
 		"date": -11400,
 		"dateUncertainty": 1000,
 		"name": {
-			"fr": "Invention de l'agriculture en Occident",
-			"en": "Invention of Agriculture in the West"
+			"en": "Invention of Agriculture in the West",
+			"fr": "Invention de l'agriculture en Occident"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -140,12 +140,12 @@
 		"date": -3500,
 		"dateUncertainty": 500,
 		"name": {
-			"fr": "Invention de l'écriture en Mésopotamie",
-			"en": "Invention of Writing in Mesopotamia"
+			"en": "Invention of Writing in Mesopotamia",
+			"fr": "Invention de l'écriture en Mésopotamie"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -155,12 +155,12 @@
 		"date": -563,
 		"dateUncertainty": 50,
 		"name": {
-			"fr": "Naissance de Siddhārtha Gautama (Bouddha)",
-			"en": "Birth of Siddhartha Gautama (Buddha)"
+			"en": "Birth of Siddhartha Gautama (Buddha)",
+			"fr": "Naissance de Siddhārtha Gautama (Bouddha)"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -170,12 +170,12 @@
 		"date": -5,
 		"dateUncertainty": 5,
 		"name": {
-			"fr": "Naissance de Jésus Christ",
-			"en": "Birth of Jesus Christ"
+			"en": "Birth of Jesus Christ",
+			"fr": "Naissance de Jésus Christ"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -185,12 +185,12 @@
 		"date": 476,
 		"dateUncertainty": 10,
 		"name": {
-			"fr": "Chute de l'Empire Romain",
-			"en": "Fall of the Roman Empire"
+			"en": "Fall of the Roman Empire",
+			"fr": "Chute de l'Empire Romain"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -200,12 +200,12 @@
 		"date": 570,
 		"dateUncertainty": 10,
 		"name": {
-			"fr": "Naissance de Mahomet à La Mecque",
-			"en": "Birth of Muhammad in Mecca"
+			"en": "Birth of Muhammad in Mecca",
+			"fr": "Naissance de Mahomet à La Mecque"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -215,12 +215,12 @@
 		"date": 632,
 		"dateUncertainty": 10,
 		"name": {
-			"fr": "Mort de Mahomet à Médine",
-			"en": "Death of Muhammad in Medina"
+			"en": "Death of Muhammad in Medina",
+			"fr": "Mort de Mahomet à Médine"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -230,12 +230,12 @@
 		"date": 1492,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Découverte de l'Amérique par Christophe Colomb",
-			"en": "Discovery of America by Christopher Columbus"
+			"en": "Discovery of America by Christopher Columbus",
+			"fr": "Découverte de l'Amérique par Christophe Colomb"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -245,12 +245,12 @@
 		"date": -13200000000,
 		"dateUncertainty": 1000000000,
 		"name": {
-			"fr": "Formation de la Voie Lactée, notre galaxie",
-			"en": "Formation of the Milky Way, our galaxy"
+			"en": "Formation of the Milky Way, our galaxy",
+			"fr": "Formation de la Voie Lactée, notre galaxie"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -260,12 +260,12 @@
 		"date": -9006000000,
 		"dateUncertainty": 500000000,
 		"name": {
-			"fr": "Formation d'Andromède, la galaxie voisine de la nôtre",
-			"en": "Formation of Andromeda, our neighboring galaxy"
+			"en": "Formation of Andromeda, our neighboring galaxy",
+			"fr": "Formation d'Andromède, la galaxie voisine de la nôtre"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"en": "",
+			"fr": ""
 		},
 		"image": ""
 	},
@@ -275,12 +275,12 @@
 		"date": -66000000,
 		"dateUncertainty": 1000000,
 		"name": {
-			"fr": "Extinction Crétacé-Tertiaire",
-			"en": "Cretaceous-Tertiary Extinction"
+			"en": "Cretaceous-Tertiary Extinction",
+			"fr": "Extinction Crétacé-Tertiaire"
 		},
 		"description": {
-			"fr": "Extinction des dinosaures",
-			"en": "Extinction of dinosaurs"
+			"en": "Extinction of dinosaurs",
+			"fr": "Extinction des dinosaures"
 		},
 		"image": ""
 	},
@@ -290,12 +290,12 @@
 		"date": -600000000,
 		"dateUncertainty": 50000000,
 		"name": {
-			"fr": "Formation du paléocontinent disparu Gondwana",
-			"en": "Formation of the lost paleocontinent Gondwana"
+			"en": "Formation of the lost paleocontinent Gondwana",
+			"fr": "Formation du paléocontinent disparu Gondwana"
 		},
 		"description": {
-			"fr": "Le Gondwana est un supercontinent formé tout à la fin du Néoprotérozoïque. On distingue le Gondwana du Paléozoïque et celui du Mésozoïque. Entre les deux, le Gondwana a fait partie du supercontinent Pangée.",
-			"en": "Gondwana was a supercontinent formed at the very end of the Neoproterozoic. We distinguish between Paleozoic Gondwana and Mesozoic Gondwana. Between the two, Gondwana was part of the supercontinent Pangaea."
+			"en": "Gondwana was a supercontinent formed at the very end of the Neoproterozoic. We distinguish between Paleozoic Gondwana and Mesozoic Gondwana. Between the two, Gondwana was part of the supercontinent Pangaea.",
+			"fr": "Le Gondwana est un supercontinent formé tout à la fin du Néoprotérozoïque. On distingue le Gondwana du Paléozoïque et celui du Mésozoïque. Entre les deux, le Gondwana a fait partie du supercontinent Pangée."
 		},
 		"image": ""
 	},
@@ -305,12 +305,12 @@
 		"date": -160000000,
 		"dateUncertainty": 10000000,
 		"name": {
-			"fr": "Début de la fracturation du paléocontinent disparu Gondwana",
-			"en": "Beginning of the breakup of the lost paleocontinent Gondwana"
+			"en": "Beginning of the breakup of the lost paleocontinent Gondwana",
+			"fr": "Début de la fracturation du paléocontinent disparu Gondwana"
 		},
 		"description": {
-			"fr": "Le Gondwana est un supercontinent formé tout à la fin du Néoprotérozoïque. On distingue le Gondwana du Paléozoïque et celui du Mésozoïque. Entre les deux, le Gondwana a fait partie du supercontinent Pangée.",
-			"en": "Gondwana was a supercontinent formed at the very end of the Neoproterozoic. We distinguish between Paleozoic Gondwana and Mesozoic Gondwana. Between the two, Gondwana was part of the supercontinent Pangaea."
+			"en": "Gondwana was a supercontinent formed at the very end of the Neoproterozoic. We distinguish between Paleozoic Gondwana and Mesozoic Gondwana. Between the two, Gondwana was part of the supercontinent Pangaea.",
+			"fr": "Le Gondwana est un supercontinent formé tout à la fin du Néoprotérozoïque. On distingue le Gondwana du Paléozoïque et celui du Mésozoïque. Entre les deux, le Gondwana a fait partie du supercontinent Pangée."
 		},
 		"image": ""
 	},
@@ -320,12 +320,12 @@
 		"date": -440000000,
 		"dateUncertainty": 5000000,
 		"name": {
-			"fr": "Premiers vertébrés terrestres",
-			"en": "First terrestrial vertebrates"
+			"en": "First terrestrial vertebrates",
+			"fr": "Premiers vertébrés terrestres"
 		},
 		"description": {
-			"fr": "Les premiers tétrapodes sortent de l'eau et colonisent la terre ferme",
-			"en": "The first tetrapods emerge from water and colonize land"
+			"en": "The first tetrapods emerge from water and colonize land",
+			"fr": "Les premiers tétrapodes sortent de l'eau et colonisent la terre ferme"
 		},
 		"image": ""
 	},
@@ -335,12 +335,12 @@
 		"date": -300000000,
 		"dateUncertainty": 10000000,
 		"name": {
-			"fr": "Formation de la Pangée",
-			"en": "Formation of Pangaea"
+			"en": "Formation of Pangaea",
+			"fr": "Formation de la Pangée"
 		},
 		"description": {
-			"fr": "Formation du supercontinent Pangée qui rassemble presque toutes les terres émergées",
-			"en": "Formation of the supercontinent Pangaea that brought together almost all landmasses"
+			"en": "Formation of the supercontinent Pangaea that brought together almost all landmasses",
+			"fr": "Formation du supercontinent Pangée qui rassemble presque toutes les terres émergées"
 		},
 		"image": ""
 	},
@@ -350,12 +350,12 @@
 		"date": -200000000,
 		"dateUncertainty": 10000000,
 		"name": {
-			"fr": "Premiers mammifères",
-			"en": "First mammals"
+			"en": "First mammals",
+			"fr": "Premiers mammifères"
 		},
 		"description": {
-			"fr": "Apparition des premiers mammifères pendant le Trias",
-			"en": "Appearance of the first mammals during the Triassic"
+			"en": "Appearance of the first mammals during the Triassic",
+			"fr": "Apparition des premiers mammifères pendant le Trias"
 		},
 		"image": ""
 	},
@@ -365,12 +365,12 @@
 		"date": -150000000,
 		"dateUncertainty": 5000000,
 		"name": {
-			"fr": "Premiers oiseaux",
-			"en": "First birds"
+			"en": "First birds",
+			"fr": "Premiers oiseaux"
 		},
 		"description": {
-			"fr": "Archaeopteryx, le premier oiseau connu, apparaît pendant le Jurassique",
-			"en": "Archaeopteryx, the first known bird, appears during the Jurassic"
+			"en": "Archaeopteryx, the first known bird, appears during the Jurassic",
+			"fr": "Archaeopteryx, le premier oiseau connu, apparaît pendant le Jurassique"
 		},
 		"image": ""
 	},
@@ -380,12 +380,12 @@
 		"date": -55000000,
 		"dateUncertainty": 5000000,
 		"name": {
-			"fr": "Premiers primates",
-			"en": "First primates"
+			"en": "First primates",
+			"fr": "Premiers primates"
 		},
 		"description": {
-			"fr": "Apparition des premiers primates, ancêtres des humains",
-			"en": "Appearance of the first primates, ancestors of humans"
+			"en": "Appearance of the first primates, ancestors of humans",
+			"fr": "Apparition des premiers primates, ancêtres des humains"
 		},
 		"image": ""
 	},
@@ -395,12 +395,12 @@
 		"date": -7000000,
 		"dateUncertainty": 500000,
 		"name": {
-			"fr": "Séparation des hominidés et des chimpanzés",
-			"en": "Separation of hominids and chimpanzees"
+			"en": "Separation of hominids and chimpanzees",
+			"fr": "Séparation des hominidés et des chimpanzés"
 		},
 		"description": {
-			"fr": "Divergence évolutive entre les ancêtres des humains et des chimpanzés",
-			"en": "Evolutionary divergence between ancestors of humans and chimpanzees"
+			"en": "Evolutionary divergence between ancestors of humans and chimpanzees",
+			"fr": "Divergence évolutive entre les ancêtres des humains et des chimpanzés"
 		},
 		"image": ""
 	},
@@ -410,12 +410,12 @@
 		"date": -4000000,
 		"dateUncertainty": 500000,
 		"name": {
-			"fr": "Premiers hominidés bipèdes",
-			"en": "First bipedal hominids"
+			"en": "First bipedal hominids",
+			"fr": "Premiers hominidés bipèdes"
 		},
 		"description": {
-			"fr": "Australopithecus, les premiers hominidés à marcher debout",
-			"en": "Australopithecus, the first hominids to walk upright"
+			"en": "Australopithecus, the first hominids to walk upright",
+			"fr": "Australopithecus, les premiers hominidés à marcher debout"
 		},
 		"image": ""
 	},
@@ -425,12 +425,12 @@
 		"date": -2500000,
 		"dateUncertainty": 200000,
 		"name": {
-			"fr": "Premiers outils en pierre",
-			"en": "First stone tools"
+			"en": "First stone tools",
+			"fr": "Premiers outils en pierre"
 		},
 		"description": {
-			"fr": "Invention des premiers outils en pierre taillée par Homo habilis",
-			"en": "Invention of the first stone tools by Homo habilis"
+			"en": "Invention of the first stone tools by Homo habilis",
+			"fr": "Invention des premiers outils en pierre taillée par Homo habilis"
 		},
 		"image": ""
 	},
@@ -440,12 +440,12 @@
 		"date": -2000000,
 		"dateUncertainty": 200000,
 		"name": {
-			"fr": "Apparition d'Homo erectus",
-			"en": "Appearance of Homo erectus"
+			"en": "Appearance of Homo erectus",
+			"fr": "Apparition d'Homo erectus"
 		},
 		"description": {
-			"fr": "Premier hominidé à quitter l'Afrique et à maîtriser le feu",
-			"en": "First hominid to leave Africa and master fire"
+			"en": "First hominid to leave Africa and master fire",
+			"fr": "Premier hominidé à quitter l'Afrique et à maîtriser le feu"
 		},
 		"image": ""
 	},
@@ -455,12 +455,12 @@
 		"date": -300000,
 		"dateUncertainty": 50000,
 		"name": {
-			"fr": "Apparition d'Homo sapiens",
-			"en": "Appearance of Homo sapiens"
+			"en": "Appearance of Homo sapiens",
+			"fr": "Apparition d'Homo sapiens"
 		},
 		"description": {
-			"fr": "Émergence de notre espèce en Afrique",
-			"en": "Emergence of our species in Africa"
+			"en": "Emergence of our species in Africa",
+			"fr": "Émergence de notre espèce en Afrique"
 		},
 		"image": ""
 	},
@@ -470,12 +470,12 @@
 		"date": -40000,
 		"dateUncertainty": 5000,
 		"name": {
-			"fr": "Premières peintures rupestres",
-			"en": "First cave paintings"
+			"en": "First cave paintings",
+			"fr": "Premières peintures rupestres"
 		},
 		"description": {
-			"fr": "Art pariétal dans les grottes de Lascaux et Chauvet",
-			"en": "Cave art in Lascaux and Chauvet caves"
+			"en": "Cave art in Lascaux and Chauvet caves",
+			"fr": "Art pariétal dans les grottes de Lascaux et Chauvet"
 		},
 		"image": ""
 	},
@@ -485,12 +485,12 @@
 		"date": -12000,
 		"dateUncertainty": 1000,
 		"name": {
-			"fr": "Fin de la dernière glaciation",
-			"en": "End of the last ice age"
+			"en": "End of the last ice age",
+			"fr": "Fin de la dernière glaciation"
 		},
 		"description": {
-			"fr": "Retrait des glaciers et réchauffement climatique",
-			"en": "Retreat of glaciers and climate warming"
+			"en": "Retreat of glaciers and climate warming",
+			"fr": "Retrait des glaciers et réchauffement climatique"
 		},
 		"image": ""
 	},
@@ -500,12 +500,12 @@
 		"date": -8000,
 		"dateUncertainty": 1000,
 		"name": {
-			"fr": "Début de la révolution néolithique",
-			"en": "Beginning of the Neolithic Revolution"
+			"en": "Beginning of the Neolithic Revolution",
+			"fr": "Début de la révolution néolithique"
 		},
 		"description": {
-			"fr": "Transition vers l'agriculture et la sédentarisation",
-			"en": "Transition to agriculture and sedentarization"
+			"en": "Transition to agriculture and sedentarization",
+			"fr": "Transition vers l'agriculture et la sédentarisation"
 		},
 		"image": ""
 	},
@@ -515,12 +515,12 @@
 		"date": -3000,
 		"dateUncertainty": 500,
 		"name": {
-			"fr": "Construction des pyramides d'Égypte",
-			"en": "Construction of Egyptian pyramids"
+			"en": "Construction of Egyptian pyramids",
+			"fr": "Construction des pyramides d'Égypte"
 		},
 		"description": {
-			"fr": "Édification des grandes pyramides de Gizeh",
-			"en": "Construction of the great pyramids of Giza"
+			"en": "Construction of the great pyramids of Giza",
+			"fr": "Édification des grandes pyramides de Gizeh"
 		},
 		"image": ""
 	},
@@ -530,12 +530,12 @@
 		"date": -776,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Premiers Jeux Olympiques",
-			"en": "First Olympic Games"
+			"en": "First Olympic Games",
+			"fr": "Premiers Jeux Olympiques"
 		},
 		"description": {
-			"fr": "Premiers Jeux Olympiques antiques à Olympie",
-			"en": "First ancient Olympic Games at Olympia"
+			"en": "First ancient Olympic Games at Olympia",
+			"fr": "Premiers Jeux Olympiques antiques à Olympie"
 		},
 		"image": ""
 	},
@@ -545,12 +545,12 @@
 		"date": -753,
 		"dateUncertainty": 10,
 		"name": {
-			"fr": "Fondation de Rome",
-			"en": "Foundation of Rome"
+			"en": "Foundation of Rome",
+			"fr": "Fondation de Rome"
 		},
 		"description": {
-			"fr": "Fondation légendaire de la ville de Rome par Romulus",
-			"en": "Legendary foundation of the city of Rome by Romulus"
+			"en": "Legendary foundation of the city of Rome by Romulus",
+			"fr": "Fondation légendaire de la ville de Rome par Romulus"
 		},
 		"image": ""
 	},
@@ -560,12 +560,12 @@
 		"date": -221,
 		"dateUncertainty": 10,
 		"name": {
-			"fr": "Unification de la Chine",
-			"en": "Unification of China"
+			"en": "Unification of China",
+			"fr": "Unification de la Chine"
 		},
 		"description": {
-			"fr": "Qin Shi Huang unifie la Chine et devient le premier empereur",
-			"en": "Qin Shi Huang unifies China and becomes the first emperor"
+			"en": "Qin Shi Huang unifies China and becomes the first emperor",
+			"fr": "Qin Shi Huang unifie la Chine et devient le premier empereur"
 		},
 		"image": ""
 	},
@@ -575,12 +575,12 @@
 		"date": 105,
 		"dateUncertainty": 10,
 		"name": {
-			"fr": "Invention du papier en Chine",
-			"en": "Invention of paper in China"
+			"en": "Invention of paper in China",
+			"fr": "Invention du papier en Chine"
 		},
 		"description": {
-			"fr": "Cai Lun invente le papier moderne",
-			"en": "Cai Lun invents modern paper"
+			"en": "Cai Lun invents modern paper",
+			"fr": "Cai Lun invente le papier moderne"
 		},
 		"image": ""
 	},
@@ -590,12 +590,12 @@
 		"date": 1455,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Invention de l'imprimerie par Gutenberg",
-			"en": "Gutenberg's invention of the printing press"
+			"en": "Gutenberg's invention of the printing press",
+			"fr": "Invention de l'imprimerie par Gutenberg"
 		},
 		"description": {
-			"fr": "Première Bible imprimée avec des caractères mobiles",
-			"en": "First Bible printed with movable type"
+			"en": "First Bible printed with movable type",
+			"fr": "Première Bible imprimée avec des caractères mobiles"
 		},
 		"image": ""
 	},
@@ -605,12 +605,12 @@
 		"date": 1789,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Révolution française",
-			"en": "French Revolution"
+			"en": "French Revolution",
+			"fr": "Révolution française"
 		},
 		"description": {
-			"fr": "Prise de la Bastille et début de la Révolution française",
-			"en": "Storming of the Bastille and beginning of the French Revolution"
+			"en": "Storming of the Bastille and beginning of the French Revolution",
+			"fr": "Prise de la Bastille et début de la Révolution française"
 		},
 		"image": ""
 	},
@@ -620,12 +620,12 @@
 		"date": 1903,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Premier vol motorisé",
-			"en": "First powered flight"
+			"en": "First powered flight",
+			"fr": "Premier vol motorisé"
 		},
 		"description": {
-			"fr": "Les frères Wright effectuent le premier vol motorisé contrôlé",
-			"en": "The Wright brothers make the first controlled powered flight"
+			"en": "The Wright brothers make the first controlled powered flight",
+			"fr": "Les frères Wright effectuent le premier vol motorisé contrôlé"
 		},
 		"image": ""
 	},
@@ -635,12 +635,12 @@
 		"date": 1969,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Premier homme sur la Lune",
-			"en": "First man on the Moon"
+			"en": "First man on the Moon",
+			"fr": "Premier homme sur la Lune"
 		},
 		"description": {
-			"fr": "Neil Armstrong marche sur la Lune lors de la mission Apollo 11",
-			"en": "Neil Armstrong walks on the Moon during the Apollo 11 mission"
+			"en": "Neil Armstrong walks on the Moon during the Apollo 11 mission",
+			"fr": "Neil Armstrong marche sur la Lune lors de la mission Apollo 11"
 		},
 		"image": ""
 	},
@@ -650,12 +650,12 @@
 		"date": -252000000,
 		"dateUncertainty": 2000000,
 		"name": {
-			"fr": "Éruption des trapps de Sibérie",
-			"en": "Siberian Traps eruption"
+			"en": "Siberian Traps eruption",
+			"fr": "Éruption des trapps de Sibérie"
 		},
 		"description": {
-			"fr": "Éruption volcanique massive qui cause l'extinction du Permien-Trias",
-			"en": "Massive volcanic eruption that causes the Permian-Triassic extinction"
+			"en": "Massive volcanic eruption that causes the Permian-Triassic extinction",
+			"fr": "Éruption volcanique massive qui cause l'extinction du Permien-Trias"
 		},
 		"image": ""
 	},
@@ -665,12 +665,12 @@
 		"date": -201000000,
 		"dateUncertainty": 1000000,
 		"name": {
-			"fr": "Éruption des trapps de l'Atlantique central",
-			"en": "Central Atlantic Magmatic Province eruption"
+			"en": "Central Atlantic Magmatic Province eruption",
+			"fr": "Éruption des trapps de l'Atlantique central"
 		},
 		"description": {
-			"fr": "Éruption volcanique massive qui cause l'extinction du Trias-Jurassique",
-			"en": "Massive volcanic eruption that causes the Triassic-Jurassic extinction"
+			"en": "Massive volcanic eruption that causes the Triassic-Jurassic extinction",
+			"fr": "Éruption volcanique massive qui cause l'extinction du Trias-Jurassique"
 		},
 		"image": ""
 	},
@@ -680,12 +680,12 @@
 		"date": -180000000,
 		"dateUncertainty": 10000000,
 		"name": {
-			"fr": "Début de la fragmentation de la Pangée",
-			"en": "Beginning of Pangaea's breakup"
+			"en": "Beginning of Pangaea's breakup",
+			"fr": "Début de la fragmentation de la Pangée"
 		},
 		"description": {
-			"fr": "La Pangée commence à se fragmenter, séparant la Laurasie et le Gondwana",
-			"en": "Pangaea begins to break up, separating Laurasia and Gondwana"
+			"en": "Pangaea begins to break up, separating Laurasia and Gondwana",
+			"fr": "La Pangée commence à se fragmenter, séparant la Laurasie et le Gondwana"
 		},
 		"image": ""
 	},
@@ -695,12 +695,12 @@
 		"date": -135000000,
 		"dateUncertainty": 5000000,
 		"name": {
-			"fr": "Ouverture de l'océan Atlantique",
-			"en": "Opening of the Atlantic Ocean"
+			"en": "Opening of the Atlantic Ocean",
+			"fr": "Ouverture de l'océan Atlantique"
 		},
 		"description": {
-			"fr": "L'océan Atlantique commence à s'ouvrir entre l'Amérique et l'Afrique",
-			"en": "The Atlantic Ocean begins to open between America and Africa"
+			"en": "The Atlantic Ocean begins to open between America and Africa",
+			"fr": "L'océan Atlantique commence à s'ouvrir entre l'Amérique et l'Afrique"
 		},
 		"image": ""
 	},
@@ -710,12 +710,12 @@
 		"date": -100000000,
 		"dateUncertainty": 10000000,
 		"name": {
-			"fr": "Formation de l'océan Indien",
-			"en": "Formation of the Indian Ocean"
+			"en": "Formation of the Indian Ocean",
+			"fr": "Formation de l'océan Indien"
 		},
 		"description": {
-			"fr": "L'Inde se sépare de l'Antarctique et commence sa dérive vers le nord",
-			"en": "India separates from Antarctica and begins its northward drift"
+			"en": "India separates from Antarctica and begins its northward drift",
+			"fr": "L'Inde se sépare de l'Antarctique et commence sa dérive vers le nord"
 		},
 		"image": ""
 	},
@@ -725,12 +725,12 @@
 		"date": -50000000,
 		"dateUncertainty": 5000000,
 		"name": {
-			"fr": "Collision de l'Inde avec l'Asie",
-			"en": "India's collision with Asia"
+			"en": "India's collision with Asia",
+			"fr": "Collision de l'Inde avec l'Asie"
 		},
 		"description": {
-			"fr": "L'Inde entre en collision avec l'Asie, formant l'Himalaya",
-			"en": "India collides with Asia, forming the Himalayas"
+			"en": "India collides with Asia, forming the Himalayas",
+			"fr": "L'Inde entre en collision avec l'Asie, formant l'Himalaya"
 		},
 		"image": ""
 	},
@@ -740,12 +740,12 @@
 		"date": -34000000,
 		"dateUncertainty": 2000000,
 		"name": {
-			"fr": "Formation de l'Antarctique",
-			"en": "Formation of Antarctica"
+			"en": "Formation of Antarctica",
+			"fr": "Formation de l'Antarctique"
 		},
 		"description": {
-			"fr": "L'Antarctique se sépare de l'Australie et devient un continent isolé",
-			"en": "Antarctica separates from Australia and becomes an isolated continent"
+			"en": "Antarctica separates from Australia and becomes an isolated continent",
+			"fr": "L'Antarctique se sépare de l'Australie et devient un continent isolé"
 		},
 		"image": ""
 	},
@@ -755,12 +755,12 @@
 		"date": -25000000,
 		"dateUncertainty": 5000000,
 		"name": {
-			"fr": "Formation de l'isthme de Panama",
-			"en": "Formation of the Isthmus of Panama"
+			"en": "Formation of the Isthmus of Panama",
+			"fr": "Formation de l'isthme de Panama"
 		},
 		"description": {
-			"fr": "L'Amérique du Nord et du Sud se rejoignent, modifiant les courants océaniques",
-			"en": "North and South America join, modifying ocean currents"
+			"en": "North and South America join, modifying ocean currents",
+			"fr": "L'Amérique du Nord et du Sud se rejoignent, modifiant les courants océaniques"
 		},
 		"image": ""
 	},
@@ -770,12 +770,12 @@
 		"date": -2000000,
 		"dateUncertainty": 500000,
 		"name": {
-			"fr": "Formation du Grand Canyon",
-			"en": "Formation of the Grand Canyon"
+			"en": "Formation of the Grand Canyon",
+			"fr": "Formation du Grand Canyon"
 		},
 		"description": {
-			"fr": "Début de l'érosion du Grand Canyon par le fleuve Colorado",
-			"en": "Beginning of Grand Canyon erosion by the Colorado River"
+			"en": "Beginning of Grand Canyon erosion by the Colorado River",
+			"fr": "Début de l'érosion du Grand Canyon par le fleuve Colorado"
 		},
 		"image": ""
 	},
@@ -785,12 +785,12 @@
 		"date": -750000,
 		"dateUncertainty": 100000,
 		"name": {
-			"fr": "Éruption du supervolcan Toba",
-			"en": "Toba supervolcano eruption"
+			"en": "Toba supervolcano eruption",
+			"fr": "Éruption du supervolcan Toba"
 		},
 		"description": {
-			"fr": "Une des plus grandes éruptions volcaniques de l'histoire, cause un hiver volcanique",
-			"en": "One of the largest volcanic eruptions in history, causing a volcanic winter"
+			"en": "One of the largest volcanic eruptions in history, causing a volcanic winter",
+			"fr": "Une des plus grandes éruptions volcaniques de l'histoire, cause un hiver volcanique"
 		},
 		"image": ""
 	},
@@ -800,12 +800,12 @@
 		"date": -39000,
 		"dateUncertainty": 2000,
 		"name": {
-			"fr": "Éruption du volcan Campi Flegrei",
-			"en": "Campi Flegrei volcano eruption"
+			"en": "Campi Flegrei volcano eruption",
+			"fr": "Éruption du volcan Campi Flegrei"
 		},
 		"description": {
-			"fr": "Éruption majeure en Italie qui affecte le climat européen",
-			"en": "Major eruption in Italy that affects European climate"
+			"en": "Major eruption in Italy that affects European climate",
+			"fr": "Éruption majeure en Italie qui affecte le climat européen"
 		},
 		"image": ""
 	},
@@ -815,12 +815,12 @@
 		"date": -12800,
 		"dateUncertainty": 300,
 		"name": {
-			"fr": "Début du Dryas récent",
-			"en": "Beginning of Younger Dryas"
+			"en": "Beginning of Younger Dryas",
+			"fr": "Début du Dryas récent"
 		},
 		"description": {
-			"fr": "Retour temporaire à des conditions glaciaires après le réchauffement",
-			"en": "Temporary return to glacial conditions after warming"
+			"en": "Temporary return to glacial conditions after warming",
+			"fr": "Retour temporaire à des conditions glaciaires après le réchauffement"
 		},
 		"image": ""
 	},
@@ -830,12 +830,12 @@
 		"date": -11600,
 		"dateUncertainty": 100,
 		"name": {
-			"fr": "Fin du Dryas récent",
-			"en": "End of Younger Dryas"
+			"en": "End of Younger Dryas",
+			"fr": "Fin du Dryas récent"
 		},
 		"description": {
-			"fr": "Réchauffement rapide qui marque le début de l'Holocène",
-			"en": "Rapid warming that marks the beginning of the Holocene"
+			"en": "Rapid warming that marks the beginning of the Holocene",
+			"fr": "Réchauffement rapide qui marque le début de l'Holocène"
 		},
 		"image": ""
 	},
@@ -845,12 +845,12 @@
 		"date": -5350,
 		"dateUncertainty": 100,
 		"name": {
-			"fr": "Éruption du volcan Hekla",
-			"en": "Hekla volcano eruption"
+			"en": "Hekla volcano eruption",
+			"fr": "Éruption du volcan Hekla"
 		},
 		"description": {
-			"fr": "Éruption majeure en Islande qui affecte le climat global",
-			"en": "Major eruption in Iceland that affects global climate"
+			"en": "Major eruption in Iceland that affects global climate",
+			"fr": "Éruption majeure en Islande qui affecte le climat global"
 		},
 		"image": ""
 	},
@@ -860,12 +860,12 @@
 		"date": -1628,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Éruption du volcan Santorin",
-			"en": "Santorini volcano eruption"
+			"en": "Santorini volcano eruption",
+			"fr": "Éruption du volcan Santorin"
 		},
 		"description": {
-			"fr": "Éruption cataclysmique qui détruit la civilisation minoenne",
-			"en": "Cataclysmic eruption that destroys Minoan civilization"
+			"en": "Cataclysmic eruption that destroys Minoan civilization",
+			"fr": "Éruption cataclysmique qui détruit la civilisation minoenne"
 		},
 		"image": ""
 	},
@@ -875,12 +875,12 @@
 		"date": -79,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Éruption du Vésuve",
-			"en": "Mount Vesuvius eruption"
+			"en": "Mount Vesuvius eruption",
+			"fr": "Éruption du Vésuve"
 		},
 		"description": {
-			"fr": "Éruption qui ensevelit Pompéi et Herculanum",
-			"en": "Eruption that buries Pompeii and Herculanum"
+			"en": "Eruption that buries Pompeii and Herculanum",
+			"fr": "Éruption qui ensevelit Pompéi et Herculanum"
 		},
 		"image": ""
 	},
@@ -890,12 +890,12 @@
 		"date": 1883,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Éruption du Krakatoa",
-			"en": "Krakatoa eruption"
+			"en": "Krakatoa eruption",
+			"fr": "Éruption du Krakatoa"
 		},
 		"description": {
-			"fr": "Une des plus violentes éruptions volcaniques de l'histoire moderne",
-			"en": "One of the most violent volcanic eruptions in modern history"
+			"en": "One of the most violent volcanic eruptions in modern history",
+			"fr": "Une des plus violentes éruptions volcaniques de l'histoire moderne"
 		},
 		"image": ""
 	},
@@ -905,12 +905,12 @@
 		"date": 1980,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Éruption du Mont Saint Helens",
-			"en": "Mount St. Helens eruption"
+			"en": "Mount St. Helens eruption",
+			"fr": "Éruption du Mont Saint Helens"
 		},
 		"description": {
-			"fr": "Éruption majeure aux États-Unis, étudiée par les volcanologues",
-			"en": "Major eruption in the United States, studied by volcanologists"
+			"en": "Major eruption in the United States, studied by volcanologists",
+			"fr": "Éruption majeure aux États-Unis, étudiée par les volcanologues"
 		},
 		"image": ""
 	},
@@ -920,12 +920,12 @@
 		"date": -2000000000,
 		"dateUncertainty": 500000000,
 		"name": {
-			"fr": "Supernova proche du système solaire",
-			"en": "Nearby supernova to the solar system"
+			"en": "Nearby supernova to the solar system",
+			"fr": "Supernova proche du système solaire"
 		},
 		"description": {
-			"fr": "Une supernova proche aurait pu affecter l'évolution de la vie primitive sur Terre",
-			"en": "A nearby supernova may have affected the evolution of primitive life on Earth"
+			"en": "A nearby supernova may have affected the evolution of primitive life on Earth",
+			"fr": "Une supernova proche aurait pu affecter l'évolution de la vie primitive sur Terre"
 		},
 		"image": ""
 	},
@@ -935,12 +935,12 @@
 		"date": -100000000,
 		"dateUncertainty": 20000000,
 		"name": {
-			"fr": "Supernova qui forme le nuage moléculaire local",
-			"en": "Supernova that forms the Local Molecular Cloud"
+			"en": "Supernova that forms the Local Molecular Cloud",
+			"fr": "Supernova qui forme le nuage moléculaire local"
 		},
 		"description": {
-			"fr": "Une supernova crée le nuage moléculaire dont notre système solaire est issu",
-			"en": "A supernova creates the molecular cloud from which our solar system originated"
+			"en": "A supernova creates the molecular cloud from which our solar system originated",
+			"fr": "Une supernova crée le nuage moléculaire dont notre système solaire est issu"
 		},
 		"image": ""
 	},
@@ -950,12 +950,12 @@
 		"date": -20000,
 		"dateUncertainty": 5000,
 		"name": {
-			"fr": "Supernova Vela",
-			"en": "Vela Supernova"
+			"en": "Vela Supernova",
+			"fr": "Supernova Vela"
 		},
 		"description": {
-			"fr": "Explosion d'une étoile massive qui forme le rémanent de la Vela",
-			"en": "Explosion of a massive star that forms the Vela remnant"
+			"en": "Explosion of a massive star that forms the Vela remnant",
+			"fr": "Explosion d'une étoile massive qui forme le rémanent de la Vela"
 		},
 		"image": ""
 	},
@@ -965,12 +965,12 @@
 		"date": -11000,
 		"dateUncertainty": 2000,
 		"name": {
-			"fr": "Supernova du Crabe",
-			"en": "Crab Supernova"
+			"en": "Crab Supernova",
+			"fr": "Supernova du Crabe"
 		},
 		"description": {
-			"fr": "Explosion observée par les astronomes chinois en 1054, forme la nébuleuse du Crabe",
-			"en": "Explosion observed by Chinese astronomers in 1054, forms the Crab Nebula"
+			"en": "Explosion observed by Chinese astronomers in 1054, forms the Crab Nebula",
+			"fr": "Explosion observée par les astronomes chinois en 1054, forme la nébuleuse du Crabe"
 		},
 		"image": ""
 	},
@@ -980,12 +980,12 @@
 		"date": 1006,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Supernova SN 1006",
-			"en": "Supernova SN 1006"
+			"en": "Supernova SN 1006",
+			"fr": "Supernova SN 1006"
 		},
 		"description": {
-			"fr": "La plus brillante supernova historique, visible en plein jour pendant 23 jours",
-			"en": "The brightest historical supernova, visible in daylight for 23 days"
+			"en": "The brightest historical supernova, visible in daylight for 23 days",
+			"fr": "La plus brillante supernova historique, visible en plein jour pendant 23 jours"
 		},
 		"image": ""
 	},
@@ -995,12 +995,12 @@
 		"date": 1054,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Supernova SN 1054",
-			"en": "Supernova SN 1054"
+			"en": "Supernova SN 1054",
+			"fr": "Supernova SN 1054"
 		},
 		"description": {
-			"fr": "Observée par les astronomes chinois et arabes, forme la nébuleuse du Crabe",
-			"en": "Observed by Chinese and Arabic astronomers, forms the Crab Nebula"
+			"en": "Observed by Chinese and Arabic astronomers, forms the Crab Nebula",
+			"fr": "Observée par les astronomes chinois et arabes, forme la nébuleuse du Crabe"
 		},
 		"image": ""
 	},
@@ -1010,12 +1010,12 @@
 		"date": 1181,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Supernova SN 1181",
-			"en": "Supernova SN 1181"
+			"en": "Supernova SN 1181",
+			"fr": "Supernova SN 1181"
 		},
 		"description": {
-			"fr": "Observée par les astronomes chinois et japonais",
-			"en": "Observed by Chinese and Japanese astronomers"
+			"en": "Observed by Chinese and Japanese astronomers",
+			"fr": "Observée par les astronomes chinois et japonais"
 		},
 		"image": ""
 	},
@@ -1025,12 +1025,12 @@
 		"date": 1572,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Supernova de Tycho",
-			"en": "Tycho's Supernova"
+			"en": "Tycho's Supernova",
+			"fr": "Supernova de Tycho"
 		},
 		"description": {
-			"fr": "Observée par Tycho Brahe, révolutionne l'astronomie en montrant que les étoiles peuvent changer",
-			"en": "Observed by Tycho Brahe, revolutionizes astronomy by showing that stars can change"
+			"en": "Observed by Tycho Brahe, revolutionizes astronomy by showing that stars can change",
+			"fr": "Observée par Tycho Brahe, révolutionne l'astronomie en montrant que les étoiles peuvent changer"
 		},
 		"image": ""
 	},
@@ -1040,12 +1040,12 @@
 		"date": 1604,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Supernova de Kepler",
-			"en": "Kepler's Supernova"
+			"en": "Kepler's Supernova",
+			"fr": "Supernova de Kepler"
 		},
 		"description": {
-			"fr": "Dernière supernova observée dans notre galaxie, étudiée par Johannes Kepler",
-			"en": "Last supernova observed in our galaxy, studied by Johannes Kepler"
+			"en": "Last supernova observed in our galaxy, studied by Johannes Kepler",
+			"fr": "Dernière supernova observée dans notre galaxie, étudiée par Johannes Kepler"
 		},
 		"image": ""
 	},
@@ -1055,12 +1055,12 @@
 		"date": 1987,
 		"dateUncertainty": 0,
 		"name": {
-			"fr": "Supernova SN 1987A",
-			"en": "Supernova SN 1987A"
+			"en": "Supernova SN 1987A",
+			"fr": "Supernova SN 1987A"
 		},
 		"description": {
-			"fr": "Première supernova moderne observée en détail, dans le Grand Nuage de Magellan",
-			"en": "First modern supernova observed in detail, in the Large Magellanic Cloud"
+			"en": "First modern supernova observed in detail, in the Large Magellanic Cloud",
+			"fr": "Première supernova moderne observée en détail, dans le Grand Nuage de Magellan"
 		},
 		"image": ""
 	}
