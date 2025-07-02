@@ -1,0 +1,28 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Event Handling and Overlap Detection
+
+## Event Positioning
+- Events should be positioned at their precise time points using `getEventPosition(event.date)`
+- Use `transform: translateX()` for consistent positioning with timeline ticks
+- Blue marker lines should align perfectly with timeline ticks (1px width for precision)
+
+## Overlap Detection
+- Implement automatic overlap detection for events that occur at similar time points
+- Use horizontal overlap detection based on event width (approximately 200px)
+- Stack overlapping events vertically with consistent spacing (25px between events)
+- Calculate Y positions recursively to handle multiple overlapping events
+
+## Event Styling
+- Use consistent event card styling with Tailwind classes
+- Blue marker lines should extend from timeline to event cards
+- Maintain proper z-index layering for overlapping events
+- Use French locale formatting for all year displays
+
+## Performance Considerations
+- Filter visible events based on viewport boundaries
+- Use efficient overlap detection algorithms
+- Avoid unnecessary re-renders with proper reactive statements
