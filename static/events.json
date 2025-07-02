@@ -2,8 +2,8 @@
 	{
 		"id": 1,
 		"parentPeriodId": 0,
-		"date": -13800000000,
-		"dateAbs": 0,
+		"date": -13787000000,
+		"dateUncertainty": 20000000,
 		"name": {
 			"fr": "Big-bang",
 			"en": "Big Bang"
@@ -18,7 +18,7 @@
 		"id": 2,
 		"parentPeriodId": 0,
 		"date": -4567000000,
-		"dateAbs": 9233000000,
+		"dateUncertainty": 50000000,
 		"name": {
 			"fr": "Formation du système solaire",
 			"en": "Formation of the solar system"
@@ -32,8 +32,8 @@
 	{
 		"id": 3,
 		"parentPeriodId": 0,
-		"date": -4560000000,
-		"dateAbs": 9240000000,
+		"date": -4540000000,
+		"dateUncertainty": 50000000,
 		"name": {
 			"fr": "Formation de la Terre",
 			"en": "Formation of Earth"
@@ -48,7 +48,7 @@
 		"id": 4,
 		"parentPeriodId": 0,
 		"date": -4533000000,
-		"dateAbs": 9267000000,
+		"dateUncertainty": 100000000,
 		"name": {
 			"fr": "Grande collision et formation de la Lune",
 			"en": "Giant Impact and Moon Formation"
@@ -62,8 +62,8 @@
 	{
 		"id": 5,
 		"parentPeriodId": 0,
-		"date": -3600000000,
-		"dateAbs": 10200000000,
+		"date": -3800000000,
+		"dateUncertainty": 200000000,
 		"name": {
 			"fr": "Apparition de la vie sur Terre",
 			"en": "Origin of Life on Earth"
@@ -78,14 +78,14 @@
 		"id": 6,
 		"parentPeriodId": 0,
 		"date": -542000000,
-		"dateAbs": 13258000000,
+		"dateUncertainty": 1000000,
 		"name": {
-			"fr": "Fin du Précambrien",
-			"en": "End of Precambrian"
+			"fr": "Explosion cambrienne",
+			"en": "Cambrian Explosion"
 		},
 		"description": {
-			"fr": "",
-			"en": ""
+			"fr": "Apparition soudaine de la plupart des phylums animaux modernes",
+			"en": "Sudden appearance of most modern animal phyla"
 		},
 		"image": ""
 	},
@@ -93,7 +93,7 @@
 		"id": 7,
 		"parentPeriodId": 0,
 		"date": -251000000,
-		"dateAbs": 13549000000,
+		"dateUncertainty": 1000000,
 		"name": {
 			"fr": "Extinction du Permien-Trias",
 			"en": "Permian-Triassic Extinction"
@@ -108,7 +108,7 @@
 		"id": 8,
 		"parentPeriodId": 0,
 		"date": -230000000,
-		"dateAbs": 13570000000,
+		"dateUncertainty": 10000000,
 		"name": {
 			"fr": "Premiers dinosaures",
 			"en": "First Dinosaurs"
@@ -123,7 +123,7 @@
 		"id": 9,
 		"parentPeriodId": 0,
 		"date": -11400,
-		"dateAbs": 13799988600,
+		"dateUncertainty": 1000,
 		"name": {
 			"fr": "Invention de l'agriculture en Occident",
 			"en": "Invention of Agriculture in the West"
@@ -138,7 +138,7 @@
 		"id": 11,
 		"parentPeriodId": 0,
 		"date": -3500,
-		"dateAbs": 13799996500,
+		"dateUncertainty": 500,
 		"name": {
 			"fr": "Invention de l'écriture en Mésopotamie",
 			"en": "Invention of Writing in Mesopotamia"
@@ -153,7 +153,7 @@
 		"id": 12,
 		"parentPeriodId": 0,
 		"date": -563,
-		"dateAbs": 13799999437,
+		"dateUncertainty": 50,
 		"name": {
 			"fr": "Naissance de Siddhārtha Gautama (Bouddha)",
 			"en": "Birth of Siddhartha Gautama (Buddha)"
@@ -168,7 +168,7 @@
 		"id": 13,
 		"parentPeriodId": 0,
 		"date": -5,
-		"dateAbs": 13799999995,
+		"dateUncertainty": 5,
 		"name": {
 			"fr": "Naissance de Jésus Christ",
 			"en": "Birth of Jesus Christ"
@@ -183,7 +183,7 @@
 		"id": 14,
 		"parentPeriodId": 0,
 		"date": 476,
-		"dateAbs": 13800000476,
+		"dateUncertainty": 10,
 		"name": {
 			"fr": "Chute de l'Empire Romain",
 			"en": "Fall of the Roman Empire"
@@ -198,7 +198,7 @@
 		"id": 15,
 		"parentPeriodId": 0,
 		"date": 570,
-		"dateAbs": 13800000570,
+		"dateUncertainty": 10,
 		"name": {
 			"fr": "Naissance de Mahomet à La Mecque",
 			"en": "Birth of Muhammad in Mecca"
@@ -213,7 +213,7 @@
 		"id": 16,
 		"parentPeriodId": 0,
 		"date": 632,
-		"dateAbs": 13800000632,
+		"dateUncertainty": 10,
 		"name": {
 			"fr": "Mort de Mahomet à Médine",
 			"en": "Death of Muhammad in Medina"
@@ -228,7 +228,7 @@
 		"id": 17,
 		"parentPeriodId": 0,
 		"date": 1492,
-		"dateAbs": 13800001492,
+		"dateUncertainty": 0,
 		"name": {
 			"fr": "Découverte de l'Amérique par Christophe Colomb",
 			"en": "Discovery of America by Christopher Columbus"
@@ -243,7 +243,7 @@
 		"id": 21,
 		"parentPeriodId": 0,
 		"date": -13200000000,
-		"dateAbs": 600000000,
+		"dateUncertainty": 1000000000,
 		"name": {
 			"fr": "Formation de la Voie Lactée, notre galaxie",
 			"en": "Formation of the Milky Way, our galaxy"
@@ -258,7 +258,7 @@
 		"id": 22,
 		"parentPeriodId": 0,
 		"date": -9006000000,
-		"dateAbs": 4794000000,
+		"dateUncertainty": 500000000,
 		"name": {
 			"fr": "Formation d'Andromède, la galaxie voisine de la nôtre",
 			"en": "Formation of Andromeda, our neighboring galaxy"
@@ -272,8 +272,8 @@
 	{
 		"id": 23,
 		"parentPeriodId": 0,
-		"date": -65000000,
-		"dateAbs": 13735000000,
+		"date": -66000000,
+		"dateUncertainty": 1000000,
 		"name": {
 			"fr": "Extinction Crétacé-Tertiaire",
 			"en": "Cretaceous-Tertiary Extinction"
@@ -288,7 +288,7 @@
 		"id": 24,
 		"parentPeriodId": 0,
 		"date": -600000000,
-		"dateAbs": 13200000000,
+		"dateUncertainty": 50000000,
 		"name": {
 			"fr": "Formation du paléocontinent disparu Gondwana",
 			"en": "Formation of the lost paleocontinent Gondwana"
@@ -303,7 +303,7 @@
 		"id": 25,
 		"parentPeriodId": 0,
 		"date": -160000000,
-		"dateAbs": 13640000000,
+		"dateUncertainty": 10000000,
 		"name": {
 			"fr": "Début de la fracturation du paléocontinent disparu Gondwana",
 			"en": "Beginning of the breakup of the lost paleocontinent Gondwana"
@@ -311,6 +311,756 @@
 		"description": {
 			"fr": "Le Gondwana est un supercontinent formé tout à la fin du Néoprotérozoïque. On distingue le Gondwana du Paléozoïque et celui du Mésozoïque. Entre les deux, le Gondwana a fait partie du supercontinent Pangée.",
 			"en": "Gondwana was a supercontinent formed at the very end of the Neoproterozoic. We distinguish between Paleozoic Gondwana and Mesozoic Gondwana. Between the two, Gondwana was part of the supercontinent Pangaea."
+		},
+		"image": ""
+	},
+	{
+		"id": 26,
+		"parentPeriodId": 0,
+		"date": -440000000,
+		"dateUncertainty": 5000000,
+		"name": {
+			"fr": "Premiers vertébrés terrestres",
+			"en": "First terrestrial vertebrates"
+		},
+		"description": {
+			"fr": "Les premiers tétrapodes sortent de l'eau et colonisent la terre ferme",
+			"en": "The first tetrapods emerge from water and colonize land"
+		},
+		"image": ""
+	},
+	{
+		"id": 27,
+		"parentPeriodId": 0,
+		"date": -300000000,
+		"dateUncertainty": 10000000,
+		"name": {
+			"fr": "Formation de la Pangée",
+			"en": "Formation of Pangaea"
+		},
+		"description": {
+			"fr": "Formation du supercontinent Pangée qui rassemble presque toutes les terres émergées",
+			"en": "Formation of the supercontinent Pangaea that brought together almost all landmasses"
+		},
+		"image": ""
+	},
+	{
+		"id": 28,
+		"parentPeriodId": 0,
+		"date": -200000000,
+		"dateUncertainty": 10000000,
+		"name": {
+			"fr": "Premiers mammifères",
+			"en": "First mammals"
+		},
+		"description": {
+			"fr": "Apparition des premiers mammifères pendant le Trias",
+			"en": "Appearance of the first mammals during the Triassic"
+		},
+		"image": ""
+	},
+	{
+		"id": 29,
+		"parentPeriodId": 0,
+		"date": -150000000,
+		"dateUncertainty": 5000000,
+		"name": {
+			"fr": "Premiers oiseaux",
+			"en": "First birds"
+		},
+		"description": {
+			"fr": "Archaeopteryx, le premier oiseau connu, apparaît pendant le Jurassique",
+			"en": "Archaeopteryx, the first known bird, appears during the Jurassic"
+		},
+		"image": ""
+	},
+	{
+		"id": 30,
+		"parentPeriodId": 0,
+		"date": -55000000,
+		"dateUncertainty": 5000000,
+		"name": {
+			"fr": "Premiers primates",
+			"en": "First primates"
+		},
+		"description": {
+			"fr": "Apparition des premiers primates, ancêtres des humains",
+			"en": "Appearance of the first primates, ancestors of humans"
+		},
+		"image": ""
+	},
+	{
+		"id": 31,
+		"parentPeriodId": 0,
+		"date": -7000000,
+		"dateUncertainty": 500000,
+		"name": {
+			"fr": "Séparation des hominidés et des chimpanzés",
+			"en": "Separation of hominids and chimpanzees"
+		},
+		"description": {
+			"fr": "Divergence évolutive entre les ancêtres des humains et des chimpanzés",
+			"en": "Evolutionary divergence between ancestors of humans and chimpanzees"
+		},
+		"image": ""
+	},
+	{
+		"id": 32,
+		"parentPeriodId": 0,
+		"date": -4000000,
+		"dateUncertainty": 500000,
+		"name": {
+			"fr": "Premiers hominidés bipèdes",
+			"en": "First bipedal hominids"
+		},
+		"description": {
+			"fr": "Australopithecus, les premiers hominidés à marcher debout",
+			"en": "Australopithecus, the first hominids to walk upright"
+		},
+		"image": ""
+	},
+	{
+		"id": 33,
+		"parentPeriodId": 0,
+		"date": -2500000,
+		"dateUncertainty": 200000,
+		"name": {
+			"fr": "Premiers outils en pierre",
+			"en": "First stone tools"
+		},
+		"description": {
+			"fr": "Invention des premiers outils en pierre taillée par Homo habilis",
+			"en": "Invention of the first stone tools by Homo habilis"
+		},
+		"image": ""
+	},
+	{
+		"id": 34,
+		"parentPeriodId": 0,
+		"date": -2000000,
+		"dateUncertainty": 200000,
+		"name": {
+			"fr": "Apparition d'Homo erectus",
+			"en": "Appearance of Homo erectus"
+		},
+		"description": {
+			"fr": "Premier hominidé à quitter l'Afrique et à maîtriser le feu",
+			"en": "First hominid to leave Africa and master fire"
+		},
+		"image": ""
+	},
+	{
+		"id": 35,
+		"parentPeriodId": 0,
+		"date": -300000,
+		"dateUncertainty": 50000,
+		"name": {
+			"fr": "Apparition d'Homo sapiens",
+			"en": "Appearance of Homo sapiens"
+		},
+		"description": {
+			"fr": "Émergence de notre espèce en Afrique",
+			"en": "Emergence of our species in Africa"
+		},
+		"image": ""
+	},
+	{
+		"id": 36,
+		"parentPeriodId": 0,
+		"date": -40000,
+		"dateUncertainty": 5000,
+		"name": {
+			"fr": "Premières peintures rupestres",
+			"en": "First cave paintings"
+		},
+		"description": {
+			"fr": "Art pariétal dans les grottes de Lascaux et Chauvet",
+			"en": "Cave art in Lascaux and Chauvet caves"
+		},
+		"image": ""
+	},
+	{
+		"id": 37,
+		"parentPeriodId": 0,
+		"date": -12000,
+		"dateUncertainty": 1000,
+		"name": {
+			"fr": "Fin de la dernière glaciation",
+			"en": "End of the last ice age"
+		},
+		"description": {
+			"fr": "Retrait des glaciers et réchauffement climatique",
+			"en": "Retreat of glaciers and climate warming"
+		},
+		"image": ""
+	},
+	{
+		"id": 38,
+		"parentPeriodId": 0,
+		"date": -8000,
+		"dateUncertainty": 1000,
+		"name": {
+			"fr": "Début de la révolution néolithique",
+			"en": "Beginning of the Neolithic Revolution"
+		},
+		"description": {
+			"fr": "Transition vers l'agriculture et la sédentarisation",
+			"en": "Transition to agriculture and sedentarization"
+		},
+		"image": ""
+	},
+	{
+		"id": 39,
+		"parentPeriodId": 0,
+		"date": -3000,
+		"dateUncertainty": 500,
+		"name": {
+			"fr": "Construction des pyramides d'Égypte",
+			"en": "Construction of Egyptian pyramids"
+		},
+		"description": {
+			"fr": "Édification des grandes pyramides de Gizeh",
+			"en": "Construction of the great pyramids of Giza"
+		},
+		"image": ""
+	},
+	{
+		"id": 40,
+		"parentPeriodId": 0,
+		"date": -776,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Premiers Jeux Olympiques",
+			"en": "First Olympic Games"
+		},
+		"description": {
+			"fr": "Premiers Jeux Olympiques antiques à Olympie",
+			"en": "First ancient Olympic Games at Olympia"
+		},
+		"image": ""
+	},
+	{
+		"id": 41,
+		"parentPeriodId": 0,
+		"date": -753,
+		"dateUncertainty": 10,
+		"name": {
+			"fr": "Fondation de Rome",
+			"en": "Foundation of Rome"
+		},
+		"description": {
+			"fr": "Fondation légendaire de la ville de Rome par Romulus",
+			"en": "Legendary foundation of the city of Rome by Romulus"
+		},
+		"image": ""
+	},
+	{
+		"id": 42,
+		"parentPeriodId": 0,
+		"date": -221,
+		"dateUncertainty": 10,
+		"name": {
+			"fr": "Unification de la Chine",
+			"en": "Unification of China"
+		},
+		"description": {
+			"fr": "Qin Shi Huang unifie la Chine et devient le premier empereur",
+			"en": "Qin Shi Huang unifies China and becomes the first emperor"
+		},
+		"image": ""
+	},
+	{
+		"id": 43,
+		"parentPeriodId": 0,
+		"date": 105,
+		"dateUncertainty": 10,
+		"name": {
+			"fr": "Invention du papier en Chine",
+			"en": "Invention of paper in China"
+		},
+		"description": {
+			"fr": "Cai Lun invente le papier moderne",
+			"en": "Cai Lun invents modern paper"
+		},
+		"image": ""
+	},
+	{
+		"id": 44,
+		"parentPeriodId": 0,
+		"date": 1455,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Invention de l'imprimerie par Gutenberg",
+			"en": "Gutenberg's invention of the printing press"
+		},
+		"description": {
+			"fr": "Première Bible imprimée avec des caractères mobiles",
+			"en": "First Bible printed with movable type"
+		},
+		"image": ""
+	},
+	{
+		"id": 45,
+		"parentPeriodId": 0,
+		"date": 1789,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Révolution française",
+			"en": "French Revolution"
+		},
+		"description": {
+			"fr": "Prise de la Bastille et début de la Révolution française",
+			"en": "Storming of the Bastille and beginning of the French Revolution"
+		},
+		"image": ""
+	},
+	{
+		"id": 46,
+		"parentPeriodId": 0,
+		"date": 1903,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Premier vol motorisé",
+			"en": "First powered flight"
+		},
+		"description": {
+			"fr": "Les frères Wright effectuent le premier vol motorisé contrôlé",
+			"en": "The Wright brothers make the first controlled powered flight"
+		},
+		"image": ""
+	},
+	{
+		"id": 47,
+		"parentPeriodId": 0,
+		"date": 1969,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Premier homme sur la Lune",
+			"en": "First man on the Moon"
+		},
+		"description": {
+			"fr": "Neil Armstrong marche sur la Lune lors de la mission Apollo 11",
+			"en": "Neil Armstrong walks on the Moon during the Apollo 11 mission"
+		},
+		"image": ""
+	},
+	{
+		"id": 48,
+		"parentPeriodId": 0,
+		"date": -252000000,
+		"dateUncertainty": 2000000,
+		"name": {
+			"fr": "Éruption des trapps de Sibérie",
+			"en": "Siberian Traps eruption"
+		},
+		"description": {
+			"fr": "Éruption volcanique massive qui cause l'extinction du Permien-Trias",
+			"en": "Massive volcanic eruption that causes the Permian-Triassic extinction"
+		},
+		"image": ""
+	},
+	{
+		"id": 49,
+		"parentPeriodId": 0,
+		"date": -201000000,
+		"dateUncertainty": 1000000,
+		"name": {
+			"fr": "Éruption des trapps de l'Atlantique central",
+			"en": "Central Atlantic Magmatic Province eruption"
+		},
+		"description": {
+			"fr": "Éruption volcanique massive qui cause l'extinction du Trias-Jurassique",
+			"en": "Massive volcanic eruption that causes the Triassic-Jurassic extinction"
+		},
+		"image": ""
+	},
+	{
+		"id": 50,
+		"parentPeriodId": 0,
+		"date": -180000000,
+		"dateUncertainty": 10000000,
+		"name": {
+			"fr": "Début de la fragmentation de la Pangée",
+			"en": "Beginning of Pangaea's breakup"
+		},
+		"description": {
+			"fr": "La Pangée commence à se fragmenter, séparant la Laurasie et le Gondwana",
+			"en": "Pangaea begins to break up, separating Laurasia and Gondwana"
+		},
+		"image": ""
+	},
+	{
+		"id": 51,
+		"parentPeriodId": 0,
+		"date": -135000000,
+		"dateUncertainty": 5000000,
+		"name": {
+			"fr": "Ouverture de l'océan Atlantique",
+			"en": "Opening of the Atlantic Ocean"
+		},
+		"description": {
+			"fr": "L'océan Atlantique commence à s'ouvrir entre l'Amérique et l'Afrique",
+			"en": "The Atlantic Ocean begins to open between America and Africa"
+		},
+		"image": ""
+	},
+	{
+		"id": 52,
+		"parentPeriodId": 0,
+		"date": -100000000,
+		"dateUncertainty": 10000000,
+		"name": {
+			"fr": "Formation de l'océan Indien",
+			"en": "Formation of the Indian Ocean"
+		},
+		"description": {
+			"fr": "L'Inde se sépare de l'Antarctique et commence sa dérive vers le nord",
+			"en": "India separates from Antarctica and begins its northward drift"
+		},
+		"image": ""
+	},
+	{
+		"id": 53,
+		"parentPeriodId": 0,
+		"date": -50000000,
+		"dateUncertainty": 5000000,
+		"name": {
+			"fr": "Collision de l'Inde avec l'Asie",
+			"en": "India's collision with Asia"
+		},
+		"description": {
+			"fr": "L'Inde entre en collision avec l'Asie, formant l'Himalaya",
+			"en": "India collides with Asia, forming the Himalayas"
+		},
+		"image": ""
+	},
+	{
+		"id": 54,
+		"parentPeriodId": 0,
+		"date": -34000000,
+		"dateUncertainty": 2000000,
+		"name": {
+			"fr": "Formation de l'Antarctique",
+			"en": "Formation of Antarctica"
+		},
+		"description": {
+			"fr": "L'Antarctique se sépare de l'Australie et devient un continent isolé",
+			"en": "Antarctica separates from Australia and becomes an isolated continent"
+		},
+		"image": ""
+	},
+	{
+		"id": 55,
+		"parentPeriodId": 0,
+		"date": -25000000,
+		"dateUncertainty": 5000000,
+		"name": {
+			"fr": "Formation de l'isthme de Panama",
+			"en": "Formation of the Isthmus of Panama"
+		},
+		"description": {
+			"fr": "L'Amérique du Nord et du Sud se rejoignent, modifiant les courants océaniques",
+			"en": "North and South America join, modifying ocean currents"
+		},
+		"image": ""
+	},
+	{
+		"id": 56,
+		"parentPeriodId": 0,
+		"date": -2000000,
+		"dateUncertainty": 500000,
+		"name": {
+			"fr": "Formation du Grand Canyon",
+			"en": "Formation of the Grand Canyon"
+		},
+		"description": {
+			"fr": "Début de l'érosion du Grand Canyon par le fleuve Colorado",
+			"en": "Beginning of Grand Canyon erosion by the Colorado River"
+		},
+		"image": ""
+	},
+	{
+		"id": 57,
+		"parentPeriodId": 0,
+		"date": -750000,
+		"dateUncertainty": 100000,
+		"name": {
+			"fr": "Éruption du supervolcan Toba",
+			"en": "Toba supervolcano eruption"
+		},
+		"description": {
+			"fr": "Une des plus grandes éruptions volcaniques de l'histoire, cause un hiver volcanique",
+			"en": "One of the largest volcanic eruptions in history, causing a volcanic winter"
+		},
+		"image": ""
+	},
+	{
+		"id": 58,
+		"parentPeriodId": 0,
+		"date": -39000,
+		"dateUncertainty": 2000,
+		"name": {
+			"fr": "Éruption du volcan Campi Flegrei",
+			"en": "Campi Flegrei volcano eruption"
+		},
+		"description": {
+			"fr": "Éruption majeure en Italie qui affecte le climat européen",
+			"en": "Major eruption in Italy that affects European climate"
+		},
+		"image": ""
+	},
+	{
+		"id": 59,
+		"parentPeriodId": 0,
+		"date": -12800,
+		"dateUncertainty": 300,
+		"name": {
+			"fr": "Début du Dryas récent",
+			"en": "Beginning of Younger Dryas"
+		},
+		"description": {
+			"fr": "Retour temporaire à des conditions glaciaires après le réchauffement",
+			"en": "Temporary return to glacial conditions after warming"
+		},
+		"image": ""
+	},
+	{
+		"id": 60,
+		"parentPeriodId": 0,
+		"date": -11600,
+		"dateUncertainty": 100,
+		"name": {
+			"fr": "Fin du Dryas récent",
+			"en": "End of Younger Dryas"
+		},
+		"description": {
+			"fr": "Réchauffement rapide qui marque le début de l'Holocène",
+			"en": "Rapid warming that marks the beginning of the Holocene"
+		},
+		"image": ""
+	},
+	{
+		"id": 61,
+		"parentPeriodId": 0,
+		"date": -5350,
+		"dateUncertainty": 100,
+		"name": {
+			"fr": "Éruption du volcan Hekla",
+			"en": "Hekla volcano eruption"
+		},
+		"description": {
+			"fr": "Éruption majeure en Islande qui affecte le climat global",
+			"en": "Major eruption in Iceland that affects global climate"
+		},
+		"image": ""
+	},
+	{
+		"id": 62,
+		"parentPeriodId": 0,
+		"date": -1628,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Éruption du volcan Santorin",
+			"en": "Santorini volcano eruption"
+		},
+		"description": {
+			"fr": "Éruption cataclysmique qui détruit la civilisation minoenne",
+			"en": "Cataclysmic eruption that destroys Minoan civilization"
+		},
+		"image": ""
+	},
+	{
+		"id": 63,
+		"parentPeriodId": 0,
+		"date": -79,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Éruption du Vésuve",
+			"en": "Mount Vesuvius eruption"
+		},
+		"description": {
+			"fr": "Éruption qui ensevelit Pompéi et Herculanum",
+			"en": "Eruption that buries Pompeii and Herculanum"
+		},
+		"image": ""
+	},
+	{
+		"id": 64,
+		"parentPeriodId": 0,
+		"date": 1883,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Éruption du Krakatoa",
+			"en": "Krakatoa eruption"
+		},
+		"description": {
+			"fr": "Une des plus violentes éruptions volcaniques de l'histoire moderne",
+			"en": "One of the most violent volcanic eruptions in modern history"
+		},
+		"image": ""
+	},
+	{
+		"id": 65,
+		"parentPeriodId": 0,
+		"date": 1980,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Éruption du Mont Saint Helens",
+			"en": "Mount St. Helens eruption"
+		},
+		"description": {
+			"fr": "Éruption majeure aux États-Unis, étudiée par les volcanologues",
+			"en": "Major eruption in the United States, studied by volcanologists"
+		},
+		"image": ""
+	},
+	{
+		"id": 66,
+		"parentPeriodId": 0,
+		"date": -2000000000,
+		"dateUncertainty": 500000000,
+		"name": {
+			"fr": "Supernova proche du système solaire",
+			"en": "Nearby supernova to the solar system"
+		},
+		"description": {
+			"fr": "Une supernova proche aurait pu affecter l'évolution de la vie primitive sur Terre",
+			"en": "A nearby supernova may have affected the evolution of primitive life on Earth"
+		},
+		"image": ""
+	},
+	{
+		"id": 67,
+		"parentPeriodId": 0,
+		"date": -100000000,
+		"dateUncertainty": 20000000,
+		"name": {
+			"fr": "Supernova qui forme le nuage moléculaire local",
+			"en": "Supernova that forms the Local Molecular Cloud"
+		},
+		"description": {
+			"fr": "Une supernova crée le nuage moléculaire dont notre système solaire est issu",
+			"en": "A supernova creates the molecular cloud from which our solar system originated"
+		},
+		"image": ""
+	},
+	{
+		"id": 68,
+		"parentPeriodId": 0,
+		"date": -20000,
+		"dateUncertainty": 5000,
+		"name": {
+			"fr": "Supernova Vela",
+			"en": "Vela Supernova"
+		},
+		"description": {
+			"fr": "Explosion d'une étoile massive qui forme le rémanent de la Vela",
+			"en": "Explosion of a massive star that forms the Vela remnant"
+		},
+		"image": ""
+	},
+	{
+		"id": 69,
+		"parentPeriodId": 0,
+		"date": -11000,
+		"dateUncertainty": 2000,
+		"name": {
+			"fr": "Supernova du Crabe",
+			"en": "Crab Supernova"
+		},
+		"description": {
+			"fr": "Explosion observée par les astronomes chinois en 1054, forme la nébuleuse du Crabe",
+			"en": "Explosion observed by Chinese astronomers in 1054, forms the Crab Nebula"
+		},
+		"image": ""
+	},
+	{
+		"id": 70,
+		"parentPeriodId": 0,
+		"date": 1006,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Supernova SN 1006",
+			"en": "Supernova SN 1006"
+		},
+		"description": {
+			"fr": "La plus brillante supernova historique, visible en plein jour pendant 23 jours",
+			"en": "The brightest historical supernova, visible in daylight for 23 days"
+		},
+		"image": ""
+	},
+	{
+		"id": 71,
+		"parentPeriodId": 0,
+		"date": 1054,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Supernova SN 1054",
+			"en": "Supernova SN 1054"
+		},
+		"description": {
+			"fr": "Observée par les astronomes chinois et arabes, forme la nébuleuse du Crabe",
+			"en": "Observed by Chinese and Arabic astronomers, forms the Crab Nebula"
+		},
+		"image": ""
+	},
+	{
+		"id": 72,
+		"parentPeriodId": 0,
+		"date": 1181,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Supernova SN 1181",
+			"en": "Supernova SN 1181"
+		},
+		"description": {
+			"fr": "Observée par les astronomes chinois et japonais",
+			"en": "Observed by Chinese and Japanese astronomers"
+		},
+		"image": ""
+	},
+	{
+		"id": 73,
+		"parentPeriodId": 0,
+		"date": 1572,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Supernova de Tycho",
+			"en": "Tycho's Supernova"
+		},
+		"description": {
+			"fr": "Observée par Tycho Brahe, révolutionne l'astronomie en montrant que les étoiles peuvent changer",
+			"en": "Observed by Tycho Brahe, revolutionizes astronomy by showing that stars can change"
+		},
+		"image": ""
+	},
+	{
+		"id": 74,
+		"parentPeriodId": 0,
+		"date": 1604,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Supernova de Kepler",
+			"en": "Kepler's Supernova"
+		},
+		"description": {
+			"fr": "Dernière supernova observée dans notre galaxie, étudiée par Johannes Kepler",
+			"en": "Last supernova observed in our galaxy, studied by Johannes Kepler"
+		},
+		"image": ""
+	},
+	{
+		"id": 75,
+		"parentPeriodId": 0,
+		"date": 1987,
+		"dateUncertainty": 0,
+		"name": {
+			"fr": "Supernova SN 1987A",
+			"en": "Supernova SN 1987A"
+		},
+		"description": {
+			"fr": "Première supernova moderne observée en détail, dans le Grand Nuage de Magellan",
+			"en": "First modern supernova observed in detail, in the Large Magellanic Cloud"
 		},
 		"image": ""
 	}

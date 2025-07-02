@@ -1,24 +1,5 @@
 [
 	{
-		"id": 0,
-		"parentPeriodId": null,
-		"hasChild": 1,
-		"start": -13798000000,
-		"end": 2015,
-		"startUncertainty": 37000000,
-		"duration": 13798002015,
-		"name": {
-			"fr": "UNIVERS",
-			"en": "UNIVERSE"
-		},
-		"description": {
-			"fr": "",
-			"en": ""
-		},
-		"color": "",
-		"image": null
-	},
-	{
 		"id": 1,
 		"parentPeriodId": 0,
 		"hasChild": 0,
