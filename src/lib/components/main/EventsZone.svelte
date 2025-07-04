@@ -52,34 +52,43 @@ function getEventPosition(eventDate: number): number {
 	return (eventDate - leftEdgeYear) / yearsPerPixel
 }
 
-// Simple overlap detection - stack events vertically when they overlap
-function getEventYPosition(eventDate: number, eventIndex: number): number {
+// Efficient overlap detection - stack events vertically when they overlap
+// Pre-calculate all event positions to avoid recursive calls
+const eventPositions = $derived(() => {
+	const positions: { x: number; y: number }[] = []
 	const baseY = 20
 	const eventHeight = 80
 	const verticalSpacing = 25
 	
-	let maxY = baseY
-	
-	// Check if this event overlaps with any previous events
-	for (let i = 0; i < eventIndex; i++) {
-		const prevEvent = visibleEvents[i]
-		const prevX = getEventPosition(prevEvent.date)
-		const prevY = getEventYPosition(prevEvent.date, i)
-		const currentX = getEventPosition(eventDate)
+	visibleEvents.forEach((event, index) => {
+		const currentX = getEventPosition(event.date)
+		let maxY = baseY
 		
-		// Check for horizontal overlap (approximate event width of 200px)
-		const horizontalOverlap = 
-			currentX < prevX + 200 + verticalSpacing &&
-			currentX + 200 + verticalSpacing > prevX
-		
-		if (horizontalOverlap) {
-			// Stack this event above the overlapping event
-			const stackY = prevY + eventHeight + verticalSpacing
-			maxY = Math.max(maxY, stackY)
+		// Check if this event overlaps with any previous events
+		for (let i = 0; i < index; i++) {
+			const prevX = positions[i].x
+			const prevY = positions[i].y
+			
+			// Check for horizontal overlap (approximate event width of 200px)
+			const horizontalOverlap = 
+				currentX < prevX + 200 + verticalSpacing &&
+				currentX + 200 + verticalSpacing > prevX
+			
+			if (horizontalOverlap) {
+				// Stack this event above the overlapping event
+				const stackY = prevY + eventHeight + verticalSpacing
+				maxY = Math.max(maxY, stackY)
+			}
 		}
-	}
+		
+		positions.push({ x: currentX, y: maxY })
+	})
 	
-	return maxY
+	return positions
+})
+
+function getEventYPosition(eventIndex: number): number {
+	return eventPositions()[eventIndex]?.y ?? 20
 }
 </script>
 
@@ -95,7 +104,7 @@ function getEventYPosition(eventDate: number, eventIndex: number): number {
 		{#each visibleEvents as event, index}
 			<div 
 				class="absolute bg-white rounded-lg shadow-lg p-4 max-w-xs border border-gray-200 hover:shadow-xl transition-shadow cursor-pointer z-10"
-				style="transform: translateX({getEventPosition(event.date)}px); bottom: {getEventYPosition(event.date, index)}px;"
+				style="transform: translateX({getEventPosition(event.date)}px); bottom: {getEventYPosition(index)}px;"
 			>
 				<div class="font-semibold text-sm text-gray-800 mb-1">
 					{event.name.fr}
@@ -109,7 +118,7 @@ function getEventYPosition(eventDate: number, eventIndex: number): number {
 					</div>
 				{/if}
 				<!-- Event marker line -->
-				<div class="absolute bottom-0 left-0 translate-y-full w-px bg-blue-500" style="height: {getEventYPosition(event.date, index) + 8}px;"></div>
+				<div class="absolute bottom-0 left-0 translate-y-full w-px bg-blue-500" style="height: {getEventYPosition(index) + 8}px;"></div>
 			</div>
 		{/each}
 	{/if}
