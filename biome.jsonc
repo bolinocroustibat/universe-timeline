@@ -2,6 +2,7 @@
 	// Biome configuration for SvelteKit project
 	// Svelte files require special overrides due to partial support in Biome
 	// See: https://biomejs.dev/internals/language-support/#html-super-languages-support
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"javascript": {
 		"formatter": {
 			"semicolons": "asNeeded"
