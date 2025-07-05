@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Event } from "$lib/types"
+import type { Event, Period } from "$lib/types"
 import { formatYear } from "$lib/utils/formatters"
 import { onMount } from "svelte"
 
@@ -21,20 +21,31 @@ let {
 	rightEdgeYear,
 }: Props = $props()
 
-// Load events from JSON file
+// Load events and periods from JSON files
 let events: Event[] = $state([])
+let periods: Period[] = $state([])
 let isLoading = $state(true)
 
-// Load events on component mount
+// Load events and periods on component mount
 onMount(async () => {
 	try {
-		const response = await fetch("/events.json")
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`)
+		// Load both events and periods in parallel
+		const [eventsResponse, periodsResponse] = await Promise.all([
+			fetch("/events.json"),
+			fetch("/periods.json")
+		])
+		
+		if (!eventsResponse.ok) {
+			throw new Error(`HTTP error! status: ${eventsResponse.status}`)
 		}
-		events = await response.json()
+		if (!periodsResponse.ok) {
+			throw new Error(`HTTP error! status: ${periodsResponse.status}`)
+		}
+		
+		events = await eventsResponse.json()
+		periods = await periodsResponse.json()
 	} catch (error) {
-		console.error("EventsZone: Failed to load events:", error)
+		console.error("EventsZone: Failed to load data:", error)
 	} finally {
 		isLoading = false
 	}
