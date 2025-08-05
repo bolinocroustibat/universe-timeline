@@ -1,5 +1,6 @@
 <script lang="ts">
 import { formatYear } from "$lib/utils/formatters"
+import { currentLanguage } from "$lib/stores/languageStore"
 
 interface Props {
 	zoomLevel: number
@@ -39,12 +40,12 @@ let {
 }: Props = $props()
 </script>
 
-<div class="fixed top-4 right-4 bg-black/80 text-white p-4 rounded-lg space-y-3 font-mono text-sm max-w-xs z-[9999]">
+<div class="fixed top-20 left-4 bg-black/90 text-white p-4 rounded-lg space-y-3 font-mono text-sm max-w-xs z-[9999]">
 	<!-- Zoom & Scale Information -->
 	<div class="space-y-1">
 		<div class="text-blue-400 font-semibold border-b border-gray-600 pb-1">Zoom & Scale</div>
 		<div>Level: {zoomLevel}</div>
-		<div>Viewport span: {formatYear(viewportYearSpan)} years</div>
+		<div>Viewport span: {formatYear(viewportYearSpan, $currentLanguage)} years</div>
 		<div>Years/px: {yearsPerPixel.toFixed(2)}</div>
 	</div>
 
@@ -52,22 +53,22 @@ let {
 	<div class="space-y-1">
 		<div class="text-green-400 font-semibold border-b border-gray-600 pb-1">Viewport</div>
 		<div>Width: {viewportWidth}px</div>
-		<div>Center: {formatYear(centerYear)}</div>
-		<div>Left edge: {formatYear(leftEdgeYear)}</div>
-		<div>Right edge: {formatYear(rightEdgeYear)}</div>
+		<div>Center: {formatYear(centerYear, $currentLanguage)}</div>
+		<div>Left edge: {formatYear(leftEdgeYear, $currentLanguage)}</div>
+		<div>Right edge: {formatYear(rightEdgeYear, $currentLanguage)}</div>
 	</div>
 
 	<!-- Tick Information -->
 	<div class="space-y-1">
 		<div class="text-yellow-400 font-semibold border-b border-gray-600 pb-1">Tick Intervals</div>
-		<div>Major: {formatYear(majorTickInterval)}</div>
-		<div>Minor: {formatYear(minorTickInterval)}</div>
+		<div>Major: {formatYear(majorTickInterval, $currentLanguage)}</div>
+		<div>Minor: {formatYear(minorTickInterval, $currentLanguage)}</div>
 	</div>
 
 	<!-- Technical Details -->
 	<div class="space-y-1">
 		<div class="text-purple-400 font-semibold border-b border-gray-600 pb-1">Technical</div>
-		<div class="text-xs">Left offset: {formatYear(leftEdgeYearOffset)}</div>
+		<div class="text-xs">Left offset: {formatYear(leftEdgeYearOffset, $currentLanguage)}</div>
 	</div>
 
 	<!-- Events Information -->

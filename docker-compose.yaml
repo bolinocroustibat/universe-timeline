@@ -39,4 +39,3 @@ services:
     environment:
       - VITE_ENV=${VITE_ENV}
       - PUBLIC_DEBUG=${PUBLIC_DEBUG:-false}
-      - LOCALE=${LOCALE}

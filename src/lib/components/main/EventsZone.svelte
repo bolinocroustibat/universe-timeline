@@ -2,6 +2,7 @@
 import type { Event, Period } from "$lib/types"
 import { formatYear } from "$lib/utils/formatters"
 import { onMount } from "svelte"
+import { currentLanguage } from "$lib/stores/languageStore"
 
 interface Props {
 	zoomLevel: number
@@ -101,6 +102,9 @@ const eventPositions = $derived(() => {
 function getEventYPosition(eventIndex: number): number {
 	return eventPositions()[eventIndex]?.y ?? 20
 }
+
+// Get current language
+const language = $derived($currentLanguage)
 </script>
 
 <div class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden relative">
@@ -118,14 +122,14 @@ function getEventYPosition(eventIndex: number): number {
 				style="transform: translateX({getEventPosition(event.date)}px); bottom: {getEventYPosition(index)}px;"
 			>
 				<div class="font-semibold text-sm text-gray-800 mb-1">
-					{event.name.fr}
+					{event.name[language]}
 				</div>
 				<div class="text-xs text-blue-600 font-medium mb-2">
-					{formatYear(event.date, "fr")}
+					{formatYear(event.date, language)}
 				</div>
-				{#if event.description.fr}
+				{#if event.description[language]}
 					<div class="text-xs text-gray-600 leading-relaxed">
-						{event.description.fr}
+						{event.description[language]}
 					</div>
 				{/if}
 				<!-- Event marker line -->
