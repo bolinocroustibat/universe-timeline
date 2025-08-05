@@ -62,11 +62,6 @@ const visibleEvents = $derived(
 	}),
 )
 
-// Calculate event position within the viewport
-function getEventPosition(eventDate: number): number {
-	return (eventDate - leftEdgeYear) / yearsPerPixel
-}
-
 // Efficient overlap detection - stack events vertically when they overlap
 // Pre-calculate all event positions to avoid recursive calls
 const eventPositions = $derived(() => {
@@ -76,7 +71,7 @@ const eventPositions = $derived(() => {
 	const verticalSpacing = 25
 	
 	visibleEvents.forEach((event, index) => {
-		const currentX = getEventPosition(event.date)
+		const currentX = (event.date - leftEdgeYear) / yearsPerPixel
 		let maxY = baseY
 		
 		// Check if this event overlaps with any previous events
@@ -107,8 +102,9 @@ function getEventYPosition(eventIndex: number): number {
 }
 
 // Handle card click to bring it to top
-function handleCardClick(event: CustomEvent) {
-	topCardIndex = event.detail.index
+function handleCardClick(eventId: number, index: number) {
+	console.log('EventsZone: Card clicked, setting topCardIndex to:', index)
+	topCardIndex = index
 }
 
 // Get current language
@@ -127,11 +123,12 @@ const language = $derived($currentLanguage)
 		{#each visibleEvents as event, index}
 			<EventCard 
 				event={event}
-				xPosition={getEventPosition(event.date)}
+				leftEdgeYear={leftEdgeYear}
+				yearsPerPixel={yearsPerPixel}
 				yPosition={getEventYPosition(index)}
 				index={index}
 				isTopCard={topCardIndex === index}
-				on:cardClick={handleCardClick}
+				onCardClick={handleCardClick}
 			/>
 		{/each}
 	{/if}
