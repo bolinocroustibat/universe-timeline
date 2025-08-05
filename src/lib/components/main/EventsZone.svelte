@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { Event, Period } from "$lib/types"
-import { formatYear } from "$lib/utils/formatters"
 import { onMount } from "svelte"
 import { currentLanguage } from "$lib/stores/languageStore"
+import EventCard from "./EventCard.svelte"
 
 interface Props {
 	zoomLevel: number
@@ -115,26 +115,14 @@ const language = $derived($currentLanguage)
 			<div class="text-gray-500">Loading events...</div>
 		</div>
 	{:else}
-		<!-- Events will be rendered here -->
+		<!-- Events are rendered here -->
 		{#each visibleEvents as event, index}
-			<div 
-				class="absolute bg-white rounded-lg shadow-lg p-4 max-w-xs border border-gray-200 hover:shadow-xl transition-shadow cursor-pointer z-10"
-				style="transform: translateX({getEventPosition(event.date)}px); bottom: {getEventYPosition(index)}px;"
-			>
-				<div class="font-semibold text-sm text-gray-800 mb-1">
-					{event.name[language]}
-				</div>
-				<div class="text-xs text-blue-600 font-medium mb-2">
-					{formatYear(event.date, language)}
-				</div>
-				{#if event.description[language]}
-					<div class="text-xs text-gray-600 leading-relaxed">
-						{event.description[language]}
-					</div>
-				{/if}
-				<!-- Event marker line -->
-				<div class="absolute bottom-0 left-0 translate-y-full w-px bg-blue-500" style="height: {getEventYPosition(index) + 8}px;"></div>
-			</div>
+			<EventCard 
+				{event}
+				xPosition={getEventPosition(event.date)}
+				yPosition={getEventYPosition(index)}
+				markerHeight={getEventYPosition(index) + 8}
+			/>
 		{/each}
 	{/if}
 	
