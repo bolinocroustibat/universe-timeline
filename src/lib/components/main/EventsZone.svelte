@@ -27,6 +27,9 @@ let events: Event[] = $state([])
 let periods: Period[] = $state([])
 let isLoading = $state(true)
 
+// Track which card is on top
+let topCardIndex = $state<number | null>(null)
+
 // Load events and periods on component mount
 onMount(async () => {
 	try {
@@ -103,6 +106,11 @@ function getEventYPosition(eventIndex: number): number {
 	return eventPositions()[eventIndex]?.y ?? 20
 }
 
+// Handle card click to bring it to top
+function handleCardClick(event: CustomEvent) {
+	topCardIndex = event.detail.index
+}
+
 // Get current language
 const language = $derived($currentLanguage)
 </script>
@@ -118,10 +126,12 @@ const language = $derived($currentLanguage)
 		<!-- Events are rendered here -->
 		{#each visibleEvents as event, index}
 			<EventCard 
-				{event}
+				event={event}
 				xPosition={getEventPosition(event.date)}
 				yPosition={getEventYPosition(index)}
-				markerHeight={getEventYPosition(index) + 8}
+				index={index}
+				isTopCard={topCardIndex === index}
+				on:cardClick={handleCardClick}
 			/>
 		{/each}
 	{/if}
