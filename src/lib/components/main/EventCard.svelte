@@ -3,17 +3,20 @@ import type { Event } from "$lib/types"
 import { formatYear } from "$lib/utils/formatters"
 import { currentLanguage } from "$lib/stores/languageStore"
 
+const CARD_WIDTH = 200 // Width of event cards in pixels
+
 interface Props {
 	event: Event
 	leftEdgeYear: number
 	yearsPerPixel: number
+	viewportWidth: number
 	yPosition: number
 	index: number
 	isTopCard: boolean
 	onCardClick: (eventId: number, index: number) => void
 }
 
-let { event, leftEdgeYear, yearsPerPixel, yPosition, index, isTopCard, onCardClick }: Props = $props()
+let { event, leftEdgeYear, yearsPerPixel, viewportWidth, yPosition, index, isTopCard, onCardClick }: Props = $props()
 
 // Get current language
 const language = $derived($currentLanguage)
@@ -21,9 +24,29 @@ const language = $derived($currentLanguage)
 // Calculate z-index: base z-index + index, with clicked cards on top
 const zIndex = $derived(isTopCard ? 1000 : 10 + index)
 
-// Calculate event X position within the viewport
+// Calculate event X position within the viewport (for marker line)
 function getEventXPosition(eventDate: number): number {
 	return (eventDate - leftEdgeYear) / yearsPerPixel
+}
+
+// Calculate event card X position
+function getEventCardXPosition(markerXPosition: number): number {
+	const padding = 20 // Padding from edges
+	
+	// Center the card on the marker line
+	let cardX = markerXPosition - (CARD_WIDTH / 2)
+	
+	// Prevent card from going off the left edge
+	if (cardX < padding) {
+		cardX = padding
+	}
+	
+	// Prevent card from going off the right edge
+	if (cardX + CARD_WIDTH > viewportWidth - padding) {
+		cardX = viewportWidth - CARD_WIDTH - padding
+	}
+	
+	return cardX
 }
 
 function handleClick() {
@@ -40,8 +63,8 @@ function handleClick() {
 
 <!-- Event card -->
 <div 
-	class="absolute bg-white rounded-lg shadow-lg p-4 max-w-xs border border-gray-200 hover:shadow-xl transition-shadow cursor-pointer"
-	style="transform: translateX({getEventXPosition(event.date)}px); bottom: {yPosition}px; z-index: {zIndex};"
+	class="absolute bg-white rounded-lg shadow-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow cursor-pointer"
+	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px); bottom: {yPosition}px; z-index: {zIndex}; width: {CARD_WIDTH}px;"
 	onclick={handleClick}
 	tabindex="0"
 >

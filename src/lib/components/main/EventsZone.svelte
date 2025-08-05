@@ -125,6 +125,7 @@ const language = $derived($currentLanguage)
 				event={event}
 				leftEdgeYear={leftEdgeYear}
 				yearsPerPixel={yearsPerPixel}
+				viewportWidth={viewportWidth}
 				yPosition={getEventYPosition(index)}
 				index={index}
 				isTopCard={topCardIndex === index}
@@ -132,6 +133,5 @@ const language = $derived($currentLanguage)
 			/>
 		{/each}
 	{/if}
-	
 
 </div>
