@@ -200,8 +200,6 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 	class="flex-1 w-full overflow-hidden flex flex-col"
 	onwheel={handleWheel}
 >
-
-	
 	{#if env.PUBLIC_DEBUG === "true"}
 		<DebugInfo
 			zoomLevel={$zoomLevel}
