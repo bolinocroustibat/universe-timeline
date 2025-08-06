@@ -1,5 +1,5 @@
 <script lang="ts">
-import { formatYear } from "$lib/utils/formatters"
+import { formatYear, formatLargeNumber } from "$lib/utils/formatters"
 import { currentLanguage } from "$lib/stores/languageStore"
 
 interface Props {
@@ -48,7 +48,7 @@ function closeDebugInfo() {
 </script>
 
 {#if isVisible}
-	<div class="absolute top-20 left-4 bg-black/90 text-white p-4 rounded-lg space-y-3 font-mono text-sm max-w-xs z-[9999]">
+	<div class="absolute top-20 left-4 bg-black/90 text-white p-4 rounded-lg space-y-3 font-mono text-xs max-w-xs z-[9999]">
 		<!-- Close button -->
 		<button
 			onclick={closeDebugInfo}
@@ -64,7 +64,7 @@ function closeDebugInfo() {
 		<div class="space-y-1">
 			<div class="text-blue-400 font-semibold border-b border-gray-600 pb-1">Zoom & Scale</div>
 			<div>Level: {zoomLevel}</div>
-			<div>Viewport span: {formatYear(viewportYearSpan, $currentLanguage)} years</div>
+			<div>Viewport span: {formatLargeNumber(viewportYearSpan, $currentLanguage)} years</div>
 			<div>Years/px: {yearsPerPixel.toFixed(2)}</div>
 		</div>
 
@@ -80,14 +80,14 @@ function closeDebugInfo() {
 		<!-- Tick Information -->
 		<div class="space-y-1">
 			<div class="text-yellow-400 font-semibold border-b border-gray-600 pb-1">Tick Intervals</div>
-			<div>Major: {formatYear(majorTickInterval, $currentLanguage)}</div>
-			<div>Minor: {formatYear(minorTickInterval, $currentLanguage)}</div>
+			<div>Major: {formatLargeNumber(majorTickInterval, $currentLanguage)} years</div>
+			<div>Minor: {formatLargeNumber(minorTickInterval, $currentLanguage)} years</div>
 		</div>
 
 		<!-- Technical Details -->
 		<div class="space-y-1">
 			<div class="text-purple-400 font-semibold border-b border-gray-600 pb-1">Technical</div>
-			<div class="text-xs">Left offset: {formatYear(leftEdgeYearOffset, $currentLanguage)}</div>
+			<div>Left offset: {formatLargeNumber(leftEdgeYearOffset, $currentLanguage)} years</div>
 		</div>
 
 		<!-- Events Information -->
