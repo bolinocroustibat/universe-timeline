@@ -15,10 +15,6 @@ interface Props {
 	centerYear: number
 	isPastPresent: boolean
 	isBeforeStart: boolean
-	// Event-related debug info
-	totalEvents: number
-	visibleEvents: number
-	isLoadingEvents: boolean
 }
 
 let {
@@ -34,9 +30,6 @@ let {
 	centerYear,
 	isPastPresent,
 	isBeforeStart,
-	totalEvents,
-	visibleEvents,
-	isLoadingEvents,
 }: Props = $props()
 
 // State to control visibility
@@ -88,16 +81,6 @@ function closeDebugInfo() {
 		<div class="space-y-1">
 			<div class="text-purple-400 font-semibold border-b border-gray-600 pb-1">Technical</div>
 			<div>Left offset: {formatLargeNumber(leftEdgeYearOffset, $currentLanguage)} years</div>
-		</div>
-
-		<!-- Events Information -->
-		<div class="space-y-1">
-			<div class="text-orange-400 font-semibold border-b border-gray-600 pb-1">Events</div>
-			<div>Total: {totalEvents}</div>
-			<div>Visible: {visibleEvents}</div>
-			<div class={isLoadingEvents ? "text-yellow-400" : "text-green-400"}>
-				Loading: {isLoadingEvents ? "YES" : "NO"}
-			</div>
 		</div>
 
 		<!-- Boundary Status -->

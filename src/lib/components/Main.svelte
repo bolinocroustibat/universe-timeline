@@ -214,9 +214,6 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 			{centerYear}
 			isPastPresent={rightEdgeYear > TIME_CONSTANTS.END_YEAR}
 			isBeforeStart={leftEdgeYear < TIME_CONSTANTS.START_YEAR}
-			totalEvents={0}
-			visibleEvents={0}
-			isLoadingEvents={false}
 		/>
 	{/if}
 
