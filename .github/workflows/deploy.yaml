@@ -84,11 +84,11 @@ jobs:
               rm -rf temp_repo
             fi
 
+            # Set Docker image variables first
+            export TAG="${{ github.ref_name }}"
+
             # Login to GitHub Container Registry
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-
-            # Set Docker image variables
-            export TAG="${{ github.ref_name }}"
 
             # Pull the new Docker images and restart services
             docker compose pull
