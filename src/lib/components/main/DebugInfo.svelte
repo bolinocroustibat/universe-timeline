@@ -1,6 +1,6 @@
 <script lang="ts">
 import { formatDate, formatLargeNumber } from "$lib/utils/formatters"
-import { currentLanguage } from "$lib/stores/languageStore"
+	import { currentLocale } from "$lib/stores/localeStore"
 
 interface Props {
 	zoomLevel: number
@@ -57,7 +57,7 @@ function closeDebugInfo() {
 		<div class="space-y-1">
 			<div class="text-blue-400 font-semibold border-b border-gray-600 pb-1">Zoom & Scale</div>
 			<div>Level: {zoomLevel}</div>
-			<div>Viewport span: {formatLargeNumber(viewportYearSpan, $currentLanguage)} years</div>
+			<div>Viewport span: {formatLargeNumber(viewportYearSpan, $currentLocale)} years</div>
 			<div>Years/px: {yearsPerPixel.toFixed(2)}</div>
 		</div>
 
@@ -65,22 +65,22 @@ function closeDebugInfo() {
 		<div class="space-y-1">
 			<div class="text-green-400 font-semibold border-b border-gray-600 pb-1">Viewport</div>
 			<div>Width: {viewportWidth}px</div>
-			<div>Center: {formatDate(centerYear, $currentLanguage)}</div>
-			<div>Left edge: {formatDate(leftEdgeYear, $currentLanguage)}</div>
-			<div>Right edge: {formatDate(rightEdgeYear, $currentLanguage)}</div>
+			<div>Center: {formatDate(centerYear, $currentLocale)}</div>
+			<div>Left edge: {formatDate(leftEdgeYear, $currentLocale)}</div>
+			<div>Right edge: {formatDate(rightEdgeYear, $currentLocale)}</div>
 		</div>
 
 		<!-- Tick Information -->
 		<div class="space-y-1">
 			<div class="text-yellow-400 font-semibold border-b border-gray-600 pb-1">Tick Intervals</div>
-			<div>Major: {formatLargeNumber(majorTickInterval, $currentLanguage)} years</div>
-			<div>Minor: {formatLargeNumber(minorTickInterval, $currentLanguage)} years</div>
+			<div>Major: {formatLargeNumber(majorTickInterval, $currentLocale)} years</div>
+			<div>Minor: {formatLargeNumber(minorTickInterval, $currentLocale)} years</div>
 		</div>
 
 		<!-- Technical Details -->
 		<div class="space-y-1">
 			<div class="text-purple-400 font-semibold border-b border-gray-600 pb-1">Technical</div>
-			<div>Left offset: {formatLargeNumber(leftEdgeYearOffset, $currentLanguage)} years</div>
+			<div>Left offset: {formatLargeNumber(leftEdgeYearOffset, $currentLocale)} years</div>
 		</div>
 
 		<!-- Boundary Status -->

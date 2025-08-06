@@ -2,7 +2,7 @@
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import type { TimelineTick } from "$lib/types"
 import { formatDate } from "$lib/utils/formatters"
-import { currentLanguage } from "$lib/stores/languageStore"
+import { currentLocale } from "$lib/stores/localeStore"
 
 interface Props {
 	zoomLevel: number
@@ -113,7 +113,7 @@ const visibleMinorTicks: TimelineTick[] = $derived(
 		>
 			<div class="h-2/3 w-px bg-gray-400"></div>
 			<span class="text-xs text-gray-600 mt-1 text-center whitespace-nowrap -ml-1/2">
-				{formatDate(tick.year, $currentLanguage, majorTickInterval)}
+				{formatDate(tick.year, $currentLocale, majorTickInterval)}
 			</span>
 		</div>
 	{/each}

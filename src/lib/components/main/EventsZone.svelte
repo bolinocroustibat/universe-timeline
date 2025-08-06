@@ -1,7 +1,6 @@
 <script lang="ts">
 import type { Event, Period } from "$lib/types"
 import { onMount } from "svelte"
-import { currentLanguage } from "$lib/stores/languageStore"
 import EventCard from "./EventCard.svelte"
 
 interface Props {
@@ -106,9 +105,6 @@ function handleCardClick(eventId: number, index: number) {
 	console.log('EventsZone: Card clicked, setting topCardIndex to:', index)
 	topCardIndex = index
 }
-
-// Get current language
-const language = $derived($currentLanguage)
 </script>
 
 <div class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden relative">

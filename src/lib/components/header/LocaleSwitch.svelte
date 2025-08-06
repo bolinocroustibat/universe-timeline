@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { currentLanguage, getLanguageFlag, getLanguageName } from '$lib/stores/languageStore'
+	import { currentLocale, getLocaleFlag, getLocaleName } from '$lib/stores/localeStore'
 	import type { SupportedLocales } from '$lib/types'
 
 	let isOpen = $state(false)
 	let dropdownRef: HTMLDivElement | undefined
 
-	const languages: SupportedLocales[] = ['en', 'fr']
+	const locales: SupportedLocales[] = ['en', 'fr']
 
 	function toggleDropdown() {
 		isOpen = !isOpen
 	}
 
-	function selectLanguage(language: SupportedLocales) {
-		$currentLanguage = language
+	function selectLocale(locale: SupportedLocales) {
+		$currentLocale = locale
 		isOpen = false
 	}
 
@@ -34,14 +34,13 @@
 </script>
 
 <div class="relative" bind:this={dropdownRef}>
-	<!-- Language Button -->
+	<!-- Locale Button -->
 	<button
 		onclick={toggleDropdown}
 		class="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-zinc-400 hover:text-white hover:bg-gray-800 rounded-md transition-colors duration-200"
-		aria-label="Select language"
+		aria-label="Select locale"
 	>
-		<span class="text-lg">{getLanguageFlag($currentLanguage)}</span>
-		<span class="hidden sm:inline">{getLanguageName($currentLanguage)}</span>
+		<span class="text-lg">{getLocaleFlag($currentLocale)}</span>
 		<svg
 			class="w-4 h-4 transition-transform duration-200 {isOpen ? 'rotate-180' : ''}"
 			fill="none"
@@ -55,18 +54,18 @@
 	<!-- Dropdown Menu -->
 	{#if isOpen}
 		<div
-			class="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-md shadow-lg z-50"
+			class="absolute right-0 mt-2 w-16 bg-gray-900 border border-gray-700 rounded-md shadow-lg z-50"
 		>
 			<div class="py-1">
-				{#each languages as language}
+				{#each locales as locale}
 					<button
-						onclick={() => selectLanguage(language)}
-						class="w-full flex items-center space-x-3 px-4 py-2 text-sm text-zinc-400 hover:text-white hover:bg-gray-800 transition-colors duration-200 {language === $currentLanguage ? 'bg-gray-800 text-white' : ''}"
+						onclick={() => selectLocale(locale)}
+						class="w-full flex items-center justify-center px-4 py-2 text-sm text-zinc-400 hover:text-white hover:bg-gray-800 transition-colors duration-200 {locale === $currentLocale ? 'bg-gray-800 text-white' : ''}"
+						aria-label="Switch to {getLocaleName(locale)}"
 					>
-						<span class="text-lg">{getLanguageFlag(language)}</span>
-						<span>{getLanguageName(language)}</span>
-						{#if language === $currentLanguage}
-							<svg class="w-4 h-4 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+						<span class="text-lg">{getLocaleFlag(locale)}</span>
+						{#if locale === $currentLocale}
+							<svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
 								<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
 							</svg>
 						{/if}

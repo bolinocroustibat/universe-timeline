@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Event } from "$lib/types"
 import { formatDate } from "$lib/utils/formatters"
-import { currentLanguage } from "$lib/stores/languageStore"
+import { currentLocale } from "$lib/stores/localeStore"
 
 const CARD_WIDTH = 200 // Width of event cards in pixels
 const CARD_SCREEN_PADDING = 0 // Padding from edges
@@ -20,9 +20,6 @@ interface Props {
 }
 
 let { event, leftEdgeYear, yearsPerPixel, viewportWidth, yPosition, index, isTopCard, onCardClick }: Props = $props()
-
-// Get current language
-const language = $derived($currentLanguage)
 
 // Calculate z-index: base z-index + index, with clicked cards on top
 const zIndex = $derived(isTopCard ? 1000 : 10 + index)
@@ -79,14 +76,14 @@ function handleClick() {
 	tabindex="0"
 >
 	<div class="font-semibold text-gray-800 mb-1 transition-all duration-200" class:text-lg={isSelected} class:text-sm={!isSelected}>
-		{event.name[language]}
+		{event.name[$currentLocale]}
 	</div>
 	<div class="text-blue-600 font-medium mb-2 transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
-		{formatDate(event.date, language)}
+		{formatDate(event.date, $currentLocale)}
 	</div>
-	{#if event.description[language]}
+	{#if event.description[$currentLocale]}
 		<div class="text-gray-600 leading-relaxed transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
-			{event.description[language]}
+			{event.description[$currentLocale]}
 		</div>
 	{/if}
 </div>

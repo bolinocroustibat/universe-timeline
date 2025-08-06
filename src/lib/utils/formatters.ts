@@ -15,7 +15,7 @@ type TimeLocale = {
 	}
 }
 
-// Language-specific time-related strings
+// Locale-specific time-related strings
 const TIME_LOCALES: Record<SupportedLocales, TimeLocale> = {
 	en: {
 		numbers: {
