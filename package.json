@@ -19,5 +19,8 @@
 		"svelte-check": "^4.3.1",
 		"typescript": "^5.9.2",
 		"vite": "^6.3.5"
+	},
+	"dependencies": {
+		"@sentry/sveltekit": "^10"
 	}
 }
