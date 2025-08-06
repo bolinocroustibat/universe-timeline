@@ -103,7 +103,7 @@ jobs:
             fi
 
   create-sentry-release:
-    name: Create Sentry release
+    name: Create Sentry release ${{ github.ref_name }}
     needs: deploy
     runs-on: ubuntu-latest
     if: success()  # Only create Sentry release if deployment succeeded
@@ -111,7 +111,7 @@ jobs:
       - name: Checkout repository for Sentry release
         uses: actions/checkout@v4
 
-      - name: Create Sentry release
+      - name: Create Sentry release ${{ github.ref_name }}
         uses: getsentry/action-release@v3
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
