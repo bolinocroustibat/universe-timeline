@@ -1,5 +1,5 @@
 <script lang="ts">
-import { formatYear, formatLargeNumber } from "$lib/utils/formatters"
+import { formatDate, formatLargeNumber } from "$lib/utils/formatters"
 import { currentLanguage } from "$lib/stores/languageStore"
 
 interface Props {
@@ -72,9 +72,9 @@ function closeDebugInfo() {
 		<div class="space-y-1">
 			<div class="text-green-400 font-semibold border-b border-gray-600 pb-1">Viewport</div>
 			<div>Width: {viewportWidth}px</div>
-			<div>Center: {formatYear(centerYear, $currentLanguage)}</div>
-			<div>Left edge: {formatYear(leftEdgeYear, $currentLanguage)}</div>
-			<div>Right edge: {formatYear(rightEdgeYear, $currentLanguage)}</div>
+			<div>Center: {formatDate(centerYear, $currentLanguage)}</div>
+			<div>Left edge: {formatDate(leftEdgeYear, $currentLanguage)}</div>
+			<div>Right edge: {formatDate(rightEdgeYear, $currentLanguage)}</div>
 		</div>
 
 		<!-- Tick Information -->

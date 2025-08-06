@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Event } from "$lib/types"
-import { formatYear } from "$lib/utils/formatters"
+import { formatDate } from "$lib/utils/formatters"
 import { currentLanguage } from "$lib/stores/languageStore"
 
 const CARD_WIDTH = 200 // Width of event cards in pixels
@@ -82,7 +82,7 @@ function handleClick() {
 		{event.name[language]}
 	</div>
 	<div class="text-blue-600 font-medium mb-2 transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
-		{formatYear(event.date, language)}
+		{formatDate(event.date, language)}
 	</div>
 	{#if event.description[language]}
 		<div class="text-gray-600 leading-relaxed transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>

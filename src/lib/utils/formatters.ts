@@ -87,7 +87,7 @@ export function formatLargeNumber(
  * @param tickInterval - The tick interval for formatting
  * @returns Formatted year string with appropriate abbreviation
  */
-export function formatYear(
+export function formatDate(
 	year: number,
 	locale: SupportedLocales = "en",
 	tickInterval?: number,
