@@ -1,5 +1,5 @@
 services:
-  # db:
+  # universe-timeline-db:
   #   container_name: universe-timeline-db
   #   image: postgres:17
   #   volumes:
@@ -11,7 +11,7 @@ services:
   #     - POSTGRES_USER=${POSTGRES_USER:-postgres}
   #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
 
-  # api:
+  # universe-timeline-api:
   #   container_name: universe-timeline-api
   #   image: ghcr.io/bolinocroustibat/universe-timeline-api:${TAG:-latest}
   #   build:
@@ -27,7 +27,7 @@ services:
   #     - ENVIRONMENT=${ENVIRONMENT:-unknown}
   #     - DEBUG=${PUBLIC_DEBUG:-false}
 
-  frontend:
+  universe-timeline-frontend:
     container_name: universe-timeline-frontend
     image: ghcr.io/bolinocroustibat/universe-timeline:${TAG:-latest}
     build: .
