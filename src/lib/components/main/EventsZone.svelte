@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Event, Period } from "$lib/types"
 import { onMount } from "svelte"
+import { displaySettings } from "$lib/stores/displayStore"
 import EventCard from "./EventCard.svelte"
 
 interface Props {
@@ -114,7 +115,7 @@ function handleCardClick(eventId: number, index: number) {
 		<div class="absolute inset-0 flex items-center justify-center">
 			<div class="text-gray-500">Loading events...</div>
 		</div>
-	{:else}
+	{:else if $displaySettings.showEvents}
 		<!-- Events are rendered here -->
 		{#each visibleEvents as event, index}
 			<EventCard 
@@ -128,6 +129,11 @@ function handleCardClick(eventId: number, index: number) {
 				onCardClick={handleCardClick}
 			/>
 		{/each}
+	{:else}
+		<!-- Events are hidden -->
+		<div class="absolute inset-0 flex items-center justify-center">
+			<div class="text-gray-500">Events are hidden</div>
+		</div>
 	{/if}
 
 </div>
