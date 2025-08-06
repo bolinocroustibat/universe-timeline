@@ -1,7 +1,7 @@
 [
 	{
 		"id": 1,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -13787000000,
 		"dateUncertainty": 20000000,
 		"name": {
@@ -16,7 +16,7 @@
 	},
 	{
 		"id": 2,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -4567000000,
 		"dateUncertainty": 50000000,
 		"name": {
@@ -31,7 +31,7 @@
 	},
 	{
 		"id": 3,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -4540000000,
 		"dateUncertainty": 50000000,
 		"name": {
@@ -46,7 +46,7 @@
 	},
 	{
 		"id": 4,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -4533000000,
 		"dateUncertainty": 100000000,
 		"name": {
@@ -61,7 +61,7 @@
 	},
 	{
 		"id": 5,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -3800000000,
 		"dateUncertainty": 200000000,
 		"name": {
@@ -76,7 +76,7 @@
 	},
 	{
 		"id": 6,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -542000000,
 		"dateUncertainty": 1000000,
 		"name": {
@@ -91,7 +91,7 @@
 	},
 	{
 		"id": 7,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -251000000,
 		"dateUncertainty": 1000000,
 		"name": {
@@ -106,7 +106,7 @@
 	},
 	{
 		"id": 8,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -230000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -121,7 +121,7 @@
 	},
 	{
 		"id": 9,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -11400,
 		"dateUncertainty": 1000,
 		"name": {
@@ -136,7 +136,7 @@
 	},
 	{
 		"id": 11,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -3500,
 		"dateUncertainty": 500,
 		"name": {
@@ -151,7 +151,7 @@
 	},
 	{
 		"id": 12,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -563,
 		"dateUncertainty": 50,
 		"name": {
@@ -166,7 +166,7 @@
 	},
 	{
 		"id": 13,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -5,
 		"dateUncertainty": 5,
 		"name": {
@@ -181,7 +181,7 @@
 	},
 	{
 		"id": 14,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 476,
 		"dateUncertainty": 10,
 		"name": {
@@ -196,7 +196,7 @@
 	},
 	{
 		"id": 15,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 570,
 		"dateUncertainty": 10,
 		"name": {
@@ -211,7 +211,7 @@
 	},
 	{
 		"id": 16,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 632,
 		"dateUncertainty": 10,
 		"name": {
@@ -226,9 +226,9 @@
 	},
 	{
 		"id": 17,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1492,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Discovery of America by Christopher Columbus",
 			"fr": "Découverte de l'Amérique par Christophe Colomb"
@@ -241,7 +241,7 @@
 	},
 	{
 		"id": 21,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -13200000000,
 		"dateUncertainty": 1000000000,
 		"name": {
@@ -256,7 +256,7 @@
 	},
 	{
 		"id": 22,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -9006000000,
 		"dateUncertainty": 500000000,
 		"name": {
@@ -271,7 +271,7 @@
 	},
 	{
 		"id": 23,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -66000000,
 		"dateUncertainty": 1000000,
 		"name": {
@@ -286,7 +286,7 @@
 	},
 	{
 		"id": 24,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -600000000,
 		"dateUncertainty": 50000000,
 		"name": {
@@ -301,7 +301,7 @@
 	},
 	{
 		"id": 25,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -160000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -316,7 +316,7 @@
 	},
 	{
 		"id": 26,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -440000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -331,7 +331,7 @@
 	},
 	{
 		"id": 27,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -300000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -346,7 +346,7 @@
 	},
 	{
 		"id": 28,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -200000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -361,7 +361,7 @@
 	},
 	{
 		"id": 29,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -150000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -376,7 +376,7 @@
 	},
 	{
 		"id": 30,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -55000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -391,7 +391,7 @@
 	},
 	{
 		"id": 31,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -7000000,
 		"dateUncertainty": 500000,
 		"name": {
@@ -406,7 +406,7 @@
 	},
 	{
 		"id": 32,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -4000000,
 		"dateUncertainty": 500000,
 		"name": {
@@ -421,7 +421,7 @@
 	},
 	{
 		"id": 33,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -2500000,
 		"dateUncertainty": 200000,
 		"name": {
@@ -436,7 +436,7 @@
 	},
 	{
 		"id": 34,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -2000000,
 		"dateUncertainty": 200000,
 		"name": {
@@ -451,7 +451,7 @@
 	},
 	{
 		"id": 35,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -300000,
 		"dateUncertainty": 50000,
 		"name": {
@@ -466,7 +466,7 @@
 	},
 	{
 		"id": 36,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -40000,
 		"dateUncertainty": 5000,
 		"name": {
@@ -481,7 +481,7 @@
 	},
 	{
 		"id": 37,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -12000,
 		"dateUncertainty": 1000,
 		"name": {
@@ -496,7 +496,7 @@
 	},
 	{
 		"id": 38,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -8000,
 		"dateUncertainty": 1000,
 		"name": {
@@ -511,7 +511,7 @@
 	},
 	{
 		"id": 39,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -3000,
 		"dateUncertainty": 500,
 		"name": {
@@ -526,9 +526,9 @@
 	},
 	{
 		"id": 40,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -776,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "First Olympic Games",
 			"fr": "Premiers Jeux Olympiques"
@@ -541,7 +541,7 @@
 	},
 	{
 		"id": 41,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -753,
 		"dateUncertainty": 10,
 		"name": {
@@ -556,7 +556,7 @@
 	},
 	{
 		"id": 42,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -221,
 		"dateUncertainty": 10,
 		"name": {
@@ -571,7 +571,7 @@
 	},
 	{
 		"id": 43,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 105,
 		"dateUncertainty": 10,
 		"name": {
@@ -586,9 +586,9 @@
 	},
 	{
 		"id": 44,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1455,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Gutenberg's invention of the printing press",
 			"fr": "Invention de l'imprimerie par Gutenberg"
@@ -601,9 +601,9 @@
 	},
 	{
 		"id": 45,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1789,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "French Revolution",
 			"fr": "Révolution française"
@@ -616,9 +616,9 @@
 	},
 	{
 		"id": 46,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1903,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "First powered flight",
 			"fr": "Premier vol motorisé"
@@ -631,9 +631,9 @@
 	},
 	{
 		"id": 47,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1969,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "First man on the Moon",
 			"fr": "Premier homme sur la Lune"
@@ -646,7 +646,7 @@
 	},
 	{
 		"id": 48,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -252000000,
 		"dateUncertainty": 2000000,
 		"name": {
@@ -661,7 +661,7 @@
 	},
 	{
 		"id": 49,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -201000000,
 		"dateUncertainty": 1000000,
 		"name": {
@@ -676,7 +676,7 @@
 	},
 	{
 		"id": 50,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -180000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -691,7 +691,7 @@
 	},
 	{
 		"id": 51,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -135000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -706,7 +706,7 @@
 	},
 	{
 		"id": 52,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -100000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -721,7 +721,7 @@
 	},
 	{
 		"id": 53,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -50000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -736,7 +736,7 @@
 	},
 	{
 		"id": 54,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -34000000,
 		"dateUncertainty": 2000000,
 		"name": {
@@ -751,7 +751,7 @@
 	},
 	{
 		"id": 55,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -25000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -766,7 +766,7 @@
 	},
 	{
 		"id": 56,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -2000000,
 		"dateUncertainty": 500000,
 		"name": {
@@ -781,7 +781,7 @@
 	},
 	{
 		"id": 57,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -750000,
 		"dateUncertainty": 100000,
 		"name": {
@@ -796,7 +796,7 @@
 	},
 	{
 		"id": 58,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -39000,
 		"dateUncertainty": 2000,
 		"name": {
@@ -811,7 +811,7 @@
 	},
 	{
 		"id": 59,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -12800,
 		"dateUncertainty": 300,
 		"name": {
@@ -826,7 +826,7 @@
 	},
 	{
 		"id": 60,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -11600,
 		"dateUncertainty": 100,
 		"name": {
@@ -841,7 +841,7 @@
 	},
 	{
 		"id": 61,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -5350,
 		"dateUncertainty": 100,
 		"name": {
@@ -856,9 +856,9 @@
 	},
 	{
 		"id": 62,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -1628,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Santorini volcano eruption",
 			"fr": "Éruption du volcan Santorin"
@@ -871,9 +871,9 @@
 	},
 	{
 		"id": 63,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -79,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Mount Vesuvius eruption",
 			"fr": "Éruption du Vésuve"
@@ -886,9 +886,9 @@
 	},
 	{
 		"id": 64,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1883,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Krakatoa eruption",
 			"fr": "Éruption du Krakatoa"
@@ -901,9 +901,9 @@
 	},
 	{
 		"id": 65,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1980,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Mount St. Helens eruption",
 			"fr": "Éruption du Mont Saint Helens"
@@ -916,7 +916,7 @@
 	},
 	{
 		"id": 68,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": -110000,
 		"dateUncertainty": 5000,
 		"name": {
@@ -931,9 +931,9 @@
 	},
 	{
 		"id": 69,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1054,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Crab Supernova",
 			"fr": "Supernova du Crabe"
@@ -946,9 +946,9 @@
 	},
 	{
 		"id": 70,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1006,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Supernova SN 1006",
 			"fr": "Supernova SN 1006"
@@ -961,9 +961,9 @@
 	},
 	{
 		"id": 71,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1054,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Supernova SN 1054",
 			"fr": "Supernova SN 1054"
@@ -976,9 +976,9 @@
 	},
 	{
 		"id": 72,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1181,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Supernova SN 1181",
 			"fr": "Supernova SN 1181"
@@ -991,9 +991,9 @@
 	},
 	{
 		"id": 73,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1572,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Tycho's Supernova",
 			"fr": "Supernova de Tycho"
@@ -1006,9 +1006,9 @@
 	},
 	{
 		"id": 74,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1604,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Kepler's Supernova",
 			"fr": "Supernova de Kepler"
@@ -1021,9 +1021,9 @@
 	},
 	{
 		"id": 75,
-		"parentPeriodId": 0,
+		"parentPeriodId": null,
 		"date": 1987,
-		"dateUncertainty": 0,
+		"dateUncertainty": null,
 		"name": {
 			"en": "Supernova SN 1987A",
 			"fr": "Supernova SN 1987A"
