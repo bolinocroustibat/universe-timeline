@@ -4,6 +4,9 @@ import { formatYear } from "$lib/utils/formatters"
 import { currentLanguage } from "$lib/stores/languageStore"
 
 const CARD_WIDTH = 200 // Width of event cards in pixels
+const CARD_SCREEN_PADDING = 0 // Padding from edges
+const SELECTED_CARD_WIDTH = 240 // Width when card is selected
+const SELECTED_CARD_SCALE = 1.2 // Scale factor when selected
 
 interface Props {
 	event: Event
@@ -24,6 +27,12 @@ const language = $derived($currentLanguage)
 // Calculate z-index: base z-index + index, with clicked cards on top
 const zIndex = $derived(isTopCard ? 1000 : 10 + index)
 
+// Determine if this card is selected (isTopCard)
+const isSelected = $derived(isTopCard)
+
+// Calculate current card width based on selection state
+const currentCardWidth = $derived(isSelected ? SELECTED_CARD_WIDTH : CARD_WIDTH)
+
 // Calculate event X position within the viewport (for marker line)
 function getEventXPosition(eventDate: number): number {
 	return (eventDate - leftEdgeYear) / yearsPerPixel
@@ -31,19 +40,17 @@ function getEventXPosition(eventDate: number): number {
 
 // Calculate event card X position
 function getEventCardXPosition(markerXPosition: number): number {
-	const padding = 20 // Padding from edges
-	
 	// Center the card on the marker line
-	let cardX = markerXPosition - (CARD_WIDTH / 2)
+	let cardX = markerXPosition - (currentCardWidth / 2)
 	
 	// Prevent card from going off the left edge
-	if (cardX < padding) {
-		cardX = padding
+	if (cardX < CARD_SCREEN_PADDING) {
+		cardX = CARD_SCREEN_PADDING
 	}
 	
 	// Prevent card from going off the right edge
-	if (cardX + CARD_WIDTH > viewportWidth - padding) {
-		cardX = viewportWidth - CARD_WIDTH - padding
+	if (cardX + currentCardWidth > viewportWidth - CARD_SCREEN_PADDING) {
+		cardX = viewportWidth - currentCardWidth - CARD_SCREEN_PADDING
 	}
 	
 	return cardX
@@ -57,25 +64,28 @@ function handleClick() {
 
 <!-- Event marker line (positioned relative to timeline) -->
 <div 
-	class="absolute bottom-0 w-px bg-blue-500"
+	class="absolute bottom-0 w-px bg-red-500"
 	style="transform: translateX({getEventXPosition(event.date)}px); height: {yPosition + 8}px; z-index: {zIndex};"
 ></div>
 
 <!-- Event card -->
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 <div 
-	class="absolute bg-white rounded-lg shadow-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow cursor-pointer"
-	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px); bottom: {yPosition}px; z-index: {zIndex}; width: {CARD_WIDTH}px;"
+	class="absolute bg-white rounded-lg shadow-lg p-4 border border-gray-200 hover:shadow-xl transition-all duration-200 cursor-pointer"
+	class:border-blue-500={isSelected}
+	class:shadow-2xl={isSelected}
+	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px) scale({isSelected ? SELECTED_CARD_SCALE : 1}); bottom: {yPosition}px; z-index: {zIndex}; width: {currentCardWidth}px;"
 	onclick={handleClick}
 	tabindex="0"
 >
-	<div class="font-semibold text-sm text-gray-800 mb-1">
+	<div class="font-semibold text-gray-800 mb-1 transition-all duration-200" class:text-lg={isSelected} class:text-sm={!isSelected}>
 		{event.name[language]}
 	</div>
-	<div class="text-xs text-blue-600 font-medium mb-2">
+	<div class="text-blue-600 font-medium mb-2 transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
 		{formatYear(event.date, language)}
 	</div>
 	{#if event.description[language]}
-		<div class="text-xs text-gray-600 leading-relaxed">
+		<div class="text-gray-600 leading-relaxed transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
 			{event.description[language]}
 		</div>
 	{/if}
