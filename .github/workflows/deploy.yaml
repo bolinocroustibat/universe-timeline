@@ -78,7 +78,10 @@ jobs:
               # Clean directory, including nodes_modules but preserving .env
               rm -rf node_modules
               find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.env' -exec rm -rf {} +
-              git clone https://github.com/${{ github.repository }}.git .
+              # Clone repository contents directly to current directory (without creating subdirectory)
+              git clone --depth 1 https://github.com/${{ github.repository }}.git temp_repo
+              cp -r temp_repo/* temp_repo/.[^.]* . 2>/dev/null || true
+              rm -rf temp_repo
             fi
 
             # Login to GitHub Container Registry
