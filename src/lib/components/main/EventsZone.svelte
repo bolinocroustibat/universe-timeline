@@ -5,18 +5,14 @@ import { displaySettings } from "$lib/stores/displayStore"
 import EventCard from "./EventCard.svelte"
 
 interface Props {
-	zoomLevel: number
 	viewportWidth: number
-	viewportYearSpan: number
 	yearsPerPixel: number
 	leftEdgeYear: number
 	rightEdgeYear: number
 }
 
 let {
-	zoomLevel,
 	viewportWidth,
-	viewportYearSpan,
 	yearsPerPixel,
 	leftEdgeYear,
 	rightEdgeYear,
