@@ -11,11 +11,11 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/kit": "^2.27.0",
 		"@sveltejs/vite-plugin-svelte": "^5.1.1",
 		"@tailwindcss/vite": "^4.1.11",
 		"svelte": "^5.37.3",
+		"svelte-adapter-bun": "^0.5.2",
 		"svelte-check": "^4.3.1",
 		"typescript": "^5.9.2",
 		"vite": "^6.3.5"
