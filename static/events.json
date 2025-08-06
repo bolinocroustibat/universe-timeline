@@ -915,39 +915,9 @@
 		"image": ""
 	},
 	{
-		"id": 66,
-		"parentPeriodId": 0,
-		"date": -2000000000,
-		"dateUncertainty": 500000000,
-		"name": {
-			"en": "Nearby supernova to the solar system",
-			"fr": "Supernova proche du système solaire"
-		},
-		"description": {
-			"en": "A nearby supernova may have affected the evolution of primitive life on Earth",
-			"fr": "Une supernova proche aurait pu affecter l'évolution de la vie primitive sur Terre"
-		},
-		"image": ""
-	},
-	{
-		"id": 67,
-		"parentPeriodId": 0,
-		"date": -100000000,
-		"dateUncertainty": 20000000,
-		"name": {
-			"en": "Supernova that forms the Local Molecular Cloud",
-			"fr": "Supernova qui forme le nuage moléculaire local"
-		},
-		"description": {
-			"en": "A supernova creates the molecular cloud from which our solar system originated",
-			"fr": "Une supernova crée le nuage moléculaire dont notre système solaire est issu"
-		},
-		"image": ""
-	},
-	{
 		"id": 68,
 		"parentPeriodId": 0,
-		"date": -20000,
+		"date": -110000,
 		"dateUncertainty": 5000,
 		"name": {
 			"en": "Vela Supernova",
@@ -962,8 +932,8 @@
 	{
 		"id": 69,
 		"parentPeriodId": 0,
-		"date": -11000,
-		"dateUncertainty": 2000,
+		"date": 1054,
+		"dateUncertainty": 0,
 		"name": {
 			"en": "Crab Supernova",
 			"fr": "Supernova du Crabe"
