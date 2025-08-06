@@ -29,7 +29,7 @@ services:
 
   frontend:
     container_name: universe-timeline-frontend
-    image: ghcr.io/bolinocroustibat/universe-timeline-frontend:${TAG:-latest}
+    image: ghcr.io/bolinocroustibat/universe-timeline:${TAG:-latest}
     build: .
     restart: unless-stopped
     ports:
