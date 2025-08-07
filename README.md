@@ -19,6 +19,9 @@ VITE_ENV=development
 
 # Enable debug mode (true/false)
 PUBLIC_DEBUG=false
+
+# Sentry authentication token for error tracking (optional)
+SENTRY_AUTH_TOKEN=your_sentry_auth_token_here
 ```
 
 ## 🤖 Coding modern Svelte with AI assistants like Cursor
