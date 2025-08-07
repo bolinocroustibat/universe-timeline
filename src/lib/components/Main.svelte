@@ -3,6 +3,8 @@ import { env } from "$env/dynamic/public"
 import DebugInfo from "$lib/components/main/DebugInfo.svelte"
 import EventsZone from "$lib/components/main/EventsZone.svelte"
 import TimelineZone from "$lib/components/main/TimelineZone.svelte"
+import LeftArrow from "$lib/components/main/ArrowLeft.svelte"
+import RightArrow from "$lib/components/main/ArrowRight.svelte"
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
 import { onMount } from "svelte"
@@ -194,6 +196,52 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 		}
 	}
 }
+
+// Arrow panning functions
+let isPanning = $state(false)
+let panInterval: ReturnType<typeof setInterval> | undefined = $state()
+
+function panLeft() {
+	const panDistance = viewportWidth * 0.01 // Pan 1% of viewport width per step
+	const newLeftEdgeYearOffset = leftEdgeYearOffset + panDistance * yearsPerPixel
+	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
+	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
+
+	// Apply boundary constraints
+	if (newRightEdgeYear <= TIME_CONSTANTS.END_YEAR) {
+		leftEdgeYearOffset = newLeftEdgeYearOffset
+	}
+}
+
+function panRight() {
+	const panDistance = viewportWidth * 0.01 // Pan 1% of viewport width per step
+	const newLeftEdgeYearOffset = leftEdgeYearOffset - panDistance * yearsPerPixel
+	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
+	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
+
+	// Apply boundary constraints
+	if (newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR) {
+		leftEdgeYearOffset = newLeftEdgeYearOffset
+	}
+}
+
+function startPanLeft() {
+	isPanning = true
+	panInterval = setInterval(panLeft, 16) // ~60fps for smooth movement
+}
+
+function startPanRight() {
+	isPanning = true
+	panInterval = setInterval(panRight, 16) // ~60fps for smooth movement
+}
+
+function stopPanning() {
+	isPanning = false
+	if (panInterval) {
+		clearInterval(panInterval)
+		panInterval = undefined
+	}
+}
 </script>
 
 <main 
@@ -224,12 +272,10 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 		onmousemove={handleMouseMove}
 		onmouseup={handleMouseUp}
 		onmouseleave={handleMouseLeave}
-		class="flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none"
+		class="flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none relative"
 	>
 		<EventsZone 
-			zoomLevel={$zoomLevel}
 			{viewportWidth}
-			{viewportYearSpan}
 			{yearsPerPixel}
 			{leftEdgeYear}
 			{rightEdgeYear}
@@ -241,6 +287,18 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 			{yearsPerPixel}
 			{leftEdgeYear}
 			{rightEdgeYear}
+		/>
+		
+		<!-- Navigation arrows -->
+		<LeftArrow 
+			onMouseDown={startPanRight} 
+			onMouseUp={stopPanning} 
+			onMouseLeave={stopPanning} 
+		/>
+		<RightArrow 
+			onMouseDown={startPanLeft} 
+			onMouseUp={stopPanning} 
+			onMouseLeave={stopPanning} 
 		/>
 	</div>
 </main>
