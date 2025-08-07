@@ -6,8 +6,6 @@ import { clickOutside } from "$lib/utils/clickOutside"
 
 const CARD_WIDTH = 200 // Width of event cards in pixels
 const CARD_SCREEN_PADDING = 0 // Padding from edges
-const SELECTED_CARD_WIDTH = 240 // Width when card is selected
-const SELECTED_CARD_SCALE = 1.1 // Scale factor when selected
 
 interface Props {
 	event: Event
@@ -29,9 +27,6 @@ const zIndex = $derived(isTopCard ? 1000 : 1000 - yPosition)
 // Determine if this card is selected (isTopCard)
 const isSelected = $derived(isTopCard)
 
-// Calculate current card width based on selection state
-const currentCardWidth = $derived(isSelected ? SELECTED_CARD_WIDTH : CARD_WIDTH)
-
 // Calculate event X position within the viewport (for marker line)
 function getEventXPosition(eventDate: number): number {
 	return (eventDate - leftEdgeYear) / yearsPerPixel
@@ -40,7 +35,7 @@ function getEventXPosition(eventDate: number): number {
 // Calculate event card X position
 function getEventCardXPosition(markerXPosition: number): number {
 	// Center the card on the marker line
-	let cardX = markerXPosition - (currentCardWidth / 2)
+	let cardX = markerXPosition - (CARD_WIDTH / 2)
 	
 	// Prevent card from going off the left edge
 	if (cardX < CARD_SCREEN_PADDING) {
@@ -48,8 +43,8 @@ function getEventCardXPosition(markerXPosition: number): number {
 	}
 	
 	// Prevent card from going off the right edge
-	if (cardX + currentCardWidth > viewportWidth - CARD_SCREEN_PADDING) {
-		cardX = viewportWidth - currentCardWidth - CARD_SCREEN_PADDING
+	if (cardX + CARD_WIDTH > viewportWidth - CARD_SCREEN_PADDING) {
+		cardX = viewportWidth - CARD_WIDTH - CARD_SCREEN_PADDING
 	}
 	
 	return cardX
@@ -79,20 +74,20 @@ function handleClick() {
 	class:to-white={isSelected}
 	class:hover:shadow-xl={!isSelected}
 	class:hover:border-rose-200={!isSelected}
-	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px) scale({isSelected ? SELECTED_CARD_SCALE : 1}); bottom: {yPosition}px; z-index: {zIndex}; width: {currentCardWidth}px; box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);"
+	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px); bottom: {yPosition}px; z-index: {zIndex}; width: {CARD_WIDTH}px; box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);"
 	onclick={handleClick}
 	use:clickOutside={onCardDeselect}
 	tabindex="0"
 >
 	
-	<div class="font-semibold text-slate-800 mb-2 transition-all duration-200" class:text-lg={isSelected} class:text-sm={!isSelected}>
+	<div class="font-semibold text-slate-800 mb-2 transition-all duration-200 text-sm">
 		{event.name[$currentLocale]}
 	</div>
-	<div class="text-slate-600 font-medium mb-2 transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
+	<div class="text-slate-600 font-medium mb-2 transition-all duration-200 text-xs">
 		{formatDate(event.date, $currentLocale)}
 	</div>
-	{#if event.description[$currentLocale]}
-		<div class="text-slate-700 leading-relaxed transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
+	{#if isSelected && event.description[$currentLocale]}
+		<div class="text-slate-700 leading-relaxed transition-all duration-200 text-xs">
 			{event.description[$currentLocale]}
 		</div>
 	{/if}
