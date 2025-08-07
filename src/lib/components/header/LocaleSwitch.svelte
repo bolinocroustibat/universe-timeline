@@ -54,7 +54,7 @@
 	<!-- Dropdown Menu -->
 	{#if isOpen}
 		<div
-			class="absolute right-0 mt-2 w-16 bg-gray-900 border border-gray-700 rounded-md shadow-lg z-50"
+			class="absolute right-0 mt-2 w-16 bg-gray-900 border border-gray-700 rounded-md shadow-lg z-[9999]"
 		>
 			<div class="py-1">
 				{#each locales as locale}

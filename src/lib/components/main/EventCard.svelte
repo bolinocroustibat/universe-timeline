@@ -2,11 +2,12 @@
 import type { Event } from "$lib/types"
 import { formatDate } from "$lib/utils/formatters"
 import { currentLocale } from "$lib/stores/localeStore"
+import { clickOutside } from "$lib/utils/clickOutside"
 
 const CARD_WIDTH = 200 // Width of event cards in pixels
 const CARD_SCREEN_PADDING = 0 // Padding from edges
 const SELECTED_CARD_WIDTH = 240 // Width when card is selected
-const SELECTED_CARD_SCALE = 1.2 // Scale factor when selected
+const SELECTED_CARD_SCALE = 1.1 // Scale factor when selected
 
 interface Props {
 	event: Event
@@ -17,12 +18,13 @@ interface Props {
 	index: number
 	isTopCard: boolean
 	onCardClick: (eventId: number, index: number) => void
+	onCardDeselect: () => void
 }
 
-let { event, leftEdgeYear, yearsPerPixel, viewportWidth, yPosition, index, isTopCard, onCardClick }: Props = $props()
+let { event, leftEdgeYear, yearsPerPixel, viewportWidth, yPosition, index, isTopCard, onCardClick, onCardDeselect }: Props = $props()
 
-// Calculate z-index: base z-index + index, with clicked cards on top
-const zIndex = $derived(isTopCard ? 1000 : 10 + index)
+// Calculate z-index: inverted so lower cards (closer to timeline) have higher z-index
+const zIndex = $derived(isTopCard ? 1000 : 1000 - yPosition)
 
 // Determine if this card is selected (isTopCard)
 const isSelected = $derived(isTopCard)
@@ -59,30 +61,38 @@ function handleClick() {
 }
 </script>
 
-<!-- Event marker line (positioned relative to timeline) -->
+<!-- Event marker line with visual continuity to card -->
 <div 
-	class="absolute bottom-0 w-px bg-red-500"
-	style="transform: translateX({getEventXPosition(event.date)}px); height: {yPosition + 8}px; z-index: {zIndex};"
+	class="absolute bottom-0 w-1 bg-gradient-to-t from-rose-300 to-rose-200"
+	class:from-rose-500={isSelected}
+	class:to-rose-400={isSelected}
+	style="transform: translateX({getEventXPosition(event.date)}px); height: {yPosition + 12}px; z-index: {zIndex}; clip-path: polygon(0 0, 100% 0, 50% 100%);"
 ></div>
 
-<!-- Event card -->
+<!-- Event card with modern styling and visual continuity -->
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 <div 
-	class="absolute bg-white rounded-lg shadow-lg p-4 border border-gray-200 hover:shadow-xl transition-all duration-200 cursor-pointer"
-	class:border-blue-500={isSelected}
+	class="absolute bg-gradient-to-br from-rose-50 to-white rounded-xl p-4 border-2 border-rose-300 cursor-pointer backdrop-blur-sm shadow-lg transition-colors duration-300 transition-shadow duration-300"
+	class:border-rose-400={isSelected}
 	class:shadow-2xl={isSelected}
-	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px) scale({isSelected ? SELECTED_CARD_SCALE : 1}); bottom: {yPosition}px; z-index: {zIndex}; width: {currentCardWidth}px;"
+	class:from-rose-100={isSelected}
+	class:to-white={isSelected}
+	class:hover:shadow-xl={!isSelected}
+	class:hover:border-rose-200={!isSelected}
+	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px) scale({isSelected ? SELECTED_CARD_SCALE : 1}); bottom: {yPosition}px; z-index: {zIndex}; width: {currentCardWidth}px; box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);"
 	onclick={handleClick}
+	use:clickOutside={onCardDeselect}
 	tabindex="0"
 >
-	<div class="font-semibold text-gray-800 mb-1 transition-all duration-200" class:text-lg={isSelected} class:text-sm={!isSelected}>
+	
+	<div class="font-semibold text-slate-800 mb-2 transition-all duration-200" class:text-lg={isSelected} class:text-sm={!isSelected}>
 		{event.name[$currentLocale]}
 	</div>
-	<div class="text-blue-600 font-medium mb-2 transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
+	<div class="text-slate-600 font-medium mb-2 transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
 		{formatDate(event.date, $currentLocale)}
 	</div>
 	{#if event.description[$currentLocale]}
-		<div class="text-gray-600 leading-relaxed transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
+		<div class="text-slate-700 leading-relaxed transition-all duration-200" class:text-sm={isSelected} class:text-xs={!isSelected}>
 			{event.description[$currentLocale]}
 		</div>
 	{/if}

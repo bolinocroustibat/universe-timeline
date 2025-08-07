@@ -102,6 +102,12 @@ function handleCardClick(eventId: number, index: number) {
 	console.log('EventsZone: Card clicked, setting topCardIndex to:', index)
 	topCardIndex = index
 }
+
+// Handle deselecting cards when clicking outside
+function handleCardDeselect() {
+	console.log('EventsZone: Deselecting all cards')
+	topCardIndex = null
+}
 </script>
 
 <div class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden relative">
@@ -123,6 +129,7 @@ function handleCardClick(eventId: number, index: number) {
 				index={index}
 				isTopCard={topCardIndex === index}
 				onCardClick={handleCardClick}
+				onCardDeselect={handleCardDeselect}
 			/>
 		{/each}
 	{:else}
