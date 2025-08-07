@@ -7,7 +7,7 @@ An interactive web application for exploring and visualizing the complete histor
 - [Bun](https://bun.sh) for the package manager
 - [SvelteKit](https://kit.svelte.dev) for the frontend framework
 - [TailwindCSS](https://tailwindcss.com) for styling
-- [Biome](https://biome.sh) for linting and formatting
+- [Biome](https://biomejs.dev) for linting and formatting
 
 ## 🔧 Environment Variables
 
