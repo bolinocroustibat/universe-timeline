@@ -930,21 +930,6 @@
 		"image": ""
 	},
 	{
-		"id": 69,
-		"parentPeriodId": null,
-		"date": 1054,
-		"dateUncertainty": null,
-		"name": {
-			"en": "Crab Supernova",
-			"fr": "Supernova du Crabe"
-		},
-		"description": {
-			"en": "Explosion observed by Chinese astronomers in 1054, forms the Crab Nebula",
-			"fr": "Explosion observée par les astronomes chinois en 1054, forme la nébuleuse du Crabe"
-		},
-		"image": ""
-	},
-	{
 		"id": 70,
 		"parentPeriodId": null,
 		"date": 1006,
@@ -969,8 +954,8 @@
 			"fr": "Supernova SN 1054"
 		},
 		"description": {
-			"en": "Observed by Chinese and Arabic astronomers, forms the Crab Nebula",
-			"fr": "Observée par les astronomes chinois et arabes, forme la nébuleuse du Crabe"
+			"en": "Explosion observed by Chinese and Arabic astronomers, forms the Crab Nebula",
+			"fr": "Explosion observée par les astronomes chinois et arabes, forme la nébuleuse du Crabe"
 		},
 		"image": ""
 	},
