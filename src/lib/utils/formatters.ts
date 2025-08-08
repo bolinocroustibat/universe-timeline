@@ -84,79 +84,51 @@ export function formatLargeNumber(
  * Formats a year with abbreviated large numbers (million/billion)
  * @param year - The year to format (negative for BCE/BC)
  * @param locale - The locale to use for formatting (defaults to 'en')
- * @param tickInterval - The tick interval for formatting
  * @returns Formatted year string with appropriate abbreviation
  */
 export function formatDate(
 	year: number,
 	locale: SupportedLocales = "en",
-	tickInterval?: number,
+	withEra: boolean = true,
 ): string {
 	const absYear = Math.abs(year)
 	const localeStrings = TIME_LOCALES[locale]
-	const eraSuffix =
-		year < 0 ? localeStrings.era.before : localeStrings.era.after
 
-	// Use the tickInterval to determine formatting
-	if (tickInterval) {
-		// Special case: Very round numbers should use higher-level units
-		// Check if the year is exactly divisible by a higher unit than the tick interval suggests
-		if (absYear >= 1_000_000_000 && absYear % 1_000_000_000 === 0) {
-			// Year is exactly divisible by 1 billion - use billion formatting
-			const billions = absYear / 1_000_000_000
-			const formatted = formatLargeNumber(billions, locale, {
-				maximumFractionDigits: 0,
-			})
-			const form = billions === 1 ? "singular" : "plural"
-			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.billion[form]}`
-		}
+	let baseString: string
 
-		if (absYear >= 1_000_000 && absYear % 1_000_000 === 0) {
-			// Year is exactly divisible by 1 million - use million formatting
-			const millions = absYear / 1_000_000
-			const formatted = formatLargeNumber(millions, locale, {
-				maximumFractionDigits: 0,
-			})
-			const form = millions === 1 ? "singular" : "plural"
-			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.million[form]}`
-		}
-
-		// Format billions for billion-year ticks
-		if (tickInterval >= 100_000_000) {
-			const billions = absYear / 1_000_000_000
-			const formatted = formatLargeNumber(billions, locale, {
-				maximumFractionDigits: 2,
-			})
-			const form = billions === 1 ? "singular" : "plural"
-			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.billion[form]}`
-		}
-
-		// Format millions for million-year ticks
-		if (tickInterval >= 100_000) {
-			const millions = absYear / 1_000_000
-			const formatted = formatLargeNumber(millions, locale, {
-				maximumFractionDigits: 2,
-			})
-			const form = millions === 1 ? "singular" : "plural"
-			return `${year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.million[form]}`
-		}
-
-		// Format thousands for less than thousand-year ticks
-		return `${formatLargeNumber(absYear, locale)}${eraSuffix}`
-
-		// // Format centuries for century ticks
-		// if (tickInterval === 100) {
-		// 	const centuryNum = Math.abs(Math.floor(year / 100))
-		// 	const centurySuffix =
-		// 		year < 0
-		// 			? localeStrings.era.century.before
-		// 			: localeStrings.era.century.after
-		// 	return `${centuryNum}${centurySuffix}`
-		// }
+	// Very round numbers should use higher-level units
+	// Check if the year is exactly divisible by a higher unit
+	if (absYear >= 1_000_000_000 && absYear % 1_000_000_000 === 0) {
+		// Year is exactly divisible by 1 billion - use billion formatting
+		const billions = absYear / 1_000_000_000
+		const formatted = formatLargeNumber(billions, locale, {
+			maximumFractionDigits: 0,
+		})
+		const form = billions === 1 ? "singular" : "plural"
+		// Add "-" sign if not using era suffix (to indicate negative years)
+		baseString = `${withEra ? "" : (year < 0 ? "-" : "")}${formatted} ${localeStrings.numbers.billion[form]}`
+	} else if (absYear >= 1_000_000 && absYear % 1_000_000 === 0) {
+		// Year is exactly divisible by 1 million - use million formatting
+		const millions = absYear / 1_000_000
+		const formatted = formatLargeNumber(millions, locale, {
+			maximumFractionDigits: 0,
+		})
+		const form = millions === 1 ? "singular" : "plural"
+		// Add "-" sign if not using era suffix (to indicate negative years)
+		baseString = `${withEra ? "" : (year < 0 ? "-" : "")}${formatted} ${localeStrings.numbers.million[form]}`
+	} else {
+		// Default format for years
+		// Add "-" sign if not using era suffix (to indicate negative years)
+		baseString = withEra ? formatLargeNumber(absYear, locale) : formatLargeNumber(year, locale)
 	}
 
-	// Default format for years
-	return `${formatLargeNumber(absYear, locale)}${eraSuffix}`
+	// Add era suffix if requested
+	if (withEra) {
+		const eraSuffix = year < 0 ? localeStrings.era.before : localeStrings.era.after
+		return `${baseString}${eraSuffix}`
+	}
+
+	return baseString
 }
 
 /**

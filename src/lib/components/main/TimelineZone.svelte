@@ -113,7 +113,7 @@ const visibleMinorTicks: TimelineTick[] = $derived(
 		>
 			<div class="h-2/3 w-px bg-gray-400"></div>
 			<span class="text-xs text-gray-600 mt-1 text-center whitespace-nowrap -ml-1/2">
-				{formatDate(tick.year, $currentLocale, majorTickInterval)}
+				{formatDate(tick.year, $currentLocale, false)}
 			</span>
 		</div>
 	{/each}
