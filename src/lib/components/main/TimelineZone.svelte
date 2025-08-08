@@ -1,8 +1,8 @@
 <script lang="ts">
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
+import { currentLocale } from "$lib/stores/localeStore"
 import type { TimelineTick } from "$lib/types"
 import { formatDate } from "$lib/utils/formatters"
-import { currentLocale } from "$lib/stores/localeStore"
 
 interface Props {
 	zoomLevel: number

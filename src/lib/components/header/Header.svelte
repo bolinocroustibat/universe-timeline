@@ -1,12 +1,12 @@
 <script lang="ts">
-	import LocaleSelector from '$lib/components/header/LocaleSelector.svelte'
-	import DisplayToggles from '$lib/components/header/DisplayToggles.svelte'
-	import { currentLocale } from '$lib/stores/localeStore'
+import DisplayToggles from "$lib/components/header/DisplayToggles.svelte"
+import LocaleSelector from "$lib/components/header/LocaleSelector.svelte"
+import { currentLocale } from "$lib/stores/localeStore"
 
-	const titles = {
-		en: 'The Timeline of the Universe',
-		fr: 'La Chronologie de l\'Univers'
-	}
+const titles = {
+	en: "The Timeline of the Universe",
+	fr: "La Chronologie de l'Univers",
+}
 </script>
 
 <header class="h-20 bg-gray-950 border-b border-gray-800 flex-shrink-0">

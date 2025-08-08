@@ -1,11 +1,11 @@
 <script lang="ts">
-	interface Props {
-		onMouseDown: () => void
-		onMouseUp: () => void
-		onMouseLeave: () => void
-	}
+interface Props {
+	onMouseDown: () => void
+	onMouseUp: () => void
+	onMouseLeave: () => void
+}
 
-	let { onMouseDown, onMouseUp, onMouseLeave }: Props = $props()
+let { onMouseDown, onMouseUp, onMouseLeave }: Props = $props()
 </script>
 
 <button

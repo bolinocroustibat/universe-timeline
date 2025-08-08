@@ -1,6 +1,6 @@
 <script lang="ts">
-import type { Period } from "$lib/types"
 import { currentLocale } from "$lib/stores/localeStore"
+import type { Period } from "$lib/types"
 import { clickOutside } from "$lib/utils/clickOutside"
 import { blendColors } from "$lib/utils/colors"
 
@@ -18,21 +18,33 @@ interface Props {
 	onCardDeselect: () => void
 }
 
-let { period, leftEdgeYear, rightEdgeYear, yearsPerPixel, viewportWidth, index, isTopCard, leftPeriod, rightPeriod, onCardClick, onCardDeselect }: Props = $props()
+let {
+	period,
+	leftEdgeYear,
+	rightEdgeYear,
+	yearsPerPixel,
+	viewportWidth,
+	index,
+	isTopCard,
+	leftPeriod,
+	rightPeriod,
+	onCardClick,
+	onCardDeselect,
+}: Props = $props()
 
 // Calculate period position and width
 const periodPosition = $derived(() => {
 	const startX = (period.start - leftEdgeYear) / yearsPerPixel
 	const endX = (period.end - leftEdgeYear) / yearsPerPixel
 	const rightEdgeX = (rightEdgeYear - leftEdgeYear) / yearsPerPixel
-	
+
 	const clampedStartX = Math.max(0, startX)
 	const clampedEndX = Math.min(endX, rightEdgeX)
 	const width = clampedEndX - clampedStartX
-	
+
 	return {
 		x: clampedStartX,
-		width: width
+		width: width,
 	}
 })
 
@@ -46,30 +58,36 @@ const gradientBackground = $derived(() => {
 	const rightColor = rightPeriod?.color || currentColor
 
 	// Calculate blended colors
-	const leftBlend = leftPeriod ? blendColors(leftColor, currentColor) : currentColor
-	const rightBlend = rightPeriod ? blendColors(currentColor, rightColor) : currentColor
-	
+	const leftBlend = leftPeriod
+		? blendColors(leftColor, currentColor)
+		: currentColor
+	const rightBlend = rightPeriod
+		? blendColors(currentColor, rightColor)
+		: currentColor
+
 	// If no adjacent periods, use solid color
 	if (!leftPeriod && !rightPeriod) {
 		return `background-color: ${currentColor};`
 	}
-	
+
 	// If only left period exists
 	if (leftPeriod && !rightPeriod) {
 		return `background: linear-gradient(to right, ${leftBlend} 0%, ${currentColor} 10%, ${currentColor} 100%);`
 	}
-	
+
 	// If only right period exists
 	if (!leftPeriod && rightPeriod) {
 		return `background: linear-gradient(to right, ${currentColor} 0%, ${currentColor} 90%, ${rightBlend} 100%);`
 	}
-	
+
 	// If both adjacent periods exist
 	return `background: linear-gradient(to right, ${leftBlend} 0%, ${currentColor} 10%, ${currentColor} 90%,${rightBlend} 100%);`
 })
 
 // Calculate visibility using both edges
-const isVisible = $derived(period.end >= leftEdgeYear && period.start <= rightEdgeYear)
+const isVisible = $derived(
+	period.end >= leftEdgeYear && period.start <= rightEdgeYear,
+)
 
 // Determine if this card is selected
 const isSelected = $derived(isTopCard)

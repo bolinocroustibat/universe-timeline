@@ -1,6 +1,6 @@
 <script lang="ts">
+import { currentLocale } from "$lib/stores/localeStore"
 import { formatDate, formatLargeNumber } from "$lib/utils/formatters"
-	import { currentLocale } from "$lib/stores/localeStore"
 
 interface Props {
 	zoomLevel: number

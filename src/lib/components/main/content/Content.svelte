@@ -1,9 +1,9 @@
 <script lang="ts">
-import type { Event, Period } from "$lib/types"
 import { onMount } from "svelte"
-import { displaySettings } from "$lib/stores/displayStore"
 import EventCard from "$lib/components/main/content/EventCard.svelte"
 import PeriodCard from "$lib/components/main/content/PeriodCard.svelte"
+import { displaySettings } from "$lib/stores/displayStore"
+import type { Event, Period } from "$lib/types"
 
 interface Props {
 	viewportWidth: number
@@ -12,12 +12,8 @@ interface Props {
 	rightEdgeYear: number
 }
 
-let {
-	viewportWidth,
-	yearsPerPixel,
-	leftEdgeYear,
-	rightEdgeYear,
-}: Props = $props()
+let { viewportWidth, yearsPerPixel, leftEdgeYear, rightEdgeYear }: Props =
+	$props()
 
 // Load events and periods from JSON files
 let events: Event[] = $state([])
@@ -25,7 +21,7 @@ let periods: Period[] = $state([])
 let isLoading = $state(true)
 
 // Track which card is on top (type and index)
-let topCardType = $state<'event' | 'period' | null>(null)
+let topCardType = $state<"event" | "period" | null>(null)
 let topCardIndex = $state<number | null>(null)
 
 // Load events and periods on component mount
@@ -34,16 +30,16 @@ onMount(async () => {
 		// Load both events and periods in parallel
 		const [eventsResponse, periodsResponse] = await Promise.all([
 			fetch("/events.jsonc"),
-			fetch("/periods.jsonc")
+			fetch("/periods.jsonc"),
 		])
-		
+
 		if (!eventsResponse.ok) {
 			throw new Error(`HTTP error! status: ${eventsResponse.status}`)
 		}
 		if (!periodsResponse.ok) {
 			throw new Error(`HTTP error! status: ${periodsResponse.status}`)
 		}
-		
+
 		events = await eventsResponse.json()
 		periods = await periodsResponse.json()
 	} catch (error) {
@@ -63,9 +59,11 @@ const visibleEvents = $derived(
 // Filter periods that are visible and have parentPeriodId = 0
 const visiblePeriods = $derived(
 	periods.filter((period) => {
-		return period.parentPeriodId === 0 && 
-			   period.end >= leftEdgeYear && 
-			   period.start <= rightEdgeYear
+		return (
+			period.parentPeriodId === 0 &&
+			period.end >= leftEdgeYear &&
+			period.start <= rightEdgeYear
+		)
 	}),
 )
 
@@ -76,31 +74,31 @@ const eventPositions = $derived(() => {
 	const baseY = 20
 	const eventHeight = 80
 	const verticalSpacing = 25
-	
+
 	visibleEvents.forEach((event, index) => {
 		const currentX = (event.date - leftEdgeYear) / yearsPerPixel
 		let maxY = baseY
-		
+
 		// Check if this event overlaps with any previous events
 		for (let i = 0; i < index; i++) {
 			const prevX = positions[i].x
 			const prevY = positions[i].y
-			
+
 			// Check for horizontal overlap (approximate event width of 200px)
-			const horizontalOverlap = 
+			const horizontalOverlap =
 				currentX < prevX + 200 + verticalSpacing &&
 				currentX + 200 + verticalSpacing > prevX
-			
+
 			if (horizontalOverlap) {
 				// Stack this event above the overlapping event
 				const stackY = prevY + eventHeight + verticalSpacing
 				maxY = Math.max(maxY, stackY)
 			}
 		}
-		
+
 		positions.push({ x: currentX, y: maxY })
 	})
-	
+
 	return positions
 })
 
@@ -109,21 +107,27 @@ function getEventYPosition(eventIndex: number): number {
 }
 
 // Handle card click to bring it to top
-function handleEventClick(eventId: number, index: number) {
-	console.log('Content: Event card clicked, setting topCardType to event, index to:', index)
-	topCardType = 'event'
+function handleEventClick(_eventId: number, index: number) {
+	console.log(
+		"Content: Event card clicked, setting topCardType to event, index to:",
+		index,
+	)
+	topCardType = "event"
 	topCardIndex = index
 }
 
-function handlePeriodClick(periodId: number, index: number) {
-	console.log('Content: Period card clicked, setting topCardType to period, index to:', index)
-	topCardType = 'period'
+function handlePeriodClick(_periodId: number, index: number) {
+	console.log(
+		"Content: Period card clicked, setting topCardType to period, index to:",
+		index,
+	)
+	topCardType = "period"
 	topCardIndex = index
 }
 
 // Handle deselecting cards when clicking outside
 function handleCardDeselect() {
-	console.log('Content: Deselecting all cards')
+	console.log("Content: Deselecting all cards")
 	topCardType = null
 	topCardIndex = null
 }

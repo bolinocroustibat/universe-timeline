@@ -1,8 +1,8 @@
 <script lang="ts">
-import type { Event } from "$lib/types"
-import { formatDate } from "$lib/utils/formatters"
 import { currentLocale } from "$lib/stores/localeStore"
+import type { Event } from "$lib/types"
 import { clickOutside } from "$lib/utils/clickOutside"
+import { formatDate } from "$lib/utils/formatters"
 
 const CARD_WIDTH = 200 // Width of event cards in pixels
 const CARD_SCREEN_PADDING = 0 // Padding from edges
@@ -19,7 +19,17 @@ interface Props {
 	onCardDeselect: () => void
 }
 
-let { event, leftEdgeYear, yearsPerPixel, viewportWidth, yPosition, index, isTopCard, onCardClick, onCardDeselect }: Props = $props()
+let {
+	event,
+	leftEdgeYear,
+	yearsPerPixel,
+	viewportWidth,
+	yPosition,
+	index,
+	isTopCard,
+	onCardClick,
+	onCardDeselect,
+}: Props = $props()
 
 // Calculate z-index: inverted so lower cards (closer to timeline) have higher z-index
 const zIndex = $derived(isTopCard ? 1000 : 1000 - yPosition)
@@ -35,18 +45,18 @@ function getEventXPosition(eventDate: number): number {
 // Calculate event card X position
 function getEventCardXPosition(markerXPosition: number): number {
 	// Center the card on the marker line
-	let cardX = markerXPosition - (CARD_WIDTH / 2)
-	
+	let cardX = markerXPosition - CARD_WIDTH / 2
+
 	// Prevent card from going off the left edge
 	if (cardX < CARD_SCREEN_PADDING) {
 		cardX = CARD_SCREEN_PADDING
 	}
-	
+
 	// Prevent card from going off the right edge
 	if (cardX + CARD_WIDTH > viewportWidth - CARD_SCREEN_PADDING) {
 		cardX = viewportWidth - CARD_WIDTH - CARD_SCREEN_PADDING
 	}
-	
+
 	return cardX
 }
 

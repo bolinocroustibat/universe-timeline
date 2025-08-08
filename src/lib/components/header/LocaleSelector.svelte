@@ -1,36 +1,41 @@
 <script lang="ts">
-	import { currentLocale, getLocaleFlag, getLocaleName } from '$lib/stores/localeStore'
-	import type { SupportedLocales } from '$lib/types'
+import {
+	currentLocale,
+	getLocaleFlag,
+	getLocaleName,
+} from "$lib/stores/localeStore"
+import type { SupportedLocales } from "$lib/types"
 
-	let isOpen = $state(false)
-	let dropdownRef: HTMLDivElement | undefined
+let isOpen = $state(false)
+let dropdownRef: HTMLDivElement | undefined
 
-	const locales: SupportedLocales[] = ['en', 'fr']
+const locales: SupportedLocales[] = ["en", "fr"]
 
-	function toggleDropdown() {
-		isOpen = !isOpen
-	}
+function toggleDropdown() {
+	isOpen = !isOpen
+}
 
-	function selectLocale(locale: SupportedLocales) {
-		$currentLocale = locale
+function selectLocale(locale: SupportedLocales) {
+	$currentLocale = locale
+	isOpen = false
+}
+
+// Close dropdown when clicking outside
+function handleClickOutside(event: MouseEvent) {
+	if (dropdownRef && !dropdownRef.contains(event.target as Node)) {
 		isOpen = false
 	}
+}
 
-	// Close dropdown when clicking outside
-	function handleClickOutside(event: MouseEvent) {
-		if (dropdownRef && !dropdownRef.contains(event.target as Node)) {
-			isOpen = false
-		}
+// Add event listener when component mounts
+import { onMount } from "svelte"
+
+onMount(() => {
+	document.addEventListener("click", handleClickOutside)
+	return () => {
+		document.removeEventListener("click", handleClickOutside)
 	}
-
-	// Add event listener when component mounts
-	import { onMount } from 'svelte'
-	onMount(() => {
-		document.addEventListener('click', handleClickOutside)
-		return () => {
-			document.removeEventListener('click', handleClickOutside)
-		}
-	})
+})
 </script>
 
 <div class="relative" bind:this={dropdownRef}>

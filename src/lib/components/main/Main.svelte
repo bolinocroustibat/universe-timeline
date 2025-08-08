@@ -1,13 +1,13 @@
 <script lang="ts">
+import { onMount } from "svelte"
 import { env } from "$env/dynamic/public"
-import DebugInfo from "$lib/components/main/DebugInfo.svelte"
-import Content from "$lib/components/main/content/Content.svelte"
-import TimelineZone from "$lib/components/main/TimelineZone.svelte"
 import LeftArrow from "$lib/components/main/ArrowLeft.svelte"
 import RightArrow from "$lib/components/main/ArrowRight.svelte"
+import Content from "$lib/components/main/content/Content.svelte"
+import DebugInfo from "$lib/components/main/DebugInfo.svelte"
+import TimelineZone from "$lib/components/main/TimelineZone.svelte"
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
-import { onMount } from "svelte"
 
 let containerElement: HTMLDivElement | undefined = $state()
 let viewportWidth = $state(0)

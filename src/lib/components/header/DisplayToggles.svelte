@@ -1,25 +1,25 @@
 <script lang="ts">
-	import { currentLocale } from '$lib/stores/localeStore'
-	import { displaySettings } from '$lib/stores/displayStore'
+import { displaySettings } from "$lib/stores/displayStore"
+import { currentLocale } from "$lib/stores/localeStore"
 
-	const labels = {
-		events: {
-			en: 'Events',
-			fr: 'Événements'
-		},
-		periods: {
-			en: 'Periods',
-			fr: 'Périodes'
-		}
-	}
+const labels = {
+	events: {
+		en: "Events",
+		fr: "Événements",
+	},
+	periods: {
+		en: "Periods",
+		fr: "Périodes",
+	},
+}
 
-	function toggleEvents() {
-		$displaySettings.showEvents = !$displaySettings.showEvents
-	}
+function toggleEvents() {
+	$displaySettings.showEvents = !$displaySettings.showEvents
+}
 
-	function togglePeriods() {
-		$displaySettings.showPeriods = !$displaySettings.showPeriods
-	}
+function togglePeriods() {
+	$displaySettings.showPeriods = !$displaySettings.showPeriods
+}
 </script>
 
 <div class="flex flex-col space-y-1">

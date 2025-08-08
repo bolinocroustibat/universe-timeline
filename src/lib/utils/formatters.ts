@@ -106,7 +106,7 @@ export function formatDate(
 		})
 		const form = billions === 1 ? "singular" : "plural"
 		// Add "-" sign if not using era suffix (to indicate negative years)
-		baseString = `${withEra ? "" : (year < 0 ? "-" : "")}${formatted} ${localeStrings.numbers.billion[form]}`
+		baseString = `${withEra ? "" : year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.billion[form]}`
 	} else if (absYear >= 1_000_000 && absYear % 1_000_000 === 0) {
 		// Year is exactly divisible by 1 million - use million formatting
 		const millions = absYear / 1_000_000
@@ -115,16 +115,19 @@ export function formatDate(
 		})
 		const form = millions === 1 ? "singular" : "plural"
 		// Add "-" sign if not using era suffix (to indicate negative years)
-		baseString = `${withEra ? "" : (year < 0 ? "-" : "")}${formatted} ${localeStrings.numbers.million[form]}`
+		baseString = `${withEra ? "" : year < 0 ? "-" : ""}${formatted} ${localeStrings.numbers.million[form]}`
 	} else {
 		// Default format for years
 		// Add "-" sign if not using era suffix (to indicate negative years)
-		baseString = withEra ? formatLargeNumber(absYear, locale) : formatLargeNumber(year, locale)
+		baseString = withEra
+			? formatLargeNumber(absYear, locale)
+			: formatLargeNumber(year, locale)
 	}
 
 	// Add era suffix if requested
 	if (withEra) {
-		const eraSuffix = year < 0 ? localeStrings.era.before : localeStrings.era.after
+		const eraSuffix =
+			year < 0 ? localeStrings.era.before : localeStrings.era.after
 		return `${baseString}${eraSuffix}`
 	}
 
