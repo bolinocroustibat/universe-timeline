@@ -16,7 +16,7 @@
 			"en": "Formation of oceans through condensation of water from the atmosphere composed of N2, CO2, and CH4",
 			"fr": "Formation des océans par condensation de l'eau de l'atmosphère composée de N2, de CO2 et de CH4"
 		},
-		"color": "b2238c",
+		"color": "#b2238c",
 		"image": null
 	},
 	{
@@ -36,7 +36,7 @@
 			"en": "Emergence of life",
 			"fr": "Émergence de la vie"
 		},
-		"color": "ed0d8a",
+		"color": "#ed0d8a",
 		"image": null
 	},
 	{
@@ -56,7 +56,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#4a90e2",
 		"image": null
 	},
 	{
@@ -76,7 +76,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "ee00ee",
+		"color": "#ee00ee",
 		"image": null
 	},
 	{
@@ -96,7 +96,7 @@
 			"en": "First eukaryotes. Oxygen-rich atmosphere, cause of the Great Oxidation Event. Huronian glaciation.",
 			"fr": "Premiers eucaryotes. Atmosphère riche en dioxygène, cause de la grande oxydation. Glaciation huronienne."
 		},
-		"color": "F74370",
+		"color": "#F74370",
 		"image": null
 	},
 	{
@@ -116,7 +116,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "FDB462",
+		"color": "#FDB462",
 		"image": null
 	},
 	{
@@ -136,7 +136,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "FEB342",
+		"color": "#FEB342",
 		"image": null
 	},
 	{
@@ -156,7 +156,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#8B4513",
 		"image": null
 	},
 	{
@@ -176,7 +176,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#A0522D",
 		"image": null
 	},
 	{
@@ -196,7 +196,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#CD853F",
 		"image": null
 	},
 	{
@@ -216,7 +216,7 @@
 			"en": "Emergence of the Columbia continent",
 			"fr": "Émergence du continent Columbia"
 		},
-		"color": "",
+		"color": "#D2691E",
 		"image": null
 	},
 	{
@@ -236,7 +236,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "D8168A",
+		"color": "#D8168A",
 		"image": null
 	},
 	{
@@ -256,7 +256,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "F4449F",
+		"color": "#F4449F",
 		"image": null
 	},
 	{
@@ -276,7 +276,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "F7689F",
+		"color": "#F7689F",
 		"image": null
 	},
 	{
@@ -296,7 +296,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "F99BC1",
+		"color": "#F99BC1",
 		"image": null
 	},
 	{
@@ -316,7 +316,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#FFD700",
 		"image": null
 	},
 	{
@@ -336,7 +336,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#FFA500",
 		"image": null
 	},
 	{
@@ -356,7 +356,7 @@
 			"en": "Multicellular eukaryotes",
 			"fr": "Eucaryotes multicellulaires"
 		},
-		"color": "",
+		"color": "#FF8C00",
 		"image": null
 	},
 	{
@@ -376,7 +376,7 @@
 			"en": "Formation of the Rodinia continent",
 			"fr": "Formation du continent Rodinia"
 		},
-		"color": "",
+		"color": "#32CD32",
 		"image": null
 	},
 	{
@@ -396,7 +396,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#00CED1",
 		"image": null
 	},
 	{
@@ -416,7 +416,7 @@
 			"en": "Ediacaran fauna",
 			"fr": "Faune de l'Édiacarien"
 		},
-		"color": "",
+		"color": "#20B2AA",
 		"image": null
 	},
 	{
@@ -436,7 +436,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#4682B4",
 		"image": null
 	},
 	{
@@ -456,7 +456,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#5F9EA0",
 		"image": null
 	},
 	{
@@ -476,7 +476,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#228B22",
 		"image": null
 	},
 	{
@@ -496,7 +496,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#8FBC8F",
 		"image": null
 	},
 	{
@@ -516,7 +516,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#90EE90",
 		"image": null
 	},
 	{
@@ -536,7 +536,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#006400",
 		"image": null
 	},
 	{
@@ -556,7 +556,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#2E8B57",
 		"image": null
 	},
 	{
@@ -576,7 +576,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#3CB371",
 		"image": null
 	},
 	{
@@ -596,7 +596,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#66CDAA",
 		"image": null
 	},
 	{
@@ -616,7 +616,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#98FB98",
 		"image": null
 	},
 	{
@@ -636,7 +636,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#7CFC00",
 		"image": null
 	},
 	{
@@ -656,7 +656,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#ADFF2F",
 		"image": null
 	},
 	{
@@ -676,7 +676,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#9ACD32",
 		"image": null
 	},
 	{
@@ -696,7 +696,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#6B8E23",
 		"image": null
 	},
 	{
@@ -716,7 +716,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#556B2F",
 		"image": null
 	},
 	{
@@ -736,7 +736,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#8FBC8F",
 		"image": null
 	},
 	{
@@ -756,7 +756,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#BDB76B",
 		"image": null
 	},
 	{
@@ -776,7 +776,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#2F4F4F",
 		"image": null
 	},
 	{
@@ -796,7 +796,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#708090",
 		"image": null
 	},
 	{
@@ -816,7 +816,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#778899",
 		"image": null
 	},
 	{
@@ -836,7 +836,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#C0C0C0",
 		"image": null
 	},
 	{
@@ -856,7 +856,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#F5F5DC",
 		"image": null
 	},
 	{
@@ -876,7 +876,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#87CEEB",
 		"image": null
 	},
 	{
@@ -896,7 +896,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#B0E0E6",
 		"image": null
 	},
 	{
@@ -916,7 +916,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "",
+		"color": "#ADD8E6",
 		"image": null
 	}
 ]
