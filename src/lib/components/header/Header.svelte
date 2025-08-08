@@ -1,6 +1,6 @@
 <script lang="ts">
-	import LocaleSwitch from '$lib/components/header/LocaleSwitch.svelte'
-	import DisplaySwitches from '$lib/components/header/DisplaySwitches.svelte'
+	import LocaleSelector from '$lib/components/header/LocaleSelector.svelte'
+	import DisplayToggles from '$lib/components/header/DisplayToggles.svelte'
 	import { currentLocale } from '$lib/stores/localeStore'
 
 	const titles = {
@@ -13,8 +13,8 @@
 	<nav class="h-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
 		<h1 class="text-xl font-bold text-zinc-400">{titles[$currentLocale]}</h1>
 		<div class="flex items-center space-x-6">
-			<DisplaySwitches />
-			<LocaleSwitch />
+			<DisplayToggles />
+			<LocaleSelector />
 		</div>
 	</nav>
 </header>

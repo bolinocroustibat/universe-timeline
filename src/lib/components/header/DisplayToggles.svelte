@@ -23,8 +23,9 @@
 </script>
 
 <div class="flex flex-col space-y-1">
-	<!-- Events Switch -->
+	<!-- Events Toggle -->
 	<div class="flex items-center justify-between space-x-2">
+		<!-- svelte-ignore a11y_label_has_associated_control -->
 		<label class="text-xs text-zinc-400 whitespace-nowrap">
 			{labels.events[$currentLocale]}
 		</label>
@@ -41,8 +42,9 @@
 		</button>
 	</div>
 
-	<!-- Periods Switch -->
+	<!-- Periods Toggle -->
 	<div class="flex items-center justify-between space-x-2">
+		<!-- svelte-ignore a11y_label_has_associated_control -->
 		<label class="text-xs text-zinc-400 whitespace-nowrap">
 			{labels.periods[$currentLocale]}
 		</label>
