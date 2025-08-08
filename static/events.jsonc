@@ -9,8 +9,8 @@
 			"fr": "Big-bang"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The universe begins expanding from an extremely hot and dense state. This moment marks the birth of space, time, and all matter in the cosmos.",
+			"fr": "L'univers commence à s'étendre à partir d'un état extrêmement chaud et dense. Ce moment marque la naissance de l'espace, du temps et de toute la matière dans le cosmos."
 		},
 		"image": "bigbang.png"
 	},
@@ -24,8 +24,8 @@
 			"fr": "Formation du système solaire"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A giant molecular cloud of gas and dust begins collapsing under gravity. The Sun forms at the center while planets, moons, asteroids, and comets emerge from the swirling protoplanetary disk.",
+			"fr": "Un nuage moléculaire géant de gaz et de poussière commence à s'effondrer sous l'effet de la gravité. Le Soleil se forme au centre tandis que les planètes, lunes, astéroïdes et comètes émergent du disque protoplanétaire tourbillonnant."
 		},
 		"image": "formation-systeme-solaire.png"
 	},
@@ -39,8 +39,8 @@
 			"fr": "Formation de la Terre"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Small particles collide and stick together, gradually building Earth through accretion. The planet's core, mantle, and crust develop as heavier elements sink toward the center.",
+			"fr": "De petites particules entrent en collision et s'agglomèrent, construisant progressivement la Terre par accrétion. Le noyau, le manteau et la croûte terrestres se développent alors que les éléments plus lourds s'enfoncent vers le centre."
 		},
 		"image": ""
 	},
@@ -54,8 +54,8 @@
 			"fr": "Grande collision et formation de la Lune"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A Mars-sized body called Theia crashes into early Earth, ejecting massive amounts of material into orbit. This debris gradually coalesces to form the Moon, while the impact tilts Earth's axis and contributes to its magnetic field.",
+			"fr": "Un corps de la taille de Mars appelé Théia s'écrase sur la Terre primitive, éjectant d'énormes quantités de matériel en orbite. Ces débris s'agglomèrent progressivement pour former la Lune, tandis que l'impact incline l'axe de la Terre et contribue à son champ magnétique."
 		},
 		"image": ""
 	},
@@ -69,8 +69,8 @@
 			"fr": "Apparition de la vie sur Terre"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Life emerges from non-living matter through chemical processes in Earth's early oceans. Self-replicating molecules form in hydrothermal vents or shallow pools, marking the beginning of biological evolution.",
+			"fr": "La vie émerge de matière non vivante par des processus chimiques dans les océans primitifs de la Terre. Des molécules auto-réplicatives se forment dans des sources hydrothermales ou des bassins peu profonds, marquant le début de l'évolution biologique."
 		},
 		"image": ""
 	},
@@ -99,8 +99,8 @@
 			"fr": "Extinction du Permien-Trias"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The largest mass extinction in Earth's history unfolds, known as the 'Great Dying.' Massive volcanic eruptions in Siberia trigger catastrophic climate change, wiping out 90% of marine species and 70% of terrestrial vertebrates.",
+			"fr": "La plus grande extinction de masse de l'histoire de la Terre se déroule, connue sous le nom de 'Grande Mort.' D'énormes éruptions volcaniques en Sibérie déclenchent un changement climatique catastrophique, éliminant 90% des espèces marines et 70% des vertébrés terrestres."
 		},
 		"image": ""
 	},
@@ -114,8 +114,8 @@
 			"fr": "Premiers dinosaures"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Dinosaurs evolve from archosaur reptiles in the aftermath of the Permian-Triassic extinction. These small, bipedal predators begin their rise to dominance, eventually becoming the ruling terrestrial vertebrates for over 160 million years.",
+			"fr": "Les dinosaures évoluent à partir de reptiles archosaures dans le sillage de l'extinction du Permien-Trias. Ces petits prédateurs bipèdes commencent leur ascension vers la domination, devenant finalement les vertébrés terrestres dominants pendant plus de 160 millions d'années."
 		},
 		"image": ""
 	},
@@ -129,8 +129,8 @@
 			"fr": "Invention de l'agriculture en Occident"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The Neolithic Revolution begins in the Fertile Crescent as humans start domesticating plants and animals. This transition from hunting and gathering to farming enables the development of permanent settlements and complex societies.",
+			"fr": "La Révolution néolithique commence dans le Croissant fertile alors que les humains commencent à domestiquer les plantes et les animaux. Cette transition de la chasse et de la cueillette vers l'agriculture permet le développement d'établissements permanents et de sociétés complexes."
 		},
 		"image": ""
 	},
@@ -144,8 +144,8 @@
 			"fr": "Invention de l'écriture en Mésopotamie"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Cuneiform writing emerges in Sumer (modern Iraq) as a system of record-keeping for trade and administration. This marks the transition from prehistory to history and enables the preservation of knowledge across generations.",
+			"fr": "L'écriture cunéiforme émerge en Sumer (Irak moderne) comme système de tenue de registres pour le commerce et l'administration. Cela marque la transition de la préhistoire à l'histoire et permet la préservation des connaissances à travers les générations."
 		},
 		"image": ""
 	},
@@ -159,8 +159,8 @@
 			"fr": "Naissance de Siddhārtha Gautama (Bouddha)"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Siddhartha Gautama is born in Lumbini (modern Nepal). His teachings on the Four Noble Truths and the Eightfold Path will become the foundation of Buddhism, one of the world's major religions.",
+			"fr": "Siddhartha Gautama naît à Lumbini (Népal moderne). Ses enseignements sur les Quatre Nobles Vérités et le Noble Chemin Octuple deviendront la fondation du bouddhisme, l'une des principales religions du monde."
 		},
 		"image": ""
 	},
@@ -174,8 +174,8 @@
 			"fr": "Naissance de Jésus Christ"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Jesus of Nazareth is born in Bethlehem. His life, teachings, death, and resurrection will become the foundation of Christianity, which will grow to become the world's largest religion.",
+			"fr": "Jésus de Nazareth naît à Bethléem. Sa vie, ses enseignements, sa mort et sa résurrection deviendront la fondation du christianisme, qui deviendra la plus grande religion du monde."
 		},
 		"image": ""
 	},
@@ -189,8 +189,8 @@
 			"fr": "Chute de l'Empire Romain"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The Western Roman Empire officially ends as Romulus Augustulus is deposed by Odoacer. This event marks the beginning of the Middle Ages in Europe and the fragmentation of the Mediterranean world into smaller kingdoms.",
+			"fr": "L'Empire romain d'Occident se termine officiellement alors que Romulus Augustule est déposé par Odoacre. Cet événement marque le début du Moyen Âge en Europe et la fragmentation du monde méditerranéen en royaumes plus petits."
 		},
 		"image": ""
 	},
@@ -204,8 +204,8 @@
 			"fr": "Naissance de Mahomet à La Mecque"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Muhammad is born in Mecca. His revelations, recorded in the Quran, will establish Islam as one of the world's major religions and create a new civilization that will spread across three continents.",
+			"fr": "Muhammad naît à La Mecque. Ses révélations, enregistrées dans le Coran, établiront l'islam comme l'une des principales religions du monde et créeront une nouvelle civilisation qui s'étendra sur trois continents."
 		},
 		"image": ""
 	},
@@ -219,8 +219,8 @@
 			"fr": "Mort de Mahomet à Médine"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Muhammad dies in Medina after completing the unification of Arabia under Islam. His death marks the beginning of the Rashidun Caliphate and the rapid expansion of Islamic civilization across the Middle East, North Africa, and beyond.",
+			"fr": "Muhammad meurt à Médine après avoir achevé l'unification de l'Arabie sous l'islam. Sa mort marque le début du califat rashidun et l'expansion rapide de la civilisation islamique à travers le Moyen-Orient, l'Afrique du Nord et au-delà."
 		},
 		"image": ""
 	},
@@ -234,8 +234,8 @@
 			"fr": "Découverte de l'Amérique par Christophe Colomb"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Christopher Columbus reaches the Caribbean islands, believing he has found a route to Asia. This voyage initiates the European colonization of the Americas and the Columbian Exchange, which transforms global ecosystems and societies.",
+			"fr": "Christophe Colomb atteint les îles des Caraïbes, croyant avoir trouvé une route vers l'Asie. Ce voyage initie la colonisation européenne des Amériques et l'échange colombien, qui transforme les écosystèmes et les sociétés mondiales."
 		},
 		"image": ""
 	},
@@ -249,8 +249,8 @@
 			"fr": "Formation de la Voie Lactée, notre galaxie"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The Milky Way galaxy begins forming through the gravitational collapse of a giant molecular cloud. Over billions of years, it grows through mergers with smaller galaxies and the accretion of gas, eventually forming the spiral galaxy we see today.",
+			"fr": "La galaxie de la Voie Lactée commence à se former par l'effondrement gravitationnel d'un nuage moléculaire géant. Sur des milliards d'années, elle grandit par des fusions avec des galaxies plus petites et l'accrétion de gaz, formant finalement la galaxie spirale que nous voyons aujourd'hui."
 		},
 		"image": ""
 	},
@@ -264,8 +264,8 @@
 			"fr": "Formation d'Andromède, la galaxie voisine de la nôtre"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The Andromeda Galaxy, our closest large galactic neighbor, forms through similar processes to the Milky Way. It becomes the largest galaxy in the Local Group and is on a collision course with our galaxy, expected to merge in about 4 billion years.",
+			"fr": "La galaxie d'Andromède, notre plus proche voisine galactique, se forme par des processus similaires à la Voie Lactée. Elle devient la plus grande galaxie du Groupe local et est sur une trajectoire de collision avec notre galaxie, prévue pour fusionner dans environ 4 milliards d'années."
 		},
 		"image": ""
 	},
