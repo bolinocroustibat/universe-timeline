@@ -170,6 +170,8 @@ function handleCardDeselect() {
 					viewportWidth={viewportWidth}
 					index={index}
 					isTopCard={topCardType === 'period' && topCardIndex === index}
+					leftPeriod={index > 0 ? visiblePeriods[index - 1] : null}
+					rightPeriod={index < visiblePeriods.length - 1 ? visiblePeriods[index + 1] : null}
 					onCardClick={handlePeriodClick}
 					onCardDeselect={handleCardDeselect}
 				/>

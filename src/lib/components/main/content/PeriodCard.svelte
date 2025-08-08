@@ -2,6 +2,7 @@
 import type { Period } from "$lib/types"
 import { currentLocale } from "$lib/stores/localeStore"
 import { clickOutside } from "$lib/utils/clickOutside"
+import { blendColors } from "$lib/utils/colors"
 
 interface Props {
 	period: Period
@@ -11,11 +12,13 @@ interface Props {
 	viewportWidth: number
 	index: number
 	isTopCard: boolean
+	leftPeriod: Period | null
+	rightPeriod: Period | null
 	onCardClick: (periodId: number, index: number) => void
 	onCardDeselect: () => void
 }
 
-let { period, leftEdgeYear, rightEdgeYear, yearsPerPixel, viewportWidth, index, isTopCard, onCardClick, onCardDeselect }: Props = $props()
+let { period, leftEdgeYear, rightEdgeYear, yearsPerPixel, viewportWidth, index, isTopCard, leftPeriod, rightPeriod, onCardClick, onCardDeselect }: Props = $props()
 
 // Calculate period position and width
 const periodPosition = $derived(() => {
@@ -36,6 +39,35 @@ const periodPosition = $derived(() => {
 // Get period color or default
 const periodColor = $derived(period.color || "#6b7280")
 
+// Calculate gradient background based on adjacent periods
+const gradientBackground = $derived(() => {
+	const currentColor = period.color || "#6b7280"
+	const leftColor = leftPeriod?.color || currentColor
+	const rightColor = rightPeriod?.color || currentColor
+
+	// Calculate blended colors
+	const leftBlend = leftPeriod ? blendColors(leftColor, currentColor) : currentColor
+	const rightBlend = rightPeriod ? blendColors(currentColor, rightColor) : currentColor
+	
+	// If no adjacent periods, use solid color
+	if (!leftPeriod && !rightPeriod) {
+		return `background-color: ${currentColor};`
+	}
+	
+	// If only left period exists
+	if (leftPeriod && !rightPeriod) {
+		return `background: linear-gradient(to right, ${leftBlend} 0%, ${currentColor} 10%, ${currentColor} 100%);`
+	}
+	
+	// If only right period exists
+	if (!leftPeriod && rightPeriod) {
+		return `background: linear-gradient(to right, ${currentColor} 0%, ${currentColor} 90%, ${rightBlend} 100%);`
+	}
+	
+	// If both adjacent periods exist
+	return `background: linear-gradient(to right, ${leftBlend} 0%, ${currentColor} 10%, ${currentColor} 90%,${rightBlend} 100%);`
+})
+
 // Calculate visibility using both edges
 const isVisible = $derived(period.end >= leftEdgeYear && period.start <= rightEdgeYear)
 
@@ -54,7 +86,9 @@ function handleClick() {
 		class="absolute bottom-0 backdrop-blur-sm flex items-center justify-center px-2 text-xs font-medium shadow-sm cursor-pointer"
 		class:shadow-lg={isSelected}
 		class:shadow-md={!isSelected}
-		style="left: {periodPosition().x}px; width: {periodPosition().width}px; background-color: {periodColor}; color: white; height: {isSelected ? 'auto' : '8rem'}; min-height: 8rem;"
+		class:border-2={isSelected}
+		class:border-white={isSelected}
+		style="left: {periodPosition().x}px; width: {periodPosition().width}px; {gradientBackground()}; color: white; height: {isSelected ? 'auto' : '8rem'}; min-height: 8rem;"
 		title="{period.name[$currentLocale]}"
 		onclick={handleClick}
 		use:clickOutside={onCardDeselect}
