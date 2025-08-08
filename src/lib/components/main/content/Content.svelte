@@ -24,7 +24,8 @@ let events: Event[] = $state([])
 let periods: Period[] = $state([])
 let isLoading = $state(true)
 
-// Track which card is on top
+// Track which card is on top (type and index)
+let topCardType = $state<'event' | 'period' | null>(null)
 let topCardIndex = $state<number | null>(null)
 
 // Load events and periods on component mount
@@ -108,14 +109,22 @@ function getEventYPosition(eventIndex: number): number {
 }
 
 // Handle card click to bring it to top
-function handleCardClick(eventId: number, index: number) {
-	console.log('EventsZone: Card clicked, setting topCardIndex to:', index)
+function handleEventClick(eventId: number, index: number) {
+	console.log('Content: Event card clicked, setting topCardType to event, index to:', index)
+	topCardType = 'event'
+	topCardIndex = index
+}
+
+function handlePeriodClick(periodId: number, index: number) {
+	console.log('Content: Period card clicked, setting topCardType to period, index to:', index)
+	topCardType = 'period'
 	topCardIndex = index
 }
 
 // Handle deselecting cards when clicking outside
 function handleCardDeselect() {
-	console.log('EventsZone: Deselecting all cards')
+	console.log('Content: Deselecting all cards')
+	topCardType = null
 	topCardIndex = null
 }
 </script>
@@ -137,21 +146,25 @@ function handleCardDeselect() {
 				viewportWidth={viewportWidth}
 				yPosition={getEventYPosition(index)}
 				index={index}
-				isTopCard={topCardIndex === index}
-				onCardClick={handleCardClick}
+				isTopCard={topCardType === 'event' && topCardIndex === index}
+				onCardClick={handleEventClick}
 				onCardDeselect={handleCardDeselect}
 			/>
 		{/each}
 		
 		<!-- Periods are rendered here -->
 		{#if $displaySettings.showPeriods}
-			{#each visiblePeriods as period}
+			{#each visiblePeriods as period, index}
 				<PeriodCard 
 					period={period}
 					leftEdgeYear={leftEdgeYear}
 					rightEdgeYear={rightEdgeYear}
 					yearsPerPixel={yearsPerPixel}
 					viewportWidth={viewportWidth}
+					index={index}
+					isTopCard={topCardType === 'period' && topCardIndex === index}
+					onCardClick={handlePeriodClick}
+					onCardDeselect={handleCardDeselect}
 				/>
 			{/each}
 		{/if}
