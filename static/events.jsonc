@@ -17,6 +17,96 @@
 	{
 		"id": 2,
 		"parentPeriodId": null,
+		"date": -13700000000,
+		"dateUncertainty": 500000000,
+		"name": {
+			"en": "Formation of the first stars",
+			"fr": "Formation des premières étoiles"
+		},
+		"description": {
+			"en": "The first stars begin forming from primordial hydrogen and helium gas. These Population III stars are massive, short-lived, and contain no heavy elements. Their intense ultraviolet radiation begins reionizing the universe.",
+			"fr": "Les premières étoiles commencent à se former à partir de gaz primordial d'hydrogène et d'hélium. Ces étoiles de Population III sont massives, de courte durée de vie et ne contiennent aucun élément lourd. Leur rayonnement ultraviolet intense commence à réioniser l'univers."
+		},
+		"image": ""
+	},
+	{
+		"id": 76,
+		"parentPeriodId": null,
+		"date": -13000000000,
+		"dateUncertainty": 1000000000,
+		"name": {
+			"en": "First supernovae and heavy element formation",
+			"fr": "Premières supernovae et formation des éléments lourds"
+		},
+		"description": {
+			"en": "The first massive stars explode as supernovae, creating the first heavy elements like carbon, oxygen, and iron. These elements are scattered into space, enriching the interstellar medium for future generations of stars.",
+			"fr": "Les premières étoiles massives explosent en supernovae, créant les premiers éléments lourds comme le carbone, l'oxygène et le fer. Ces éléments sont dispersés dans l'espace, enrichissant le milieu interstellaire pour les générations futures d'étoiles."
+		},
+		"image": ""
+	},
+	{
+		"id": 77,
+		"parentPeriodId": null,
+		"date": -12000000000,
+		"dateUncertainty": 2000000000,
+		"name": {
+			"en": "Formation of the first galaxies",
+			"fr": "Formation des premières galaxies"
+		},
+		"description": {
+			"en": "Gravity begins pulling together groups of stars to form the first galaxies. These early galaxies are smaller and more irregular than modern ones, but they mark the beginning of large-scale cosmic structure.",
+			"fr": "La gravité commence à rassembler des groupes d'étoiles pour former les premières galaxies. Ces galaxies primitives sont plus petites et plus irrégulières que les modernes, mais elles marquent le début de la structure cosmique à grande échelle."
+		},
+		"image": ""
+	},
+	{
+		"id": 78,
+		"parentPeriodId": null,
+		"date": -10000000000,
+		"dateUncertainty": 2000000000,
+		"name": {
+			"en": "Reionization of the universe",
+			"fr": "Réionisation de l'univers"
+		},
+		"description": {
+			"en": "The intense radiation from the first stars and galaxies ionizes the neutral hydrogen gas that fills the universe. This process transforms the universe from opaque to transparent, allowing light to travel freely through space.",
+			"fr": "Le rayonnement intense des premières étoiles et galaxies ionise le gaz d'hydrogène neutre qui remplit l'univers. Ce processus transforme l'univers d'opaque à transparent, permettant à la lumière de voyager librement dans l'espace."
+		},
+		"image": ""
+	},
+	{
+		"id": 79,
+		"parentPeriodId": null,
+		"date": -8000000000,
+		"dateUncertainty": 2000000000,
+		"name": {
+			"en": "Formation of Population II stars",
+			"fr": "Formation des étoiles de Population II"
+		},
+		"description": {
+			"en": "The second generation of stars begins forming from gas enriched with heavy elements from the first supernovae. These stars have longer lifespans and are more similar to the stars we see today in our galaxy.",
+			"fr": "La deuxième génération d'étoiles commence à se former à partir de gaz enrichi en éléments lourds des premières supernovae. Ces étoiles ont une durée de vie plus longue et sont plus similaires aux étoiles que nous voyons aujourd'hui dans notre galaxie."
+		},
+		"image": ""
+	},
+	{
+		"id": 80,
+		"parentPeriodId": null,
+		"date": -6000000000,
+		"dateUncertainty": 2000000000,
+		"name": {
+			"en": "Formation of Population I stars",
+			"fr": "Formation des étoiles de Population I"
+		},
+		"description": {
+			"en": "The third generation of stars begins forming, including our Sun. These stars contain the highest abundance of heavy elements and are the most common type of star in the modern universe.",
+			"fr": "La troisième génération d'étoiles commence à se former, incluant notre Soleil. Ces étoiles contiennent la plus forte abondance d'éléments lourds et sont le type d'étoile le plus commun dans l'univers moderne."
+		},
+		"image": ""
+	},
+	{
+		"id": 81,
+		"parentPeriodId": null,
 		"date": -4567000000,
 		"dateUncertainty": 50000000,
 		"name": {
