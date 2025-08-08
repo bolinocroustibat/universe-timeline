@@ -53,8 +53,8 @@
 			"fr": "Protérozoïque"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Development of complex life forms, including the first multicellular organisms and the emergence of sexual reproduction. Major geological events include the formation of supercontinents and significant atmospheric changes.",
+			"fr": "Développement de formes de vie complexes, incluant les premiers organismes multicellulaires et l'émergence de la reproduction sexuée. Événements géologiques majeurs incluent la formation de supercontinents et des changements atmosphériques significatifs."
 		},
 		"color": "#4a90e2",
 		"image": null
@@ -73,8 +73,8 @@
 			"fr": "Phanérozoïque"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The current eon of visible life, characterized by the proliferation of complex multicellular organisms. Includes the Paleozoic, Mesozoic, and Cenozoic eras, featuring the evolution of vertebrates, plants, and the rise and fall of dinosaurs.",
+			"fr": "L'éon actuel de la vie visible, caractérisé par la prolifération d'organismes multicellulaires complexes. Inclut les ères Paléozoïque, Mésozoïque et Cénozoïque, avec l'évolution des vertébrés, des plantes, et l'essor et la chute des dinosaures."
 		},
 		"color": "#ee00ee",
 		"image": null
@@ -113,8 +113,8 @@
 			"fr": "Mésoprotérozoïque"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Formation of the supercontinent Rodinia. Development of sexual reproduction in eukaryotes. Stable oxygen levels in the atmosphere. First evidence of complex multicellular life.",
+			"fr": "Formation du supercontinent Rodinia. Développement de la reproduction sexuée chez les eucaryotes. Niveaux d'oxygène stables dans l'atmosphère. Premières preuves de vie multicellulaire complexe."
 		},
 		"color": "#FDB462",
 		"image": null
@@ -133,8 +133,8 @@
 			"fr": "Néoprotérozoïque"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Breakup of Rodinia supercontinent. Multiple global glaciations including Snowball Earth events. Emergence of complex multicellular life including the Ediacaran biota. Precursor to the Cambrian explosion.",
+			"fr": "Fragmentation du supercontinent Rodinia. Multiples glaciations globales incluant les événements Terre boule de neige. Émergence de vie multicellulaire complexe incluant la biote de l'Édiacarien. Précurseur de l'explosion cambrienne."
 		},
 		"color": "#FEB342",
 		"image": null
