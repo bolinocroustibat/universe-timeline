@@ -32,8 +32,8 @@ onMount(async () => {
 	try {
 		// Load both events and periods in parallel
 		const [eventsResponse, periodsResponse] = await Promise.all([
-			fetch("/events.json"),
-			fetch("/periods.json")
+			fetch("/events.jsonc"),
+			fetch("/periods.jsonc")
 		])
 		
 		if (!eventsResponse.ok) {
