@@ -149,6 +149,7 @@ function handleCardDeselect() {
 				<PeriodCard 
 					period={period}
 					leftEdgeYear={leftEdgeYear}
+					rightEdgeYear={rightEdgeYear}
 					yearsPerPixel={yearsPerPixel}
 					viewportWidth={viewportWidth}
 				/>

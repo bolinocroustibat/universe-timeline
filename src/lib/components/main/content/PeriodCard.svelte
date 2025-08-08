@@ -5,32 +5,34 @@ import { currentLocale } from "$lib/stores/localeStore"
 interface Props {
 	period: Period
 	leftEdgeYear: number
+	rightEdgeYear: number
 	yearsPerPixel: number
 	viewportWidth: number
 }
 
-let { period, leftEdgeYear, yearsPerPixel, viewportWidth }: Props = $props()
+let { period, leftEdgeYear, rightEdgeYear, yearsPerPixel, viewportWidth }: Props = $props()
 
 // Calculate period position and width
 function getPeriodPosition(): { x: number; width: number } {
 	const startX = (period.start - leftEdgeYear) / yearsPerPixel
 	const endX = (period.end - leftEdgeYear) / yearsPerPixel
-	const width = endX - startX
+	const rightEdgeX = (rightEdgeYear - leftEdgeYear) / yearsPerPixel
+	
+	const clampedStartX = Math.max(0, startX)
+	const clampedEndX = Math.min(endX, rightEdgeX)
+	const width = clampedEndX - clampedStartX
 	
 	return {
-		x: Math.max(0, startX),
-		width: Math.min(width, viewportWidth - startX)
+		x: clampedStartX,
+		width: width
 	}
 }
 
 // Get period color or default
 const periodColor = $derived(period.color || "#6b7280")
 
-// Calculate visibility
-const startX = (period.start - leftEdgeYear) / yearsPerPixel
-const endX = (period.end - leftEdgeYear) / yearsPerPixel
-const width = endX - startX
-const isVisible = width > 0 && startX < viewportWidth && endX > 0
+// Calculate visibility using both edges
+const isVisible = period.end >= leftEdgeYear && period.start <= rightEdgeYear
 </script>
 
 {#if isVisible}
