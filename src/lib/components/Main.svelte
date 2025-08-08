@@ -1,7 +1,7 @@
 <script lang="ts">
 import { env } from "$env/dynamic/public"
 import DebugInfo from "$lib/components/main/DebugInfo.svelte"
-import EventsZone from "$lib/components/main/EventsZone.svelte"
+import Content from "$lib/components/main/Content.svelte"
 import TimelineZone from "$lib/components/main/TimelineZone.svelte"
 import LeftArrow from "$lib/components/main/ArrowLeft.svelte"
 import RightArrow from "$lib/components/main/ArrowRight.svelte"
@@ -274,7 +274,7 @@ function stopPanning() {
 		onmouseleave={handleMouseLeave}
 		class="flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none relative"
 	>
-		<EventsZone 
+		<Content 
 			{viewportWidth}
 			{yearsPerPixel}
 			{leftEdgeYear}

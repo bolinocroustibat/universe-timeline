@@ -2,7 +2,8 @@
 import type { Event, Period } from "$lib/types"
 import { onMount } from "svelte"
 import { displaySettings } from "$lib/stores/displayStore"
-import EventCard from "./EventCard.svelte"
+import EventCard from "./content/EventCard.svelte"
+import PeriodCard from "./content/PeriodCard.svelte"
 
 interface Props {
 	viewportWidth: number
@@ -55,6 +56,15 @@ onMount(async () => {
 const visibleEvents = $derived(
 	events.filter((event) => {
 		return event.date >= leftEdgeYear && event.date <= rightEdgeYear
+	}),
+)
+
+// Filter periods that are visible and have parentPeriodId = 0
+const visiblePeriods = $derived(
+	periods.filter((period) => {
+		return period.parentPeriodId === 0 && 
+			   period.end >= leftEdgeYear && 
+			   period.start <= rightEdgeYear
 	}),
 )
 
@@ -132,6 +142,18 @@ function handleCardDeselect() {
 				onCardDeselect={handleCardDeselect}
 			/>
 		{/each}
+		
+		<!-- Periods are rendered here -->
+		{#if $displaySettings.showPeriods}
+			{#each visiblePeriods as period}
+				<PeriodCard 
+					period={period}
+					leftEdgeYear={leftEdgeYear}
+					yearsPerPixel={yearsPerPixel}
+					viewportWidth={viewportWidth}
+				/>
+			{/each}
+		{/if}
 	{:else}
 		<!-- Events are hidden -->
 		<div class="absolute inset-0 flex items-center justify-center">
