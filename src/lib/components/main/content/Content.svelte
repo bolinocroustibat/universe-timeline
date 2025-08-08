@@ -136,21 +136,28 @@ function handleCardDeselect() {
 		<div class="absolute inset-0 flex items-center justify-center">
 			<div class="text-gray-500">Loading events...</div>
 		</div>
-	{:else if $displaySettings.showEvents}
+	{:else}
 		<!-- Events are rendered here -->
-		{#each visibleEvents as event, index}
-			<EventCard 
-				event={event}
-				leftEdgeYear={leftEdgeYear}
-				yearsPerPixel={yearsPerPixel}
-				viewportWidth={viewportWidth}
-				yPosition={getEventYPosition(index)}
-				index={index}
-				isTopCard={topCardType === 'event' && topCardIndex === index}
-				onCardClick={handleEventClick}
-				onCardDeselect={handleCardDeselect}
-			/>
-		{/each}
+		{#if $displaySettings.showEvents}
+			{#each visibleEvents as event, index}
+				<EventCard 
+					event={event}
+					leftEdgeYear={leftEdgeYear}
+					yearsPerPixel={yearsPerPixel}
+					viewportWidth={viewportWidth}
+					yPosition={getEventYPosition(index)}
+					index={index}
+					isTopCard={topCardType === 'event' && topCardIndex === index}
+					onCardClick={handleEventClick}
+					onCardDeselect={handleCardDeselect}
+				/>
+			{/each}
+		{:else}
+			<!-- Events are hidden -->
+			<div class="absolute inset-0 flex items-center justify-center">
+				<div class="text-gray-500">Events are hidden</div>
+			</div>
+		{/if}
 		
 		<!-- Periods are rendered here -->
 		{#if $displaySettings.showPeriods}
@@ -168,11 +175,6 @@ function handleCardDeselect() {
 				/>
 			{/each}
 		{/if}
-	{:else}
-		<!-- Events are hidden -->
-		<div class="absolute inset-0 flex items-center justify-center">
-			<div class="text-gray-500">Events are hidden</div>
-		</div>
 	{/if}
 
 </div>
