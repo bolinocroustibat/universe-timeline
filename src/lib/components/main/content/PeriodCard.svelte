@@ -89,6 +89,9 @@ const isVisible = $derived(
 	period.end >= leftEdgeYear && period.start <= rightEdgeYear,
 )
 
+// Calculate z-index: selected cards appear on top
+const zIndex = $derived(isTopCard ? 1000 : 100)
+
 // Determine if this card is selected
 const isSelected = $derived(isTopCard)
 
@@ -106,7 +109,7 @@ function handleClick() {
 		class:shadow-md={!isSelected}
 		class:border-2={isSelected}
 		class:border-white={isSelected}
-		style="left: {periodPosition().x}px; width: {periodPosition().width}px; {gradientBackground()}; color: white; height: {isSelected ? 'auto' : '8rem'}; min-height: 8rem;"
+		style="left: {periodPosition().x}px; width: {periodPosition().width}px; {gradientBackground()}; color: white; height: {isSelected ? 'auto' : '8rem'}; min-height: 8rem; z-index: {zIndex};"
 		title="{period.name[$currentLocale]}"
 		onclick={handleClick}
 		use:clickOutside={onCardDeselect}
