@@ -1,6 +1,6 @@
 <script lang="ts">
-	import LocaleSwitch from './header/LocaleSwitch.svelte'
-	import DisplaySwitches from './header/DisplaySwitches.svelte'
+	import LocaleSwitch from '$lib/components/header/LocaleSwitch.svelte'
+	import DisplaySwitches from '$lib/components/header/DisplaySwitches.svelte'
 	import { currentLocale } from '$lib/stores/localeStore'
 
 	const titles = {

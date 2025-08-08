@@ -1,4 +1,4 @@
-import type { Event, Period } from "./types"
+import type { Event, Period } from "$lib/types"
 
 export async function fetchPeriods(): Promise<Period[]> {
 	try {

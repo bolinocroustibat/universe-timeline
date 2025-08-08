@@ -1,7 +1,7 @@
 <script lang="ts">
 import { env } from "$env/dynamic/public"
 import DebugInfo from "$lib/components/main/DebugInfo.svelte"
-import Content from "$lib/components/main/Content.svelte"
+import Content from "$lib/components/main/content/Content.svelte"
 import TimelineZone from "$lib/components/main/TimelineZone.svelte"
 import LeftArrow from "$lib/components/main/ArrowLeft.svelte"
 import RightArrow from "$lib/components/main/ArrowRight.svelte"

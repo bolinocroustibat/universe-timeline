@@ -2,8 +2,8 @@
 import type { Event, Period } from "$lib/types"
 import { onMount } from "svelte"
 import { displaySettings } from "$lib/stores/displayStore"
-import EventCard from "./content/EventCard.svelte"
-import PeriodCard from "./content/PeriodCard.svelte"
+import EventCard from "$lib/components/main/content/EventCard.svelte"
+import PeriodCard from "$lib/components/main/content/PeriodCard.svelte"
 
 interface Props {
 	viewportWidth: number
