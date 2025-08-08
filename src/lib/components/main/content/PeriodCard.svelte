@@ -65,7 +65,7 @@ function handleClick() {
 				{period.name[$currentLocale]}
 			</span>
 			{#if isSelected && period.description[$currentLocale]}
-				<div class="text-xs leading-relaxed text-center opacity-90 max-w-full">
+				<div class="truncate text-xs leading-relaxed text-center opacity-90 max-w-full">
 					{period.description[$currentLocale]}
 				</div>
 			{/if}
