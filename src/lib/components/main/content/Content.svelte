@@ -67,43 +67,9 @@ const visiblePeriods = $derived(
 	}),
 )
 
-// Efficient overlap detection - stack events vertically when they overlap
-// Pre-calculate all event positions to avoid recursive calls
-const eventPositions = $derived(() => {
-	const positions: { x: number; y: number }[] = []
-	const baseY = 20
-	const eventHeight = 80
-	const verticalSpacing = 25
-
-	visibleEvents.forEach((event, index) => {
-		const currentX = (event.date - leftEdgeYear) / yearsPerPixel
-		let maxY = baseY
-
-		// Check if this event overlaps with any previous events
-		for (let i = 0; i < index; i++) {
-			const prevX = positions[i].x
-			const prevY = positions[i].y
-
-			// Check for horizontal overlap (approximate event width of 200px)
-			const horizontalOverlap =
-				currentX < prevX + 200 + verticalSpacing &&
-				currentX + 200 + verticalSpacing > prevX
-
-			if (horizontalOverlap) {
-				// Stack this event above the overlapping event
-				const stackY = prevY + eventHeight + verticalSpacing
-				maxY = Math.max(maxY, stackY)
-			}
-		}
-
-		positions.push({ x: currentX, y: maxY })
-	})
-
-	return positions
-})
-
-function getEventYPosition(eventIndex: number): number {
-	return eventPositions()[eventIndex]?.y ?? 20
+// Simple vertical positioning - all events at the same level
+function getEventYPosition(): number {
+	return 20
 }
 
 // Handle card click to bring it to top
@@ -149,7 +115,7 @@ function handleCardDeselect() {
 					leftEdgeYear={leftEdgeYear}
 					yearsPerPixel={yearsPerPixel}
 					viewportWidth={viewportWidth}
-					yPosition={getEventYPosition(index)}
+					yPosition={getEventYPosition()}
 					index={index}
 					isTopCard={topCardType === 'event' && topCardIndex === index}
 					onCardClick={handleEventClick}
