@@ -25,3 +25,22 @@
 		font-variation-settings: normal;
 	}
 }
+
+/* Force landscape layout on mobile devices */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+	.landscape-required {
+		transform: rotate(90deg);
+		transform-origin: center center;
+		width: 100vh;
+		height: 100vw;
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+	
+	/* Adjust the main container for landscape */
+	.main-container {
+		min-height: 100vw;
+		width: 100vh;
+	}
+}
