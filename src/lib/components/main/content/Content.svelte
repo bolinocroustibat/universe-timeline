@@ -3,6 +3,7 @@ import { onMount } from "svelte"
 import EventCard from "$lib/components/main/content/EventCard.svelte"
 import PeriodCard from "$lib/components/main/content/PeriodCard.svelte"
 import { displaySettings } from "$lib/stores/displayStore"
+import { currentLocale } from "$lib/stores/localeStore"
 import type { Event, Period } from "$lib/types"
 
 interface Props {
@@ -97,6 +98,21 @@ function handleCardDeselect() {
 	topCardType = null
 	topCardIndex = null
 }
+
+const messages = {
+	en: {
+		loading: "Loading...",
+		eventsHidden: "Events are hidden.",
+		periodsHidden: "Periods are hidden.",
+		eventsAndPeriodsHidden: "Events and periods are hidden.",
+	},
+	fr: {
+		loading: "Chargement...",
+		eventsHidden: "Les événements sont masqués.",
+		periodsHidden: "Les périodes sont masquées.",
+		eventsAndPeriodsHidden: "Les événements et les périodes sont masqués.",
+	},
+}
 </script>
 
 <div class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden relative">
@@ -104,49 +120,59 @@ function handleCardDeselect() {
 	{#if isLoading}
 		<!-- Loading state -->
 		<div class="absolute inset-0 flex items-center justify-center">
-			<div class="text-gray-500">Loading events...</div>
+			<div class="text-gray-500">{messages[$currentLocale].loading}</div>
 		</div>
 	{:else}
-		<!-- Events are rendered here -->
-		{#if $displaySettings.showEvents}
-			{#each visibleEvents as event, index}
-				<EventCard 
-					event={event}
-					leftEdgeYear={leftEdgeYear}
-					yearsPerPixel={yearsPerPixel}
-					viewportWidth={viewportWidth}
-					yPosition={getEventYPosition()}
-					index={index}
-					isTopCard={topCardType === 'event' && topCardIndex === index}
-					onCardClick={handleEventClick}
-					onCardDeselect={handleCardDeselect}
-				/>
-			{/each}
-		{:else}
-			<!-- Events are hidden -->
+		{#if !$displaySettings.showEvents && !$displaySettings.showPeriods}
+			<!-- Events and periods are hidden -->
 			<div class="absolute inset-0 flex items-center justify-center">
-				<div class="text-gray-500">Events are hidden</div>
+				<div class="text-gray-500">{messages[$currentLocale].eventsAndPeriodsHidden}</div>
 			</div>
-		{/if}
-		
-		<!-- Periods are rendered here -->
-		{#if $displaySettings.showPeriods}
-			{#each visiblePeriods as period, index}
-				<PeriodCard 
-					period={period}
-					leftEdgeYear={leftEdgeYear}
-					rightEdgeYear={rightEdgeYear}
-					yearsPerPixel={yearsPerPixel}
-					viewportWidth={viewportWidth}
-					index={index}
-					isTopCard={topCardType === 'period' && topCardIndex === index}
-					leftPeriod={index > 0 ? visiblePeriods[index - 1] : null}
-					rightPeriod={index < visiblePeriods.length - 1 ? visiblePeriods[index + 1] : null}
-					onCardClick={handlePeriodClick}
-					onCardDeselect={handleCardDeselect}
-				/>
-			{/each}
+		{:else}
+			<!-- Events are rendered here -->
+			{#if $displaySettings.showEvents}
+				{#each visibleEvents as event, index}
+					<EventCard 
+						event={event}
+						leftEdgeYear={leftEdgeYear}
+						yearsPerPixel={yearsPerPixel}
+						viewportWidth={viewportWidth}
+						yPosition={getEventYPosition()}
+						index={index}
+						isTopCard={topCardType === 'event' && topCardIndex === index}
+						onCardClick={handleEventClick}
+						onCardDeselect={handleCardDeselect}
+					/>
+				{/each}
+			{:else}
+				<!-- Events are hidden -->
+				<div class="absolute inset-0 flex items-center justify-center">
+					<div class="text-gray-500">{messages[$currentLocale].eventsHidden}</div>
+				</div>
+			{/if}
+			<!-- Periods are rendered here -->
+			{#if $displaySettings.showPeriods}
+				{#each visiblePeriods as period, index}
+					<PeriodCard 
+						period={period}
+						leftEdgeYear={leftEdgeYear}
+						rightEdgeYear={rightEdgeYear}
+						yearsPerPixel={yearsPerPixel}
+						viewportWidth={viewportWidth}
+						index={index}
+						isTopCard={topCardType === 'period' && topCardIndex === index}
+						leftPeriod={index > 0 ? visiblePeriods[index - 1] : null}
+						rightPeriod={index < visiblePeriods.length - 1 ? visiblePeriods[index + 1] : null}
+						onCardClick={handlePeriodClick}
+						onCardDeselect={handleCardDeselect}
+					/>
+				{/each}
+			{:else}
+				<!-- Periods are hidden -->
+				<div class="absolute inset-0 flex items-center justify-center">
+					<div class="text-gray-500">{messages[$currentLocale].periodsHidden}</div>
+				</div>
+			{/if}
 		{/if}
 	{/if}
-
 </div>

@@ -24,3 +24,10 @@ vite.config.ts.timestamp-*
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# IDE
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+.kilo
+.vscode

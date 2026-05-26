@@ -1,0 +1,24 @@
+---
+description: Use Bun for package management and scripts in this project
+alwaysApply: true
+---
+
+# Package manager: Bun
+
+Always use **Bun** for installs, scripts, and one-off tools. Never use `npm`, `npx`, or `pnpm`.
+
+## Commands
+
+- Install: `bun install` (CI/Docker: `bun install --frozen-lockfile`)
+- Add/remove: `bun add`, `bun remove`
+- Update: `bun update`, `bun outdated`
+- Scripts: `bun run <script>` (e.g. `bun run dev`, `bun run build`, `bun run check`)
+- Tools: `bunx <tool>` (e.g. `bunx biome check --write src`)
+
+## Lockfile
+
+Commit `bun.lock` as the single lockfile. Do not add `package-lock.json`, `pnpm-lock.yaml`, or `yarn.lock`.
+
+## Note
+
+`svelte-adapter-bun` is the SvelteKit **adapter** name, not a different package manager. The app still runs with Bun in production.

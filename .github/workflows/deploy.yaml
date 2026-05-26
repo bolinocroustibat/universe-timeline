@@ -75,7 +75,7 @@ jobs:
               git fetch
               git reset --hard origin/main
             else
-              # Clean directory, including nodes_modules but preserving .env
+              # Clean directory, including node_modules but preserving .env
               rm -rf node_modules
               find . -maxdepth 1 ! -name '.' ! -name '..' ! -name '.env' -exec rm -rf {} +
               # Clone repository contents directly to current directory (without creating subdirectory)

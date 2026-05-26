@@ -36,9 +36,9 @@ function togglePeriods() {
 			aria-checked={$displaySettings.showEvents}
 			aria-label="Toggle events display"
 		>
-			<span
-				class="inline-block h-2 w-2 transform rounded-full bg-white transition-transform duration-200 {$displaySettings.showEvents ? 'translate-x-3' : 'translate-x-0.5'}"
-			/>
+      <span
+        class="inline-block h-2 w-2 transform rounded-full bg-white transition-transform duration-200 {$displaySettings.showEvents ? 'translate-x-3' : 'translate-x-0.5'}"
+      ></span>
 		</button>
 	</div>
 
@@ -55,9 +55,9 @@ function togglePeriods() {
 			aria-checked={$displaySettings.showPeriods}
 			aria-label="Toggle periods display"
 		>
-			<span
-				class="inline-block h-2 w-2 transform rounded-full bg-white transition-transform duration-200 {$displaySettings.showPeriods ? 'translate-x-3' : 'translate-x-0.5'}"
-			/>
+      <span
+        class="inline-block h-2 w-2 transform rounded-full bg-white transition-transform duration-200 {$displaySettings.showPeriods ? 'translate-x-3' : 'translate-x-0.5'}"
+      ></span>
 		</button>
 	</div>
 </div>
