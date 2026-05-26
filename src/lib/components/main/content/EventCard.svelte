@@ -1,11 +1,13 @@
 <script lang="ts">
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event } from "$lib/types"
-import { clickOutside } from "$lib/utils/clickOutside"
 import { formatDate } from "$lib/utils/formatters"
 
 const CARD_WIDTH = 200 // Width of event cards in pixels
 const CARD_SCREEN_PADDING = 0 // Padding from edges
+const Z_INDEX_SELECTED = 1000
+const Z_INDEX_HOVERED = 999
+const Z_INDEX_DEFAULT = 980
 
 interface Props {
 	event: Event
@@ -15,8 +17,9 @@ interface Props {
 	yPosition: number
 	index: number
 	isTopCard: boolean
+	isHovered: boolean
 	onCardClick: (eventId: number, index: number) => void
-	onCardDeselect: () => void
+	onCardHover: (eventId: number | null) => void
 }
 
 let {
@@ -27,32 +30,28 @@ let {
 	yPosition,
 	index,
 	isTopCard,
+	isHovered,
 	onCardClick,
-	onCardDeselect,
+	onCardHover,
 }: Props = $props()
 
-// Calculate z-index: inverted so lower cards (closer to timeline) have higher z-index
-const zIndex = $derived(isTopCard ? 1000 : 1000 - yPosition)
+const zIndex = $derived(
+	isTopCard ? Z_INDEX_SELECTED : isHovered ? Z_INDEX_HOVERED : Z_INDEX_DEFAULT,
+)
 
-// Determine if this card is selected (isTopCard)
 const isSelected = $derived(isTopCard)
 
-// Calculate event X position within the viewport (for marker line)
 function getEventXPosition(eventDate: number): number {
 	return (eventDate - leftEdgeYear) / yearsPerPixel
 }
 
-// Calculate event card X position
 function getEventCardXPosition(markerXPosition: number): number {
-	// Center the card on the marker line
 	let cardX = markerXPosition - CARD_WIDTH / 2
 
-	// Prevent card from going off the left edge
 	if (cardX < CARD_SCREEN_PADDING) {
 		cardX = CARD_SCREEN_PADDING
 	}
 
-	// Prevent card from going off the right edge
 	if (cardX + CARD_WIDTH > viewportWidth - CARD_SCREEN_PADDING) {
 		cardX = viewportWidth - CARD_WIDTH - CARD_SCREEN_PADDING
 	}
@@ -60,9 +59,17 @@ function getEventCardXPosition(markerXPosition: number): number {
 	return cardX
 }
 
-function handleClick() {
-	// Call the callback function to bring this card to top
+function handlePointerDown(e: PointerEvent) {
+	e.stopPropagation()
 	onCardClick(event.id, index)
+}
+
+function handlePointerEnter() {
+	onCardHover(event.id)
+}
+
+function handlePointerLeave() {
+	onCardHover(null)
 }
 </script>
 
@@ -77,6 +84,7 @@ function handleClick() {
 <!-- Event card with modern styling and visual continuity -->
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 <div 
+	data-event-card
 	class="absolute bg-gradient-to-br from-rose-50 to-white rounded-xl p-4 border-2 border-rose-300 cursor-pointer backdrop-blur-sm shadow-lg transition-colors duration-300 transition-shadow duration-300"
 	class:border-rose-400={isSelected}
 	class:shadow-2xl={isSelected}
@@ -85,8 +93,9 @@ function handleClick() {
 	class:hover:shadow-xl={!isSelected}
 	class:hover:border-rose-200={!isSelected}
 	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px); bottom: {yPosition}px; z-index: {zIndex}; width: {CARD_WIDTH}px; box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);"
-	onclick={handleClick}
-	use:clickOutside={onCardDeselect}
+	onpointerdown={handlePointerDown}
+	onpointerenter={handlePointerEnter}
+	onpointerleave={handlePointerLeave}
 	tabindex="0"
 >
 	

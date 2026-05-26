@@ -21,9 +21,11 @@ let events: Event[] = $state([])
 let periods: Period[] = $state([])
 let isLoading = $state(true)
 
-// Track which card is on top (type and index)
+// Track which card is on top (type, event id, or period index)
 let topCardType = $state<"event" | "period" | null>(null)
+let topCardEventId = $state<number | null>(null)
 let topCardIndex = $state<number | null>(null)
+let hoveredCardEventId = $state<number | null>(null)
 
 // Load events and periods on component mount
 onMount(async () => {
@@ -73,30 +75,35 @@ function getEventYPosition(): number {
 	return 20
 }
 
-// Handle card click to bring it to top
-function handleEventClick(_eventId: number, index: number) {
-	console.log(
-		"Content: Event card clicked, setting topCardType to event, index to:",
-		index,
-	)
+function handleEventClick(eventId: number, _index: number) {
 	topCardType = "event"
-	topCardIndex = index
+	topCardEventId = eventId
+}
+
+function handleEventHover(eventId: number | null) {
+	hoveredCardEventId = eventId
 }
 
 function handlePeriodClick(_periodId: number, index: number) {
-	console.log(
-		"Content: Period card clicked, setting topCardType to period, index to:",
-		index,
-	)
 	topCardType = "period"
 	topCardIndex = index
 }
 
-// Handle deselecting cards when clicking outside
 function handleCardDeselect() {
-	console.log("Content: Deselecting all cards")
 	topCardType = null
+	topCardEventId = null
 	topCardIndex = null
+}
+
+function handleContentClick(e: MouseEvent) {
+	const target = e.target as Element
+	if (
+		target.closest("[data-event-card]") ||
+		target.closest("[data-period-card]")
+	) {
+		return
+	}
+	handleCardDeselect()
 }
 
 const messages = {
@@ -115,7 +122,11 @@ const messages = {
 }
 </script>
 
-<div class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden relative">
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+<div
+	class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden relative"
+	onclick={handleContentClick}
+>
 	
 	{#if isLoading}
 		<!-- Loading state -->
@@ -139,9 +150,10 @@ const messages = {
 						viewportWidth={viewportWidth}
 						yPosition={getEventYPosition()}
 						index={index}
-						isTopCard={topCardType === 'event' && topCardIndex === index}
+						isTopCard={topCardType === 'event' && topCardEventId === event.id}
+						isHovered={hoveredCardEventId === event.id}
 						onCardClick={handleEventClick}
-						onCardDeselect={handleCardDeselect}
+						onCardHover={handleEventHover}
 					/>
 				{/each}
 			{:else}
@@ -164,7 +176,6 @@ const messages = {
 						leftPeriod={index > 0 ? visiblePeriods[index - 1] : null}
 						rightPeriod={index < visiblePeriods.length - 1 ? visiblePeriods[index + 1] : null}
 						onCardClick={handlePeriodClick}
-						onCardDeselect={handleCardDeselect}
 					/>
 				{/each}
 			{:else}

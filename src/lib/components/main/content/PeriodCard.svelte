@@ -1,7 +1,6 @@
 <script lang="ts">
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Period } from "$lib/types"
-import { clickOutside } from "$lib/utils/clickOutside"
 import { blendColors } from "$lib/utils/colors"
 
 interface Props {
@@ -15,7 +14,6 @@ interface Props {
 	leftPeriod: Period | null
 	rightPeriod: Period | null
 	onCardClick: (periodId: number, index: number) => void
-	onCardDeselect: () => void
 }
 
 let {
@@ -29,7 +27,6 @@ let {
 	leftPeriod,
 	rightPeriod,
 	onCardClick,
-	onCardDeselect,
 }: Props = $props()
 
 // Calculate period position and width
@@ -95,8 +92,8 @@ const zIndex = $derived(isTopCard ? 1000 : 100)
 // Determine if this card is selected
 const isSelected = $derived(isTopCard)
 
-function handleClick() {
-	// Call the callback function to bring this card to top
+function handlePointerDown(e: PointerEvent) {
+	e.stopPropagation()
 	onCardClick(period.id, index)
 }
 </script>
@@ -104,6 +101,7 @@ function handleClick() {
 {#if isVisible}
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 	<div 
+		data-period-card
 		class="absolute bottom-0 backdrop-blur-sm flex items-center justify-center px-2 text-xs font-medium shadow-sm cursor-pointer"
 		class:shadow-lg={isSelected}
 		class:shadow-md={!isSelected}
@@ -111,8 +109,7 @@ function handleClick() {
 		class:border-white={isSelected}
 		style="left: {periodPosition().x}px; width: {periodPosition().width}px; {gradientBackground()}; color: white; height: {isSelected ? 'auto' : '8rem'}; min-height: 8rem; z-index: {zIndex};"
 		title="{period.name[$currentLocale]}"
-		onclick={handleClick}
-		use:clickOutside={onCardDeselect}
+		onpointerdown={handlePointerDown}
 		tabindex="0"
 	>
 		<div class="flex flex-col items-center justify-center w-full p-2">
