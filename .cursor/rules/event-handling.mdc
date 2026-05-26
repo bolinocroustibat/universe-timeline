@@ -1,28 +1,40 @@
 ---
-description: 
-globs: 
+description: Event card positioning, overlap detection, and styling in Content and EventCard
+globs: src/lib/components/main/content/**
 alwaysApply: false
 ---
+
 # Event Handling and Overlap Detection
 
-## Event Positioning
-- Events should be positioned at their precise time points using `getEventPosition(event.date)`
-- Use `transform: translateX()` for consistent positioning with timeline ticks
-- Blue marker lines should align perfectly with timeline ticks (1px width for precision)
+Event cards live in [`Content.svelte`](src/lib/components/main/content/Content.svelte) and [`EventCard.svelte`](src/lib/components/main/content/EventCard.svelte). Viewport pan/zoom and screen→layout coordinate mapping belong in [`Main.svelte`](src/lib/components/main/Main.svelte) — see [`main-svelte.mdc`](main-svelte.mdc).
 
-## Overlap Detection
-- Implement automatic overlap detection for events that occur at similar time points
-- Use horizontal overlap detection based on event width (approximately 200px)
-- Stack overlapping events vertically with consistent spacing (25px between events)
-- Calculate Y positions recursively to handle multiple overlapping events
+## Event Positioning
+
+- Position events in **layout space** using `(eventDate - leftEdgeYear) / yearsPerPixel` — the same axis as timeline ticks. No screen-coordinate mapping is needed; layout positioning stays correct under CSS rotation.
+- In `EventCard.svelte`, use `getEventXPosition()` for the marker line and `getEventCardXPosition()` to center the card on the marker with edge clamping.
+- Use `transform: translateX()` for both marker and card, consistent with `TimelineZone.svelte` ticks.
+- Marker lines are 1px wide (`w-1`) rose gradients; they align with the tick at the event date.
+
+## Overlap Detection (not yet implemented)
+
+All events currently share a flat Y position (`getEventYPosition()` returns `20` in `Content.svelte`). When implementing overlap detection:
+
+- Detect horizontal overlap based on `CARD_WIDTH` (200px in `EventCard.svelte`).
+- Stack overlapping events vertically with consistent spacing (25px between events).
+- Calculate Y positions recursively to handle multiple overlapping events.
+- Pass computed `yPosition` from `Content.svelte` into each `EventCard`.
 
 ## Event Styling
-- Use consistent event card styling with Tailwind classes
-- Blue marker lines should extend from timeline to event cards
-- Maintain proper z-index layering for overlapping events
-- Use French locale formatting for all year displays
+
+- Use consistent event card styling with Tailwind classes (rose palette, gradient backgrounds).
+- Marker lines extend from the timeline up to event cards via `height: {yPosition + 12}px`.
+- Z-index: lower cards (closer to timeline) sit above higher ones via `1000 - yPosition`; selected card gets `1000`.
+- Card click brings it to top via `topCardType` / `topCardIndex` in `Content.svelte`.
+- Localize text with `$currentLocale`: event names, descriptions, and dates via `formatDate(event.date, $currentLocale)`.
+- Empty and loading states in `Content.svelte` use locale-aware messages from the `messages` map.
 
 ## Performance Considerations
-- Filter visible events based on viewport boundaries
-- Use efficient overlap detection algorithms
-- Avoid unnecessary re-renders with proper reactive statements
+
+- Filter visible events with `$derived` based on `leftEdgeYear` / `rightEdgeYear` viewport boundaries.
+- When overlap detection is added, keep the algorithm efficient (sort by date, sweep or interval-based grouping).
+- Prefer Svelte 5 runes (`$derived`, `$state`, `$props`) over legacy reactive statements.
