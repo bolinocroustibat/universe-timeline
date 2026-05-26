@@ -8,30 +8,83 @@ import DebugInfo from "$lib/components/main/DebugInfo.svelte"
 import TimelineZone from "$lib/components/main/TimelineZone.svelte"
 import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
+import {
+	screenToTimelinePanDelta,
+	screenToTimelineX,
+} from "$lib/utils/timelineCoordinates"
 
 let containerElement: HTMLDivElement | undefined = $state()
 let viewportWidth = $state(0)
 let isDragging = $state(false)
-let startX = $state(0)
+let startClientX = $state(0)
+let startClientY = $state(0)
+let panStartLeftEdgeYearOffset = $state(0)
 // Current position (left edge of viewport)
 let leftEdgeYearOffset = $state(0)
 
-// Track scroll position and viewport width
-onMount(() => {
-	const updateViewportWidth = () => {
-		if (containerElement) {
-			viewportWidth = containerElement.getBoundingClientRect().width
-		}
-	}
-
-	const observer = new ResizeObserver((entries) => {
-		viewportWidth = entries[0].contentRect.width
-	})
-
+function updateViewportWidth() {
 	if (containerElement) {
-		observer.observe(containerElement)
+		// Layout width along the timeline axis (stable under CSS rotation)
+		viewportWidth = containerElement.clientWidth
 	}
+}
 
+function applyPanFromScreenDelta(deltaX: number) {
+	const newLeftEdgeYearOffset =
+		panStartLeftEdgeYearOffset - deltaX * yearsPerPixel
+	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
+	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
+
+	if (
+		newRightEdgeYear <= TIME_CONSTANTS.END_YEAR &&
+		newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR
+	) {
+		leftEdgeYearOffset = newLeftEdgeYearOffset
+	}
+}
+
+function handleDragMove(e: PointerEvent) {
+	if (!isDragging || !containerElement) return
+	e.preventDefault()
+
+	const deltaX = screenToTimelinePanDelta(
+		containerElement,
+		startClientX,
+		startClientY,
+		e.clientX,
+		e.clientY,
+	)
+	applyPanFromScreenDelta(deltaX)
+}
+
+function stopDragging(e: PointerEvent) {
+	if (!isDragging || !containerElement) return
+
+	isDragging = false
+	window.removeEventListener("pointermove", handleDragMove)
+	window.removeEventListener("pointerup", stopDragging)
+	window.removeEventListener("pointercancel", stopDragging)
+
+	if (containerElement.hasPointerCapture(e.pointerId)) {
+		containerElement.releasePointerCapture(e.pointerId)
+	}
+	containerElement.style.cursor = "grab"
+}
+
+// Track scroll position and viewport width
+$effect(() => {
+	if (!containerElement) return
+
+	const observer = new ResizeObserver(() => {
+		updateViewportWidth()
+	})
+	observer.observe(containerElement)
+	updateViewportWidth()
+
+	return () => observer.disconnect()
+})
+
+onMount(() => {
 	const handleOrientationChange = () => {
 		updateViewportWidth()
 	}
@@ -48,7 +101,9 @@ onMount(() => {
 	window.addEventListener("zoom-request", handleZoomRequest as EventListener)
 
 	return () => {
-		observer.disconnect()
+		window.removeEventListener("pointermove", handleDragMove)
+		window.removeEventListener("pointerup", stopDragging)
+		window.removeEventListener("pointercancel", stopDragging)
 		window.removeEventListener("orientationchange", handleOrientationChange)
 		window.visualViewport?.removeEventListener(
 			"resize",
@@ -66,7 +121,9 @@ let currentScale = $derived(
 	ZOOM_SCALES.find((scale) => scale.level === $zoomLevel) ?? ZOOM_SCALES[4],
 )
 let viewportYearSpan = $derived(currentScale.viewportYearSpan)
-let yearsPerPixel: number = $derived(viewportYearSpan / viewportWidth)
+let yearsPerPixel: number = $derived(
+	viewportWidth > 0 ? viewportYearSpan / viewportWidth : 0,
+)
 
 // Calculate the year at the center of the viewport
 let centerYear = $derived(
@@ -88,59 +145,42 @@ let rightEdgeYear = $derived(
 )
 
 function handlePointerDown(e: PointerEvent) {
-	if (!containerElement) return
+	if (!containerElement || e.button !== 0) return
+
 	isDragging = true
-	startX = e.pageX
+	startClientX = e.clientX
+	startClientY = e.clientY
+	panStartLeftEdgeYearOffset = leftEdgeYearOffset
 	containerElement.setPointerCapture(e.pointerId)
 	containerElement.style.cursor = "grabbing"
-}
 
-function handlePointerMove(e: PointerEvent) {
-	if (!isDragging) return
-	e.preventDefault()
-
-	const deltaX = e.pageX - startX
-	const newLeftEdgeYearOffset = leftEdgeYearOffset - deltaX * yearsPerPixel
-	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
-	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
-
-	// Apply boundary constraints - check both left and right edges
-	if (
-		newRightEdgeYear <= TIME_CONSTANTS.END_YEAR &&
-		newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR
-	) {
-		leftEdgeYearOffset = newLeftEdgeYearOffset
-		startX = e.pageX
-	}
+	window.addEventListener("pointermove", handleDragMove, { passive: false })
+	window.addEventListener("pointerup", stopDragging)
+	window.addEventListener("pointercancel", stopDragging)
 }
 
 function handlePointerUp(e: PointerEvent) {
-	if (!containerElement) return
-	isDragging = false
-	containerElement.releasePointerCapture(e.pointerId)
-	containerElement.style.cursor = "grab"
+	stopDragging(e)
 }
 
 function handlePointerCancel(e: PointerEvent) {
-	if (!containerElement) return
-	isDragging = false
-	if (containerElement.hasPointerCapture(e.pointerId)) {
-		containerElement.releasePointerCapture(e.pointerId)
-	}
-	containerElement.style.cursor = "grab"
+	stopDragging(e)
 }
 
 function handleWheel(e: WheelEvent) {
 	e.preventDefault()
 	if (!containerElement) return
 
-	// Get mouse cursor position relative to the container
-	const rect = containerElement.getBoundingClientRect()
-	const mouseX = e.clientX - rect.left
+	// Map pointer position to layout coordinates (handles CSS rotation)
+	const pointerLocalX = screenToTimelineX(
+		containerElement,
+		e.clientX,
+		e.clientY,
+	)
 
-	// Calculate the year at the mouse cursor position
+	// Calculate the year at the pointer position
 	const leftEdgeYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
-	const mouseCursorYear = leftEdgeYear + mouseX * yearsPerPixel
+	const mouseCursorYear = leftEdgeYear + pointerLocalX * yearsPerPixel
 
 	// Handle mousewheel up/down for zooming
 	if (e.deltaY !== 0) {
@@ -291,10 +331,9 @@ function stopPanning() {
 	<div 
 		bind:this={containerElement}
 		onpointerdown={handlePointerDown}
-		onpointermove={handlePointerMove}
 		onpointerup={handlePointerUp}
 		onpointercancel={handlePointerCancel}
-		class="flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none relative touch-none"
+		class="pan-container flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none relative"
 	>
 		<Content 
 			{viewportWidth}
