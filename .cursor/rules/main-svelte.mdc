@@ -1,0 +1,29 @@
+---
+description: Main.svelte architecture — keep monolithic; optional viewport math extraction later
+globs: src/lib/components/main/**
+alwaysApply: false
+---
+
+# Main.svelte viewport controller
+
+[`Main.svelte`](src/lib/components/main/Main.svelte) is the **single orchestrator** for timeline viewport navigation (pan, zoom, drag, wheel, arrow hold-pan). Child UI is already split (`Content`, `TimelineZone`, `DebugInfo`, arrows).
+
+## Default
+
+- **Keep `Main.svelte` as one file.** Do not split into file-per-handler modules (`drag.ts`, `wheel.ts`, etc.) or a runes module unless the user explicitly asks.
+- Screen→layout geometry belongs in [`timelineCoordinates.ts`](src/lib/utils/timelineCoordinates.ts), not duplicated in `Main.svelte`.
+
+## If Main.svelte keeps growing
+
+Prefer **Option 1 only** before any larger refactor:
+
+1. Add [`src/lib/utils/timelineViewport.ts`](src/lib/utils/timelineViewport.ts) with **pure** functions:
+   - `clampLeftEdgeOffset` — dedupe boundary checks used in pan, wheel, zoom, and arrow handlers
+   - `computeCenteredZoomOffset` — extract logic from `performCenteredZoom`
+2. Leave DOM/event wiring in `Main.svelte`.
+
+Do **not** by default: `createTimelineNavigation.svelte.ts`, new presentational components for input handlers, or a global viewport store.
+
+## Revisit triggers
+
+Extract viewport math when the file is noticeably larger, boundary/zoom logic is edited repeatedly, or unit tests on pan/zoom math are needed without mounting Svelte.
