@@ -26,21 +26,46 @@
 	}
 }
 
-/* Force landscape layout on mobile devices */
+/* Force landscape layout on mobile devices held in portrait */
 @media screen and (max-width: 1024px) and (orientation: portrait) {
-	.landscape-required {
-		transform: rotate(90deg);
-		transform-origin: center center;
-		width: 100vh;
-		height: 100vw;
-		position: fixed;
-		top: 0;
-		left: 0;
+	html,
+	body {
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
 	}
 
-	/* Adjust the main container for landscape */
-	.main-container {
-		min-height: 100vw;
+	.landscape-required {
+		position: fixed;
+		top: 0;
+		left: 100vw;
 		width: 100vh;
+		height: 100vw;
+		min-width: 100vh;
+		max-width: 100vh;
+		min-height: 100vw;
+		max-height: 100vw;
+		transform: rotate(90deg);
+		transform-origin: top left;
+		overflow: hidden;
+	}
+
+	@supports (height: 100lvh) {
+		.landscape-required {
+			left: 100svw;
+			width: 100lvh;
+			height: 100svw;
+			min-width: 100lvh;
+			max-width: 100lvh;
+			min-height: 100svw;
+			max-height: 100svw;
+		}
+	}
+
+	.main-container {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
 	}
 }

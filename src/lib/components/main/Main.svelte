@@ -18,6 +18,12 @@ let leftEdgeYearOffset = $state(0)
 
 // Track scroll position and viewport width
 onMount(() => {
+	const updateViewportWidth = () => {
+		if (containerElement) {
+			viewportWidth = containerElement.getBoundingClientRect().width
+		}
+	}
+
 	const observer = new ResizeObserver((entries) => {
 		viewportWidth = entries[0].contentRect.width
 	})
@@ -25,6 +31,13 @@ onMount(() => {
 	if (containerElement) {
 		observer.observe(containerElement)
 	}
+
+	const handleOrientationChange = () => {
+		updateViewportWidth()
+	}
+
+	window.addEventListener("orientationchange", handleOrientationChange)
+	window.visualViewport?.addEventListener("resize", handleOrientationChange)
 
 	// Listen for zoom requests from Zoom component
 	const handleZoomRequest = (event: CustomEvent) => {
@@ -36,6 +49,11 @@ onMount(() => {
 
 	return () => {
 		observer.disconnect()
+		window.removeEventListener("orientationchange", handleOrientationChange)
+		window.visualViewport?.removeEventListener(
+			"resize",
+			handleOrientationChange,
+		)
 		window.removeEventListener(
 			"zoom-request",
 			handleZoomRequest as EventListener,
@@ -69,14 +87,15 @@ let rightEdgeYear = $derived(
 		viewportWidth * yearsPerPixel,
 )
 
-function handleMouseDown(e: MouseEvent) {
+function handlePointerDown(e: PointerEvent) {
 	if (!containerElement) return
 	isDragging = true
 	startX = e.pageX
+	containerElement.setPointerCapture(e.pointerId)
 	containerElement.style.cursor = "grabbing"
 }
 
-function handleMouseMove(e: MouseEvent) {
+function handlePointerMove(e: PointerEvent) {
 	if (!isDragging) return
 	e.preventDefault()
 
@@ -95,17 +114,20 @@ function handleMouseMove(e: MouseEvent) {
 	}
 }
 
-function handleMouseUp() {
+function handlePointerUp(e: PointerEvent) {
 	if (!containerElement) return
 	isDragging = false
+	containerElement.releasePointerCapture(e.pointerId)
 	containerElement.style.cursor = "grab"
 }
 
-function handleMouseLeave() {
-	if (isDragging && containerElement) {
-		isDragging = false
-		containerElement.style.cursor = "grab"
+function handlePointerCancel(e: PointerEvent) {
+	if (!containerElement) return
+	isDragging = false
+	if (containerElement.hasPointerCapture(e.pointerId)) {
+		containerElement.releasePointerCapture(e.pointerId)
 	}
+	containerElement.style.cursor = "grab"
 }
 
 function handleWheel(e: WheelEvent) {
@@ -268,11 +290,11 @@ function stopPanning() {
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div 
 		bind:this={containerElement}
-		onmousedown={handleMouseDown}
-		onmousemove={handleMouseMove}
-		onmouseup={handleMouseUp}
-		onmouseleave={handleMouseLeave}
-		class="flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none relative"
+		onpointerdown={handlePointerDown}
+		onpointermove={handlePointerMove}
+		onpointerup={handlePointerUp}
+		onpointercancel={handlePointerCancel}
+		class="flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none relative touch-none"
 	>
 		<Content 
 			{viewportWidth}
