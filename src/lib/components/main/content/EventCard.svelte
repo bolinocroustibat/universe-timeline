@@ -86,7 +86,7 @@ function handlePointerLeave() {
 <div
 	data-event-card
 	data-selected={isSelected || undefined}
-	class="absolute rounded-xl p-4 border-2 border-accent/35 cursor-pointer backdrop-blur-md transition-colors duration-300 transition-shadow duration-300 overflow-hidden bg-gradient-to-br from-surface-raised to-surface {isSelected ? 'border-accent ring-1 ring-accent/30' : 'hover:border-accent/55'}"
+	class="absolute rounded-xl p-4 border-2 border-accent/35 cursor-pointer transition-colors duration-300 transition-shadow duration-300 overflow-hidden bg-surface-raised {isSelected ? 'border-accent ring-1 ring-accent/30' : 'hover:border-accent/55'}"
 	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px); bottom: {yPosition}px; z-index: {zIndex}; width: {CARD_WIDTH}px;"
 	onpointerdown={handlePointerDown}
 	onpointerenter={handlePointerEnter}

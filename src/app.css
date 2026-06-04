@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 /*
-  Semantic theme tokens (dark defaults).
-  Override --theme-* on :root or [data-theme="light"] for a future theme switch.
+  Semantic theme tokens. Set via data-theme on <html> (see themeStore.ts).
 */
-:root {
+:root,
+[data-theme="dark"] {
 	--theme-background: #0b0d14;
 	--theme-surface: #12151f;
 	--theme-surface-raised: #1a1f2e;
@@ -15,6 +15,21 @@
 	--theme-accent-secondary: #a855f7;
 	--theme-accent-warm: #f472b6;
 	--theme-tick: #3d4558;
+	--theme-on-media: #ffffff;
+}
+
+[data-theme="light"] {
+	--theme-background: #e8ebf0;
+	--theme-surface: #f3f5f9;
+	--theme-surface-raised: #fafbfe;
+	--theme-border: #c5cdd9;
+	--theme-muted: #5b6578;
+	--theme-foreground: #0f172a;
+	--theme-accent: #0284c7;
+	--theme-accent-secondary: #7c3aed;
+	--theme-accent-warm: #db2777;
+	--theme-tick: #94a3b8;
+	--theme-on-media: #f8fafc;
 }
 
 /* Registers Tailwind utilities (bg-background, text-accent, …) */
@@ -29,6 +44,7 @@
 	--color-accent-secondary: var(--theme-accent-secondary);
 	--color-accent-warm: var(--theme-accent-warm);
 	--color-tick: var(--theme-tick);
+	--color-on-media: var(--theme-on-media);
 }
 
 /*
@@ -41,10 +57,15 @@
 */
 @layer components {
 	[data-event-card] {
+		background-color: var(--theme-surface-raised);
 		box-shadow:
 			0 0 0 1px color-mix(in srgb, var(--theme-accent) 20%, transparent),
 			0 10px 15px -3px rgb(0 0 0 / 0.35),
 			0 4px 6px -2px rgb(0 0 0 / 0.2);
+	}
+
+	[data-theme="dark"] [data-event-card] {
+		backdrop-filter: blur(12px);
 	}
 
 	[data-event-card][data-selected] {
@@ -52,6 +73,25 @@
 			0 0 0 1px color-mix(in srgb, var(--theme-accent) 50%, transparent),
 			0 0 20px color-mix(in srgb, var(--theme-accent) 15%, transparent),
 			0 10px 25px -5px rgb(0 0 0 / 0.5);
+	}
+
+	[data-theme="light"] [data-event-card] {
+		box-shadow:
+			0 0 0 1px color-mix(in srgb, var(--theme-accent) 35%, transparent),
+			0 4px 14px -3px color-mix(in srgb, var(--theme-accent) 18%, transparent),
+			0 2px 4px -1px rgb(15 23 42 / 0.06);
+	}
+
+	[data-theme="light"] [data-event-card][data-selected] {
+		box-shadow:
+			0 0 0 1px color-mix(in srgb, var(--theme-accent) 55%, transparent),
+			0 0 16px color-mix(in srgb, var(--theme-accent) 22%, transparent),
+			0 6px 20px -4px
+			color-mix(in srgb, var(--theme-accent-secondary) 15%, transparent);
+	}
+
+	[data-theme="light"] [data-period-card] {
+		backdrop-filter: none;
 	}
 }
 

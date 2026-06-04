@@ -107,7 +107,7 @@ function handlePointerDown(e: PointerEvent) {
 		class:shadow-md={!isSelected}
 		class:border-2={isSelected}
 		class:border-accent={isSelected}
-		style="left: {periodPosition().x}px; width: {periodPosition().width}px; {gradientBackground()}; color: white; height: {isSelected ? 'auto' : '8rem'}; min-height: 8rem; z-index: {zIndex};"
+		style="left: {periodPosition().x}px; width: {periodPosition().width}px; {gradientBackground()}; color: var(--theme-on-media); height: {isSelected ? 'auto' : '8rem'}; min-height: 8rem; z-index: {zIndex};"
 		title="{period.name[$currentLocale]}"
 		onpointerdown={handlePointerDown}
 		tabindex="0"
