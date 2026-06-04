@@ -16,7 +16,7 @@
 			"en": "Formation of oceans through condensation of water from the atmosphere composed of N2, CO2, and CH4",
 			"fr": "Formation des océans par condensation de l'eau de l'atmosphère composée de N2, de CO2 et de CH4"
 		},
-		"color": "#b2238c",
+		"color": "#6D28D9",
 		"image": null
 	},
 	{
@@ -36,7 +36,7 @@
 			"en": "Emergence of life",
 			"fr": "Émergence de la vie"
 		},
-		"color": "#ed0d8a",
+		"color": "#9333EA",
 		"image": null
 	},
 	{
@@ -56,7 +56,7 @@
 			"en": "Development of complex life forms, including the first multicellular organisms and the emergence of sexual reproduction. Major geological events include the formation of supercontinents and significant atmospheric changes.",
 			"fr": "Développement de formes de vie complexes, incluant les premiers organismes multicellulaires et l'émergence de la reproduction sexuée. Événements géologiques majeurs incluent la formation de supercontinents et des changements atmosphériques significatifs."
 		},
-		"color": "#4a90e2",
+		"color": "#4F46E5",
 		"image": null
 	},
 	{
@@ -76,7 +76,7 @@
 			"en": "The current eon of visible life, characterized by the proliferation of complex multicellular organisms. Includes the Paleozoic, Mesozoic, and Cenozoic eras, featuring the evolution of vertebrates, plants, and the rise and fall of dinosaurs.",
 			"fr": "L'éon actuel de la vie visible, caractérisé par la prolifération d'organismes multicellulaires complexes. Inclut les ères Paléozoïque, Mésozoïque et Cénozoïque, avec l'évolution des vertébrés, des plantes, et l'essor et la chute des dinosaures."
 		},
-		"color": "#ee00ee",
+		"color": "#C026D3",
 		"image": null
 	},
 	{
@@ -96,7 +96,7 @@
 			"en": "First eukaryotes. Oxygen-rich atmosphere, cause of the Great Oxidation Event. Huronian glaciation.",
 			"fr": "Premiers eucaryotes. Atmosphère riche en dioxygène, cause de la grande oxydation. Glaciation huronienne."
 		},
-		"color": "#F74370",
+		"color": "#4338CA",
 		"image": null
 	},
 	{
@@ -116,7 +116,7 @@
 			"en": "Formation of the supercontinent Rodinia. Development of sexual reproduction in eukaryotes. Stable oxygen levels in the atmosphere. First evidence of complex multicellular life.",
 			"fr": "Formation du supercontinent Rodinia. Développement de la reproduction sexuée chez les eucaryotes. Niveaux d'oxygène stables dans l'atmosphère. Premières preuves de vie multicellulaire complexe."
 		},
-		"color": "#FDB462",
+		"color": "#4F46E5",
 		"image": null
 	},
 	{
@@ -136,7 +136,7 @@
 			"en": "Breakup of Rodinia supercontinent. Multiple global glaciations including Snowball Earth events. Emergence of complex multicellular life including the Ediacaran biota. Precursor to the Cambrian explosion.",
 			"fr": "Fragmentation du supercontinent Rodinia. Multiples glaciations globales incluant les événements Terre boule de neige. Émergence de vie multicellulaire complexe incluant la biote de l'Édiacarien. Précurseur de l'explosion cambrienne."
 		},
-		"color": "#FEB342",
+		"color": "#6366F1",
 		"image": null
 	},
 	{
@@ -156,7 +156,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#8B4513",
+		"color": "#3730A3",
 		"image": null
 	},
 	{
@@ -176,7 +176,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#A0522D",
+		"color": "#4338CA",
 		"image": null
 	},
 	{
@@ -196,7 +196,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#CD853F",
+		"color": "#4F46E5",
 		"image": null
 	},
 	{
@@ -216,7 +216,7 @@
 			"en": "Emergence of the Columbia continent",
 			"fr": "Émergence du continent Columbia"
 		},
-		"color": "#D2691E",
+		"color": "#6366F1",
 		"image": null
 	},
 	{
@@ -236,7 +236,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#D8168A",
+		"color": "#7C3AED",
 		"image": null
 	},
 	{
@@ -256,7 +256,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#F4449F",
+		"color": "#8B5CF6",
 		"image": null
 	},
 	{
@@ -276,7 +276,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#F7689F",
+		"color": "#9333EA",
 		"image": null
 	},
 	{
@@ -296,7 +296,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#F99BC1",
+		"color": "#A855F7",
 		"image": null
 	},
 	{
@@ -316,7 +316,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#FFD700",
+		"color": "#4F46E5",
 		"image": null
 	},
 	{
@@ -336,7 +336,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#FFA500",
+		"color": "#6366F1",
 		"image": null
 	},
 	{
@@ -356,7 +356,7 @@
 			"en": "Multicellular eukaryotes",
 			"fr": "Eucaryotes multicellulaires"
 		},
-		"color": "#FF8C00",
+		"color": "#818CF8",
 		"image": null
 	},
 	{
@@ -376,7 +376,7 @@
 			"en": "Formation of the Rodinia continent",
 			"fr": "Formation du continent Rodinia"
 		},
-		"color": "#32CD32",
+		"color": "#3B82F6",
 		"image": null
 	},
 	{
@@ -396,7 +396,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#00CED1",
+		"color": "#2563EB",
 		"image": null
 	},
 	{
@@ -416,7 +416,7 @@
 			"en": "Ediacaran fauna",
 			"fr": "Faune de l'Édiacarien"
 		},
-		"color": "#20B2AA",
+		"color": "#06B6D4",
 		"image": null
 	},
 	{
@@ -436,7 +436,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#4682B4",
+		"color": "#0EA5E9",
 		"image": null
 	},
 	{
@@ -456,7 +456,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#5F9EA0",
+		"color": "#22D3EE",
 		"image": null
 	},
 	{
@@ -476,7 +476,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#228B22",
+		"color": "#F43F5E",
 		"image": null
 	},
 	{
@@ -496,7 +496,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#8FBC8F",
+		"color": "#F59E0B",
 		"image": null
 	},
 	{
@@ -516,7 +516,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#90EE90",
+		"color": "#06B6D4",
 		"image": null
 	},
 	{
@@ -536,7 +536,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#006400",
+		"color": "#E11D48",
 		"image": null
 	},
 	{
@@ -556,7 +556,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#2E8B57",
+		"color": "#F43F5E",
 		"image": null
 	},
 	{
@@ -576,7 +576,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#3CB371",
+		"color": "#FB7185",
 		"image": null
 	},
 	{
@@ -596,7 +596,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#66CDAA",
+		"color": "#F472B6",
 		"image": null
 	},
 	{
@@ -616,7 +616,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#98FB98",
+		"color": "#FB7185",
 		"image": null
 	},
 	{
@@ -636,7 +636,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#7CFC00",
+		"color": "#F43F5E",
 		"image": null
 	},
 	{
@@ -656,7 +656,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#ADFF2F",
+		"color": "#D97706",
 		"image": null
 	},
 	{
@@ -676,7 +676,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#9ACD32",
+		"color": "#F59E0B",
 		"image": null
 	},
 	{
@@ -696,7 +696,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#6B8E23",
+		"color": "#FBBF24",
 		"image": null
 	},
 	{
@@ -716,7 +716,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#556B2F",
+		"color": "#0891B2",
 		"image": null
 	},
 	{
@@ -736,7 +736,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#8FBC8F",
+		"color": "#06B6D4",
 		"image": null
 	},
 	{
@@ -756,7 +756,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#BDB76B",
+		"color": "#14B8A6",
 		"image": null
 	},
 	{
@@ -776,7 +776,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#2F4F4F",
+		"color": "#BE123C",
 		"image": null
 	},
 	{
@@ -796,7 +796,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#708090",
+		"color": "#E11D48",
 		"image": null
 	},
 	{
@@ -816,7 +816,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#778899",
+		"color": "#F43F5E",
 		"image": null
 	},
 	{
@@ -836,7 +836,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#C0C0C0",
+		"color": "#FB7185",
 		"image": null
 	},
 	{
@@ -856,7 +856,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#F5F5DC",
+		"color": "#22D3EE",
 		"image": null
 	},
 	{
@@ -876,7 +876,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#87CEEB",
+		"color": "#FB7185",
 		"image": null
 	},
 	{
@@ -896,7 +896,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#B0E0E6",
+		"color": "#F43F5E",
 		"image": null
 	},
 	{
@@ -916,7 +916,7 @@
 			"en": "",
 			"fr": ""
 		},
-		"color": "#ADD8E6",
+		"color": "#E11D48",
 		"image": null
 	}
 ]

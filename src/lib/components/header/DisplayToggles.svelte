@@ -26,18 +26,18 @@ function togglePeriods() {
 	<!-- Events Toggle -->
 	<div class="flex items-center justify-between space-x-2">
 		<!-- svelte-ignore a11y_label_has_associated_control -->
-		<label class="text-xs text-zinc-400 whitespace-nowrap">
+		<label class="text-xs text-muted whitespace-nowrap">
 			{labels.events[$currentLocale]}
 		</label>
 		<button
 			onclick={toggleEvents}
-			class="relative inline-flex h-3 w-6 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-950 {$displaySettings.showEvents ? 'bg-blue-600' : 'bg-gray-600'}"
+			class="relative inline-flex h-3 w-6 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-offset-1 focus:ring-offset-surface {$displaySettings.showEvents ? 'bg-accent' : 'bg-border'}"
 			role="switch"
 			aria-checked={$displaySettings.showEvents}
 			aria-label="Toggle events display"
 		>
       <span
-        class="inline-block h-2 w-2 transform rounded-full bg-white transition-transform duration-200 {$displaySettings.showEvents ? 'translate-x-3' : 'translate-x-0.5'}"
+        class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {$displaySettings.showEvents ? 'translate-x-3' : 'translate-x-0.5'}"
       ></span>
 		</button>
 	</div>
@@ -45,18 +45,18 @@ function togglePeriods() {
 	<!-- Periods Toggle -->
 	<div class="flex items-center justify-between space-x-2">
 		<!-- svelte-ignore a11y_label_has_associated_control -->
-		<label class="text-xs text-zinc-400 whitespace-nowrap">
+		<label class="text-xs text-muted whitespace-nowrap">
 			{labels.periods[$currentLocale]}
 		</label>
 		<button
 			onclick={togglePeriods}
-			class="relative inline-flex h-3 w-6 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-gray-950 {$displaySettings.showPeriods ? 'bg-blue-600' : 'bg-gray-600'}"
+			class="relative inline-flex h-3 w-6 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-offset-1 focus:ring-offset-surface {$displaySettings.showPeriods ? 'bg-accent' : 'bg-border'}"
 			role="switch"
 			aria-checked={$displaySettings.showPeriods}
 			aria-label="Toggle periods display"
 		>
       <span
-        class="inline-block h-2 w-2 transform rounded-full bg-white transition-transform duration-200 {$displaySettings.showPeriods ? 'translate-x-3' : 'translate-x-0.5'}"
+        class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {$displaySettings.showPeriods ? 'translate-x-3' : 'translate-x-0.5'}"
       ></span>
 		</button>
 	</div>

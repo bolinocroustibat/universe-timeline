@@ -31,7 +31,7 @@ function setZoomLevel(level: number) {
 <div class="flex items-center gap-3">
     <button 
         onclick={decreaseZoom}
-        class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-border text-muted hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={$zoomLevel <= 1}
     >
         <span class="text-xl">-</span>
@@ -42,16 +42,16 @@ function setZoomLevel(level: number) {
             <!-- svelte-ignore a11y_consider_explicit_label -->
             <button 
                 onclick={() => setZoomLevel(i)}
-                class="w-3 h-3 rounded-full border border-gray-300 transition-colors hover:border-blue-300"
-                class:bg-blue-500={i < $zoomLevel}
-                class:border-blue-500={i < $zoomLevel}
+                class="w-3 h-3 rounded-full border border-tick transition-colors hover:border-accent/60"
+                class:bg-accent={i < $zoomLevel}
+                class:border-accent={i < $zoomLevel}
             ></button>
         {/each}
     </div>
 
     <button 
         onclick={increaseZoom}
-        class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-border text-muted hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={$zoomLevel >= MAX_ZOOM_LEVEL}
     >
         <span class="text-xl">+</span>

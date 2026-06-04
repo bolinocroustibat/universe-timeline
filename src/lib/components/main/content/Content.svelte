@@ -70,7 +70,6 @@ const visiblePeriods = $derived(
 	}),
 )
 
-// Simple vertical positioning - all events at the same level
 function getEventYPosition(): number {
 	return 20
 }
@@ -124,20 +123,20 @@ const messages = {
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 <div
-	class="w-full flex-[4] bg-slate-300 border-b border-slate-200 overflow-hidden relative"
+	class="w-full flex-[4] bg-background border-b border-border overflow-hidden relative"
 	onclick={handleContentClick}
 >
 	
 	{#if isLoading}
 		<!-- Loading state -->
 		<div class="absolute inset-0 flex items-center justify-center">
-			<div class="text-gray-500">{messages[$currentLocale].loading}</div>
+			<div class="text-muted">{messages[$currentLocale].loading}</div>
 		</div>
 	{:else}
 		{#if !$displaySettings.showEvents && !$displaySettings.showPeriods}
 			<!-- Events and periods are hidden -->
 			<div class="absolute inset-0 flex items-center justify-center">
-				<div class="text-gray-500">{messages[$currentLocale].eventsAndPeriodsHidden}</div>
+				<div class="text-muted">{messages[$currentLocale].eventsAndPeriodsHidden}</div>
 			</div>
 		{:else}
 			<!-- Events are rendered here -->
@@ -159,7 +158,7 @@ const messages = {
 			{:else}
 				<!-- Events are hidden -->
 				<div class="absolute inset-0 flex items-center justify-center">
-					<div class="text-gray-500">{messages[$currentLocale].eventsHidden}</div>
+					<div class="text-muted">{messages[$currentLocale].eventsHidden}</div>
 				</div>
 			{/if}
 			<!-- Periods are rendered here -->
@@ -181,7 +180,7 @@ const messages = {
 			{:else}
 				<!-- Periods are hidden -->
 				<div class="absolute inset-0 flex items-center justify-center">
-					<div class="text-gray-500">{messages[$currentLocale].periodsHidden}</div>
+					<div class="text-muted">{messages[$currentLocale].periodsHidden}</div>
 				</div>
 			{/if}
 		{/if}

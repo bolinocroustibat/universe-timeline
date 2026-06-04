@@ -9,9 +9,9 @@ const titles = {
 }
 </script>
 
-<header class="h-20 bg-gray-950 border-b border-gray-800 flex-shrink-0">
+<header class="h-20 bg-surface border-b border-border flex-shrink-0">
 	<nav class="h-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-		<h1 class="text-xl font-bold text-zinc-400">{titles[$currentLocale]}</h1>
+		<h1 class="text-xl font-bold text-foreground">{titles[$currentLocale]}</h1>
 		<div class="flex items-center space-x-6">
 			<DisplayToggles />
 			<LocaleSelector />

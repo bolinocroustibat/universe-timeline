@@ -45,12 +45,12 @@ const periodPosition = $derived(() => {
 	}
 })
 
-// Get period color or default
-const periodColor = $derived(period.color || "#6b7280")
+// Get period color or default (theme tick)
+const periodColor = $derived(period.color || "#3d4558")
 
 // Calculate gradient background based on adjacent periods
 const gradientBackground = $derived(() => {
-	const currentColor = period.color || "#6b7280"
+	const currentColor = period.color || "#3d4558"
 	const leftColor = leftPeriod?.color || currentColor
 	const rightColor = rightPeriod?.color || currentColor
 
@@ -106,7 +106,7 @@ function handlePointerDown(e: PointerEvent) {
 		class:shadow-lg={isSelected}
 		class:shadow-md={!isSelected}
 		class:border-2={isSelected}
-		class:border-white={isSelected}
+		class:border-accent={isSelected}
 		style="left: {periodPosition().x}px; width: {periodPosition().width}px; {gradientBackground()}; color: white; height: {isSelected ? 'auto' : '8rem'}; min-height: 8rem; z-index: {zIndex};"
 		title="{period.name[$currentLocale]}"
 		onpointerdown={handlePointerDown}

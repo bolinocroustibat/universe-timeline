@@ -4,7 +4,7 @@ import Header from "$lib/components/header/Header.svelte"
 import "../app.css"
 </script>
 
-<div class="landscape-required main-container min-h-screen bg-gray-800 flex flex-col">
+<div class="landscape-required main-container min-h-screen bg-background flex flex-col">
 	<Header />
 	<slot />
 	<Footer />

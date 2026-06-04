@@ -1,6 +1,37 @@
 @import "tailwindcss";
 
 /*
+  Semantic theme tokens (dark defaults).
+  Override --theme-* on :root or [data-theme="light"] for a future theme switch.
+*/
+:root {
+	--theme-background: #0b0d14;
+	--theme-surface: #12151f;
+	--theme-surface-raised: #1a1f2e;
+	--theme-border: #1e2433;
+	--theme-muted: #8b93a8;
+	--theme-foreground: #e8ecf4;
+	--theme-accent: #22d3ee;
+	--theme-accent-secondary: #a855f7;
+	--theme-accent-warm: #f472b6;
+	--theme-tick: #3d4558;
+}
+
+/* Registers Tailwind utilities (bg-background, text-accent, …) */
+@theme inline {
+	--color-background: var(--theme-background);
+	--color-surface: var(--theme-surface);
+	--color-surface-raised: var(--theme-surface-raised);
+	--color-border: var(--theme-border);
+	--color-muted: var(--theme-muted);
+	--color-foreground: var(--theme-foreground);
+	--color-accent: var(--theme-accent);
+	--color-accent-secondary: var(--theme-accent-secondary);
+	--color-accent-warm: var(--theme-accent-warm);
+	--color-tick: var(--theme-tick);
+}
+
+/*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
@@ -8,13 +39,29 @@
   If we ever want to remove these styles, we need to add an explicit border
   color utility to any element that depends on these defaults.
 */
+@layer components {
+	[data-event-card] {
+		box-shadow:
+			0 0 0 1px color-mix(in srgb, var(--theme-accent) 20%, transparent),
+			0 10px 15px -3px rgb(0 0 0 / 0.35),
+			0 4px 6px -2px rgb(0 0 0 / 0.2);
+	}
+
+	[data-event-card][data-selected] {
+		box-shadow:
+			0 0 0 1px color-mix(in srgb, var(--theme-accent) 50%, transparent),
+			0 0 20px color-mix(in srgb, var(--theme-accent) 15%, transparent),
+			0 10px 25px -5px rgb(0 0 0 / 0.5);
+	}
+}
+
 @layer base {
 	*,
 	::after,
 	::before,
 	::backdrop,
 	::file-selector-button {
-		border-color: var(--color-gray-200, currentColor);
+		border-color: var(--color-border, currentColor);
 	}
 
 	html,

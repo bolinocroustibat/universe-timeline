@@ -42,7 +42,7 @@ onMount(() => {
 	<!-- Locale Button -->
 	<button
 		onclick={toggleDropdown}
-		class="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-zinc-400 hover:text-white hover:bg-gray-800 rounded-md transition-colors duration-200"
+		class="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-muted hover:text-foreground hover:bg-border rounded-md transition-colors duration-200"
 		aria-label="Select locale"
 	>
 		<span class="text-lg">{getLocaleFlag($currentLocale)}</span>
@@ -59,13 +59,13 @@ onMount(() => {
 	<!-- Dropdown Menu -->
 	{#if isOpen}
 		<div
-			class="absolute right-0 mt-2 w-16 bg-gray-900 border border-gray-700 rounded-md shadow-lg z-[9999]"
+			class="absolute right-0 mt-2 w-16 bg-surface border border-border rounded-md shadow-lg z-[9999]"
 		>
 			<div class="py-1">
 				{#each locales as locale}
 					<button
 						onclick={() => selectLocale(locale)}
-						class="w-full flex items-center justify-center px-4 py-2 text-sm text-zinc-400 hover:text-white hover:bg-gray-800 transition-colors duration-200 {locale === $currentLocale ? 'bg-gray-800 text-white' : ''}"
+						class="w-full flex items-center justify-center px-4 py-2 text-sm text-muted hover:text-foreground hover:bg-border transition-colors duration-200 {locale === $currentLocale ? 'bg-border text-foreground' : ''}"
 						aria-label="Switch to {getLocaleName(locale)}"
 					>
 						<span class="text-lg">{getLocaleFlag(locale)}</span>

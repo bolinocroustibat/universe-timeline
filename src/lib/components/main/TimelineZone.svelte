@@ -95,14 +95,14 @@ const visibleMinorTicks: TimelineTick[] = $derived(
 )
 </script>
 
-<div class="w-full flex-[1] bg-white border-t border-slate-200 overflow-hidden relative">
+<div class="w-full flex-[1] bg-surface border-t border-border overflow-hidden relative">
 	<!-- Minor ticks (rendered first, behind major ticks) -->
 	{#each visibleMinorTicks as tick}
 		<div 
 			class="absolute top-0 h-full flex flex-col justify-start"
 			style="transform: translateX({tick.position}px)"
 		>
-			<div class="h-1/2 w-px bg-gray-300"></div>
+			<div class="h-1/2 w-px bg-tick"></div>
 		</div>
 	{/each}
 	<!-- Major ticks (rendered second, on top) -->
@@ -111,8 +111,8 @@ const visibleMinorTicks: TimelineTick[] = $derived(
 			class="absolute top-0 h-full flex flex-col justify-start"
 			style="transform: translateX({tick.position}px)"
 		>
-			<div class="h-2/3 w-px bg-gray-400"></div>
-			<span class="text-xs text-gray-600 mt-1 text-center whitespace-nowrap -ml-1/2">
+			<div class="h-2/3 w-px bg-accent/60"></div>
+			<span class="text-xs text-muted mt-1 text-center whitespace-nowrap -ml-1/2">
 				{formatDate(tick.year, $currentLocale, false)}
 			</span>
 		</div>
