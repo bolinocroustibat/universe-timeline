@@ -17,7 +17,7 @@
 				"rules": {
 					"style": {
 						"useConst": "off",
-						// "useImportType": "off"
+						// "useImportType": "off" // keep "off" as advised by Biome for Svelte projects as it's not supported yet, but let's try it out
 					},
 					"correctness": {
 						"noUnusedVariables": "off",

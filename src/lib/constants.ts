@@ -3,7 +3,7 @@ export const TIME_CONSTANTS = {
 	END_YEAR: new Date().getFullYear(),
 } as const
 
-// Default zoom level (zoom level 5 = 100 million years viewport)
+// Default zoom level
 export const DEFAULT_ZOOM_LEVEL = 1
 
 // These could be adjusted based on future needs
