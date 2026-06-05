@@ -2,6 +2,7 @@
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event } from "$lib/types"
 import { formatDate } from "$lib/utils/formatters"
+import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 
 const CARD_WIDTH = 200
 const CARD_SCREEN_PADDING = 0
@@ -59,11 +60,6 @@ function getEventCardXPosition(markerXPosition: number): number {
 	return cardX
 }
 
-function handlePointerDown(e: PointerEvent) {
-	e.stopPropagation()
-	onCardClick(event.id, index)
-}
-
 function handlePointerEnter() {
 	onCardHover(event.id)
 }
@@ -88,7 +84,7 @@ function handlePointerLeave() {
 	data-selected={isSelected || undefined}
 	class="absolute rounded-xl p-4 border-2 border-accent/35 cursor-pointer transition-colors duration-300 transition-shadow duration-300 overflow-hidden bg-surface-raised {isSelected ? 'border-accent ring-1 ring-accent/30' : 'hover:border-accent/55'}"
 	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px); bottom: {yPosition}px; z-index: {zIndex}; width: {CARD_WIDTH}px;"
-	onpointerdown={handlePointerDown}
+	use:bindPointerClick={() => onCardClick(event.id, index)}
 	onpointerenter={handlePointerEnter}
 	onpointerleave={handlePointerLeave}
 	tabindex="0"
