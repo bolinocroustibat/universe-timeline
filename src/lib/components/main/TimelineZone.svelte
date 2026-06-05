@@ -1,5 +1,9 @@
 <script lang="ts">
-import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
+import {
+	MIN_MINOR_LABEL_SPACING_PX,
+	TIME_CONSTANTS,
+	ZOOM_SCALES,
+} from "$lib/constants"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { TimelineTick } from "$lib/types"
 import { formatDate } from "$lib/utils/formatters"
@@ -28,6 +32,12 @@ const currentScale = $derived(
 )
 const majorTickInterval: number = $derived(currentScale.majorTickInterval)
 const minorTickInterval: number = $derived(currentScale.minorTickInterval)
+const minorLabelSpacingPx = $derived(
+	yearsPerPixel > 0 ? minorTickInterval / yearsPerPixel : 0,
+)
+const showMinorLabels = $derived(
+	minorLabelSpacingPx >= MIN_MINOR_LABEL_SPACING_PX,
+)
 
 // Generate visible major ticks based on current year position
 const visibleMajorTicks: TimelineTick[] = $derived(
@@ -103,6 +113,11 @@ const visibleMinorTicks: TimelineTick[] = $derived(
 			style="transform: translateX({tick.position}px)"
 		>
 			<div class="h-1/2 w-px bg-tick"></div>
+			{#if showMinorLabels}
+				<span class="text-[10px] text-muted/50 mt-0.5 text-center whitespace-nowrap -ml-1/2">
+					{formatDate(tick.year, $currentLocale, false)}
+				</span>
+			{/if}
 		</div>
 	{/each}
 	<!-- Major ticks (rendered second, on top) -->

@@ -1,4 +1,5 @@
 <script lang="ts">
+import { MIN_MINOR_LABEL_SPACING_PX } from "$lib/constants"
 import { currentLocale } from "$lib/stores/localeStore"
 import { formatDate, formatLargeNumber } from "$lib/utils/formatters"
 
@@ -31,6 +32,13 @@ let {
 	isPastPresent,
 	isBeforeStart,
 }: Props = $props()
+
+const minorLabelSpacingPx = $derived(
+	yearsPerPixel > 0 ? minorTickInterval / yearsPerPixel : 0,
+)
+const showMinorLabels = $derived(
+	minorLabelSpacingPx >= MIN_MINOR_LABEL_SPACING_PX,
+)
 
 // State to control visibility
 let isVisible = $state(true)
@@ -75,6 +83,8 @@ function closeDebugInfo() {
 			<div class="text-accent-secondary font-semibold border-b border-border pb-1">Tick Intervals</div>
 			<div>Major: {formatLargeNumber(majorTickInterval, $currentLocale)} years</div>
 			<div>Minor: {formatLargeNumber(minorTickInterval, $currentLocale)} years</div>
+			<div>Minor spacing: {minorLabelSpacingPx.toFixed(1)}px</div>
+			<div>Minor labels: {showMinorLabels ? "ON" : "OFF"} (min {MIN_MINOR_LABEL_SPACING_PX}px)</div>
 		</div>
 
 		<!-- Technical Details -->

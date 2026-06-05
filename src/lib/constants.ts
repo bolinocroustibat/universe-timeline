@@ -8,188 +8,95 @@ export const DEFAULT_ZOOM_LEVEL = 1
 
 export const PERIOD_BAND_COUNT = 4
 
-type ZoomScale = {
+export const MIN_MINOR_LABEL_SPACING_PX = 85
+
+export type ZoomScale = {
 	level: number
+	tierId: string
 	viewportYearSpan: number
 	majorTickInterval: number
 	minorTickInterval: number
 }
 
-export const ZOOM_SCALES: ZoomScale[] = [
+type TickTier = {
+	id: string
+	majorTickInterval: number
+	minorTickInterval: number
+	viewportYearSpans: number[]
+}
+
+// 29 zoom levels — numeric values must match the previous flat ZOOM_SCALES array.
+const TICK_TIERS: TickTier[] = [
 	{
-		level: 1,
-		viewportYearSpan: 13800000000,
-		majorTickInterval: 1000000000,
-		minorTickInterval: 100000000,
-	}, // 13.8 Billion years (full universe timeline)
-	{
-		level: 2,
-		viewportYearSpan: 8306623863,
-		majorTickInterval: 1000000000,
-		minorTickInterval: 100000000,
+		id: "universe",
+		majorTickInterval: 1_000_000_000,
+		minorTickInterval: 100_000_000,
+		viewportYearSpans: [
+			13_800_000_000,
+			8_306_623_863,
+			5_000_000_000,
+			2_236_067_977,
+			1_000_000_000,
+			547_722_558,
+		],
 	},
 	{
-		level: 3,
-		viewportYearSpan: 5000000000,
-		majorTickInterval: 1000000000,
-		minorTickInterval: 100000000,
-	}, // 5 Billion years
-	{
-		level: 4,
-		viewportYearSpan: 2236067977,
-		majorTickInterval: 1000000000,
-		minorTickInterval: 100000000,
+		id: "hundred-million",
+		majorTickInterval: 100_000_000,
+		minorTickInterval: 10_000_000,
+		viewportYearSpans: [300_000_000, 173_205_081],
 	},
 	{
-		level: 5,
-		viewportYearSpan: 1000000000,
-		majorTickInterval: 1000000000,
-		minorTickInterval: 100000000,
-	}, // Billion years
-	{
-		level: 6,
-		viewportYearSpan: 547722558,
-		majorTickInterval: 1000000000,
-		minorTickInterval: 100000000,
+		id: "ten-million",
+		majorTickInterval: 10_000_000,
+		minorTickInterval: 1_000_000,
+		viewportYearSpans: [100_000_000, 54_772_256, 30_000_000, 17_320_508],
 	},
 	{
-		level: 7,
-		viewportYearSpan: 300000000,
-		majorTickInterval: 100000000,
-		minorTickInterval: 10000000,
-	}, // Hundred millions
-	{
-		level: 8,
-		viewportYearSpan: 173205081,
-		majorTickInterval: 100000000,
-		minorTickInterval: 10000000,
+		id: "million",
+		majorTickInterval: 1_000_000,
+		minorTickInterval: 100_000,
+		viewportYearSpans: [10_000_000, 5_477_226, 3_000_000, 1_732_051],
 	},
 	{
-		level: 9,
-		viewportYearSpan: 100000000,
-		majorTickInterval: 10000000,
-		minorTickInterval: 1000000,
-	}, // Ten millions
-	{
-		level: 10,
-		viewportYearSpan: 54772256,
-		majorTickInterval: 10000000,
-		minorTickInterval: 1000000,
+		id: "hundred-thousand",
+		majorTickInterval: 100_000,
+		minorTickInterval: 10_000,
+		viewportYearSpans: [1_000_000, 547_723, 300_000, 173_205],
 	},
 	{
-		level: 11,
-		viewportYearSpan: 30000000,
-		majorTickInterval: 10000000,
-		minorTickInterval: 1000000,
-	}, // Ten millions
-	{
-		level: 12,
-		viewportYearSpan: 17320508,
-		majorTickInterval: 10000000,
-		minorTickInterval: 1000000,
+		id: "ten-thousand",
+		majorTickInterval: 10_000,
+		minorTickInterval: 1_000,
+		viewportYearSpans: [100_000, 54_772, 30_000, 17_321],
 	},
 	{
-		level: 13,
-		viewportYearSpan: 10000000,
-		majorTickInterval: 1000000,
-		minorTickInterval: 100000,
-	}, // Millions
-	{
-		level: 14,
-		viewportYearSpan: 5477226,
-		majorTickInterval: 1000000,
-		minorTickInterval: 100000,
-	},
-	{
-		level: 15,
-		viewportYearSpan: 3000000,
-		majorTickInterval: 1000000,
-		minorTickInterval: 100000,
-	}, // Millions
-	{
-		level: 16,
-		viewportYearSpan: 1732051,
-		majorTickInterval: 1000000,
-		minorTickInterval: 100000,
-	},
-	{
-		level: 17,
-		viewportYearSpan: 1000000,
-		majorTickInterval: 100000,
-		minorTickInterval: 10000,
-	}, // Hundred thousands
-	{
-		level: 18,
-		viewportYearSpan: 547723,
-		majorTickInterval: 100000,
-		minorTickInterval: 10000,
-	},
-	{
-		level: 19,
-		viewportYearSpan: 300000,
-		majorTickInterval: 100000,
-		minorTickInterval: 10000,
-	}, // Hundred thousands
-	{
-		level: 20,
-		viewportYearSpan: 173205,
-		majorTickInterval: 100000,
-		minorTickInterval: 10000,
-	},
-	{
-		level: 21,
-		viewportYearSpan: 100000,
-		majorTickInterval: 10000,
-		minorTickInterval: 1000,
-	}, // Ten thousands
-	{
-		level: 22,
-		viewportYearSpan: 54772,
-		majorTickInterval: 10000,
-		minorTickInterval: 1000,
-	},
-	{
-		level: 23,
-		viewportYearSpan: 30000,
-		majorTickInterval: 10000,
-		minorTickInterval: 1000,
-	}, // Ten thousands
-	{
-		level: 24,
-		viewportYearSpan: 17321,
-		majorTickInterval: 10000,
-		minorTickInterval: 1000,
-	},
-	{
-		level: 25,
-		viewportYearSpan: 10000,
-		majorTickInterval: 1000,
+		id: "thousand",
+		majorTickInterval: 1_000,
 		minorTickInterval: 100,
-	}, // Thousands
-	{
-		level: 26,
-		viewportYearSpan: 5477,
-		majorTickInterval: 1000,
-		minorTickInterval: 100,
+		viewportYearSpans: [10_000, 5_477, 3_000, 1_732],
 	},
 	{
-		level: 27,
-		viewportYearSpan: 3000,
-		majorTickInterval: 1000,
-		minorTickInterval: 100,
-	}, // Thousands
-	{
-		level: 28,
-		viewportYearSpan: 1732,
-		majorTickInterval: 1000,
-		minorTickInterval: 100,
-	},
-	{
-		level: 29,
-		viewportYearSpan: 1000,
+		id: "century",
 		majorTickInterval: 100,
 		minorTickInterval: 10,
-	}, // Centuries
+		viewportYearSpans: [1_000],
+	},
 ]
 
+function buildZoomScales(): ZoomScale[] {
+	let level = 1
+
+	return TICK_TIERS.flatMap((tier) =>
+		tier.viewportYearSpans.map((viewportYearSpan) => ({
+			level: level++,
+			tierId: tier.id,
+			viewportYearSpan,
+			majorTickInterval: tier.majorTickInterval,
+			minorTickInterval: tier.minorTickInterval,
+		})),
+	)
+}
+
+export const ZOOM_SCALES = buildZoomScales()
 export const MAX_ZOOM_LEVEL = ZOOM_SCALES.length
