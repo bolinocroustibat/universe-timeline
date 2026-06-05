@@ -4,7 +4,7 @@ import type { Period } from "$lib/types"
 import { blendColors } from "$lib/utils/colors"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 
-const SELECTED_SCALE = 1.03
+const SELECTED_SCALE = 1.07
 
 interface Props {
 	period: Period
@@ -85,8 +85,8 @@ const isSelected = $derived(isTopCard)
 const bottomOffset = $derived(depth * bandHeight)
 
 const HORIZONTAL_PADDING = 32
-const CHAR_WIDTH = 6.5
-const MIN_HEIGHT_TITLE = 24
+const CHAR_WIDTH = 7.5
+const MIN_HEIGHT_TITLE = 28
 const MIN_HEIGHT_DESCRIPTION = 72
 const MIN_WIDTH_DESCRIPTION = 120
 
@@ -118,20 +118,21 @@ const showDescription = $derived(
 		tabindex="0"
 	>
 		<div
-			class="h-full w-full origin-center transition-transform duration-200 ease-out motion-reduce:transition-none backdrop-blur-sm flex items-center justify-center px-2 text-xs font-medium shadow-sm overflow-hidden"
+			class="h-full w-full origin-center transition-transform duration-200 ease-out motion-reduce:transition-none backdrop-blur-sm flex items-center justify-center px-2 font-medium shadow-sm overflow-hidden"
 			class:shadow-lg={isSelected}
 			class:shadow-md={!isSelected}
+			class:rounded-[4px]={isSelected}
 			class:border-2={isSelected}
-			class:border-accent={isSelected}
+			class:border-selection-outline={isSelected}
 			style="transform: scale({isSelected ? SELECTED_SCALE : 1}); {gradientBackground()}; color: var(--theme-on-media);"
 		>
 			{#if titleFits}
 				<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
-					<span class="w-full min-w-0 font-semibold mb-1 shrink-0 text-center whitespace-nowrap">
+					<span class="w-full min-w-0 text-sm font-semibold mb-1 shrink-0 text-center whitespace-nowrap">
 						{label}
 					</span>
 					{#if showDescription}
-						<div class="w-full min-w-0 text-xs leading-relaxed text-center opacity-90 overflow-hidden line-clamp-3">
+						<div class="w-full min-w-0 text-[13px] leading-relaxed text-center opacity-90 overflow-hidden line-clamp-3">
 							{period.description[$currentLocale]}
 						</div>
 					{/if}

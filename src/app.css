@@ -16,6 +16,11 @@
 	--theme-accent-warm: #f472b6;
 	--theme-tick: #3d4558;
 	--theme-on-media: #ffffff;
+	--theme-selection-outline: color-mix(
+		in srgb,
+		var(--theme-on-media) 82%,
+		var(--theme-accent) 18%
+	);
 }
 
 [data-theme="light"] {
@@ -30,6 +35,11 @@
 	--theme-accent-warm: #db2777;
 	--theme-tick: #94a3b8;
 	--theme-on-media: #f8fafc;
+	--theme-selection-outline: color-mix(
+		in srgb,
+		var(--theme-on-media) 88%,
+		var(--theme-accent) 12%
+	);
 }
 
 /* Registers Tailwind utilities (bg-background, text-accent, …) */
@@ -45,6 +55,7 @@
 	--color-accent-warm: var(--theme-accent-warm);
 	--color-tick: var(--theme-tick);
 	--color-on-media: var(--theme-on-media);
+	--color-selection-outline: var(--theme-selection-outline);
 }
 
 /*
