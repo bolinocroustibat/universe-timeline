@@ -6,7 +6,7 @@ import RightArrow from "$lib/components/main/ArrowRight.svelte"
 import Content from "$lib/components/main/content/Content.svelte"
 import DebugInfo from "$lib/components/main/DebugInfo.svelte"
 import TimelineZone from "$lib/components/main/TimelineZone.svelte"
-import { TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
+import { MAX_ZOOM_LEVEL, TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
 import {
 	screenToTimelinePanDelta,
@@ -185,7 +185,10 @@ function handleWheel(e: WheelEvent) {
 	// Handle mousewheel up/down for zooming
 	if (e.deltaY !== 0) {
 		const zoomDirection = e.deltaY > 0 ? -1 : 1 // Positive deltaY = mouseWheelDown = zoom out
-		const newZoomLevel = Math.max(1, Math.min(15, $zoomLevel + zoomDirection))
+		const newZoomLevel = Math.max(
+			1,
+			Math.min(MAX_ZOOM_LEVEL, $zoomLevel + zoomDirection),
+		)
 
 		if (newZoomLevel !== $zoomLevel) {
 			performCenteredZoom(newZoomLevel, mouseCursorYear)
@@ -195,7 +198,10 @@ function handleWheel(e: WheelEvent) {
 	// Handle pinch-to-zoom on trackpad
 	if (e.deltaZ !== 0) {
 		const pinchDirection = e.deltaZ > 0 ? 1 : -1 // Positive deltaZ = pinch out = zoom in
-		const newZoomLevel = Math.max(1, Math.min(15, $zoomLevel + pinchDirection))
+		const newZoomLevel = Math.max(
+			1,
+			Math.min(MAX_ZOOM_LEVEL, $zoomLevel + pinchDirection),
+		)
 
 		if (newZoomLevel !== $zoomLevel) {
 			performCenteredZoom(newZoomLevel, mouseCursorYear)
