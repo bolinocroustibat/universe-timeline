@@ -5,6 +5,10 @@ import PeriodCard from "$lib/components/main/content/PeriodCard.svelte"
 import { displaySettings } from "$lib/stores/displayStore"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event, Period } from "$lib/types"
+import {
+	buildVisiblePeriodLayouts,
+	getBandHeight,
+} from "$lib/utils/periodLayout"
 
 interface Props {
 	viewportWidth: number
@@ -16,21 +20,23 @@ interface Props {
 let { viewportWidth, yearsPerPixel, leftEdgeYear, rightEdgeYear }: Props =
 	$props()
 
+let contentElement: HTMLDivElement | undefined = $state()
+let contentHeight = $state(0)
+
 // Load events and periods from JSON files
 let events: Event[] = $state([])
 let periods: Period[] = $state([])
 let isLoading = $state(true)
 
-// Track which card is on top (type, event id, or period index)
+// Track which card is on top (type, event id, or period id)
 let topCardType = $state<"event" | "period" | null>(null)
 let topCardEventId = $state<number | null>(null)
-let topCardIndex = $state<number | null>(null)
+let topCardPeriodId = $state<number | null>(null)
 let hoveredCardEventId = $state<number | null>(null)
 
 // Load events and periods on component mount
 onMount(async () => {
 	try {
-		// Load both events and periods in parallel
 		const [eventsResponse, periodsResponse] = await Promise.all([
 			fetch("/events.jsonc"),
 			fetch("/periods.jsonc"),
@@ -52,6 +58,20 @@ onMount(async () => {
 	}
 })
 
+$effect(() => {
+	if (!contentElement) return
+
+	const observer = new ResizeObserver(() => {
+		contentHeight = contentElement?.clientHeight ?? 0
+	})
+	observer.observe(contentElement)
+	contentHeight = contentElement.clientHeight
+
+	return () => observer.disconnect()
+})
+
+const bandHeight = $derived(getBandHeight(contentHeight))
+
 // Filter events that are visible in the current viewport
 const visibleEvents = $derived(
 	events.filter((event) => {
@@ -59,15 +79,8 @@ const visibleEvents = $derived(
 	}),
 )
 
-// Filter periods that are visible and have parentPeriodId = 0
-const visiblePeriods = $derived(
-	periods.filter((period) => {
-		return (
-			period.parentPeriodId === 0 &&
-			period.end >= leftEdgeYear &&
-			period.start <= rightEdgeYear
-		)
-	}),
+const visiblePeriodLayouts = $derived(
+	buildVisiblePeriodLayouts(periods, leftEdgeYear, rightEdgeYear),
 )
 
 function getEventYPosition(): number {
@@ -83,15 +96,15 @@ function handleEventHover(eventId: number | null) {
 	hoveredCardEventId = eventId
 }
 
-function handlePeriodClick(_periodId: number, index: number) {
+function handlePeriodClick(periodId: number) {
 	topCardType = "period"
-	topCardIndex = index
+	topCardPeriodId = periodId
 }
 
 function handleCardDeselect() {
 	topCardType = null
 	topCardEventId = null
-	topCardIndex = null
+	topCardPeriodId = null
 }
 
 function handleContentClick(e: MouseEvent) {
@@ -123,62 +136,56 @@ const messages = {
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 <div
+	bind:this={contentElement}
 	class="w-full flex-[4] bg-background border-b border-border overflow-hidden relative"
 	onclick={handleContentClick}
 >
-	
 	{#if isLoading}
-		<!-- Loading state -->
 		<div class="absolute inset-0 flex items-center justify-center">
 			<div class="text-muted">{messages[$currentLocale].loading}</div>
 		</div>
 	{:else}
 		{#if !$displaySettings.showEvents && !$displaySettings.showPeriods}
-			<!-- Events and periods are hidden -->
 			<div class="absolute inset-0 flex items-center justify-center">
 				<div class="text-muted">{messages[$currentLocale].eventsAndPeriodsHidden}</div>
 			</div>
 		{:else}
-			<!-- Events are rendered here -->
 			{#if $displaySettings.showEvents}
 				{#each visibleEvents as event, index}
-					<EventCard 
+					<EventCard
 						event={event}
 						leftEdgeYear={leftEdgeYear}
 						yearsPerPixel={yearsPerPixel}
 						viewportWidth={viewportWidth}
 						yPosition={getEventYPosition()}
 						index={index}
-						isTopCard={topCardType === 'event' && topCardEventId === event.id}
+						isTopCard={topCardType === "event" && topCardEventId === event.id}
 						isHovered={hoveredCardEventId === event.id}
 						onCardClick={handleEventClick}
 						onCardHover={handleEventHover}
 					/>
 				{/each}
 			{:else}
-				<!-- Events are hidden -->
 				<div class="absolute inset-0 flex items-center justify-center">
 					<div class="text-muted">{messages[$currentLocale].eventsHidden}</div>
 				</div>
 			{/if}
-			<!-- Periods are rendered here -->
 			{#if $displaySettings.showPeriods}
-				{#each visiblePeriods as period, index}
-					<PeriodCard 
-						period={period}
+				{#each visiblePeriodLayouts as layout (layout.id)}
+					<PeriodCard
+						period={layout}
+						depth={layout.depth}
+						bandHeight={bandHeight}
 						leftEdgeYear={leftEdgeYear}
 						rightEdgeYear={rightEdgeYear}
 						yearsPerPixel={yearsPerPixel}
-						viewportWidth={viewportWidth}
-						index={index}
-						isTopCard={topCardType === 'period' && topCardIndex === index}
-						leftPeriod={index > 0 ? visiblePeriods[index - 1] : null}
-						rightPeriod={index < visiblePeriods.length - 1 ? visiblePeriods[index + 1] : null}
+						isTopCard={topCardType === "period" && topCardPeriodId === layout.id}
+						leftPeriod={layout.leftPeriod}
+						rightPeriod={layout.rightPeriod}
 						onCardClick={handlePeriodClick}
 					/>
 				{/each}
 			{:else}
-				<!-- Periods are hidden -->
 				<div class="absolute inset-0 flex items-center justify-center">
 					<div class="text-muted">{messages[$currentLocale].periodsHidden}</div>
 				</div>

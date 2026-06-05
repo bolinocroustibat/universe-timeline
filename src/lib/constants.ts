@@ -6,6 +6,8 @@ export const TIME_CONSTANTS = {
 // Default zoom level
 export const DEFAULT_ZOOM_LEVEL = 1
 
+export const PERIOD_BAND_COUNT = 4
+
 // These could be adjusted based on future needs
 export const ZOOM_SCALES = [
 	{

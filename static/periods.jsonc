@@ -1,8 +1,7 @@
 [
 	{
 		"id": 1,
-		"parentPeriodId": 0,
-		"hasChild": 0,
+		"parentPeriodId": null,
 		"start": -4567000000,
 		"end": -4000000000,
 		"startUncertainty": 0,
@@ -21,8 +20,7 @@
 	},
 	{
 		"id": 2,
-		"parentPeriodId": 0,
-		"hasChild": 1,
+		"parentPeriodId": null,
 		"start": -4000000000,
 		"end": -2500000000,
 		"startUncertainty": 0,
@@ -41,8 +39,7 @@
 	},
 	{
 		"id": 3,
-		"parentPeriodId": 0,
-		"hasChild": 1,
+		"parentPeriodId": null,
 		"start": -2500000000,
 		"end": -541000000,
 		"startUncertainty": 0,
@@ -61,8 +58,7 @@
 	},
 	{
 		"id": 4,
-		"parentPeriodId": 0,
-		"hasChild": 1,
+		"parentPeriodId": null,
 		"start": -541000000,
 		"end": 2015,
 		"startUncertainty": 1000000,
@@ -82,7 +78,6 @@
 	{
 		"id": 5,
 		"parentPeriodId": 3,
-		"hasChild": 1,
 		"start": -2500000000,
 		"end": -1600000000,
 		"startUncertainty": 0,
@@ -102,7 +97,6 @@
 	{
 		"id": 6,
 		"parentPeriodId": 3,
-		"hasChild": 1,
 		"start": -1600000000,
 		"end": -1000000000,
 		"startUncertainty": 0,
@@ -122,7 +116,6 @@
 	{
 		"id": 7,
 		"parentPeriodId": 3,
-		"hasChild": 1,
 		"start": -1000000000,
 		"end": -541000000,
 		"startUncertainty": 0,
@@ -142,7 +135,6 @@
 	{
 		"id": 12,
 		"parentPeriodId": 5,
-		"hasChild": 0,
 		"start": -2500000000,
 		"end": -2300000000,
 		"startUncertainty": 0,
@@ -162,7 +154,6 @@
 	{
 		"id": 13,
 		"parentPeriodId": 5,
-		"hasChild": 0,
 		"start": -2300000000,
 		"end": -2050000000,
 		"startUncertainty": 0,
@@ -182,7 +173,6 @@
 	{
 		"id": 14,
 		"parentPeriodId": 5,
-		"hasChild": 0,
 		"start": -2050000000,
 		"end": -1800000000,
 		"startUncertainty": 0,
@@ -202,7 +192,6 @@
 	{
 		"id": 15,
 		"parentPeriodId": 5,
-		"hasChild": 0,
 		"start": -1800000000,
 		"end": -1600000000,
 		"startUncertainty": 0,
@@ -222,7 +211,6 @@
 	{
 		"id": 16,
 		"parentPeriodId": 2,
-		"hasChild": 0,
 		"start": -4000000000,
 		"end": -3600000000,
 		"startUncertainty": 0,
@@ -242,7 +230,6 @@
 	{
 		"id": 17,
 		"parentPeriodId": 2,
-		"hasChild": 0,
 		"start": -3600000000,
 		"end": -3200000000,
 		"startUncertainty": 0,
@@ -262,7 +249,6 @@
 	{
 		"id": 18,
 		"parentPeriodId": 2,
-		"hasChild": 0,
 		"start": -3200000000,
 		"end": -2800000000,
 		"startUncertainty": 0,
@@ -282,7 +268,6 @@
 	{
 		"id": 19,
 		"parentPeriodId": 2,
-		"hasChild": 0,
 		"start": -2800000000,
 		"end": -2500000000,
 		"startUncertainty": 0,
@@ -302,7 +287,6 @@
 	{
 		"id": 20,
 		"parentPeriodId": 6,
-		"hasChild": 0,
 		"start": -1600000000,
 		"end": -1400000000,
 		"startUncertainty": 0,
@@ -322,7 +306,6 @@
 	{
 		"id": 21,
 		"parentPeriodId": 6,
-		"hasChild": 0,
 		"start": -1400000000,
 		"end": -1200000000,
 		"startUncertainty": 0,
@@ -342,7 +325,6 @@
 	{
 		"id": 22,
 		"parentPeriodId": 6,
-		"hasChild": 0,
 		"start": -1200000000,
 		"end": -1000000000,
 		"startUncertainty": 0,
@@ -362,7 +344,6 @@
 	{
 		"id": 23,
 		"parentPeriodId": 7,
-		"hasChild": 0,
 		"start": -1000000000,
 		"end": -850000000,
 		"startUncertainty": 0,
@@ -382,7 +363,6 @@
 	{
 		"id": 24,
 		"parentPeriodId": 7,
-		"hasChild": 1,
 		"start": -850000000,
 		"end": -635000000,
 		"startUncertainty": 0,
@@ -402,7 +382,6 @@
 	{
 		"id": 25,
 		"parentPeriodId": 7,
-		"hasChild": 0,
 		"start": -635000000,
 		"end": -541000000,
 		"startUncertainty": 0,
@@ -422,7 +401,6 @@
 	{
 		"id": 26,
 		"parentPeriodId": 24,
-		"hasChild": 0,
 		"start": -850000000,
 		"end": -650000000,
 		"startUncertainty": 0,
@@ -442,7 +420,6 @@
 	{
 		"id": 27,
 		"parentPeriodId": 24,
-		"hasChild": 0,
 		"start": -650000000,
 		"end": -635000000,
 		"startUncertainty": 0,
@@ -462,7 +439,6 @@
 	{
 		"id": 28,
 		"parentPeriodId": 4,
-		"hasChild": 1,
 		"start": -541000000,
 		"end": -252170000,
 		"startUncertainty": 1000000,
@@ -482,7 +458,6 @@
 	{
 		"id": 29,
 		"parentPeriodId": 4,
-		"hasChild": 1,
 		"start": -252170000,
 		"end": -66000000,
 		"startUncertainty": 60000,
@@ -502,7 +477,6 @@
 	{
 		"id": 30,
 		"parentPeriodId": 4,
-		"hasChild": 1,
 		"start": -66000000,
 		"end": 2015,
 		"startUncertainty": 0,
@@ -522,7 +496,6 @@
 	{
 		"id": 31,
 		"parentPeriodId": 28,
-		"hasChild": 1,
 		"start": -541000000,
 		"end": -485400000,
 		"startUncertainty": 1000000,
@@ -542,7 +515,6 @@
 	{
 		"id": 32,
 		"parentPeriodId": 28,
-		"hasChild": 1,
 		"start": -485400000,
 		"end": -443400000,
 		"startUncertainty": 1900000,
@@ -562,7 +534,6 @@
 	{
 		"id": 33,
 		"parentPeriodId": 28,
-		"hasChild": 0,
 		"start": -443800000,
 		"end": -419200000,
 		"startUncertainty": 1500000,
@@ -582,7 +553,6 @@
 	{
 		"id": 34,
 		"parentPeriodId": 28,
-		"hasChild": 0,
 		"start": -419200000,
 		"end": -358900000,
 		"startUncertainty": 3200000,
@@ -602,7 +572,6 @@
 	{
 		"id": 35,
 		"parentPeriodId": 28,
-		"hasChild": 0,
 		"start": -358900000,
 		"end": -298900000,
 		"startUncertainty": 400000,
@@ -622,7 +591,6 @@
 	{
 		"id": 36,
 		"parentPeriodId": 28,
-		"hasChild": 0,
 		"start": -298900000,
 		"end": -252170000,
 		"startUncertainty": 150000,
@@ -642,7 +610,6 @@
 	{
 		"id": 37,
 		"parentPeriodId": 29,
-		"hasChild": 0,
 		"start": -252170000,
 		"end": -201300000,
 		"startUncertainty": 60000,
@@ -662,7 +629,6 @@
 	{
 		"id": 38,
 		"parentPeriodId": 29,
-		"hasChild": 0,
 		"start": -201300000,
 		"end": -145000000,
 		"startUncertainty": 200000,
@@ -682,7 +648,6 @@
 	{
 		"id": 39,
 		"parentPeriodId": 29,
-		"hasChild": 0,
 		"start": -145000000,
 		"end": -66000000,
 		"startUncertainty": 0,
@@ -702,7 +667,6 @@
 	{
 		"id": 40,
 		"parentPeriodId": 30,
-		"hasChild": 0,
 		"start": -66000000,
 		"end": -23030000,
 		"startUncertainty": 0,
@@ -722,7 +686,6 @@
 	{
 		"id": 41,
 		"parentPeriodId": 30,
-		"hasChild": 0,
 		"start": -23030000,
 		"end": -2580000,
 		"startUncertainty": 0,
@@ -742,7 +705,6 @@
 	{
 		"id": 42,
 		"parentPeriodId": 30,
-		"hasChild": 1,
 		"start": -2580000,
 		"end": 2015,
 		"startUncertainty": 0,
@@ -762,7 +724,6 @@
 	{
 		"id": 43,
 		"parentPeriodId": 31,
-		"hasChild": 0,
 		"start": -541000000,
 		"end": -521000000,
 		"startUncertainty": 1000000,
@@ -782,7 +743,6 @@
 	{
 		"id": 44,
 		"parentPeriodId": 31,
-		"hasChild": 0,
 		"start": -521000000,
 		"end": -509000000,
 		"startUncertainty": 0,
@@ -802,7 +762,6 @@
 	{
 		"id": 45,
 		"parentPeriodId": 31,
-		"hasChild": 0,
 		"start": -509000000,
 		"end": -497000000,
 		"startUncertainty": 0,
@@ -822,7 +781,6 @@
 	{
 		"id": 46,
 		"parentPeriodId": 31,
-		"hasChild": 0,
 		"start": -497000000,
 		"end": -485400000,
 		"startUncertainty": 0,
@@ -842,7 +800,6 @@
 	{
 		"id": 47,
 		"parentPeriodId": 42,
-		"hasChild": 0,
 		"start": -11700,
 		"end": 2015,
 		"startUncertainty": 0,
@@ -862,7 +819,6 @@
 	{
 		"id": 51,
 		"parentPeriodId": 32,
-		"hasChild": 0,
 		"start": -470000000,
 		"end": -458400000,
 		"startUncertainty": 1400000,
@@ -882,7 +838,6 @@
 	{
 		"id": 52,
 		"parentPeriodId": 32,
-		"hasChild": 0,
 		"start": -485400000,
 		"end": -470000000,
 		"startUncertainty": 1900000,
@@ -902,7 +857,6 @@
 	{
 		"id": 53,
 		"parentPeriodId": 32,
-		"hasChild": 0,
 		"start": -458400000,
 		"end": -443400000,
 		"startUncertainty": 900000,

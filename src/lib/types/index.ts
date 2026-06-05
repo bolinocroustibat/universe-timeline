@@ -4,10 +4,11 @@ export type LocalizedText = {
 	[key in SupportedLocales]: string
 }
 
+export type EnrichedPeriod = Period & { depth: number }
+
 export interface Period {
 	id: number
-	parentPeriodId: number
-	hasChild: number
+	parentPeriodId: number | null
 	start: number
 	end: number
 	/**
@@ -34,7 +35,7 @@ export interface Period {
 }
 export interface Event {
 	id: number
-	parentPeriodId: number
+	parentPeriodId: number | null
 	date: number
 	/**
 	 * Date uncertainty in years. The event could have occurred between

@@ -25,7 +25,7 @@ Event cards live in [`Content.svelte`](src/lib/components/main/content/Content.s
   - Default: `980`
 - Clicking a reachable card sets `topCardEventId` on `pointerdown` (with `stopPropagation` so pan drag does not swallow the interaction); selected card shows description and stays at `z-index: 1000` after the pointer leaves.
 - Deselect via a single `handleContentClick` on the content container (clicks outside `[data-event-card]` and `[data-period-card]`). Do not use per-card `clickOutside` — it races with selection.
-- Period cards still use `topCardIndex` (unchanged).
+- Period cards use `topCardPeriodId` in `Content.svelte` (stable id, not visible index).
 
 ## Vertical Stacking (Phase 2 — not yet implemented)
 
