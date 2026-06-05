@@ -97,6 +97,11 @@ function handleEventHover(eventId: number | null) {
 }
 
 function handlePeriodClick(periodId: number) {
+	if (topCardType === "period" && topCardPeriodId === periodId) {
+		handleCardDeselect()
+		return
+	}
+
 	topCardType = "period"
 	topCardPeriodId = periodId
 }

@@ -2,6 +2,9 @@
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Period } from "$lib/types"
 import { blendColors } from "$lib/utils/colors"
+import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
+
+const SELECTED_SCALE = 1.03
 
 interface Props {
 	period: Period
@@ -103,37 +106,39 @@ const showDescription = $derived(
 		cardWidth >= MIN_WIDTH_DESCRIPTION,
 )
 
-function handlePointerDown(e: PointerEvent) {
-	e.stopPropagation()
-	onCardClick(period.id)
-}
+
 </script>
 
 {#if isVisible && bandHeight > 0}
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 	<div
 		data-period-card
-		class="absolute backdrop-blur-sm flex items-center justify-center px-2 text-xs font-medium shadow-sm cursor-pointer overflow-hidden"
-		class:shadow-lg={isSelected}
-		class:shadow-md={!isSelected}
-		class:border-2={isSelected}
-		class:border-accent={isSelected}
-		style="left: {periodPosition().x}px; width: {periodPosition().width}px; bottom: {bottomOffset}px; height: {bandHeight}px; {gradientBackground()}; color: var(--theme-on-media); z-index: {zIndex};"
+		class="absolute overflow-visible cursor-pointer"
+		style="left: {periodPosition().x}px; width: {periodPosition().width}px; bottom: {bottomOffset}px; height: {bandHeight}px; z-index: {zIndex};"
 		title="{period.name[$currentLocale]}"
-		onpointerdown={handlePointerDown}
+		use:bindPointerClick={() => onCardClick(period.id)}
 		tabindex="0"
 	>
-		{#if titleFits}
-			<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
-				<span class="w-full min-w-0 font-semibold mb-1 shrink-0 text-center whitespace-nowrap">
-					{label}
-				</span>
-				{#if showDescription}
-					<div class="w-full min-w-0 text-xs leading-relaxed text-center opacity-90 overflow-hidden line-clamp-3">
-						{period.description[$currentLocale]}
-					</div>
-				{/if}
-			</div>
-		{/if}
+		<div
+			class="h-full w-full origin-center transition-transform duration-200 ease-out motion-reduce:transition-none backdrop-blur-sm flex items-center justify-center px-2 text-xs font-medium shadow-sm overflow-hidden"
+			class:shadow-lg={isSelected}
+			class:shadow-md={!isSelected}
+			class:border-2={isSelected}
+			class:border-accent={isSelected}
+			style="transform: scale({isSelected ? SELECTED_SCALE : 1}); {gradientBackground()}; color: var(--theme-on-media);"
+		>
+			{#if titleFits}
+				<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
+					<span class="w-full min-w-0 font-semibold mb-1 shrink-0 text-center whitespace-nowrap">
+						{label}
+					</span>
+					{#if showDescription}
+						<div class="w-full min-w-0 text-xs leading-relaxed text-center opacity-90 overflow-hidden line-clamp-3">
+							{period.description[$currentLocale]}
+						</div>
+					{/if}
+				</div>
+			{/if}
+		</div>
 	</div>
 {/if}
