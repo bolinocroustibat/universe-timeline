@@ -27,9 +27,9 @@ function togglePeriods() {
 }
 </script>
 
-<div class="flex flex-col space-y-1">
+<div class="flex items-end gap-3 sm:gap-4">
 	<!-- Events Toggle -->
-	<div class="flex items-center justify-between space-x-2">
+	<div class="flex flex-col items-center gap-0.5">
 		<!-- svelte-ignore a11y_label_has_associated_control -->
 		<label class="text-xs text-muted whitespace-nowrap">
 			{labels.events[$currentLocale]}
@@ -41,14 +41,14 @@ function togglePeriods() {
 			aria-checked={$displaySettings.showEvents}
 			aria-label="Toggle events display"
 		>
-      <span
-        class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {$displaySettings.showEvents ? 'translate-x-3' : 'translate-x-0.5'}"
-      ></span>
+			<span
+				class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {$displaySettings.showEvents ? 'translate-x-3' : 'translate-x-0.5'}"
+			></span>
 		</button>
 	</div>
 
 	<!-- Periods Toggle -->
-	<div class="flex items-center justify-between space-x-2">
+	<div class="flex flex-col items-center gap-0.5">
 		<!-- svelte-ignore a11y_label_has_associated_control -->
 		<label class="text-xs text-muted whitespace-nowrap">
 			{labels.periods[$currentLocale]}
@@ -60,14 +60,14 @@ function togglePeriods() {
 			aria-checked={$displaySettings.showPeriods}
 			aria-label="Toggle periods display"
 		>
-      <span
-        class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {$displaySettings.showPeriods ? 'translate-x-3' : 'translate-x-0.5'}"
-      ></span>
+			<span
+				class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {$displaySettings.showPeriods ? 'translate-x-3' : 'translate-x-0.5'}"
+			></span>
 		</button>
 	</div>
 
 	<!-- Color scheme toggle -->
-	<div class="flex items-center justify-between space-x-2">
+	<div class="flex flex-col items-center gap-0.5">
 		<!-- svelte-ignore a11y_label_has_associated_control -->
 		<label class="text-xs text-muted whitespace-nowrap">
 			{labels.darkMode[$currentLocale]}
