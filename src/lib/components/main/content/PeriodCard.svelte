@@ -105,8 +105,6 @@ const showDescription = $derived(
 		bandHeight >= MIN_HEIGHT_DESCRIPTION &&
 		cardWidth >= MIN_WIDTH_DESCRIPTION,
 )
-
-
 </script>
 
 {#if isVisible && bandHeight > 0}
