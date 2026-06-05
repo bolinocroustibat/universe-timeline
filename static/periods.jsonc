@@ -145,8 +145,8 @@
 			"fr": "Sidérien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The opening period of the Paleoproterozoic, when Earth's atmosphere began to fill with oxygen produced by early bacteria. Banded iron formations provide evidence of this major change, which would transform the planet's chemistry.",
+			"fr": "Première période du Paléoprotérozoïque, lorsque l'atmosphère terrestre commence à s'enrichir en oxygène produit par des bactéries primitives. Les formations de fer rubané témoignent de ce bouleversement chimique majeur."
 		},
 		"color": "#14532D",
 		"image": null
@@ -164,8 +164,8 @@
 			"fr": "Rhyacien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A period when oxygen continued to build up in the atmosphere during the Great Oxidation Event. The rising oxygen levels fundamentally altered how minerals formed and paved the way for more complex life.",
+			"fr": "Période durant laquelle l'oxygène continue de s'accumuler dans l'atmosphère lors de la grande oxydation. Ces niveaux croissants modifient profondément la formation des minéraux et ouvrent la voie à une vie plus complexe."
 		},
 		"color": "#047857",
 		"image": null
@@ -183,8 +183,8 @@
 			"fr": "Orosirien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A relatively stable period of the early Paleoproterozoic before the great Huronian glaciation. Continents continued to grow and cluster, while oxygen levels remained high in the atmosphere.",
+			"fr": "Période relativement stable du début du Paléoprotérozoïque, avant la grande glaciation huronienne. Les continents continuent de croître et de se regrouper, tandis que l'atmosphère reste riche en oxygène."
 		},
 		"color": "#059669",
 		"image": null
@@ -221,8 +221,8 @@
 			"fr": "Eoarchéen"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The earliest division of the Archean, when Earth was still a hot, young planet with a barely solid crust. The oldest known rocks on Earth date from this period, though few traces of life have survived.",
+			"fr": "Première division de l'Archéen, lorsque la Terre est encore une planète jeune et brûlante à la croûte à peine solidifiée. Les roches les plus anciennes connues datent de cette période, mais peu de traces de vie ont survécu."
 		},
 		"color": "#9A3412",
 		"image": null
@@ -240,8 +240,8 @@
 			"fr": "Paléoarchéen"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A period when the first stable continental crust formed and volcanic activity shaped the young landmasses. Isotopic evidence suggests that life may have emerged in the oceans during this time.",
+			"fr": "Période durant laquelle se forme la première croûte continentale stable et l'activité volcanique façonne les jeunes terres émergées. Des indices isotopiques suggèrent que la vie serait apparue dans les océans à cette époque."
 		},
 		"color": "#B45309",
 		"image": null
@@ -259,8 +259,8 @@
 			"fr": "Mésoarchéen"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A middle phase of the Archean marked by the growth of small proto-continents and active hydrothermal systems on the ocean floor. Fossil evidence points to thriving microbial communities in shallow marine environments.",
+			"fr": "Phase intermédiaire de l'Archéen marquée par la croissance de petits proto-continents et des systèmes hydrothermaux actifs au fond des océans. Des fossiles attestent de communautés microbiennes florissantes en eaux peu profondes."
 		},
 		"color": "#D97706",
 		"image": null
@@ -278,8 +278,8 @@
 			"fr": "Néoarchéen"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The final period of the Archean, when continents grew larger and the oldest widely accepted evidence of life appears in the fossil record. At its end, the planet was ready to enter the oxygen-rich Proterozoic era.",
+			"fr": "Dernière période de l'Archéen, lorsque les continents s'agrandissent et que les plus anciennes traces de vie largement acceptées apparaissent dans le registre fossile. À sa fin, la planète est prête à entrer dans le Protérozoïque."
 		},
 		"color": "#F59E0B",
 		"image": null
@@ -297,8 +297,8 @@
 			"fr": "Calymmien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The opening period of the Mesoproterozoic, a long interval of relative geological calm. Shallow seas covered wide areas, and the first steps toward sexual reproduction may have taken place among microscopic organisms.",
+			"fr": "Première période du Mésoprotérozoïque, long intervalle de calme géologique relatif. Des mers peu profondes couvrent de vastes zones et les premiers pas vers la reproduction sexuée pourraient avoir lieu chez des organismes microscopiques."
 		},
 		"color": "#115E59",
 		"image": null
@@ -316,8 +316,8 @@
 			"fr": "Ectasien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A quiet period of the Mesoproterozoic marked by the continued assembly of the supercontinent Rodinia. Life remained mostly microbial, but eukaryotic cells were becoming more widespread in the oceans.",
+			"fr": "Période calme du Mésoprotérozoïque marquée par la poursuite de l'assemblage du supercontinent Rodinia. La vie reste essentiellement microbienne, mais les cellules eucaryotes se répandent dans les océans."
 		},
 		"color": "#0D9488",
 		"image": null
@@ -373,8 +373,8 @@
 			"fr": "Cryogénien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A harsh period of the Neoproterozoic when ice may have covered the entire planet in so-called Snowball Earth episodes. Despite the extreme cold, life persisted in the oceans and would soon diversify dramatically.",
+			"fr": "Période rigoureuse du Néoprotérozoïque, où la glace aurait pu recouvrir la planète entière lors d'épisodes de Terre boule de neige. Malgré le froid extrême, la vie persiste dans les océans et va bientôt se diversifier."
 		},
 		"color": "#2563EB",
 		"image": null
@@ -411,8 +411,8 @@
 			"fr": "Sturtien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The first major glaciation of the Cryogenian period, when ice sheets likely reached the equator. Volcanic activity may have eventually released enough greenhouse gases to thaw the frozen Earth.",
+			"fr": "Première grande glaciation du Cryogénien, durant laquelle les calottes glaciaires atteignent probablement l'équateur. L'activité volcanique libère peut-être assez de gaz à effet de serre pour dégeler la planète."
 		},
 		"color": "#164E63",
 		"image": null
@@ -430,8 +430,8 @@
 			"fr": "Varangien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The final and shortest glaciation of the Cryogenian, closing the Snowball Earth era. As ice retreated, conditions improved and set the stage for the emergence of the first complex multicellular organisms.",
+			"fr": "Dernière et plus brève glaciation du Cryogénien, qui clôt l'ère de la Terre boule de neige. À la fonte des glaces, les conditions s'améliorent et préparent l'émergence des premiers organismes multicellulaires complexes."
 		},
 		"color": "#0891B2",
 		"image": null
@@ -449,8 +449,8 @@
 			"fr": "Paléozoïque"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The era of ancient life, beginning with an explosion of marine animal diversity in the Cambrian and ending with the largest mass extinction of all time. Fish, plants, and the first land vertebrates all evolved during this span.",
+			"fr": "Ère de la vie ancienne, qui s'ouvre sur une explosion de diversité animale marine au Cambrien et se clôture par la plus grande extinction de masse de tous les temps. Poissons, plantes et premiers vertébrés terrestres évoluent durant cette ère."
 		},
 		"color": "#6D28D9",
 		"image": null
@@ -468,8 +468,8 @@
 			"fr": "Mésozoïque"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The middle era of the Phanerozoic, often called the Age of Dinosaurs. Giant reptiles dominated land and sea, while the breakup of the supercontinent Pangea reshaped the face of the Earth.",
+			"fr": "Ère intermédiaire du Phanérozoïque, souvent appelée l'âge des dinosaures. D'immenses reptiles dominent la terre et la mer, tandis que la fragmentation du supercontinent Pangée redessine la surface du globe."
 		},
 		"color": "#EA580C",
 		"image": null
@@ -487,8 +487,8 @@
 			"fr": "Cénozoïque"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The most recent era of Earth's history, beginning after the extinction of the dinosaurs and continuing to the present day. Mammals diversified, grasslands spread, and the ancestors of modern humans eventually appeared.",
+			"fr": "Ère la plus récente de l'histoire de la Terre, qui commence après l'extinction des dinosaures et se poursuit jusqu'à nos jours. Les mammifères se diversifient, les prairies s'étendent et les ancêtres de l'humanité apparaissent."
 		},
 		"color": "#16A34A",
 		"image": null
@@ -506,8 +506,8 @@
 			"fr": "Cambrien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The first period of the Phanerozoic, marked by an extraordinary burst of animal diversity known as the Cambrian explosion. Most major groups of marine animals appeared in the fossil record during this time.",
+			"fr": "Première période du Phanérozoïque, marquée par une explosion extraordinaire de diversité animale appelée explosion cambrienne. La plupart des grands groupes d'animaux marins apparaissent dans le registre fossile à cette époque."
 		},
 		"color": "#5B21B6",
 		"image": null
@@ -525,8 +525,8 @@
 			"fr": "Ordovicien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A period of thriving marine life when seas teemed with trilobites, mollusks, and the first reef-building organisms. It ended with a major mass extinction caused by rapid climate and sea-level changes.",
+			"fr": "Période de vie marine florissante, où les mers grouillent de trilobites, de mollusques et des premiers organismes constructeurs de récifs. Elle s'achève par une extinction de masse due à des changements rapides de climat et de niveau marin."
 		},
 		"color": "#7C3AED",
 		"image": null
@@ -544,8 +544,8 @@
 			"fr": "Silurien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A period when life firmly colonized the land, with the first vascular plants and primitive scorpion-like arthropods venturing onto shorelines. Coral reefs flourished in warm, shallow tropical seas.",
+			"fr": "Période durant laquelle la vie colonise durablement la terre ferme, avec les premières plantes vasculaires et des arthropodes primitifs proches des scorpions sur les rivages. Les récifs coralliens prospèrent en eaux tropicales chaudes et peu profondes."
 		},
 		"color": "#9333EA",
 		"image": null
@@ -563,8 +563,8 @@
 			"fr": "Dévonien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "Often called the Age of Fish, this period saw the rise of diverse jawed vertebrates and the first tetrapods crawling onto land. Lush forests of early trees transformed landscapes and enriched the atmosphere with oxygen.",
+			"fr": "Souvent appelé l'âge du poisson, cette période voit l'essor de vertébrés à mâchoires diversifiés et les premiers tétrapodes gagner la terre ferme. De luxuriantes forêts d'arbres primitifs transforment les paysages et enrichissent l'atmosphère en oxygène."
 		},
 		"color": "#C026D3",
 		"image": null
@@ -582,8 +582,8 @@
 			"fr": "Carbonifère"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A period of vast swampy forests whose buried remains eventually formed the coal deposits we use today. Giant insects thrived in the oxygen-rich air, while amphibians and early reptiles ruled the land.",
+			"fr": "Période de vastes forêts marécageuses dont les restes enfouis forment aujourd'hui les gisements de charbon. D'immenses insectes prospèrent dans une atmosphère riche en oxygène, tandis qu'amphibiens et premiers reptiles dominent la terre."
 		},
 		"color": "#DB2777",
 		"image": null
@@ -601,8 +601,8 @@
 			"fr": "Permien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The last period of the Paleozoic, dominated on land by mammal-like reptiles called synapsids. It ended with the Permian-Triassic extinction, the most severe loss of life Earth has ever experienced.",
+			"fr": "Dernière période du Paléozoïque, dominée sur terre par des reptiles proches des mammifères appelés synapsides. Elle s'achève par l'extinction Permien-Trias, la plus grave perte de vie que la Terre ait connue."
 		},
 		"color": "#BE185D",
 		"image": null
@@ -620,8 +620,8 @@
 			"fr": "Trias"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The opening period of the Mesozoic, when life slowly recovered after the devastating Permian extinction. Early dinosaurs and mammals both appeared, while the supercontinent Pangea remained largely intact.",
+			"fr": "Période d'ouverture du Mésozoïque, durant laquelle la vie reprend lentement après la dévastatrice extinction permienne. Les premiers dinosaures et mammifères apparaissent, tandis que le supercontinent Pangée reste largement intact."
 		},
 		"color": "#78350F",
 		"image": null
@@ -639,8 +639,8 @@
 			"fr": "Jurassique"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A period famous for its enormous dinosaurs, including long-necked sauropods and formidable predators. Flowering plants had not yet evolved, but lush fern forests covered much of the warm, humid landscape.",
+			"fr": "Période célèbre pour ses dinosaures gigantesques, dont les sauropodes à long cou et de redoutables prédateurs. Les plantes à fleurs n'existent pas encore, mais de luxuriantes forêts de fougères couvrent un paysage chaud et humide."
 		},
 		"color": "#F97316",
 		"image": null
@@ -658,8 +658,8 @@
 			"fr": "Crétacé"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The longest period of the Mesozoic and the final age of the dinosaurs, which reached their greatest size and diversity. It ended abruptly when a massive asteroid impact triggered their extinction along with many marine species.",
+			"fr": "Plus longue période du Mésozoïque et dernier âge des dinosaures, qui atteignent alors leur taille et leur diversité maximales. Elle s'achève brutalement lorsqu'un immense astéroïde provoque leur extinction ainsi que celle de nombreuses espèces marines."
 		},
 		"color": "#CA8A04",
 		"image": null
@@ -677,8 +677,8 @@
 			"fr": "Paléogène"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The opening period of the Cenozoic, when mammals rapidly diversified to fill niches left by extinct dinosaurs. Early whales returned to the sea and the first grasses spread across the continents.",
+			"fr": "Période d'ouverture du Cénozoïque, durant laquelle les mammifères se diversifient rapidement pour occuper les niches laissées par les dinosaures. Les premières baleines retournent à la mer et les graminées commencent à s'étendre sur les continents."
 		},
 		"color": "#065F46",
 		"image": null
@@ -696,8 +696,8 @@
 			"fr": "Néogène"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A period of major landscape changes as the Himalayas rose and the climate gradually cooled. Apes and early human ancestors evolved in Africa, while grasslands replaced forests across many regions.",
+			"fr": "Période de grands bouleversements paysagers avec l'élévation de l'Himalaya et un refroidissement progressif du climat. Singes et premiers ancêtres humains évoluent en Afrique, tandis que les prairies remplacent les forêts dans de nombreuses régions."
 		},
 		"color": "#0D9488",
 		"image": null
@@ -715,8 +715,8 @@
 			"fr": "Quaternaire"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The most recent period of Earth's history, characterized by repeated ice ages and the evolution of modern humans. Our species spread across every continent and profoundly reshaped the planet's ecosystems.",
+			"fr": "Période la plus récente de l'histoire de la Terre, marquée par des âges glaciaires répétés et l'évolution de l'humanité moderne. Notre espèce s'est répandue sur tous les continents et a profondément transformé les écosystèmes de la planète."
 		},
 		"color": "#10B981",
 		"image": null
@@ -734,8 +734,8 @@
 			"fr": "Terreneuvien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The earliest subdivision of the Cambrian, when the first skeletal animals and trilobites with mineralized shells appeared in the seas. This brief period opens the Cambrian explosion of animal life.",
+			"fr": "Première subdivision du Cambrien, lorsque les premiers animaux à squelette et les trilobites à coquille minéralisée apparaissent dans les mers. Cette brève période ouvre l'explosion cambrienne de la vie animale."
 		},
 		"color": "#4C1D95",
 		"image": null
@@ -753,8 +753,8 @@
 			"fr": "Série 2"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "An early Cambrian subdivision when marine animal diversity accelerated rapidly. New body plans emerged in the oceans, including many arthropod groups that would dominate seafloors for millions of years.",
+			"fr": "Subdivision du début du Cambrien durant laquelle la diversité animale marine s'accélère rapidement. De nouveaux plans d'organisation corporelle émergent dans les océans, dont de nombreux arthropodes qui domineront les fonds marins pendant des millions d'années."
 		},
 		"color": "#7E22CE",
 		"image": null
@@ -772,8 +772,8 @@
 			"fr": "Série 3"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "A middle Cambrian subdivision marked by fierce predator-prey interactions in increasingly complex marine ecosystems. Iconic fossils like Anomalocaris illustrate the bizarre forms life took during this burst of evolution.",
+			"fr": "Subdivision du Cambrien moyen marquée par de féroces interactions prédateurs-proies dans des écosystèmes marins de plus en plus complexes. Des fossiles emblématiques comme Anomalocaris illustrent les formes étranges prises par la vie durant cette explosion évolutive."
 		},
 		"color": "#8B5CF6",
 		"image": null
@@ -791,8 +791,8 @@
 			"fr": "Furongien"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The final subdivision of the Cambrian, when marine ecosystems reached a new level of stability and complexity. Trilobites remained abundant and diverse as the period prepared the transition to the Ordovician.",
+			"fr": "Dernière subdivision du Cambrien, lorsque les écosystèmes marins atteignent un nouveau niveau de stabilité et de complexité. Les trilobites restent abondants et diversifiés, préparant la transition vers l'Ordovicien."
 		},
 		"color": "#A855F7",
 		"image": null
@@ -810,8 +810,8 @@
 			"fr": "Holocène"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The most recent subdivision of the Quaternary, beginning with the end of the last ice age about 11,700 years ago. During this time humans developed agriculture, built civilizations, and became the dominant force shaping Earth's environment.",
+			"fr": "Subdivision la plus récente du Quaternaire, qui commence avec la fin du dernier âge glaciaire il y a environ 11 700 ans. Durant cette période, l'humanité développe l'agriculture, fonde des civilisations et devient la force dominante façonnant l'environnement terrestre."
 		},
 		"color": "#22C55E",
 		"image": null
@@ -829,8 +829,8 @@
 			"fr": "Ordovicien Moyen"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The middle phase of the Ordovician, when marine biodiversity reached one of its highest peaks in Earth's history. Plankton blooms and reef communities thrived in warm, widely connected oceans.",
+			"fr": "Phase médiane de l'Ordovicien, durant laquelle la biodiversité marine atteint l'un de ses sommets historiques. Les blooms de plancton et les communautés récifales prospèrent en océans chauds largement connectés."
 		},
 		"color": "#6D28D9",
 		"image": null
@@ -848,8 +848,8 @@
 			"fr": "Ordovicien Inférieur"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The early phase of the Ordovician, following the Cambrian explosion with a continued rise in marine animal diversity. Nautiloid cephalopods became important predators in the expanding shallow seas.",
+			"fr": "Phase initiale de l'Ordovicien, qui prolonge l'explosion cambrienne par une diversification animale marine continue. Les céphalopodes nautiloïdes deviennent d'importants prédateurs dans les mers peu profondes en expansion."
 		},
 		"color": "#581C87",
 		"image": null
@@ -867,8 +867,8 @@
 			"fr": "Ordovicien Supérieur"
 		},
 		"description": {
-			"en": "",
-			"fr": ""
+			"en": "The final phase of the Ordovician, ending with a severe mass extinction that wiped out many marine species. Rapid cooling and falling sea levels are thought to have triggered this dramatic loss of biodiversity.",
+			"fr": "Phase finale de l'Ordovicien, qui s'achève par une grave extinction de masse ayant éliminé de nombreuses espèces marines. Un refroidissement rapide et une baisse du niveau marin auraient déclenché cette perte spectaculaire de biodiversité."
 		},
 		"color": "#9333EA",
 		"image": null
