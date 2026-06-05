@@ -1,6 +1,13 @@
 <script lang="ts">
-import { MAX_ZOOM_LEVEL, ZOOM_ANCHOR_LEVELS } from "$lib/constants"
+import { MAX_ZOOM_LEVEL } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
+
+const SLIDER_TICK_STEP = 2
+
+const sliderTickLevels = Array.from(
+	{ length: Math.floor((MAX_ZOOM_LEVEL - 1) / SLIDER_TICK_STEP) + 1 },
+	(_, i) => i * SLIDER_TICK_STEP + 1,
+)
 
 function dispatchZoomRequest(newZoomLevel: number) {
 	window.dispatchEvent(
@@ -25,7 +32,7 @@ function handleSliderInput(e: Event) {
 	dispatchZoomRequest(value)
 }
 
-function anchorPosition(level: number): string {
+function sliderTickPosition(level: number): string {
 	return `${((level - 1) / (MAX_ZOOM_LEVEL - 1)) * 100}%`
 }
 </script>
@@ -42,10 +49,10 @@ function anchorPosition(level: number): string {
 
 	<div class="relative w-36 sm:w-44 h-5 flex items-center">
 		<div class="absolute inset-x-0 h-px bg-border pointer-events-none" aria-hidden="true"></div>
-		{#each ZOOM_ANCHOR_LEVELS as anchorLevel}
+		{#each sliderTickLevels as tickLevel}
 			<div
 				class="absolute w-px h-2 bg-tick pointer-events-none -translate-x-1/2"
-				style="left: {anchorPosition(anchorLevel)}"
+				style="left: {sliderTickPosition(tickLevel)}"
 				aria-hidden="true"
 			></div>
 		{/each}
