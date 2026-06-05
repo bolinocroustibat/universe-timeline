@@ -1,4 +1,5 @@
 <script lang="ts">
+import ToggleSwitch from "$lib/components/header/ToggleSwitch.svelte"
 import { displaySettings } from "$lib/stores/displayStore"
 import { currentLocale } from "$lib/stores/localeStore"
 import { colorScheme, toggleColorScheme } from "$lib/stores/themeStore"
@@ -28,60 +29,22 @@ function togglePeriods() {
 </script>
 
 <div class="flex items-end gap-3 sm:gap-4">
-	<!-- Events Toggle -->
-	<div class="flex flex-col items-center gap-0.5">
-		<!-- svelte-ignore a11y_label_has_associated_control -->
-		<label class="text-xs text-muted whitespace-nowrap">
-			{labels.events[$currentLocale]}
-		</label>
-		<button
-			onclick={toggleEvents}
-			class="relative inline-flex h-3 w-6 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-offset-1 focus:ring-offset-surface {$displaySettings.showEvents ? 'bg-accent' : 'bg-border'}"
-			role="switch"
-			aria-checked={$displaySettings.showEvents}
-			aria-label="Toggle events display"
-		>
-			<span
-				class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {$displaySettings.showEvents ? 'translate-x-3' : 'translate-x-0.5'}"
-			></span>
-		</button>
-	</div>
-
-	<!-- Periods Toggle -->
-	<div class="flex flex-col items-center gap-0.5">
-		<!-- svelte-ignore a11y_label_has_associated_control -->
-		<label class="text-xs text-muted whitespace-nowrap">
-			{labels.periods[$currentLocale]}
-		</label>
-		<button
-			onclick={togglePeriods}
-			class="relative inline-flex h-3 w-6 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-offset-1 focus:ring-offset-surface {$displaySettings.showPeriods ? 'bg-accent' : 'bg-border'}"
-			role="switch"
-			aria-checked={$displaySettings.showPeriods}
-			aria-label="Toggle periods display"
-		>
-			<span
-				class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {$displaySettings.showPeriods ? 'translate-x-3' : 'translate-x-0.5'}"
-			></span>
-		</button>
-	</div>
-
-	<!-- Color scheme toggle -->
-	<div class="flex flex-col items-center gap-0.5">
-		<!-- svelte-ignore a11y_label_has_associated_control -->
-		<label class="text-xs text-muted whitespace-nowrap">
-			{labels.darkMode[$currentLocale]}
-		</label>
-		<button
-			onclick={toggleColorScheme}
-			class="relative inline-flex h-3 w-6 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-offset-1 focus:ring-offset-surface {$colorScheme === 'dark' ? 'bg-accent' : 'bg-border'}"
-			role="switch"
-			aria-checked={$colorScheme === "dark"}
-			aria-label={labels.darkMode[$currentLocale]}
-		>
-			<span
-				class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {$colorScheme === 'dark' ? 'translate-x-3' : 'translate-x-0.5'}"
-			></span>
-		</button>
-	</div>
+	<ToggleSwitch
+		label={labels.events[$currentLocale]}
+		checked={$displaySettings.showEvents}
+		onToggle={toggleEvents}
+		ariaLabel="Toggle events display"
+	/>
+	<ToggleSwitch
+		label={labels.periods[$currentLocale]}
+		checked={$displaySettings.showPeriods}
+		onToggle={togglePeriods}
+		ariaLabel="Toggle periods display"
+	/>
+	<ToggleSwitch
+		label={labels.darkMode[$currentLocale]}
+		checked={$colorScheme === "dark"}
+		onToggle={toggleColorScheme}
+		ariaLabel={labels.darkMode[$currentLocale]}
+	/>
 </div>
