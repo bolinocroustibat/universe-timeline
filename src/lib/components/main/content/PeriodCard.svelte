@@ -81,6 +81,28 @@ const zIndex = $derived(isTopCard ? 1000 : 100 + depth)
 const isSelected = $derived(isTopCard)
 const bottomOffset = $derived(depth * bandHeight)
 
+const HORIZONTAL_PADDING = 32
+const CHAR_WIDTH = 6.5
+const MIN_HEIGHT_TITLE = 24
+const MIN_HEIGHT_DESCRIPTION = 72
+const MIN_WIDTH_DESCRIPTION = 120
+
+const cardWidth = $derived(periodPosition().width)
+const label = $derived(period.name[$currentLocale])
+
+const titleFits = $derived(
+	cardWidth >= label.length * CHAR_WIDTH + HORIZONTAL_PADDING &&
+		bandHeight >= MIN_HEIGHT_TITLE,
+)
+
+const showDescription = $derived(
+	titleFits &&
+		isSelected &&
+		!!period.description[$currentLocale] &&
+		bandHeight >= MIN_HEIGHT_DESCRIPTION &&
+		cardWidth >= MIN_WIDTH_DESCRIPTION,
+)
+
 function handlePointerDown(e: PointerEvent) {
 	e.stopPropagation()
 	onCardClick(period.id)
@@ -101,15 +123,17 @@ function handlePointerDown(e: PointerEvent) {
 		onpointerdown={handlePointerDown}
 		tabindex="0"
 	>
-		<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
-			<span class="w-full min-w-0 truncate font-semibold mb-1 shrink-0 text-center">
-				{period.name[$currentLocale]}
-			</span>
-			{#if isSelected && period.description[$currentLocale]}
-				<div class="w-full min-w-0 text-xs leading-relaxed text-center opacity-90 overflow-hidden line-clamp-3">
-					{period.description[$currentLocale]}
-				</div>
-			{/if}
-		</div>
+		{#if titleFits}
+			<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
+				<span class="w-full min-w-0 font-semibold mb-1 shrink-0 text-center whitespace-nowrap">
+					{label}
+				</span>
+				{#if showDescription}
+					<div class="w-full min-w-0 text-xs leading-relaxed text-center opacity-90 overflow-hidden line-clamp-3">
+						{period.description[$currentLocale]}
+					</div>
+				{/if}
+			</div>
+		{/if}
 	</div>
 {/if}
