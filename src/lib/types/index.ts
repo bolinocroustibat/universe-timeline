@@ -14,15 +14,15 @@ export interface Period {
 	/**
 	 * Start boundary uncertainty in years. The period could have started between
 	 * (start - startUncertainty/2) and (start + startUncertainty/2).
-	 * For example: if start = -541000000 and startUncertainty = 1000000,
-	 * the start boundary range is from -541500000 to -540500000 (±500,000 years).
+	 * For example: if start = -538800000 and startUncertainty = 600000,
+	 * the start boundary range is from -539100000 to -538500000 (±300,000 years).
 	 */
 	startUncertainty: number
 	/**
 	 * End boundary uncertainty in years. The period could have ended between
 	 * (end - endUncertainty/2) and (end + endUncertainty/2).
-	 * For example: if end = -252170000 and endUncertainty = 60000,
-	 * the end boundary range is from -252200000 to -252140000 (±30,000 years).
+	 * For example: if end = -251902000 and endUncertainty = 24000,
+	 * the end boundary range is from -251914000 to -251890000 (±12,000 years).
 	 *
 	 * Note: For periods that end at the present day (end = 2015), endUncertainty is 0.
 	 */

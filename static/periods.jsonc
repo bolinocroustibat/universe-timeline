@@ -12,8 +12,8 @@
 			"fr": "Hadéen"
 		},
 		"description": {
-			"en": "Formation of oceans through condensation of water from the atmosphere composed of N2, CO2, and CH4",
-			"fr": "Formation des océans par condensation de l'eau de l'atmosphère composée de N2, de CO2 et de CH4"
+			"en": "Formation of oceans through condensation of water from an atmosphere rich in nitrogen, carbon dioxide, and methane",
+			"fr": "Formation des océans par condensation de l'eau d'une atmosphère riche en azote, en dioxyde de carbone et en méthane"
 		},
 		"color": "#991B1B",
 		"image": null
@@ -41,10 +41,10 @@
 		"id": 3,
 		"parentPeriodId": null,
 		"start": -2500000000,
-		"end": -541000000,
+		"end": -538800000,
 		"startUncertainty": 0,
 		"endUncertainty": 0,
-		"duration": 1959000000,
+		"duration": 1961200000,
 		"name": {
 			"en": "Proterozoic",
 			"fr": "Protérozoïque"
@@ -59,11 +59,11 @@
 	{
 		"id": 4,
 		"parentPeriodId": null,
-		"start": -541000000,
+		"start": -538800000,
 		"end": 2015,
-		"startUncertainty": 1000000,
+		"startUncertainty": 600000,
 		"endUncertainty": 0,
-		"duration": 541002015,
+		"duration": 538802015,
 		"name": {
 			"en": "Phanerozoic",
 			"fr": "Phanérozoïque"
@@ -117,10 +117,10 @@
 		"id": 7,
 		"parentPeriodId": 3,
 		"start": -1000000000,
-		"end": -541000000,
+		"end": -538800000,
 		"startUncertainty": 0,
 		"endUncertainty": 0,
-		"duration": 459000000,
+		"duration": 461200000,
 		"name": {
 			"en": "Neoproterozoic",
 			"fr": "Néoprotérozoïque"
@@ -373,8 +373,8 @@
 			"fr": "Cryogénien"
 		},
 		"description": {
-			"en": "A harsh period of the Neoproterozoic when ice may have covered the entire planet in so-called Snowball Earth episodes. Despite the extreme cold, life persisted in the oceans and would soon diversify dramatically.",
-			"fr": "Période rigoureuse du Néoprotérozoïque, où la glace aurait pu recouvrir la planète entière lors d'épisodes de Terre boule de neige. Malgré le froid extrême, la vie persiste dans les océans et va bientôt se diversifier."
+			"en": "A glaciated period of the Neoproterozoic when ice may have covered the entire planet in so-called Snowball Earth episodes. Despite the extreme cold, life persisted in the oceans and would soon diversify dramatically.",
+			"fr": "Période glaciaire du Néoprotérozoïque, où la glace aurait pu recouvrir la planète entière lors d'épisodes de Terre boule de neige. Malgré le froid extrême, la vie persiste dans les océans et va bientôt se diversifier."
 		},
 		"color": "#2563EB",
 		"image": null
@@ -383,17 +383,17 @@
 		"id": 25,
 		"parentPeriodId": 7,
 		"start": -635000000,
-		"end": -541000000,
+		"end": -538800000,
 		"startUncertainty": 0,
 		"endUncertainty": 0,
-		"duration": 94000000,
+		"duration": 96200000,
 		"name": {
 			"en": "Ediacaran",
 			"fr": "Édiacarien"
 		},
 		"description": {
-			"en": "Ediacaran fauna",
-			"fr": "Faune de l'Édiacarien"
+			"en": "The final period of the Neoproterozoic and the Precambrian, when a warmer Earth followed the great Cryogenian glaciations. Enigmatic soft-bodied organisms—the Ediacaran biota—colonized shallow seas, representing life's first major experiment with large multicellular forms before the Cambrian explosion.",
+			"fr": "Dernière période du Néoprotérozoïque et du Précambrien, après le réchauffement qui suit les grandes glaciations du Cryogénien. Des organismes à corps mou et d'aspect mystérieux — la biote de l'Édiacarien — colonisent les mers peu profondes, inaugurant la première grande vague de vie multicellulaire complexe avant l'explosion cambrienne."
 		},
 		"color": "#3B82F6",
 		"image": null
@@ -439,11 +439,11 @@
 	{
 		"id": 28,
 		"parentPeriodId": 4,
-		"start": -541000000,
-		"end": -252170000,
-		"startUncertainty": 1000000,
-		"endUncertainty": 60000,
-		"duration": 288830000,
+		"start": -538800000,
+		"end": -251902000,
+		"startUncertainty": 600000,
+		"endUncertainty": 24000,
+		"duration": 286898000,
 		"name": {
 			"en": "Paleozoic",
 			"fr": "Paléozoïque"
@@ -458,11 +458,11 @@
 	{
 		"id": 29,
 		"parentPeriodId": 4,
-		"start": -252170000,
+		"start": -251902000,
 		"end": -66000000,
-		"startUncertainty": 60000,
+		"startUncertainty": 24000,
 		"endUncertainty": 0,
-		"duration": 186170000,
+		"duration": 185902000,
 		"name": {
 			"en": "Mesozoic",
 			"fr": "Mésozoïque"
@@ -496,11 +496,11 @@
 	{
 		"id": 31,
 		"parentPeriodId": 28,
-		"start": -541000000,
+		"start": -538800000,
 		"end": -485400000,
-		"startUncertainty": 1000000,
+		"startUncertainty": 600000,
 		"endUncertainty": 0,
-		"duration": 55600000,
+		"duration": 53400000,
 		"name": {
 			"en": "Cambrian",
 			"fr": "Cambrien"
@@ -516,10 +516,10 @@
 		"id": 32,
 		"parentPeriodId": 28,
 		"start": -485400000,
-		"end": -443400000,
+		"end": -443800000,
 		"startUncertainty": 1900000,
 		"endUncertainty": 0,
-		"duration": 42000000,
+		"duration": 41600000,
 		"name": {
 			"en": "Ordovician",
 			"fr": "Ordovicien"
@@ -535,10 +535,10 @@
 		"id": 33,
 		"parentPeriodId": 28,
 		"start": -443800000,
-		"end": -419200000,
+		"end": -419620000,
 		"startUncertainty": 1500000,
 		"endUncertainty": 0,
-		"duration": 24600000,
+		"duration": 24180000,
 		"name": {
 			"en": "Silurian",
 			"fr": "Silurien"
@@ -553,11 +553,11 @@
 	{
 		"id": 34,
 		"parentPeriodId": 28,
-		"start": -419200000,
-		"end": -358900000,
-		"startUncertainty": 3200000,
+		"start": -419620000,
+		"end": -358860000,
+		"startUncertainty": 1360000,
 		"endUncertainty": 0,
-		"duration": 60300000,
+		"duration": 60760000,
 		"name": {
 			"en": "Devonian",
 			"fr": "Dévonien"
@@ -572,11 +572,11 @@
 	{
 		"id": 35,
 		"parentPeriodId": 28,
-		"start": -358900000,
+		"start": -358860000,
 		"end": -298900000,
-		"startUncertainty": 400000,
+		"startUncertainty": 190000,
 		"endUncertainty": 0,
-		"duration": 60000000,
+		"duration": 59960000,
 		"name": {
 			"en": "Carboniferous",
 			"fr": "Carbonifère"
@@ -592,10 +592,10 @@
 		"id": 36,
 		"parentPeriodId": 28,
 		"start": -298900000,
-		"end": -252170000,
+		"end": -251902000,
 		"startUncertainty": 150000,
 		"endUncertainty": 0,
-		"duration": 46730000,
+		"duration": 46998000,
 		"name": {
 			"en": "Permian",
 			"fr": "Permien"
@@ -610,11 +610,11 @@
 	{
 		"id": 37,
 		"parentPeriodId": 29,
-		"start": -252170000,
-		"end": -201300000,
-		"startUncertainty": 60000,
+		"start": -251902000,
+		"end": -201400000,
+		"startUncertainty": 24000,
 		"endUncertainty": 0,
-		"duration": 50870000,
+		"duration": 50502000,
 		"name": {
 			"en": "Triassic",
 			"fr": "Trias"
@@ -629,11 +629,11 @@
 	{
 		"id": 38,
 		"parentPeriodId": 29,
-		"start": -201300000,
-		"end": -145000000,
+		"start": -201400000,
+		"end": -143100000,
 		"startUncertainty": 200000,
 		"endUncertainty": 0,
-		"duration": 56300000,
+		"duration": 58300000,
 		"name": {
 			"en": "Jurassic",
 			"fr": "Jurassique"
@@ -648,11 +648,11 @@
 	{
 		"id": 39,
 		"parentPeriodId": 29,
-		"start": -145000000,
+		"start": -143100000,
 		"end": -66000000,
-		"startUncertainty": 0,
+		"startUncertainty": 600000,
 		"endUncertainty": 0,
-		"duration": 79000000,
+		"duration": 77100000,
 		"name": {
 			"en": "Cretaceous",
 			"fr": "Crétacé"
@@ -668,10 +668,10 @@
 		"id": 40,
 		"parentPeriodId": 30,
 		"start": -66000000,
-		"end": -23030000,
+		"end": -23040000,
 		"startUncertainty": 0,
 		"endUncertainty": 0,
-		"duration": 42970000,
+		"duration": 42960000,
 		"name": {
 			"en": "Paleogene",
 			"fr": "Paléogène"
@@ -686,11 +686,11 @@
 	{
 		"id": 41,
 		"parentPeriodId": 30,
-		"start": -23030000,
+		"start": -23040000,
 		"end": -2580000,
 		"startUncertainty": 0,
 		"endUncertainty": 0,
-		"duration": 20450000,
+		"duration": 20460000,
 		"name": {
 			"en": "Neogene",
 			"fr": "Néogène"
@@ -724,11 +724,11 @@
 	{
 		"id": 43,
 		"parentPeriodId": 31,
-		"start": -541000000,
+		"start": -538800000,
 		"end": -521000000,
-		"startUncertainty": 1000000,
+		"startUncertainty": 600000,
 		"endUncertainty": 0,
-		"duration": 20000000,
+		"duration": 17800000,
 		"name": {
 			"en": "Terreneuvian",
 			"fr": "Terreneuvien"
@@ -858,10 +858,10 @@
 		"id": 53,
 		"parentPeriodId": 32,
 		"start": -458400000,
-		"end": -443400000,
+		"end": -443800000,
 		"startUncertainty": 900000,
 		"endUncertainty": 0,
-		"duration": 15000000,
+		"duration": 14600000,
 		"name": {
 			"en": "Upper Ordovician",
 			"fr": "Ordovicien Supérieur"
@@ -871,6 +871,500 @@
 			"fr": "Phase finale de l'Ordovicien, qui s'achève par une grave extinction de masse ayant éliminé de nombreuses espèces marines. Un refroidissement rapide et une baisse du niveau marin auraient déclenché cette perte spectaculaire de biodiversité."
 		},
 		"color": "#9333EA",
+		"image": null
+	},
+	{
+		"id": 48,
+		"parentPeriodId": 42,
+		"start": -2580000,
+		"end": -11700,
+		"startUncertainty": 10000,
+		"endUncertainty": 0,
+		"duration": 2568300,
+		"name": {
+			"en": "Pleistocene",
+			"fr": "Pléistocène"
+		},
+		"description": {
+			"en": "The longer subdivision of the Quaternary, dominated by repeated glacial cycles that carved landscapes and drove the evolution of cold-adapted mammals. Early humans and their close relatives emerged and spread across Africa, Asia, and Europe during this time.",
+			"fr": "Plus longue subdivision du Quaternaire, dominée par des cycles glaciaires répétés qui sculptent les paysages et favorisent l'évolution de mammifères adaptés au froid. Les premiers humains et leurs proches parents émergent et se répandent en Afrique, en Asie et en Europe."
+		},
+		"color": "#059669",
+		"image": null
+	},
+	{
+		"id": 54,
+		"parentPeriodId": 33,
+		"start": -443800000,
+		"end": -433400000,
+		"startUncertainty": 1500000,
+		"endUncertainty": 0,
+		"duration": 10400000,
+		"name": {
+			"en": "Llandovery",
+			"fr": "Llandovien"
+		},
+		"description": {
+			"en": "The earliest epoch of the Silurian, when marine ecosystems recovered after the Ordovician mass extinction. Tabulate corals and early jawed fishes diversified in shallow tropical seas.",
+			"fr": "Première époque du Silurien, durant laquelle les écosystèmes marins se remettent de l'extinction ordovicienne. Les coraux tabulés et les premiers poissons à mâchoires se diversifient en eaux tropicales peu profondes."
+		},
+		"color": "#7E22CE",
+		"image": null
+	},
+	{
+		"id": 55,
+		"parentPeriodId": 33,
+		"start": -433400000,
+		"end": -427400000,
+		"startUncertainty": 800000,
+		"endUncertainty": 0,
+		"duration": 6000000,
+		"name": {
+			"en": "Wenlock",
+			"fr": "Wenlockien"
+		},
+		"description": {
+			"en": "A middle Silurian epoch marked by thriving reef communities and rising diversity of eurypterids and brachiopods. Warm, stable seas supported increasingly complex marine food webs.",
+			"fr": "Époque du Silurien moyen marquée par des communautés récifales florissantes et une diversité croissante d'euryptérides et de brachiopodes. Des mers chaudes et stables soutiennent des réseaux trophiques marins de plus en plus complexes."
+		},
+		"color": "#8B5CF6",
+		"image": null
+	},
+	{
+		"id": 56,
+		"parentPeriodId": 33,
+		"start": -427400000,
+		"end": -423000000,
+		"startUncertainty": 500000,
+		"endUncertainty": 0,
+		"duration": 4400000,
+		"name": {
+			"en": "Ludlow",
+			"fr": "Ludlowien"
+		},
+		"description": {
+			"en": "A late Silurian epoch when the first definitive evidence of vascular plants on land appeared. Marine life remained abundant, with trilobites and mollusks common in coastal waters.",
+			"fr": "Époque de la fin du Silurien, lorsque les premières preuves définitives de plantes vasculaires sur terre apparaissent. La vie marine reste abondante, avec trilobites et mollusques communs dans les eaux côtières."
+		},
+		"color": "#A855F7",
+		"image": null
+	},
+	{
+		"id": 57,
+		"parentPeriodId": 33,
+		"start": -423000000,
+		"end": -419620000,
+		"startUncertainty": 1500000,
+		"endUncertainty": 0,
+		"duration": 3380000,
+		"name": {
+			"en": "Pridoli",
+			"fr": "Pridolien"
+		},
+		"description": {
+			"en": "The final epoch of the Silurian, bridging the colonization of land by plants and arthropods. Shallow seas remained rich in brachiopods and corals as the period gave way to the Devonian.",
+			"fr": "Dernière époque du Silurien, qui fait le lien entre la colonisation de la terre par les plantes et les arthropodes. Les mers peu profondes restent riches en brachiopodes et en coraux avant la transition vers le Dévonien."
+		},
+		"color": "#C084FC",
+		"image": null
+	},
+	{
+		"id": 58,
+		"parentPeriodId": 34,
+		"start": -419620000,
+		"end": -393470000,
+		"startUncertainty": 1360000,
+		"endUncertainty": 0,
+		"duration": 26150000,
+		"name": {
+			"en": "Lower Devonian",
+			"fr": "Dévonien inférieur"
+		},
+		"description": {
+			"en": "The early phase of the Devonian, when jawed fishes diversified dramatically in freshwater and marine environments. The first forests of primitive plants began to take root on land.",
+			"fr": "Phase initiale du Dévonien, durant laquelle les poissons à mâchoires se diversifient fortement en eaux douces et marines. Les premières forêts de plantes primitives commencent à s'enraciner sur la terre ferme."
+		},
+		"color": "#A21CAF",
+		"image": null
+	},
+	{
+		"id": 59,
+		"parentPeriodId": 34,
+		"start": -393470000,
+		"end": -382310000,
+		"startUncertainty": 990000,
+		"endUncertainty": 0,
+		"duration": 11160000,
+		"name": {
+			"en": "Middle Devonian",
+			"fr": "Dévonien moyen"
+		},
+		"description": {
+			"en": "The middle phase of the Devonian, famous for the rise of armored placoderm fishes and the spread of tall tree-like plants. Reef-building corals and ammonite ancestors thrived in tropical oceans.",
+			"fr": "Phase médiane du Dévonien, célèbre pour l'essor des poissons plombiers cuirassés et l'expansion de grandes plantes arborescentes. Les coraux constructeurs de récifs et les ancêtres des ammonites prospèrent dans les océans tropicaux."
+		},
+		"color": "#C026D3",
+		"image": null
+	},
+	{
+		"id": 60,
+		"parentPeriodId": 34,
+		"start": -382310000,
+		"end": -358860000,
+		"startUncertainty": 1360000,
+		"endUncertainty": 0,
+		"duration": 23450000,
+		"name": {
+			"en": "Upper Devonian",
+			"fr": "Dévonien supérieur"
+		},
+		"description": {
+			"en": "The final phase of the Devonian, when the first tetrapods evolved from lobe-finned fishes and ventured onto land. It ended with a major mass extinction that devastated marine communities.",
+			"fr": "Phase finale du Dévonien, lorsque les premiers tétrapodes évoluent à partir de poissons à nageoires lobées et s'aventurent sur la terre ferme. Elle s'achève par une extinction de masse majeure qui dévaste les communautés marines."
+		},
+		"color": "#D946EF",
+		"image": null
+	},
+	{
+		"id": 61,
+		"parentPeriodId": 35,
+		"start": -358860000,
+		"end": -323400000,
+		"startUncertainty": 190000,
+		"endUncertainty": 0,
+		"duration": 35460000,
+		"name": {
+			"en": "Mississippian",
+			"fr": "Mississippien"
+		},
+		"description": {
+			"en": "The earlier subdivision of the Carboniferous, dominated by vast shallow seas teeming with crinoids, brachiopods, and early sharks. On land, the first widespread coal-forming swamp forests began to develop.",
+			"fr": "Première subdivision du Carbonifère, dominée par de vastes mers peu profondes grouillant de crinoïdes, de brachiopodes et de requins primitifs. Sur terre, les premières forêts marécageuses génératrices de charbon commencent à se développer."
+		},
+		"color": "#BE185D",
+		"image": null
+	},
+	{
+		"id": 62,
+		"parentPeriodId": 35,
+		"start": -323400000,
+		"end": -298900000,
+		"startUncertainty": 400000,
+		"endUncertainty": 0,
+		"duration": 24500000,
+		"name": {
+			"en": "Pennsylvanian",
+			"fr": "Pennsylvanien"
+		},
+		"description": {
+			"en": "The later subdivision of the Carboniferous, when enormous tropical wetlands produced the coal seams mined today. Giant insects and the first reptiles flourished in lush, oxygen-rich forests.",
+			"fr": "Seconde subdivision du Carbonifère, durant laquelle d'immenses zones humides tropicales produisent les veines de charbon exploitées aujourd'hui. D'immenses insectes et les premiers reptiles prospèrent dans des forêts luxuriantes riches en oxygène."
+		},
+		"color": "#DB2777",
+		"image": null
+	},
+	{
+		"id": 63,
+		"parentPeriodId": 36,
+		"start": -298900000,
+		"end": -273010000,
+		"startUncertainty": 150000,
+		"endUncertainty": 0,
+		"duration": 25890000,
+		"name": {
+			"en": "Cisuralian",
+			"fr": "Cisuralien"
+		},
+		"description": {
+			"en": "The earliest series of the Permian, when the supercontinent Pangea assembled and synapsids diversified on land. Arid conditions expanded inland as the climate gradually warmed.",
+			"fr": "Première série du Permien, durant laquelle le supercontinent Pangée s'assemble et les synapsides se diversifient sur terre. Des conditions arides s'étendent vers l'intérieur des terres à mesure que le climat se réchauffe progressivement."
+		},
+		"color": "#9D174D",
+		"image": null
+	},
+	{
+		"id": 64,
+		"parentPeriodId": 36,
+		"start": -273010000,
+		"end": -259510000,
+		"startUncertainty": 140000,
+		"endUncertainty": 0,
+		"duration": 13500000,
+		"name": {
+			"en": "Guadalupian",
+			"fr": "Guadalupien"
+		},
+		"description": {
+			"en": "The middle series of the Permian, marked by the diversification of advanced synapsids and rich reef communities in warm equatorial seas. Vast deserts spread across the interior of Pangea.",
+			"fr": "Série médiane du Permien, marquée par la diversification de synapsides avancés et de riches communautés récifales en mers équatoriales chaudes. De vastes déserts s'étendent à l'intérieur de Pangée."
+		},
+		"color": "#BE185D",
+		"image": null
+	},
+	{
+		"id": 65,
+		"parentPeriodId": 36,
+		"start": -259510000,
+		"end": -251902000,
+		"startUncertainty": 210000,
+		"endUncertainty": 0,
+		"duration": 7608000,
+		"name": {
+			"en": "Lopingian",
+			"fr": "Lopingien"
+		},
+		"description": {
+			"en": "The final series of the Permian, ending with the catastrophic Permian-Triassic extinction. Massive volcanic eruptions in Siberia likely triggered runaway climate change that wiped out most species on Earth.",
+			"fr": "Dernière série du Permien, qui s'achève par la catastrophique extinction Permien-Trias. D'immenses éruptions volcaniques en Sibérie déclenchent probablement un changement climatique incontrôlé qui élimine la plupart des espèces sur Terre."
+		},
+		"color": "#E11D48",
+		"image": null
+	},
+	{
+		"id": 66,
+		"parentPeriodId": 37,
+		"start": -251902000,
+		"end": -247200000,
+		"startUncertainty": 24000,
+		"endUncertainty": 0,
+		"duration": 4702000,
+		"name": {
+			"en": "Early Triassic",
+			"fr": "Trias inférieur"
+		},
+		"description": {
+			"en": "The opening epoch of the Triassic, when life slowly recovered from the worst mass extinction in Earth's history. Harsh, hot conditions dominated as opportunistic reptiles and amphibians began to repopulate devastated ecosystems.",
+			"fr": "Première époque du Trias, durant laquelle la vie reprend lentement après la pire extinction de masse de l'histoire de la Terre. Des conditions chaudes et rudes dominent tandis que reptiles et amphibiens opportunistes repeuplent les écosystèmes dévastés."
+		},
+		"color": "#92400E",
+		"image": null
+	},
+	{
+		"id": 67,
+		"parentPeriodId": 37,
+		"start": -247200000,
+		"end": -237000000,
+		"startUncertainty": 1000000,
+		"endUncertainty": 0,
+		"duration": 10200000,
+		"name": {
+			"en": "Middle Triassic",
+			"fr": "Trias moyen"
+		},
+		"description": {
+			"en": "The middle epoch of the Triassic, when marine reptiles like ichthyosaurs and nothosaurs diversified in the seas. On land, the first dinosaurs and mammals appeared alongside expanding conifer forests.",
+			"fr": "Époque du Trias moyen, durant laquelle les reptiles marins comme les ichthyosaures et les nothosaures se diversifient dans les mers. Sur terre, les premiers dinosaures et mammifères apparaissent tandis que les forêts de conifères s'étendent."
+		},
+		"color": "#B45309",
+		"image": null
+	},
+	{
+		"id": 68,
+		"parentPeriodId": 37,
+		"start": -237000000,
+		"end": -201400000,
+		"startUncertainty": 2000000,
+		"endUncertainty": 0,
+		"duration": 35600000,
+		"name": {
+			"en": "Late Triassic",
+			"fr": "Trias supérieur"
+		},
+		"description": {
+			"en": "The final epoch of the Triassic, when dinosaurs grew larger and more diverse while the supercontinent Pangea began to rift apart. It ended with another mass extinction that cleared the way for dinosaur dominance in the Jurassic.",
+			"fr": "Dernière époque du Trias, durant laquelle les dinosaures grossissent et se diversifient tandis que le supercontinent Pangée commence à se fragmenter. Elle s'achève par une extinction de masse qui ouvre la voie à la domination des dinosaures au Jurassique."
+		},
+		"color": "#D97706",
+		"image": null
+	},
+	{
+		"id": 69,
+		"parentPeriodId": 38,
+		"start": -201400000,
+		"end": -174100000,
+		"startUncertainty": 200000,
+		"endUncertainty": 0,
+		"duration": 27300000,
+		"name": {
+			"en": "Lower Jurassic",
+			"fr": "Jurassique inférieur"
+		},
+		"description": {
+			"en": "The early epoch of the Jurassic, when dinosaurs consolidated their dominance after the Triassic extinction. Sauropods began their rise to gigantic sizes while marine reptiles ruled the oceans.",
+			"fr": "Première époque du Jurassique, durant laquelle les dinosaures consolident leur domination après l'extinction triasique. Les sauropodes entament leur ascension vers des tailles gigantesques tandis que les reptiles marins règnent sur les océans."
+		},
+		"color": "#EA580C",
+		"image": null
+	},
+	{
+		"id": 70,
+		"parentPeriodId": 38,
+		"start": -174100000,
+		"end": -163500000,
+		"startUncertainty": 1000000,
+		"endUncertainty": 0,
+		"duration": 10600000,
+		"name": {
+			"en": "Middle Jurassic",
+			"fr": "Jurassique moyen"
+		},
+		"description": {
+			"en": "The middle epoch of the Jurassic, famous for the peak diversity of marine reptiles and the spread of cycad forests across warm continents. Iconic dinosaurs like Allosaurus and Stegosaurus roamed the land.",
+			"fr": "Époque du Jurassique moyen, célèbre pour l'apogée de diversité des reptiles marins et l'expansion des forêts de cycadales sur des continents chauds. Des dinosaures emblématiques comme Allosaurus et Stegosaurus parcourent la terre ferme."
+		},
+		"color": "#F97316",
+		"image": null
+	},
+	{
+		"id": 71,
+		"parentPeriodId": 38,
+		"start": -163500000,
+		"end": -143100000,
+		"startUncertainty": 1000000,
+		"endUncertainty": 0,
+		"duration": 20400000,
+		"name": {
+			"en": "Upper Jurassic",
+			"fr": "Jurassique supérieur"
+		},
+		"description": {
+			"en": "The final epoch of the Jurassic, when gigantic sauropods like Brachiosaurus and Diplodocus reached their greatest sizes. The first birds evolved from small feathered theropod dinosaurs near the end of this epoch.",
+			"fr": "Dernière époque du Jurassique, durant laquelle d'immenses sauropodes comme Brachiosaurus et Diplodocus atteignent leurs tailles maximales. Les premiers oiseaux évoluent à partir de petits théropodes à plumes vers la fin de cette époque."
+		},
+		"color": "#FB923C",
+		"image": null
+	},
+	{
+		"id": 72,
+		"parentPeriodId": 39,
+		"start": -143100000,
+		"end": -100500000,
+		"startUncertainty": 600000,
+		"endUncertainty": 0,
+		"duration": 42600000,
+		"name": {
+			"en": "Lower Cretaceous",
+			"fr": "Crétacé inférieur"
+		},
+		"description": {
+			"en": "The earlier epoch of the Cretaceous, when flowering plants first appeared and rapidly spread across the continents. Dinosaurs remained dominant on land while new groups of birds and mammals quietly diversified.",
+			"fr": "Première époque du Crétacé, durant laquelle les plantes à fleurs apparaissent et se répandent rapidement sur les continents. Les dinosaures restent dominants sur terre tandis que de nouveaux groupes d'oiseaux et de mammifères se diversifient discrètement."
+		},
+		"color": "#A16207",
+		"image": null
+	},
+	{
+		"id": 73,
+		"parentPeriodId": 39,
+		"start": -100500000,
+		"end": -66000000,
+		"startUncertainty": 100000,
+		"endUncertainty": 0,
+		"duration": 34500000,
+		"name": {
+			"en": "Upper Cretaceous",
+			"fr": "Crétacé supérieur"
+		},
+		"description": {
+			"en": "The later epoch of the Cretaceous, when dinosaurs reached their peak diversity and the first modern-looking mammals appeared. It ended abruptly with the asteroid impact at Chicxulub that caused their mass extinction.",
+			"fr": "Seconde époque du Crétacé, durant laquelle les dinosaures atteignent leur diversité maximale et les premiers mammifères au profil moderne apparaissent. Elle s'achève brutalement avec l'impact de l'astéroïde de Chicxulub qui provoque leur extinction de masse."
+		},
+		"color": "#CA8A04",
+		"image": null
+	},
+	{
+		"id": 74,
+		"parentPeriodId": 40,
+		"start": -66000000,
+		"end": -56000000,
+		"startUncertainty": 10000,
+		"endUncertainty": 0,
+		"duration": 10000000,
+		"name": {
+			"en": "Paleocene",
+			"fr": "Paléocène"
+		},
+		"description": {
+			"en": "The earliest epoch of the Paleogene, immediately following the dinosaur extinction. Mammals rapidly diversified to fill empty ecological niches while tropical forests recovered across a warmer world.",
+			"fr": "Première époque du Paléogène, juste après l'extinction des dinosaures. Les mammifères se diversifient rapidement pour occuper les niches écologiques vacantes tandis que les forêts tropicales se reconstituent dans un monde plus chaud."
+		},
+		"color": "#047857",
+		"image": null
+	},
+	{
+		"id": 75,
+		"parentPeriodId": 40,
+		"start": -56000000,
+		"end": -33900000,
+		"startUncertainty": 100000,
+		"endUncertainty": 0,
+		"duration": 22100000,
+		"name": {
+			"en": "Eocene",
+			"fr": "Éocène"
+		},
+		"description": {
+			"en": "The middle epoch of the Paleogene, one of the warmest periods since the dinosaurs died out. Early whales, primates, and hoofed mammals evolved while lush forests stretched nearly to the poles.",
+			"fr": "Époque médiane du Paléogène, l'une des périodes les plus chaudes depuis l'extinction des dinosaures. Les premières baleines, primates et mammifères ongulés évoluent tandis que des forêts luxuriantes s'étendent presque jusqu'aux pôles."
+		},
+		"color": "#059669",
+		"image": null
+	},
+	{
+		"id": 76,
+		"parentPeriodId": 40,
+		"start": -33900000,
+		"end": -23040000,
+		"startUncertainty": 100000,
+		"endUncertainty": 0,
+		"duration": 10860000,
+		"name": {
+			"en": "Oligocene",
+			"fr": "Oligocène"
+		},
+		"description": {
+			"en": "The final epoch of the Paleogene, when the climate cooled and Antarctica developed its first ice sheets. Grasslands expanded and early apes appeared in Africa as modern continental ecosystems took shape.",
+			"fr": "Dernière époque du Paléogène, durant laquelle le climat se refroidit et l'Antarctique développe ses premières calottes glaciaires. Les prairies s'étendent et les premiers singes apparaissent en Afrique tandis que les écosystèmes continentaux modernes prennent forme."
+		},
+		"color": "#10B981",
+		"image": null
+	},
+	{
+		"id": 77,
+		"parentPeriodId": 41,
+		"start": -23040000,
+		"end": -5333000,
+		"startUncertainty": 50000,
+		"endUncertainty": 0,
+		"duration": 17707000,
+		"name": {
+			"en": "Miocene",
+			"fr": "Miocène"
+		},
+		"description": {
+			"en": "The earlier epoch of the Neogene, when the Himalayas rose and grasslands spread across continents. Apes diversified widely and the evolutionary line leading to humans branched off in Africa.",
+			"fr": "Première époque du Néogène, durant laquelle l'Himalaya s'élève et les prairies s'étendent sur les continents. Les singes se diversifient largement et la lignée évolutive menant aux humains se sépare en Afrique."
+		},
+		"color": "#0F766E",
+		"image": null
+	},
+	{
+		"id": 78,
+		"parentPeriodId": 41,
+		"start": -5333000,
+		"end": -2580000,
+		"startUncertainty": 5000,
+		"endUncertainty": 0,
+		"duration": 2753000,
+		"name": {
+			"en": "Pliocene",
+			"fr": "Pliocène"
+		},
+		"description": {
+			"en": "The final epoch of the Neogene, when the climate cooled further and the Panama land bridge connected the Americas. Early hominins like Australopithecus walked upright in Africa as ice ages approached.",
+			"fr": "Dernière époque du Néogène, durant laquelle le climat se refroidit davantage et l'isthme de Panama relie les Amériques. Des hominines primitifs comme Australopithecus marchent debout en Afrique à l'approche des âges glaciaires."
+		},
+		"color": "#14B8A6",
 		"image": null
 	}
 ]
