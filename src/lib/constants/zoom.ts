@@ -1,17 +1,7 @@
-export const TIME_CONSTANTS = {
-	START_YEAR: -13800000000,
-	END_YEAR: new Date().getFullYear(),
-} as const
-
 // Default zoom level
 export const DEFAULT_ZOOM_LEVEL = 1
 
-/** Each child period occupies this fraction of its parent's height (0–1). */
-export const PERIOD_CHILD_HEIGHT_RATIO = 0.5
-
-/** Share of the content area height used by the periods zone (0–1). */
-export const PERIODS_ZONE_HEIGHT_RATIO = 0.5
-
+/** Minimum pixel spacing between minor tick labels before they are shown. */
 export const MIN_MINOR_LABEL_SPACING_PX = 85
 
 export type ZoomScale = {

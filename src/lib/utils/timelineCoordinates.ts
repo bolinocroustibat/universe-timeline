@@ -1,4 +1,4 @@
-import { isForcedLandscape } from "$lib/constants/display"
+import { isForcedLandscape } from "$lib/constants"
 
 interface TimelineMetrics {
 	screenAxisX: number
