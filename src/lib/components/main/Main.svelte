@@ -11,6 +11,8 @@ import { zoomLevel } from "$lib/stores/zoomStore"
 import {
 	screenToTimelinePanDelta,
 	screenToTimelineX,
+	wheelDeltaToTimelinePanDelta,
+	wheelDeltaToZoomDelta,
 } from "$lib/utils/timelineCoordinates"
 
 let containerElement: HTMLDivElement | undefined = $state()
@@ -167,6 +169,7 @@ function handlePointerCancel(e: PointerEvent) {
 	stopDragging(e)
 }
 
+// WheelEvent: mouse wheel, trackpad swipe, and pinch
 function handleWheel(e: WheelEvent) {
 	e.preventDefault()
 	if (!containerElement) return
@@ -182,19 +185,6 @@ function handleWheel(e: WheelEvent) {
 	const leftEdgeYear = TIME_CONSTANTS.START_YEAR + leftEdgeYearOffset
 	const mouseCursorYear = leftEdgeYear + pointerLocalX * yearsPerPixel
 
-	// Handle mousewheel up/down for zooming
-	if (e.deltaY !== 0) {
-		const zoomDirection = e.deltaY > 0 ? -1 : 1 // Positive deltaY = mouseWheelDown = zoom out
-		const newZoomLevel = Math.max(
-			1,
-			Math.min(MAX_ZOOM_LEVEL, $zoomLevel + zoomDirection),
-		)
-
-		if (newZoomLevel !== $zoomLevel) {
-			performCenteredZoom(newZoomLevel, mouseCursorYear)
-		}
-	}
-
 	// Handle pinch-to-zoom on trackpad
 	if (e.deltaZ !== 0) {
 		const pinchDirection = e.deltaZ > 0 ? 1 : -1 // Positive deltaZ = pinch out = zoom in
@@ -208,17 +198,35 @@ function handleWheel(e: WheelEvent) {
 		}
 	}
 
-	// Handle horizontal scrolling (existing functionality)
-	const newLeftEdgeYearOffset = leftEdgeYearOffset + e.deltaX * yearsPerPixel
-	const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
-	const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
+	const panLayoutDelta = wheelDeltaToTimelinePanDelta(
+		containerElement,
+		e.deltaX,
+		e.deltaY,
+	)
+	const zoomScreenDelta = wheelDeltaToZoomDelta(e.deltaX, e.deltaY)
 
-	// Apply boundary constraints - check both left and right edges
-	if (
-		newRightEdgeYear <= TIME_CONSTANTS.END_YEAR &&
-		newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR
-	) {
-		leftEdgeYearOffset = newLeftEdgeYearOffset
+	if (Math.abs(panLayoutDelta) > Math.abs(zoomScreenDelta)) {
+		const newLeftEdgeYearOffset =
+			leftEdgeYearOffset + panLayoutDelta * yearsPerPixel
+		const newLeftEdgeYear = TIME_CONSTANTS.START_YEAR + newLeftEdgeYearOffset
+		const newRightEdgeYear = newLeftEdgeYear + viewportWidth * yearsPerPixel
+
+		if (
+			newRightEdgeYear <= TIME_CONSTANTS.END_YEAR &&
+			newLeftEdgeYear >= TIME_CONSTANTS.START_YEAR
+		) {
+			leftEdgeYearOffset = newLeftEdgeYearOffset
+		}
+	} else if (zoomScreenDelta !== 0) {
+		const zoomDirection = zoomScreenDelta > 0 ? -1 : 1 // Positive = zoom out
+		const newZoomLevel = Math.max(
+			1,
+			Math.min(MAX_ZOOM_LEVEL, $zoomLevel + zoomDirection),
+		)
+
+		if (newZoomLevel !== $zoomLevel) {
+			performCenteredZoom(newZoomLevel, mouseCursorYear)
+		}
 	}
 }
 
