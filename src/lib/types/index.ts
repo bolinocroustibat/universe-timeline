@@ -4,8 +4,6 @@ export type LocalizedText = {
 	[key in SupportedLocales]: string
 }
 
-export type EnrichedPeriod = Period & { depth: number }
-
 export interface Period {
 	id: number
 	parentPeriodId: number | null

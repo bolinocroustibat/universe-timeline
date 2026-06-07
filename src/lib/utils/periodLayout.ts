@@ -1,4 +1,4 @@
-import { PERIOD_BAND_COUNT } from "$lib/constants"
+import { PERIOD_CHILD_HEIGHT_RATIO } from "$lib/constants"
 import type { Period } from "$lib/types"
 
 export type PeriodIndex = {
@@ -10,7 +10,17 @@ export type PeriodWithLayout = Period & {
 	depth: number
 	leftPeriod: Period | null
 	rightPeriod: Period | null
+	hasVisibleDescendants: boolean
 }
+
+export type PeriodCardGeometry = {
+	height: number
+	bottom: number
+	zIndex: number
+}
+
+const Z_INDEX_SELECTED = 1000
+const Z_INDEX_BASE = 100
 
 export function getPeriodDepth(
 	period: Period,
@@ -53,6 +63,80 @@ export function isPeriodVisible(
 	return period.end >= leftEdgeYear && period.start <= rightEdgeYear
 }
 
+export function isDescendantOf(
+	period: Period,
+	ancestorId: number,
+	byId: Map<number, Period>,
+): boolean {
+	let current: Period | undefined = period
+	const visited = new Set<number>()
+
+	while (current.parentPeriodId != null) {
+		if (visited.has(current.id)) break
+		visited.add(current.id)
+
+		if (current.parentPeriodId === ancestorId) return true
+
+		current = byId.get(current.parentPeriodId)
+		if (!current) break
+	}
+
+	return false
+}
+
+export function hasVisibleDescendants(
+	periodId: number,
+	visiblePeriods: Period[],
+	byId: Map<number, Period>,
+): boolean {
+	return visiblePeriods.some((period) =>
+		isDescendantOf(period, periodId, byId),
+	)
+}
+
+export function getNormalPeriodGeometry(
+	depth: number,
+	zoneHeight: number,
+): Pick<PeriodCardGeometry, "height" | "bottom"> {
+	if (zoneHeight <= 0) {
+		return { height: 0, bottom: 0 }
+	}
+
+	if (depth === 0) {
+		return { height: zoneHeight, bottom: 0 }
+	}
+
+	const height = zoneHeight * PERIOD_CHILD_HEIGHT_RATIO ** depth
+	return { height, bottom: zoneHeight - height }
+}
+
+export function getPeriodCardGeometry({
+	depth,
+	zoneHeight,
+	isSelected,
+	hasVisibleDescendants: hasDescendants,
+}: {
+	depth: number
+	zoneHeight: number
+	isSelected: boolean
+	hasVisibleDescendants: boolean
+}): PeriodCardGeometry {
+	const { height: nominalHeight, bottom } = getNormalPeriodGeometry(
+		depth,
+		zoneHeight,
+	)
+	const height =
+		hasDescendants && zoneHeight > 0
+			? nominalHeight * PERIOD_CHILD_HEIGHT_RATIO
+			: nominalHeight
+
+	return {
+		height,
+		bottom,
+		zIndex: isSelected ? Z_INDEX_SELECTED : Z_INDEX_BASE + depth,
+	}
+}
+
 export function getAdjacentPeriodsInBand(
 	period: Period,
 	bandPeriods: Period[],
@@ -75,7 +159,7 @@ export function buildVisiblePeriodLayouts(
 	leftEdgeYear: number,
 	rightEdgeYear: number,
 ): PeriodWithLayout[] {
-	const { depthById } = buildPeriodIndex(periods)
+	const { byId, depthById } = buildPeriodIndex(periods)
 	const visible = periods.filter((period) =>
 		isPeriodVisible(period, leftEdgeYear, rightEdgeYear),
 	)
@@ -98,11 +182,11 @@ export function buildVisiblePeriodLayouts(
 			depth,
 			leftPeriod: left,
 			rightPeriod: right,
+			hasVisibleDescendants: hasVisibleDescendants(
+				period.id,
+				visible,
+				byId,
+			),
 		}
 	})
-}
-
-export function getBandHeight(contentHeight: number): number {
-	if (contentHeight <= 0) return 0
-	return contentHeight / PERIOD_BAND_COUNT
 }

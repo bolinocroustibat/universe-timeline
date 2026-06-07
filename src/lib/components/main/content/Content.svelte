@@ -2,13 +2,11 @@
 import { onMount } from "svelte"
 import EventCard from "$lib/components/main/content/EventCard.svelte"
 import PeriodCard from "$lib/components/main/content/PeriodCard.svelte"
+import { PERIODS_ZONE_HEIGHT_RATIO } from "$lib/constants"
 import { displaySettings } from "$lib/stores/displayStore"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event, Period } from "$lib/types"
-import {
-	buildVisiblePeriodLayouts,
-	getBandHeight,
-} from "$lib/utils/periodLayout"
+import { buildVisiblePeriodLayouts } from "$lib/utils/periodLayout"
 
 interface Props {
 	viewportWidth: number
@@ -20,8 +18,8 @@ interface Props {
 let { viewportWidth, yearsPerPixel, leftEdgeYear, rightEdgeYear }: Props =
 	$props()
 
-let contentElement: HTMLDivElement | undefined = $state()
-let contentHeight = $state(0)
+let periodsZoneElement: HTMLDivElement | undefined = $state()
+let periodsZoneHeight = $state(0)
 
 // Load events and periods from JSON files
 let events: Event[] = $state([])
@@ -59,18 +57,16 @@ onMount(async () => {
 })
 
 $effect(() => {
-	if (!contentElement) return
+	if (!periodsZoneElement) return
 
 	const observer = new ResizeObserver(() => {
-		contentHeight = contentElement?.clientHeight ?? 0
+		periodsZoneHeight = periodsZoneElement?.clientHeight ?? 0
 	})
-	observer.observe(contentElement)
-	contentHeight = contentElement.clientHeight
+	observer.observe(periodsZoneElement)
+	periodsZoneHeight = periodsZoneElement.clientHeight
 
 	return () => observer.disconnect()
 })
-
-const bandHeight = $derived(getBandHeight(contentHeight))
 
 // Filter events that are visible in the current viewport
 const visibleEvents = $derived(
@@ -141,7 +137,6 @@ const messages = {
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 <div
-	bind:this={contentElement}
 	class="w-full flex-[4] bg-background border-b border-border overflow-hidden relative"
 	onclick={handleContentClick}
 >
@@ -175,26 +170,29 @@ const messages = {
 					<div class="text-muted">{messages[$currentLocale].eventsHidden}</div>
 				</div>
 			{/if}
-			{#if $displaySettings.showPeriods}
-				{#each visiblePeriodLayouts as layout (layout.id)}
-					<PeriodCard
-						period={layout}
-						depth={layout.depth}
-						bandHeight={bandHeight}
-						leftEdgeYear={leftEdgeYear}
-						rightEdgeYear={rightEdgeYear}
-						yearsPerPixel={yearsPerPixel}
-						isTopCard={topCardType === "period" && topCardPeriodId === layout.id}
-						leftPeriod={layout.leftPeriod}
-						rightPeriod={layout.rightPeriod}
-						onCardClick={handlePeriodClick}
-					/>
-				{/each}
-			{:else}
-				<div class="absolute inset-0 flex items-center justify-center">
-					<div class="text-muted">{messages[$currentLocale].periodsHidden}</div>
-				</div>
-			{/if}
+			<div
+				bind:this={periodsZoneElement}
+				class="absolute top-0 left-0 right-0 overflow-hidden"
+				style="height: {PERIODS_ZONE_HEIGHT_RATIO * 100}%"
+			>
+				{#if $displaySettings.showPeriods}
+					{#each visiblePeriodLayouts as layout (layout.id)}
+						<PeriodCard
+							{layout}
+							zoneHeight={periodsZoneHeight}
+							leftEdgeYear={leftEdgeYear}
+							rightEdgeYear={rightEdgeYear}
+							yearsPerPixel={yearsPerPixel}
+							isTopCard={topCardType === "period" && topCardPeriodId === layout.id}
+							onCardClick={handlePeriodClick}
+						/>
+					{/each}
+				{:else}
+					<div class="absolute inset-0 flex items-center justify-center">
+						<div class="text-muted">{messages[$currentLocale].periodsHidden}</div>
+					</div>
+				{/if}
+			</div>
 		{/if}
 	{/if}
 </div>

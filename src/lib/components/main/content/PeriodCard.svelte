@@ -1,40 +1,37 @@
 <script lang="ts">
 import { currentLocale } from "$lib/stores/localeStore"
-import type { Period } from "$lib/types"
 import { blendColors } from "$lib/utils/colors"
+import {
+	getPeriodCardGeometry,
+	type PeriodWithLayout,
+} from "$lib/utils/periodLayout"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 
 const SELECTED_SCALE = 1.07
 
 interface Props {
-	period: Period
-	depth: number
-	bandHeight: number
+	layout: PeriodWithLayout
+	zoneHeight: number
 	leftEdgeYear: number
 	rightEdgeYear: number
 	yearsPerPixel: number
 	isTopCard: boolean
-	leftPeriod: Period | null
-	rightPeriod: Period | null
 	onCardClick: (periodId: number) => void
 }
 
 let {
-	period,
-	depth,
-	bandHeight,
+	layout,
+	zoneHeight,
 	leftEdgeYear,
 	rightEdgeYear,
 	yearsPerPixel,
 	isTopCard,
-	leftPeriod,
-	rightPeriod,
 	onCardClick,
 }: Props = $props()
 
 const periodPosition = $derived(() => {
-	const startX = (period.start - leftEdgeYear) / yearsPerPixel
-	const endX = (period.end - leftEdgeYear) / yearsPerPixel
+	const startX = (layout.start - leftEdgeYear) / yearsPerPixel
+	const endX = (layout.end - leftEdgeYear) / yearsPerPixel
 	const rightEdgeX = (rightEdgeYear - leftEdgeYear) / yearsPerPixel
 
 	const clampedStartX = Math.max(0, startX)
@@ -47,29 +44,27 @@ const periodPosition = $derived(() => {
 	}
 })
 
-const periodColor = $derived(period.color || "#3d4558")
-
 const gradientBackground = $derived(() => {
-	const currentColor = period.color || "#3d4558"
-	const leftColor = leftPeriod?.color || currentColor
-	const rightColor = rightPeriod?.color || currentColor
+	const currentColor = layout.color || "#3d4558"
+	const leftColor = layout.leftPeriod?.color || currentColor
+	const rightColor = layout.rightPeriod?.color || currentColor
 
-	const leftBlend = leftPeriod
+	const leftBlend = layout.leftPeriod
 		? blendColors(leftColor, currentColor)
 		: currentColor
-	const rightBlend = rightPeriod
+	const rightBlend = layout.rightPeriod
 		? blendColors(currentColor, rightColor)
 		: currentColor
 
-	if (!leftPeriod && !rightPeriod) {
+	if (!layout.leftPeriod && !layout.rightPeriod) {
 		return `background-color: ${currentColor};`
 	}
 
-	if (leftPeriod && !rightPeriod) {
+	if (layout.leftPeriod && !layout.rightPeriod) {
 		return `background: linear-gradient(to right, ${leftBlend} 0%, ${currentColor} 10%, ${currentColor} 100%);`
 	}
 
-	if (!leftPeriod && rightPeriod) {
+	if (!layout.leftPeriod && layout.rightPeriod) {
 		return `background: linear-gradient(to right, ${currentColor} 0%, ${currentColor} 90%, ${rightBlend} 100%);`
 	}
 
@@ -77,12 +72,20 @@ const gradientBackground = $derived(() => {
 })
 
 const isVisible = $derived(
-	period.end >= leftEdgeYear && period.start <= rightEdgeYear,
+	layout.end >= leftEdgeYear && layout.start <= rightEdgeYear,
 )
 
-const zIndex = $derived(isTopCard ? 1000 : 100 + depth)
+const cardGeometry = $derived(
+	getPeriodCardGeometry({
+		depth: layout.depth,
+		zoneHeight,
+		isSelected: isTopCard,
+		hasVisibleDescendants: layout.hasVisibleDescendants,
+	}),
+)
+
 const isSelected = $derived(isTopCard)
-const bottomOffset = $derived(depth * bandHeight)
+const selectedScale = $derived(isSelected ? SELECTED_SCALE : 1)
 
 const HORIZONTAL_PADDING = 32
 const CHAR_WIDTH = 7.5
@@ -91,30 +94,31 @@ const MIN_HEIGHT_DESCRIPTION = 72
 const MIN_WIDTH_DESCRIPTION = 120
 
 const cardWidth = $derived(periodPosition().width)
-const label = $derived(period.name[$currentLocale])
+const cardHeight = $derived(cardGeometry.height)
+const label = $derived(layout.name[$currentLocale])
 
 const titleFits = $derived(
 	cardWidth >= label.length * CHAR_WIDTH + HORIZONTAL_PADDING &&
-		bandHeight >= MIN_HEIGHT_TITLE,
+		cardHeight >= MIN_HEIGHT_TITLE,
 )
 
 const showDescription = $derived(
 	titleFits &&
 		isSelected &&
-		!!period.description[$currentLocale] &&
-		bandHeight >= MIN_HEIGHT_DESCRIPTION &&
+		!!layout.description[$currentLocale] &&
+		cardHeight >= MIN_HEIGHT_DESCRIPTION &&
 		cardWidth >= MIN_WIDTH_DESCRIPTION,
 )
 </script>
 
-{#if isVisible && bandHeight > 0}
+{#if isVisible && cardHeight > 0}
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 	<div
 		data-period-card
 		class="absolute overflow-visible cursor-pointer"
-		style="left: {periodPosition().x}px; width: {periodPosition().width}px; bottom: {bottomOffset}px; height: {bandHeight}px; z-index: {zIndex};"
-		title="{period.name[$currentLocale]}"
-		use:bindPointerClick={() => onCardClick(period.id)}
+		style="left: {periodPosition().x}px; width: {periodPosition().width}px; bottom: {cardGeometry.bottom}px; height: {cardHeight}px; z-index: {cardGeometry.zIndex};"
+		title="{layout.name[$currentLocale]}"
+		use:bindPointerClick={() => onCardClick(layout.id)}
 		tabindex="0"
 	>
 		<div
@@ -124,7 +128,7 @@ const showDescription = $derived(
 			class:rounded-[4px]={isSelected}
 			class:border-2={isSelected}
 			class:border-selection-outline={isSelected}
-			style="transform: scale({isSelected ? SELECTED_SCALE : 1}); {gradientBackground()}; color: var(--theme-on-media);"
+			style="transform: scale({selectedScale}); {gradientBackground()}; color: var(--theme-on-media);"
 		>
 			{#if titleFits}
 				<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
@@ -133,7 +137,7 @@ const showDescription = $derived(
 					</span>
 					{#if showDescription}
 						<div class="w-full min-w-0 text-[13px] leading-relaxed text-center opacity-90 overflow-hidden line-clamp-3">
-							{period.description[$currentLocale]}
+							{layout.description[$currentLocale]}
 						</div>
 					{/if}
 				</div>
