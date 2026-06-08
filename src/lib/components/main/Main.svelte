@@ -5,7 +5,6 @@ import LeftArrow from "$lib/components/main/ArrowLeft.svelte"
 import RightArrow from "$lib/components/main/ArrowRight.svelte"
 import Content from "$lib/components/main/content/Content.svelte"
 import DebugInfo from "$lib/components/main/DebugInfo.svelte"
-import TimelineZone from "$lib/components/main/TimelineZone.svelte"
 import { MAX_ZOOM_LEVEL, TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
 import { POINTER_DRAG_THRESHOLD_PX } from "$lib/utils/pointerClickOrDrag"
@@ -367,16 +366,10 @@ function stopPanning() {
 		onpointerdown={handlePointerDown}
 		onpointerup={handlePointerUp}
 		onpointercancel={handlePointerCancel}
-		class="pan-container flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none relative"
+		class="pan-container flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none relative mb-6"
 	>
 		<Content
 			bind:this={contentInstance}
-			{viewportWidth}
-			{yearsPerPixel}
-			{leftEdgeYear}
-			{rightEdgeYear}
-		/>
-		<TimelineZone 
 			zoomLevel={$zoomLevel}
 			{viewportWidth}
 			{viewportYearSpan}

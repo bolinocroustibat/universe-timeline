@@ -1,4 +1,5 @@
 <script lang="ts">
+import { EVENT_MARKER_LABEL_BAND_GAP_PX } from "$lib/constants"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event } from "$lib/types"
 import { formatDate } from "$lib/utils/formatters"
@@ -71,10 +72,10 @@ function handlePointerLeave() {
 
 <!-- Event marker line with visual continuity to card -->
 <div
-	class="absolute bottom-0 w-1 bg-gradient-to-t from-accent/60 to-accent-secondary/40"
+	class="absolute w-1 bg-gradient-to-t from-accent/60 to-accent-secondary/40"
 	class:from-accent={isSelected}
 	class:to-accent-secondary={isSelected}
-	style="transform: translateX({getEventXPosition(event.date)}px); height: {yPosition + 12}px; z-index: {zIndex}; clip-path: polygon(0 0, 100% 0, 50% 100%);"
+	style="transform: translateX({getEventXPosition(event.date)}px); bottom: calc(1em + {EVENT_MARKER_LABEL_BAND_GAP_PX}px); height: {yPosition + 12}px; z-index: {zIndex}; clip-path: polygon(0 0, 100% 0, 50% 100%);"
 ></div>
 
 <!-- Event card -->
@@ -83,7 +84,7 @@ function handlePointerLeave() {
 	data-event-card
 	data-selected={isSelected || undefined}
 	class="absolute rounded-xl p-4 border-2 border-accent/35 cursor-pointer transition-colors duration-300 transition-shadow duration-300 overflow-hidden bg-surface-raised {isSelected ? 'border-accent ring-1 ring-accent/30' : 'hover:border-accent/55'}"
-	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px); bottom: {yPosition}px; z-index: {zIndex}; width: {CARD_WIDTH}px;"
+	style="transform: translateX({getEventCardXPosition(getEventXPosition(event.date))}px); bottom: calc(1em + {EVENT_MARKER_LABEL_BAND_GAP_PX}px + {yPosition}px); z-index: {zIndex}; width: {CARD_WIDTH}px;"
 	use:bindPointerClick={() => onCardClick(event.id, index)}
 	onpointerenter={handlePointerEnter}
 	onpointerleave={handlePointerLeave}

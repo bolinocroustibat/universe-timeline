@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Main.svelte viewport controller
 
-[`Main.svelte`](src/lib/components/main/Main.svelte) is the **single orchestrator** for timeline viewport navigation (pan, zoom, drag, wheel, arrow hold-pan). Child UI is already split (`Content`, `TimelineZone`, `DebugInfo`, arrows).
+[`Main.svelte`](src/lib/components/main/Main.svelte) is the **single orchestrator** for timeline viewport navigation (pan, zoom, drag, wheel, arrow hold-pan). Child UI is already split (`Content`, `DebugInfo`, arrows). The tick grid lives in [`content/TimelineGrid.svelte`](src/lib/components/main/content/TimelineGrid.svelte), rendered inside `Content`.
 
 ## Default
 

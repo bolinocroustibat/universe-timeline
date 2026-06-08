@@ -19,7 +19,7 @@ alwaysApply: false
 
 - Position events in **layout space** using `(eventDate - leftEdgeYear) / yearsPerPixel` — the same axis as timeline ticks. No screen-coordinate mapping is needed; layout positioning stays correct under CSS rotation.
 - In [`EventCard.svelte`](src/lib/components/main/content/EventCard.svelte), use `getEventXPosition()` for the marker line and `getEventCardXPosition()` to center the card on the marker with edge clamping (`CARD_WIDTH = 200`).
-- Use `transform: translateX()` for both marker and card, consistent with [`TimelineZone.svelte`](src/lib/components/main/TimelineZone.svelte) ticks.
+- Use `transform: translateX()` for both marker and card, consistent with [`TimelineGrid.svelte`](src/lib/components/main/content/TimelineGrid.svelte) ticks.
 - Marker lines are 1px wide (`w-1`) accent gradients (`from-accent/60 to-accent-secondary/40`); they align with the tick at the event date and extend upward via `height: {yPosition + 12}px`.
 
 ## Geological Period Positioning

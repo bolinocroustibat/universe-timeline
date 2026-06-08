@@ -3,6 +3,7 @@ import { onMount } from "svelte"
 import EventCard from "$lib/components/main/content/EventCard.svelte"
 import GeologicalPeriodCard from "$lib/components/main/content/GeologicalPeriodCard.svelte"
 import GeologicalPeriodPopover from "$lib/components/main/content/GeologicalPeriodPopover.svelte"
+import TimelineGrid from "$lib/components/main/content/TimelineGrid.svelte"
 import { GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO } from "$lib/constants"
 import { displaySettings } from "$lib/stores/displayStore"
 import { currentLocale } from "$lib/stores/localeStore"
@@ -10,14 +11,22 @@ import type { Event, GeologicalPeriod } from "$lib/types"
 import { buildVisibleGeologicalPeriodLayouts } from "$lib/utils/geologicalPeriodLayout"
 
 interface Props {
+	zoomLevel: number
 	viewportWidth: number
+	viewportYearSpan: number
 	yearsPerPixel: number
 	leftEdgeYear: number
 	rightEdgeYear: number
 }
 
-let { viewportWidth, yearsPerPixel, leftEdgeYear, rightEdgeYear }: Props =
-	$props()
+let {
+	zoomLevel,
+	viewportWidth,
+	viewportYearSpan,
+	yearsPerPixel,
+	leftEdgeYear,
+	rightEdgeYear,
+}: Props = $props()
 
 let contentElement: HTMLDivElement | undefined = $state()
 let geologicalPeriodsZoneElement: HTMLDivElement | undefined = $state()
@@ -151,15 +160,28 @@ const messages = {
 
 <div
 	bind:this={contentElement}
-	class="w-full flex-[4] bg-background border-b border-border overflow-hidden relative"
+	class="w-full flex-1 bg-background overflow-hidden relative text-xs"
 >
+	<TimelineGrid
+		{zoomLevel}
+		{viewportWidth}
+		{viewportYearSpan}
+		{yearsPerPixel}
+		{leftEdgeYear}
+		{rightEdgeYear}
+	/>
+
 	{#if isLoading}
-		<div class="absolute inset-0 flex items-center justify-center">
+		<div
+			class="absolute inset-x-0 top-0 bottom-[1em] flex items-center justify-center"
+		>
 			<div class="text-muted">{messages[$currentLocale].loading}</div>
 		</div>
 	{:else}
 		{#if !$displaySettings.showEvents && !$displaySettings.showGeologicalPeriods}
-			<div class="absolute inset-0 flex items-center justify-center">
+			<div
+				class="absolute inset-x-0 top-0 bottom-[1em] flex items-center justify-center"
+			>
 				<div class="text-muted">
 					{messages[$currentLocale].eventsAndGeologicalPeriodsHidden}
 				</div>
@@ -181,35 +203,39 @@ const messages = {
 					/>
 				{/each}
 			{:else}
-				<div class="absolute inset-0 flex items-center justify-center">
+				<div
+					class="absolute inset-x-0 top-0 bottom-[1em] flex items-center justify-center"
+				>
 					<div class="text-muted">{messages[$currentLocale].eventsHidden}</div>
 				</div>
 			{/if}
-			<div
-				bind:this={geologicalPeriodsZoneElement}
-				class="absolute top-0 left-0 right-0 overflow-hidden"
-				style="height: {GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO * 100}%"
-			>
-				{#if $displaySettings.showGeologicalPeriods}
-					{#each visibleGeologicalPeriodLayouts as layout (layout.id)}
-						<GeologicalPeriodCard
-							{layout}
-							zoneHeight={geologicalPeriodsZoneHeight}
-							leftEdgeYear={leftEdgeYear}
-							rightEdgeYear={rightEdgeYear}
-							yearsPerPixel={yearsPerPixel}
-							isTopCard={topCardType === "geological_period" &&
-								topCardGeologicalPeriodId === layout.id}
-							onCardClick={handleGeologicalPeriodClick}
-						/>
-					{/each}
-				{:else}
-					<div class="absolute inset-0 flex items-center justify-center">
-						<div class="text-muted">
-							{messages[$currentLocale].geologicalPeriodsHidden}
+			<div class="absolute inset-x-0 top-0 bottom-[1em]">
+				<div
+					bind:this={geologicalPeriodsZoneElement}
+					class="absolute top-0 left-0 right-0 overflow-hidden"
+					style="height: {GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO * 100}%"
+				>
+					{#if $displaySettings.showGeologicalPeriods}
+						{#each visibleGeologicalPeriodLayouts as layout (layout.id)}
+							<GeologicalPeriodCard
+								{layout}
+								zoneHeight={geologicalPeriodsZoneHeight}
+								leftEdgeYear={leftEdgeYear}
+								rightEdgeYear={rightEdgeYear}
+								yearsPerPixel={yearsPerPixel}
+								isTopCard={topCardType === "geological_period" &&
+									topCardGeologicalPeriodId === layout.id}
+								onCardClick={handleGeologicalPeriodClick}
+							/>
+						{/each}
+					{:else}
+						<div class="absolute inset-0 flex items-center justify-center">
+							<div class="text-muted">
+								{messages[$currentLocale].geologicalPeriodsHidden}
+							</div>
 						</div>
-					</div>
-				{/if}
+					{/if}
+				</div>
 			</div>
 			{#if selectedGeologicalPeriodLayout && $displaySettings.showGeologicalPeriods}
 				<GeologicalPeriodPopover

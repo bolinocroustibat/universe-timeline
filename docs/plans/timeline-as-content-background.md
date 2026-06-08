@@ -4,7 +4,7 @@ Implementation plan for README UX **#1**. Prerequisite for UX **#2** (uncertaint
 
 ## Goal
 
-Replace the current stacked layout (`Content` above `TimelineZone` in [`Main.svelte`](../../src/lib/components/main/Main.svelte)) with a single content canvas where timeline ticks are a **full-height background grid** and date labels sit on a **reserved bottom band**. Geological periods and events render as foreground layers above the grid; they may cover ticks freely except the label band.
+Replace the stacked layout (`Content` above a dedicated timeline strip in [`Main.svelte`](../../src/lib/components/main/Main.svelte)) with a single content canvas where timeline ticks are a **full-height background grid** ([`TimelineGrid.svelte`](../../src/lib/components/main/content/TimelineGrid.svelte)) and date labels sit on a **reserved bottom band**. Geological periods and events render as foreground layers above the grid; they may cover ticks freely except the label band.
 
 ## Chosen design
 
@@ -44,7 +44,7 @@ Geological and events zones share only the area **above** the label band:
 
 ### Z-index (bottom → top)
 
-1. `TimelineZone` background — `pointer-events-none`, lowest z-index
+1. `TimelineGrid` background — `pointer-events-none`, lowest z-index
 2. Geological period cards
 3. Event cards / markers
 4. Geological period popover
@@ -63,7 +63,7 @@ Not required for v1. Optional later: slight opacity on geological period and eve
 ┌─────────────────────────────┐
 │  Content (periods + events) │
 ├─────────────────────────────┤
-│  TimelineZone (ticks)       │  ← dedicated strip, flex-[1] / flex-[4]
+│  Timeline strip (ticks)     │  ← dedicated strip, flex-[1] / flex-[4] (removed in #1)
 └─────────────────────────────┘
 ```
 
@@ -85,13 +85,13 @@ Not required for v1. Optional later: slight opacity on geological period and eve
 ## Implementation outline
 
 1. **Add `TIMELINE_LABEL_BAND_HEIGHT_PX`** to [`layout.ts`](../../src/lib/constants/layout.ts) and export from [`constants/index.ts`](../../src/lib/constants/index.ts).
-2. **Refactor `TimelineZone.svelte`** for background mode:
+2. **Refactor tick grid** ([`TimelineGrid.svelte`](../../src/lib/components/main/content/TimelineGrid.svelte), formerly `TimelineZone.svelte`) for background mode:
    - Root: `absolute inset-0`, `pointer-events-none`, no `flex-[1]` / `border-t` (parent supplies bounds).
    - Tick lines: `top: 0` → `bottom: TIMELINE_LABEL_BAND_HEIGHT_PX` (full height above band).
    - Labels: positioned inside the bottom band (major + minor, same rules as today).
-3. **Move `TimelineZone` inside `Content.svelte`** as the bottom-most layer.
+3. **Move `TimelineGrid` inside `Content.svelte`** as the bottom-most layer.
 4. **Pass viewport props from `Main.svelte`** — add `zoomLevel` and `viewportYearSpan` to `Content` (today only `Main` has the full set).
-5. **Remove `TimelineZone` from `Main.svelte`**; `Content` becomes sole child of `pan-container` (plus arrows). Change `Content` from `flex-[4]` to `flex-1` so it fills the freed space.
+5. **Remove the timeline strip from `Main.svelte`**; `Content` becomes sole child of `pan-container` (plus arrows). Change `Content` from `flex-[4]` to `flex-1` so it fills the freed space.
 6. **Constrain foreground to area above the label band:**
    - Geological periods zone: `height` = `(contentHeight - TIMELINE_LABEL_BAND_HEIGHT_PX) * GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO`, anchored from top.
    - Events: position cards/markers with `bottom >= TIMELINE_LABEL_BAND_HEIGHT_PX` (events zone sits between geological band and label band).
@@ -106,4 +106,4 @@ When implementing uncertainty spans, the events zone split is **above the label 
 - `bun run check` and `bun run build` pass
 - Pan, zoom, and tick alignment behave identically to today
 - Date labels remain visible with geological periods and events at maximum density
-- Vertical space previously occupied by `TimelineZone` is reclaimed inside the content flex area (ready for UX #6 navigator below)
+- Vertical space previously occupied by the dedicated timeline strip is reclaimed inside the content flex area (ready for UX #6 navigator below)

@@ -2,7 +2,7 @@
 
 Implementation plan for zoom-dependent event uncertainty spans (README UX **#2**). The [README TODO](../../README.md#todo) lists a short summary; this document is the full spec.
 
-**Prerequisite:** complete README UX **#1** (timeline as content background) first. Uncertainty spans and the events/geological zones should render above a shared tick layer, not beside a separate `TimelineZone` strip.
+**Prerequisite:** complete README UX **#1** (timeline as content background) first. Uncertainty spans and the events/geological zones should render above the shared [`TimelineGrid`](../../src/lib/components/main/content/TimelineGrid.svelte) tick layer inside `Content`.
 
 ## Architecture overview
 

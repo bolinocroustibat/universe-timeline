@@ -2,6 +2,8 @@
 import {
 	MIN_MINOR_LABEL_SPACING_PX,
 	TIME_CONSTANTS,
+	TIMELINE_MINOR_TICK_BOTTOM_GAP_PX,
+	TIMELINE_MINOR_TICK_HEIGHT_PX,
 	ZOOM_SCALES,
 } from "$lib/constants"
 import { currentLocale } from "$lib/stores/localeStore"
@@ -105,31 +107,36 @@ const visibleMinorTicks: TimelineTick[] = $derived(
 )
 </script>
 
-<div class="w-full flex-[1] bg-surface border-t border-border overflow-hidden relative">
+<div
+	class="absolute inset-0 pointer-events-none overflow-hidden z-0 text-xs"
+	style="--label-band-height: calc(1em + 4px)"
+>
 	<!-- Minor ticks (rendered first, behind major ticks) -->
 	{#each visibleMinorTicks as tick}
-		<div 
-			class="absolute top-0 h-full flex flex-col justify-start"
-			style="transform: translateX({tick.position}px)"
-		>
-			<div class="h-1/2 w-px bg-tick"></div>
-			{#if showMinorLabels}
-				<span class="text-[10px] text-muted/50 mt-0.5 text-center whitespace-nowrap -ml-1/2">
-					{formatDate(tick.year, $currentLocale, false)}
-				</span>
-			{/if}
-		</div>
+		<div
+			class="absolute w-px bg-tick/70"
+			style="transform: translateX({tick.position}px); bottom: calc(var(--label-band-height) + {TIMELINE_MINOR_TICK_BOTTOM_GAP_PX}px); height: {TIMELINE_MINOR_TICK_HEIGHT_PX}px;"
+		></div>
+		{#if showMinorLabels}
+			<div
+				class="absolute -translate-x-1/2 text-[10px] leading-none text-muted/50 text-center whitespace-nowrap"
+				style="left: {tick.position}px; bottom: 0;"
+			>
+				{formatDate(tick.year, $currentLocale, false)}
+			</div>
+		{/if}
 	{/each}
 	<!-- Major ticks (rendered second, on top) -->
 	{#each visibleMajorTicks as tick}
-		<div 
-			class="absolute top-0 h-full flex flex-col justify-start"
-			style="transform: translateX({tick.position}px)"
+		<div
+			class="absolute top-0 w-px bg-tick"
+			style="transform: translateX({tick.position}px); bottom: var(--label-band-height);"
+		></div>
+		<div
+			class="absolute -translate-x-1/2 text-xs leading-none text-muted text-center whitespace-nowrap"
+			style="left: {tick.position}px; bottom: 0;"
 		>
-			<div class="h-2/3 w-px bg-accent/60"></div>
-			<span class="text-xs text-muted mt-1 text-center whitespace-nowrap -ml-1/2">
-				{formatDate(tick.year, $currentLocale, false)}
-			</span>
+			{formatDate(tick.year, $currentLocale, false)}
 		</div>
 	{/each}
 </div>
