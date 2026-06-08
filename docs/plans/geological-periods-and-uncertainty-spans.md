@@ -1,6 +1,8 @@
 # Event uncertainty spans
 
-Implementation plan for zoom-dependent event uncertainty spans. The [README TODO](../../README.md#todo) lists a short summary; this document is the full spec.
+Implementation plan for zoom-dependent event uncertainty spans (README UX **#2**). The [README TODO](../../README.md#todo) lists a short summary; this document is the full spec.
+
+**Prerequisite:** complete README UX **#1** (timeline as content background) first. Uncertainty spans and the events/geological zones should render above a shared tick layer, not beside a separate `TimelineZone` strip.
 
 ## Architecture overview
 
@@ -90,21 +92,24 @@ Used by both `GeologicalPeriodCard` (refactor) and new `EventSpanCard`.
 
 ### 4. Explicit two-zone layout in Content
 
-Today geological periods occupy the top 50% overlay; event cards sit at `bottom: 20px` on the full container. Formalize:
+Builds on UX **#1**: full-height tick grid + reserved bottom label band ([`timeline-as-content-background.md`](timeline-as-content-background.md)). Foreground bands sit **above** `TIMELINE_LABEL_BAND_HEIGHT_PX`:
 
 ```text
 ┌─────────────────────────────────────┐
-│  Geological periods zone (top 50%)  │
+│  Geological periods zone (top 50%*) │
 ├─────────────────────────────────────┤
-│  Events zone (bottom 50%)           │
+│  Events zone (bottom 50%*)          │
 │    - EventSpanCard (uncertainty)    │
 │    - EventCard (point mode)         │
+├─────────────────────────────────────┤
+│  Label band (UX #1 — not covered)   │
 └─────────────────────────────────────┘
+* Of the area above the label band.
 ```
 
 - Add `eventsZoneElement` + `eventsZoneHeight` (mirror geological zone `ResizeObserver` pattern in [`Content.svelte`](../../src/lib/components/main/content/Content.svelte))
 - Add `EVENTS_ZONE_HEIGHT_RATIO = 1 - GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO` in [`layout.ts`](../../src/lib/constants/layout.ts)
-- Pin events zone: `absolute bottom-0 left-0 right-0`
+- Pin events zone above the label band (not `bottom: 0` on the full container)
 - Move `EventCard` positioning to be relative to the events zone height (not full content height)
 
 ### 5. New `EventSpanCard.svelte`
