@@ -1,14 +1,14 @@
-import type { Event, Period } from "$lib/types"
+import type { Event, GeologicalPeriod } from "$lib/types"
 
-export async function fetchPeriods(): Promise<Period[]> {
+export async function fetchGeologicalPeriods(): Promise<GeologicalPeriod[]> {
 	try {
 		const response = await fetch("/src/data/periods.json")
 		if (!response.ok) {
-			throw new Error("Failed to fetch periods")
+			throw new Error("Failed to fetch geological periods")
 		}
 		return response.json()
 	} catch (error) {
-		console.error("Error loading periods:", error)
+		console.error("Error loading geological periods:", error)
 		return []
 	}
 }

@@ -2,20 +2,20 @@
 import { currentLocale } from "$lib/stores/localeStore"
 import { blendColors } from "$lib/utils/colors"
 import {
-	getPeriodCardGeometry,
-	getPeriodSelectionTransform,
-	type PeriodWithLayout,
-} from "$lib/utils/periodLayout"
+	type GeologicalPeriodWithLayout,
+	getGeologicalPeriodCardGeometry,
+	getGeologicalPeriodSelectionTransform,
+} from "$lib/utils/geologicalPeriodLayout"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 
 interface Props {
-	layout: PeriodWithLayout
+	layout: GeologicalPeriodWithLayout
 	zoneHeight: number
 	leftEdgeYear: number
 	rightEdgeYear: number
 	yearsPerPixel: number
 	isTopCard: boolean
-	onCardClick: (periodId: number) => void
+	onCardClick: (geologicalPeriodId: number) => void
 }
 
 let {
@@ -28,7 +28,7 @@ let {
 	onCardClick,
 }: Props = $props()
 
-const periodPosition = $derived(() => {
+const spanPosition = $derived(() => {
 	const startX = (layout.start - leftEdgeYear) / yearsPerPixel
 	const endX = (layout.end - leftEdgeYear) / yearsPerPixel
 	const rightEdgeX = (rightEdgeYear - leftEdgeYear) / yearsPerPixel
@@ -45,25 +45,25 @@ const periodPosition = $derived(() => {
 
 const gradientBackground = $derived(() => {
 	const currentColor = layout.color || "#3d4558"
-	const leftColor = layout.leftPeriod?.color || currentColor
-	const rightColor = layout.rightPeriod?.color || currentColor
+	const leftColor = layout.leftGeologicalPeriod?.color || currentColor
+	const rightColor = layout.rightGeologicalPeriod?.color || currentColor
 
-	const leftBlend = layout.leftPeriod
+	const leftBlend = layout.leftGeologicalPeriod
 		? blendColors(leftColor, currentColor)
 		: currentColor
-	const rightBlend = layout.rightPeriod
+	const rightBlend = layout.rightGeologicalPeriod
 		? blendColors(currentColor, rightColor)
 		: currentColor
 
-	if (!layout.leftPeriod && !layout.rightPeriod) {
+	if (!layout.leftGeologicalPeriod && !layout.rightGeologicalPeriod) {
 		return `background-color: ${currentColor};`
 	}
 
-	if (layout.leftPeriod && !layout.rightPeriod) {
+	if (layout.leftGeologicalPeriod && !layout.rightGeologicalPeriod) {
 		return `background: linear-gradient(to right, ${leftBlend} 0%, ${currentColor} 10%, ${currentColor} 100%);`
 	}
 
-	if (!layout.leftPeriod && layout.rightPeriod) {
+	if (!layout.leftGeologicalPeriod && layout.rightGeologicalPeriod) {
 		return `background: linear-gradient(to right, ${currentColor} 0%, ${currentColor} 90%, ${rightBlend} 100%);`
 	}
 
@@ -75,7 +75,7 @@ const isVisible = $derived(
 )
 
 const cardGeometry = $derived(
-	getPeriodCardGeometry({
+	getGeologicalPeriodCardGeometry({
 		depth: layout.depth,
 		zoneHeight,
 		isSelected: isTopCard,
@@ -86,7 +86,7 @@ const cardGeometry = $derived(
 const isSelected = $derived(isTopCard)
 
 const selectionTransform = $derived(
-	getPeriodSelectionTransform({
+	getGeologicalPeriodSelectionTransform({
 		zoneHeight,
 		cardHeight: cardGeometry.height,
 		bottom: cardGeometry.bottom,
@@ -98,7 +98,7 @@ const HORIZONTAL_PADDING = 32
 const CHAR_WIDTH = 7.5
 const MIN_HEIGHT_TITLE = 28
 
-const cardWidth = $derived(periodPosition().width)
+const cardWidth = $derived(spanPosition().width)
 const cardHeight = $derived(cardGeometry.height)
 const label = $derived(layout.name[$currentLocale])
 
@@ -111,9 +111,9 @@ const titleFits = $derived(
 {#if isVisible && cardHeight > 0}
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 	<div
-		data-period-card
+		data-geological-period-card
 		class="absolute overflow-visible cursor-pointer"
-		style="left: {periodPosition().x}px; width: {periodPosition().width}px; bottom: {cardGeometry.bottom}px; height: {cardHeight}px; z-index: {cardGeometry.zIndex};"
+		style="left: {spanPosition().x}px; width: {spanPosition().width}px; bottom: {cardGeometry.bottom}px; height: {cardHeight}px; z-index: {cardGeometry.zIndex};"
 		title="{layout.name[$currentLocale]}"
 		use:bindPointerClick={() => onCardClick(layout.id)}
 		tabindex="0"

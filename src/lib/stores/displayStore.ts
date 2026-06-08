@@ -9,7 +9,8 @@ const getInitialDisplaySettings = () => {
 				const parsed = JSON.parse(saved)
 				return {
 					showEvents: parsed.showEvents ?? true,
-					showPeriods: parsed.showPeriods ?? true,
+					showGeologicalPeriods:
+						parsed.showGeologicalPeriods ?? parsed.showPeriods ?? true,
 				}
 			} catch (e) {
 				console.warn("Failed to parse display settings from localStorage:", e)
@@ -18,7 +19,7 @@ const getInitialDisplaySettings = () => {
 	}
 	return {
 		showEvents: true,
-		showPeriods: true,
+		showGeologicalPeriods: true,
 	}
 }
 

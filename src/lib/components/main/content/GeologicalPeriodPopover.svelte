@@ -1,14 +1,14 @@
 <script lang="ts">
 import { currentLocale } from "$lib/stores/localeStore"
 import {
-	getPeriodPopoverLayout,
-	type PeriodWithLayout,
-} from "$lib/utils/periodLayout"
+	type GeologicalPeriodWithLayout,
+	getGeologicalPeriodPopoverLayout,
+} from "$lib/utils/geologicalPeriodLayout"
 
 const Z_INDEX_POPOVER = 1100
 
 interface Props {
-	layout: PeriodWithLayout
+	layout: GeologicalPeriodWithLayout
 	zoneHeight: number
 	contentHeight: number
 	leftEdgeYear: number
@@ -28,7 +28,7 @@ let {
 }: Props = $props()
 
 const popoverLayout = $derived(
-	getPeriodPopoverLayout({
+	getGeologicalPeriodPopoverLayout({
 		layout,
 		zoneHeight,
 		leftEdgeYear,
@@ -46,7 +46,7 @@ const description = $derived(layout.description[$currentLocale])
 
 {#if popoverLayout && description}
 	<div
-		data-period-popover
+		data-geological-period-popover
 		role="dialog"
 		aria-label={label}
 		class="absolute pointer-events-auto"

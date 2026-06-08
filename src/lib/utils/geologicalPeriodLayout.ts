@@ -1,19 +1,19 @@
-import { PERIOD_CHILD_HEIGHT_RATIO } from "$lib/constants"
-import type { Period } from "$lib/types"
+import { GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO } from "$lib/constants"
+import type { GeologicalPeriod } from "$lib/types"
 
-export type PeriodIndex = {
-	byId: Map<number, Period>
+export type GeologicalPeriodIndex = {
+	byId: Map<number, GeologicalPeriod>
 	depthById: Map<number, number>
 }
 
-export type PeriodWithLayout = Period & {
+export type GeologicalPeriodWithLayout = GeologicalPeriod & {
 	depth: number
-	leftPeriod: Period | null
-	rightPeriod: Period | null
+	leftGeologicalPeriod: GeologicalPeriod | null
+	rightGeologicalPeriod: GeologicalPeriod | null
 	hasVisibleDescendants: boolean
 }
 
-export type PeriodCardGeometry = {
+export type GeologicalPeriodCardGeometry = {
 	height: number
 	bottom: number
 	zIndex: number
@@ -22,15 +22,15 @@ export type PeriodCardGeometry = {
 const Z_INDEX_SELECTED = 1000
 const Z_INDEX_BASE = 100
 
-export const PERIOD_SELECTED_SCALE = 1.07
+export const GEOLOGICAL_PERIOD_SELECTED_SCALE = 1.07
 
-export type PeriodSelectionTransform = {
+export type GeologicalPeriodSelectionTransform = {
 	scaleX: number
 	scaleY: number
 	translateY: number
 }
 
-export function getPeriodSelectionTransform({
+export function getGeologicalPeriodSelectionTransform({
 	zoneHeight,
 	cardHeight,
 	bottom,
@@ -40,7 +40,7 @@ export function getPeriodSelectionTransform({
 	cardHeight: number
 	bottom: number
 	isSelected: boolean
-}): PeriodSelectionTransform {
+}): GeologicalPeriodSelectionTransform {
 	if (!isSelected || zoneHeight <= 0 || cardHeight <= 0) {
 		return { scaleX: 1, scaleY: 1, translateY: 0 }
 	}
@@ -50,13 +50,13 @@ export function getPeriodSelectionTransform({
 
 	if (topGap <= 0 && bottomGap <= 0) {
 		return {
-			scaleX: PERIOD_SELECTED_SCALE,
+			scaleX: GEOLOGICAL_PERIOD_SELECTED_SCALE,
 			scaleY: 1,
 			translateY: 0,
 		}
 	}
 
-	const overflow = (cardHeight * (PERIOD_SELECTED_SCALE - 1)) / 2
+	const overflow = (cardHeight * (GEOLOGICAL_PERIOD_SELECTED_SCALE - 1)) / 2
 	let translateY = 0
 
 	if (topGap < overflow) {
@@ -67,18 +67,18 @@ export function getPeriodSelectionTransform({
 	}
 
 	return {
-		scaleX: PERIOD_SELECTED_SCALE,
-		scaleY: PERIOD_SELECTED_SCALE,
+		scaleX: GEOLOGICAL_PERIOD_SELECTED_SCALE,
+		scaleY: GEOLOGICAL_PERIOD_SELECTED_SCALE,
 		translateY,
 	}
 }
 
-export function getPeriodDepth(
-	period: Period,
-	byId: Map<number, Period>,
+export function getGeologicalPeriodDepth(
+	geologicalPeriod: GeologicalPeriod,
+	byId: Map<number, GeologicalPeriod>,
 ): number {
 	let depth = 0
-	let current: Period | undefined = period
+	let current: GeologicalPeriod | undefined = geologicalPeriod
 	const visited = new Set<number>()
 
 	while (current.parentPeriodId != null) {
@@ -95,31 +95,44 @@ export function getPeriodDepth(
 	return depth
 }
 
-export function buildPeriodIndex(periods: Period[]): PeriodIndex {
-	const byId = new Map(periods.map((period) => [period.id, period]))
+export function buildGeologicalPeriodIndex(
+	geologicalPeriods: GeologicalPeriod[],
+): GeologicalPeriodIndex {
+	const byId = new Map(
+		geologicalPeriods.map((geologicalPeriod) => [
+			geologicalPeriod.id,
+			geologicalPeriod,
+		]),
+	)
 	const depthById = new Map<number, number>()
 
-	for (const period of periods) {
-		depthById.set(period.id, getPeriodDepth(period, byId))
+	for (const geologicalPeriod of geologicalPeriods) {
+		depthById.set(
+			geologicalPeriod.id,
+			getGeologicalPeriodDepth(geologicalPeriod, byId),
+		)
 	}
 
 	return { byId, depthById }
 }
 
-export function isPeriodVisible(
-	period: Period,
+export function isGeologicalPeriodVisible(
+	geologicalPeriod: GeologicalPeriod,
 	leftEdgeYear: number,
 	rightEdgeYear: number,
 ): boolean {
-	return period.end >= leftEdgeYear && period.start <= rightEdgeYear
+	return (
+		geologicalPeriod.end >= leftEdgeYear &&
+		geologicalPeriod.start <= rightEdgeYear
+	)
 }
 
 export function isDescendantOf(
-	period: Period,
+	geologicalPeriod: GeologicalPeriod,
 	ancestorId: number,
-	byId: Map<number, Period>,
+	byId: Map<number, GeologicalPeriod>,
 ): boolean {
-	let current: Period | undefined = period
+	let current: GeologicalPeriod | undefined = geologicalPeriod
 	const visited = new Set<number>()
 
 	while (current.parentPeriodId != null) {
@@ -136,17 +149,19 @@ export function isDescendantOf(
 }
 
 export function hasVisibleDescendants(
-	periodId: number,
-	visiblePeriods: Period[],
-	byId: Map<number, Period>,
+	geologicalPeriodId: number,
+	visibleGeologicalPeriods: GeologicalPeriod[],
+	byId: Map<number, GeologicalPeriod>,
 ): boolean {
-	return visiblePeriods.some((period) => isDescendantOf(period, periodId, byId))
+	return visibleGeologicalPeriods.some((geologicalPeriod) =>
+		isDescendantOf(geologicalPeriod, geologicalPeriodId, byId),
+	)
 }
 
-export function getNormalPeriodGeometry(
+export function getNormalGeologicalPeriodGeometry(
 	depth: number,
 	zoneHeight: number,
-): Pick<PeriodCardGeometry, "height" | "bottom"> {
+): Pick<GeologicalPeriodCardGeometry, "height" | "bottom"> {
 	if (zoneHeight <= 0) {
 		return { height: 0, bottom: 0 }
 	}
@@ -155,11 +170,11 @@ export function getNormalPeriodGeometry(
 		return { height: zoneHeight, bottom: 0 }
 	}
 
-	const height = zoneHeight * PERIOD_CHILD_HEIGHT_RATIO ** depth
+	const height = zoneHeight * GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO ** depth
 	return { height, bottom: zoneHeight - height }
 }
 
-export function getPeriodCardGeometry({
+export function getGeologicalPeriodCardGeometry({
 	depth,
 	zoneHeight,
 	isSelected,
@@ -169,14 +184,14 @@ export function getPeriodCardGeometry({
 	zoneHeight: number
 	isSelected: boolean
 	hasVisibleDescendants: boolean
-}): PeriodCardGeometry {
-	const { height: nominalHeight, bottom } = getNormalPeriodGeometry(
+}): GeologicalPeriodCardGeometry {
+	const { height: nominalHeight, bottom } = getNormalGeologicalPeriodGeometry(
 		depth,
 		zoneHeight,
 	)
 	const height =
 		hasDescendants && zoneHeight > 0
-			? nominalHeight * PERIOD_CHILD_HEIGHT_RATIO
+			? nominalHeight * GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO
 			: nominalHeight
 
 	return {
@@ -186,12 +201,14 @@ export function getPeriodCardGeometry({
 	}
 }
 
-export function getAdjacentPeriodsInBand(
-	period: Period,
-	bandPeriods: Period[],
-): { left: Period | null; right: Period | null } {
-	const sorted = [...bandPeriods].sort((a, b) => a.start - b.start)
-	const index = sorted.findIndex((candidate) => candidate.id === period.id)
+export function getAdjacentGeologicalPeriodsInBand(
+	geologicalPeriod: GeologicalPeriod,
+	bandGeologicalPeriods: GeologicalPeriod[],
+): { left: GeologicalPeriod | null; right: GeologicalPeriod | null } {
+	const sorted = [...bandGeologicalPeriods].sort((a, b) => a.start - b.start)
+	const index = sorted.findIndex(
+		(candidate) => candidate.id === geologicalPeriod.id,
+	)
 
 	if (index === -1) {
 		return { left: null, right: null }
@@ -203,14 +220,14 @@ export function getAdjacentPeriodsInBand(
 	}
 }
 
-export type PeriodPopoverPlacement = "above" | "below"
+export type GeologicalPeriodPopoverPlacement = "above" | "below"
 
-export type PeriodPopoverLayout = {
+export type GeologicalPeriodPopoverLayout = {
 	anchorX: number
 	anchorY: number
 	popoverLeft: number
 	popoverTop: number
-	placement: PeriodPopoverPlacement
+	placement: GeologicalPeriodPopoverPlacement
 	arrowOffsetX: number
 	popoverWidth: number
 }
@@ -220,7 +237,7 @@ const POPOVER_SCREEN_PADDING = 16
 const POPOVER_GAP = 8
 const POPOVER_ESTIMATED_HEIGHT = 120
 
-export function getPeriodHorizontalPosition({
+export function getGeologicalPeriodHorizontalPosition({
 	start,
 	end,
 	leftEdgeYear,
@@ -264,7 +281,7 @@ function clampPopoverCenterX(
 	return Math.min(Math.max(centerX, minCenter), maxCenter)
 }
 
-export function getPeriodPopoverLayout({
+export function getGeologicalPeriodPopoverLayout({
 	layout,
 	zoneHeight,
 	leftEdgeYear,
@@ -274,7 +291,7 @@ export function getPeriodPopoverLayout({
 	contentHeight,
 	isSelected,
 }: {
-	layout: PeriodWithLayout
+	layout: GeologicalPeriodWithLayout
 	zoneHeight: number
 	leftEdgeYear: number
 	rightEdgeYear: number
@@ -282,17 +299,17 @@ export function getPeriodPopoverLayout({
 	viewportWidth: number
 	contentHeight: number
 	isSelected: boolean
-}): PeriodPopoverLayout | null {
+}): GeologicalPeriodPopoverLayout | null {
 	if (
 		zoneHeight <= 0 ||
 		contentHeight <= 0 ||
 		viewportWidth <= 0 ||
-		!isPeriodVisible(layout, leftEdgeYear, rightEdgeYear)
+		!isGeologicalPeriodVisible(layout, leftEdgeYear, rightEdgeYear)
 	) {
 		return null
 	}
 
-	const { centerX: anchorX } = getPeriodHorizontalPosition({
+	const { centerX: anchorX } = getGeologicalPeriodHorizontalPosition({
 		start: layout.start,
 		end: layout.end,
 		leftEdgeYear,
@@ -300,7 +317,7 @@ export function getPeriodPopoverLayout({
 		yearsPerPixel,
 	})
 
-	const cardGeometry = getPeriodCardGeometry({
+	const cardGeometry = getGeologicalPeriodCardGeometry({
 		depth: layout.depth,
 		zoneHeight,
 		isSelected,
@@ -311,7 +328,7 @@ export function getPeriodPopoverLayout({
 		return null
 	}
 
-	const selectionTransform = getPeriodSelectionTransform({
+	const selectionTransform = getGeologicalPeriodSelectionTransform({
 		zoneHeight,
 		cardHeight: cardGeometry.height,
 		bottom: cardGeometry.bottom,
@@ -327,7 +344,7 @@ export function getPeriodPopoverLayout({
 		visualTop + cardGeometry.height * selectionTransform.scaleY
 
 	const spaceAbove = visualTop
-	const placement: PeriodPopoverPlacement =
+	const placement: GeologicalPeriodPopoverPlacement =
 		spaceAbove >= POPOVER_ESTIMATED_HEIGHT + POPOVER_GAP ? "above" : "below"
 
 	const anchorY = placement === "above" ? visualTop : visualBottom
@@ -350,35 +367,42 @@ export function getPeriodPopoverLayout({
 	}
 }
 
-export function buildVisiblePeriodLayouts(
-	periods: Period[],
+export function buildVisibleGeologicalPeriodLayouts(
+	geologicalPeriods: GeologicalPeriod[],
 	leftEdgeYear: number,
 	rightEdgeYear: number,
-): PeriodWithLayout[] {
-	const { byId, depthById } = buildPeriodIndex(periods)
-	const visible = periods.filter((period) =>
-		isPeriodVisible(period, leftEdgeYear, rightEdgeYear),
+): GeologicalPeriodWithLayout[] {
+	const { byId, depthById } = buildGeologicalPeriodIndex(geologicalPeriods)
+	const visible = geologicalPeriods.filter((geologicalPeriod) =>
+		isGeologicalPeriodVisible(geologicalPeriod, leftEdgeYear, rightEdgeYear),
 	)
 
-	const byDepth = new Map<number, Period[]>()
-	for (const period of visible) {
-		const depth = depthById.get(period.id) ?? 0
+	const byDepth = new Map<number, GeologicalPeriod[]>()
+	for (const geologicalPeriod of visible) {
+		const depth = depthById.get(geologicalPeriod.id) ?? 0
 		const band = byDepth.get(depth) ?? []
-		band.push(period)
+		band.push(geologicalPeriod)
 		byDepth.set(depth, band)
 	}
 
-	return visible.map((period) => {
-		const depth = depthById.get(period.id) ?? 0
-		const bandPeriods = byDepth.get(depth) ?? []
-		const { left, right } = getAdjacentPeriodsInBand(period, bandPeriods)
+	return visible.map((geologicalPeriod) => {
+		const depth = depthById.get(geologicalPeriod.id) ?? 0
+		const bandGeologicalPeriods = byDepth.get(depth) ?? []
+		const { left, right } = getAdjacentGeologicalPeriodsInBand(
+			geologicalPeriod,
+			bandGeologicalPeriods,
+		)
 
 		return {
-			...period,
+			...geologicalPeriod,
 			depth,
-			leftPeriod: left,
-			rightPeriod: right,
-			hasVisibleDescendants: hasVisibleDescendants(period.id, visible, byId),
+			leftGeologicalPeriod: left,
+			rightGeologicalPeriod: right,
+			hasVisibleDescendants: hasVisibleDescendants(
+				geologicalPeriod.id,
+				visible,
+				byId,
+			),
 		}
 	})
 }

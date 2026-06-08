@@ -4,8 +4,8 @@ export {
 } from "./display"
 
 export {
-	PERIOD_CHILD_HEIGHT_RATIO,
-	PERIODS_ZONE_HEIGHT_RATIO,
+	GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO,
+	GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO,
 } from "./layout"
 export { TIME_CONSTANTS } from "./timeline"
 export {

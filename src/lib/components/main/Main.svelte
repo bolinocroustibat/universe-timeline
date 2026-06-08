@@ -65,8 +65,8 @@ function handleDragMove(e: PointerEvent) {
 function isCardTarget(target: Element | null): boolean {
 	return (
 		!!target?.closest("[data-event-card]") ||
-		!!target?.closest("[data-period-card]") ||
-		!!target?.closest("[data-period-popover]")
+		!!target?.closest("[data-geological-period-card]") ||
+		!!target?.closest("[data-geological-period-popover]")
 	)
 }
 

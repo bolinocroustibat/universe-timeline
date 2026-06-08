@@ -1,13 +1,13 @@
 <script lang="ts">
 import { onMount } from "svelte"
 import EventCard from "$lib/components/main/content/EventCard.svelte"
-import PeriodCard from "$lib/components/main/content/PeriodCard.svelte"
-import PeriodPopover from "$lib/components/main/content/PeriodPopover.svelte"
-import { PERIODS_ZONE_HEIGHT_RATIO } from "$lib/constants"
+import GeologicalPeriodCard from "$lib/components/main/content/GeologicalPeriodCard.svelte"
+import GeologicalPeriodPopover from "$lib/components/main/content/GeologicalPeriodPopover.svelte"
+import { GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO } from "$lib/constants"
 import { displaySettings } from "$lib/stores/displayStore"
 import { currentLocale } from "$lib/stores/localeStore"
-import type { Event, Period } from "$lib/types"
-import { buildVisiblePeriodLayouts } from "$lib/utils/periodLayout"
+import type { Event, GeologicalPeriod } from "$lib/types"
+import { buildVisibleGeologicalPeriodLayouts } from "$lib/utils/geologicalPeriodLayout"
 
 interface Props {
 	viewportWidth: number
@@ -20,25 +20,25 @@ let { viewportWidth, yearsPerPixel, leftEdgeYear, rightEdgeYear }: Props =
 	$props()
 
 let contentElement: HTMLDivElement | undefined = $state()
-let periodsZoneElement: HTMLDivElement | undefined = $state()
-let periodsZoneHeight = $state(0)
+let geologicalPeriodsZoneElement: HTMLDivElement | undefined = $state()
+let geologicalPeriodsZoneHeight = $state(0)
 let contentHeight = $state(0)
 
-// Load events and periods from JSON files
+// Load events and geological periods from JSON files
 let events: Event[] = $state([])
-let periods: Period[] = $state([])
+let geologicalPeriods: GeologicalPeriod[] = $state([])
 let isLoading = $state(true)
 
-// Track which card is on top (type, event id, or period id)
-let topCardType = $state<"event" | "period" | null>(null)
+// Track which card is on top (type, event id, or geological period id)
+let topCardType = $state<"event" | "geological_period" | null>(null)
 let topCardEventId = $state<number | null>(null)
-let topCardPeriodId = $state<number | null>(null)
+let topCardGeologicalPeriodId = $state<number | null>(null)
 let hoveredCardEventId = $state<number | null>(null)
 
-// Load events and periods on component mount
+// Load events and geological periods on component mount
 onMount(async () => {
 	try {
-		const [eventsResponse, periodsResponse] = await Promise.all([
+		const [eventsResponse, geologicalPeriodsResponse] = await Promise.all([
 			fetch("/events.jsonc"),
 			fetch("/periods.jsonc"),
 		])
@@ -46,27 +46,28 @@ onMount(async () => {
 		if (!eventsResponse.ok) {
 			throw new Error(`HTTP error! status: ${eventsResponse.status}`)
 		}
-		if (!periodsResponse.ok) {
-			throw new Error(`HTTP error! status: ${periodsResponse.status}`)
+		if (!geologicalPeriodsResponse.ok) {
+			throw new Error(`HTTP error! status: ${geologicalPeriodsResponse.status}`)
 		}
 
 		events = await eventsResponse.json()
-		periods = await periodsResponse.json()
+		geologicalPeriods = await geologicalPeriodsResponse.json()
 	} catch (error) {
-		console.error("EventsZone: Failed to load data:", error)
+		console.error("Content: Failed to load data:", error)
 	} finally {
 		isLoading = false
 	}
 })
 
 $effect(() => {
-	if (!periodsZoneElement) return
+	if (!geologicalPeriodsZoneElement) return
 
 	const observer = new ResizeObserver(() => {
-		periodsZoneHeight = periodsZoneElement?.clientHeight ?? 0
+		geologicalPeriodsZoneHeight =
+			geologicalPeriodsZoneElement?.clientHeight ?? 0
 	})
-	observer.observe(periodsZoneElement)
-	periodsZoneHeight = periodsZoneElement.clientHeight
+	observer.observe(geologicalPeriodsZoneElement)
+	geologicalPeriodsZoneHeight = geologicalPeriodsZoneElement.clientHeight
 
 	return () => observer.disconnect()
 })
@@ -90,14 +91,19 @@ const visibleEvents = $derived(
 	}),
 )
 
-const visiblePeriodLayouts = $derived(
-	buildVisiblePeriodLayouts(periods, leftEdgeYear, rightEdgeYear),
+const visibleGeologicalPeriodLayouts = $derived(
+	buildVisibleGeologicalPeriodLayouts(
+		geologicalPeriods,
+		leftEdgeYear,
+		rightEdgeYear,
+	),
 )
 
-const selectedPeriodLayout = $derived(
-	topCardType === "period" && topCardPeriodId != null
-		? (visiblePeriodLayouts.find((layout) => layout.id === topCardPeriodId) ??
-				null)
+const selectedGeologicalPeriodLayout = $derived(
+	topCardType === "geological_period" && topCardGeologicalPeriodId != null
+		? (visibleGeologicalPeriodLayouts.find(
+				(layout) => layout.id === topCardGeologicalPeriodId,
+			) ?? null)
 		: null,
 )
 
@@ -114,29 +120,31 @@ function handleEventHover(eventId: number | null) {
 	hoveredCardEventId = eventId
 }
 
-function handlePeriodClick(periodId: number) {
-	topCardType = "period"
-	topCardPeriodId = periodId
+function handleGeologicalPeriodClick(geologicalPeriodId: number) {
+	topCardType = "geological_period"
+	topCardGeologicalPeriodId = geologicalPeriodId
 }
 
 export function deselectCards() {
 	topCardType = null
 	topCardEventId = null
-	topCardPeriodId = null
+	topCardGeologicalPeriodId = null
 }
 
 const messages = {
 	en: {
 		loading: "Loading...",
 		eventsHidden: "Events are hidden.",
-		periodsHidden: "Periods are hidden.",
-		eventsAndPeriodsHidden: "Events and periods are hidden.",
+		geologicalPeriodsHidden: "Geological periods are hidden.",
+		eventsAndGeologicalPeriodsHidden:
+			"Events and geological periods are hidden.",
 	},
 	fr: {
 		loading: "Chargement...",
 		eventsHidden: "Les événements sont masqués.",
-		periodsHidden: "Les périodes sont masquées.",
-		eventsAndPeriodsHidden: "Les événements et les périodes sont masqués.",
+		geologicalPeriodsHidden: "Les périodes géologiques sont masquées.",
+		eventsAndGeologicalPeriodsHidden:
+			"Les événements et les périodes géologiques sont masqués.",
 	},
 }
 </script>
@@ -150,9 +158,11 @@ const messages = {
 			<div class="text-muted">{messages[$currentLocale].loading}</div>
 		</div>
 	{:else}
-		{#if !$displaySettings.showEvents && !$displaySettings.showPeriods}
+		{#if !$displaySettings.showEvents && !$displaySettings.showGeologicalPeriods}
 			<div class="absolute inset-0 flex items-center justify-center">
-				<div class="text-muted">{messages[$currentLocale].eventsAndPeriodsHidden}</div>
+				<div class="text-muted">
+					{messages[$currentLocale].eventsAndGeologicalPeriodsHidden}
+				</div>
 			</div>
 		{:else}
 			{#if $displaySettings.showEvents}
@@ -176,32 +186,35 @@ const messages = {
 				</div>
 			{/if}
 			<div
-				bind:this={periodsZoneElement}
+				bind:this={geologicalPeriodsZoneElement}
 				class="absolute top-0 left-0 right-0 overflow-hidden"
-				style="height: {PERIODS_ZONE_HEIGHT_RATIO * 100}%"
+				style="height: {GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO * 100}%"
 			>
-				{#if $displaySettings.showPeriods}
-					{#each visiblePeriodLayouts as layout (layout.id)}
-						<PeriodCard
+				{#if $displaySettings.showGeologicalPeriods}
+					{#each visibleGeologicalPeriodLayouts as layout (layout.id)}
+						<GeologicalPeriodCard
 							{layout}
-							zoneHeight={periodsZoneHeight}
+							zoneHeight={geologicalPeriodsZoneHeight}
 							leftEdgeYear={leftEdgeYear}
 							rightEdgeYear={rightEdgeYear}
 							yearsPerPixel={yearsPerPixel}
-							isTopCard={topCardType === "period" && topCardPeriodId === layout.id}
-							onCardClick={handlePeriodClick}
+							isTopCard={topCardType === "geological_period" &&
+								topCardGeologicalPeriodId === layout.id}
+							onCardClick={handleGeologicalPeriodClick}
 						/>
 					{/each}
 				{:else}
 					<div class="absolute inset-0 flex items-center justify-center">
-						<div class="text-muted">{messages[$currentLocale].periodsHidden}</div>
+						<div class="text-muted">
+							{messages[$currentLocale].geologicalPeriodsHidden}
+						</div>
 					</div>
 				{/if}
 			</div>
-			{#if selectedPeriodLayout && $displaySettings.showPeriods}
-				<PeriodPopover
-					layout={selectedPeriodLayout}
-					zoneHeight={periodsZoneHeight}
+			{#if selectedGeologicalPeriodLayout && $displaySettings.showGeologicalPeriods}
+				<GeologicalPeriodPopover
+					layout={selectedGeologicalPeriodLayout}
+					zoneHeight={geologicalPeriodsZoneHeight}
 					{contentHeight}
 					{leftEdgeYear}
 					{rightEdgeYear}

@@ -9,9 +9,9 @@ const labels = {
 		en: "Events",
 		fr: "Événements",
 	},
-	periods: {
-		en: "Periods",
-		fr: "Périodes",
+	geologicalPeriods: {
+		en: "Geological periods",
+		fr: "Périodes géologiques",
 	},
 	darkMode: {
 		en: "Dark mode",
@@ -23,8 +23,9 @@ function toggleEvents() {
 	$displaySettings.showEvents = !$displaySettings.showEvents
 }
 
-function togglePeriods() {
-	$displaySettings.showPeriods = !$displaySettings.showPeriods
+function toggleGeologicalPeriods() {
+	$displaySettings.showGeologicalPeriods =
+		!$displaySettings.showGeologicalPeriods
 }
 </script>
 
@@ -36,10 +37,10 @@ function togglePeriods() {
 		ariaLabel="Toggle events display"
 	/>
 	<ToggleSwitch
-		label={labels.periods[$currentLocale]}
-		checked={$displaySettings.showPeriods}
-		onToggle={togglePeriods}
-		ariaLabel="Toggle periods display"
+		label={labels.geologicalPeriods[$currentLocale]}
+		checked={$displaySettings.showGeologicalPeriods}
+		onToggle={toggleGeologicalPeriods}
+		ariaLabel="Toggle geological periods display"
 	/>
 	<ToggleSwitch
 		label={labels.darkMode[$currentLocale]}

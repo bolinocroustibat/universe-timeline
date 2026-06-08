@@ -4,25 +4,25 @@ export type LocalizedText = {
 	[key in SupportedLocales]: string
 }
 
-export interface Period {
+export interface GeologicalPeriod {
 	id: number
 	parentPeriodId: number | null
 	start: number
 	end: number
 	/**
-	 * Start boundary uncertainty in years. The period could have started between
+	 * Start boundary uncertainty in years. The geological period could have started between
 	 * (start - startUncertainty/2) and (start + startUncertainty/2).
 	 * For example: if start = -538800000 and startUncertainty = 600000,
 	 * the start boundary range is from -539100000 to -538500000 (±300,000 years).
 	 */
 	startUncertainty: number
 	/**
-	 * End boundary uncertainty in years. The period could have ended between
+	 * End boundary uncertainty in years. The geological period could have ended between
 	 * (end - endUncertainty/2) and (end + endUncertainty/2).
 	 * For example: if end = -251902000 and endUncertainty = 24000,
 	 * the end boundary range is from -251914000 to -251890000 (±12,000 years).
 	 *
-	 * Note: For periods that end at the present day (end = 2015), endUncertainty is 0.
+	 * Note: For geological periods that end at the present day (end = 2015), endUncertainty is 0.
 	 */
 	endUncertainty: number
 	duration: number

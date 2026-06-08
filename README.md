@@ -71,16 +71,11 @@ Production releases are triggered by pushing a version tag. The [deploy workflow
 
 Future UX improvements to tackle:
 
-### Geological periods rename + uncertainty spans
+### Event uncertainty spans
 
-Two-phase work; Phase 1 ships independently for naming clarity. Full spec: [docs/plans/geological-periods-and-uncertainty-spans.md](docs/plans/geological-periods-and-uncertainty-spans.md).
+Full spec: [docs/plans/geological-periods-and-uncertainty-spans.md](docs/plans/geological-periods-and-uncertainty-spans.md).
 
-- [ ] **Phase 1 — Rename to “geological periods”** — Full rename across types, files, store, UI, and DOM attributes. No behavior change beyond `localStorage` key migration (`showPeriods` → `showGeologicalPeriods`).
-  - `Period` → `GeologicalPeriod`; `PeriodCard` → `GeologicalPeriodCard`; `PeriodPopover` → `GeologicalPeriodPopover`; `periodLayout.ts` → `geologicalPeriodLayout.ts`
-  - `data-period-card` → `data-geological-period-card`; `data-period-popover` → `data-geological-period-popover`
-  - UI labels: “Geological periods” / “Périodes géologiques”
-  - Keep `static/periods.jsonc` filename and fetch URL unchanged
-- [ ] **Phase 2 — Zoom-dependent event uncertainty spans** — When `dateUncertainty` is visually meaningful at the current zoom, render an event as a horizontal span in the **events zone** (lower band); otherwise keep the point marker + card.
+- [ ] **Zoom-dependent event uncertainty spans** — When `dateUncertainty` is visually meaningful at the current zoom, render an event as a horizontal span in the **events zone** (lower band); otherwise keep the point marker + card.
   - Add `eventUncertainty.ts`: `getEventDateRange`, pixel-width threshold with hysteresis (enter span ≥ 12 px, exit < 8 px)
   - Split `Content.svelte` into geological periods zone (top 50%) + events zone (bottom 50%)
   - New `EventSpanCard.svelte` in the events zone; shared `spanPosition.ts` with `GeologicalPeriodCard`
@@ -88,7 +83,7 @@ Two-phase work; Phase 1 ships independently for naming clarity. Full spec: [docs
   - Extend `Event` type with optional `color` + `getEventColor()` fallback (no bulk `events.jsonc` changes yet)
   - Data files stay separate (`events.jsonc` / `periods.jsonc`)
 
-**Follow-ups (out of scope for Phase 2):** lane stacking for overlapping event spans/cards; populating `color` in `events.jsonc`; geological period uncertainty rendering (`startUncertainty` / `endUncertainty`).
+**Follow-ups:** lane stacking for overlapping event spans/cards; populating `color` in `events.jsonc`; geological period uncertainty rendering (`startUncertainty` / `endUncertainty`).
 
 ### Other improvements
 

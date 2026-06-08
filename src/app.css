@@ -101,7 +101,7 @@
 			color-mix(in srgb, var(--theme-accent-secondary) 15%, transparent);
 	}
 
-	[data-theme="light"] [data-period-card] {
+	[data-theme="light"] [data-geological-period-card] {
 		backdrop-filter: none;
 	}
 }

@@ -1,6 +1,6 @@
-# Geological periods rename + uncertainty spans
+# Event uncertainty spans
 
-Detailed implementation plan for the geological periods rename (Phase 1) and zoom-dependent event uncertainty spans (Phase 2). The [README TODO](../../README.md#todo) lists a short summary; this document is the full spec.
+Implementation plan for zoom-dependent event uncertainty spans. The [README TODO](../../README.md#todo) lists a short summary; this document is the full spec.
 
 ## Architecture overview
 
@@ -37,63 +37,9 @@ flowchart TB
 
 ---
 
-## Phase 1 — Rename to "geological periods" (standalone, ship first)
+## Zoom-dependent uncertainty spans
 
-Goal: eliminate ambiguity before any uncertainty work. **No behavior change** beyond naming and `localStorage` key migration.
-
-### Types and store
-
-- In [`src/lib/types/index.ts`](../../src/lib/types/index.ts): rename `Period` → `GeologicalPeriod`. Keep `parentPeriodId` as-is (it refers to geological hierarchy).
-- In [`src/lib/stores/displayStore.ts`](../../src/lib/stores/displayStore.ts):
-  - `showPeriods` → `showGeologicalPeriods`
-  - Migrate persisted settings: `parsed.showGeologicalPeriods ?? parsed.showPeriods ?? true`
-
-### File and symbol renames
-
-| Current | New |
-|---------|-----|
-| `PeriodCard.svelte` | `GeologicalPeriodCard.svelte` |
-| `PeriodPopover.svelte` | `GeologicalPeriodPopover.svelte` |
-| `periodLayout.ts` | `geologicalPeriodLayout.ts` |
-| `Period`, `PeriodWithLayout`, `buildVisiblePeriodLayouts`, etc. | `GeologicalPeriod`, `GeologicalPeriodWithLayout`, `buildVisibleGeologicalPeriodLayouts`, etc. |
-
-Keep **`static/periods.jsonc`** filename and fetch URL unchanged (Docker mount, stable public path).
-
-### DOM attributes and selectors
-
-Rename for consistency with future `EventSpanCard`:
-
-- `data-period-card` → `data-geological-period-card`
-- `data-period-popover` → `data-geological-period-popover`
-
-Update consumers in [`Main.svelte`](../../src/lib/components/main/Main.svelte) (deselect-on-tap) and [`app.css`](../../src/app.css).
-
-### Content orchestration
-
-In [`Content.svelte`](../../src/lib/components/main/content/Content.svelte):
-
-- `periods` → `geologicalPeriods`
-- `topCardType: "period"` → `"geological_period"`
-- `topCardPeriodId` → `topCardGeologicalPeriodId`
-- `PERIODS_ZONE_HEIGHT_RATIO` → `GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO` in [`layout.ts`](../../src/lib/constants/layout.ts)
-
-### User-facing strings
-
-- [`DisplayToggles.svelte`](../../src/lib/components/header/DisplayToggles.svelte): "Geological periods" / "Périodes géologiques"; aria labels updated
-- [`Content.svelte`](../../src/lib/components/main/content/Content.svelte) empty-state messages
-- [`README.md`](../../README.md) and [`.cursor/rules/event-handling.mdc`](../../.cursor/rules/event-handling.mdc)
-
-### API helper
-
-- [`src/lib/api.ts`](../../src/lib/api.ts): `fetchPeriods` → `fetchGeologicalPeriods` (if still referenced)
-
-**Phase 1 exit criteria:** `bun run check` and `bun run build` pass; toggles and geological period cards behave identically.
-
----
-
-## Phase 2 — Zoom-dependent uncertainty spans
-
-Goal: when `dateUncertainty` is visually meaningful at the current zoom, render an event as a horizontal span in the **events zone** (lower band); otherwise keep the existing point marker + card.
+When `dateUncertainty` is visually meaningful at the current zoom, render an event as a horizontal span in the **events zone** (lower band); otherwise keep the existing point marker + card.
 
 Data files stay separate (`events.jsonc` / `periods.jsonc`). No merge.
 
@@ -212,13 +158,7 @@ Use in `EventSpanCard` detail and optionally in selected `EventCard`.
 
 ### 8. Documentation
 
-Update [`README.md`](../../README.md) TODO:
-
-- Mark uncertainty visualization as implemented (or in progress)
-- Note optional `color` on events for future data entry
-- Rename remaining "period" references to "geological period"
-
-Update [`.cursor/rules/event-handling.mdc`](../../.cursor/rules/event-handling.mdc) with span-mode rules, new data attributes, and events-zone positioning.
+Update [`.cursor/rules/event-handling.mdc`](../../.cursor/rules/event-handling.mdc) with span-mode rules, new data attributes, and events-zone positioning. Remove completed items from [`README.md`](../../README.md) TODO and this plan when done.
 
 ---
 
@@ -229,12 +169,3 @@ Update [`.cursor/rules/event-handling.mdc`](../../.cursor/rules/event-handling.m
 - Merging `periods.jsonc` and `events.jsonc`
 - Geological period uncertainty rendering (`startUncertainty` / `endUncertainty`) — separate future task
 - Images in detail views
-
----
-
-## Suggested delivery order
-
-1. **PR 1:** Phase 1 only (rename) — merge independently
-2. **PR 2:** Phase 2 (uncertainty spans + event color field + zone split)
-
-This keeps review focused and ensures "geological periods" naming is correct regardless of whether span work ships immediately.
