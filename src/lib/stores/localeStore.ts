@@ -22,18 +22,6 @@ if (typeof window !== "undefined") {
 	})
 }
 
-// Helper function to get flag emoji for a locale
-export function getLocaleFlag(locale: SupportedLocales): string {
-	switch (locale) {
-		case "en":
-			return "🇺🇸"
-		case "fr":
-			return "🇫🇷"
-		default:
-			return "🇺🇸"
-	}
-}
-
 // Helper function to get locale name
 export function getLocaleName(locale: SupportedLocales): string {
 	switch (locale) {
