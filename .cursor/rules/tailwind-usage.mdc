@@ -1,7 +1,7 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 - Use Tailwind CSS utility classes for all component styling.
 - Avoid writing custom CSS unless a utility class cannot achieve the desired effect.

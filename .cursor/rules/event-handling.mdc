@@ -1,49 +1,75 @@
 ---
-description: Event card positioning, overlap detection, and styling in Content and EventCard
+description: Content layer — event and geological period positioning, selection, and styling in Content.svelte
 globs: src/lib/components/main/content/**
 alwaysApply: false
 ---
 
-# Event Handling and Overlap Detection
+# Content Layer — Events and Geological Periods
 
-Event cards live in [`Content.svelte`](src/lib/components/main/content/Content.svelte) and [`EventCard.svelte`](src/lib/components/main/content/EventCard.svelte). Viewport pan/zoom and screen→layout coordinate mapping belong in [`Main.svelte`](src/lib/components/main/Main.svelte) — see [`main-svelte.mdc`](main-svelte.mdc).
+[`Content.svelte`](src/lib/components/main/content/Content.svelte) renders the foreground timeline content. Viewport pan/zoom and screen→layout coordinate mapping belong in [`Main.svelte`](src/lib/components/main/Main.svelte) — see [`main-svelte.mdc`](main-svelte.mdc).
+
+## Layout
+
+- **Geological periods zone** — absolute overlay at the top of the content area, height `GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO` (50%) from [`layout.ts`](src/lib/constants/layout.ts). Renders `GeologicalPeriodCard` items from layouts built by [`geologicalPeriodLayout.ts`](src/lib/utils/geologicalPeriodLayout.ts).
+- **Events** — rendered in the full content area with a flat Y position (`getEventYPosition()` returns `20`). Events are not yet confined to a dedicated bottom band; that split is planned (see [Planned work](#planned-work)).
+- **Visibility toggles** — `$displaySettings.showEvents` and `$displaySettings.showGeologicalPeriods` from [`displayStore.ts`](src/lib/stores/displayStore.ts) gate each layer independently. Empty/hidden states use locale-aware messages from the `messages` map in `Content.svelte`.
+- Data loads on mount from `/events.jsonc` and `/periods.jsonc`.
 
 ## Event Positioning
 
 - Position events in **layout space** using `(eventDate - leftEdgeYear) / yearsPerPixel` — the same axis as timeline ticks. No screen-coordinate mapping is needed; layout positioning stays correct under CSS rotation.
-- In `EventCard.svelte`, use `getEventXPosition()` for the marker line and `getEventCardXPosition()` to center the card on the marker with edge clamping.
-- Use `transform: translateX()` for both marker and card, consistent with `TimelineZone.svelte` ticks.
-- Marker lines are 1px wide (`w-1`) rose gradients; they align with the tick at the event date.
+- In [`EventCard.svelte`](src/lib/components/main/content/EventCard.svelte), use `getEventXPosition()` for the marker line and `getEventCardXPosition()` to center the card on the marker with edge clamping (`CARD_WIDTH = 200`).
+- Use `transform: translateX()` for both marker and card, consistent with [`TimelineZone.svelte`](src/lib/components/main/TimelineZone.svelte) ticks.
+- Marker lines are 1px wide (`w-1`) accent gradients (`from-accent/60 to-accent-secondary/40`); they align with the tick at the event date and extend upward via `height: {yPosition + 12}px`.
+
+## Geological Period Positioning
+
+- Horizontal span positioning lives in `GeologicalPeriodCard.svelte`: clamp start/end dates to the viewport, then compute `{ x, width }` in layout space (same formula as events).
+- Vertical geometry (height, bottom offset, z-index by depth) comes from `getGeologicalPeriodCardGeometry()` in [`geologicalPeriodLayout.ts`](src/lib/utils/geologicalPeriodLayout.ts). Child periods occupy `GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO` (50%) of the parent height.
+- Card backgrounds use per-period `color` from data with neighbor blending via `blendColors()` in [`colors.ts`](src/lib/utils/colors.ts). Text uses `var(--theme-on-media)`.
+- When selected, a period shows [`GeologicalPeriodPopover.svelte`](src/lib/components/main/content/GeologicalPeriodPopover.svelte) (`data-geological-period-popover`, z-index `1100`) with layout from `getGeologicalPeriodPopoverLayout()`.
 
 ## Click-to-Front (Phase 1)
 
-- Event selection uses stable `topCardEventId` in `Content.svelte` (not visible index).
-- Hover tracking via `hoveredCardEventId` and `onCardHover` raises cards temporarily while the pointer is over them.
-- Z-index tiers on card and marker (Phase 1 flat layout):
+- Selection state in `Content.svelte`:
+  - `topCardType`: `"event" | "geological_period" | null`
+  - `topCardEventId` / `topCardGeologicalPeriodId` — stable ids, not visible index
+  - `hoveredCardEventId` + `onCardHover` — events only; raises cards temporarily while the pointer is over them
+- Z-index tiers on event card and marker:
   - Selected: `1000`
   - Hovered (not selected): `999`
   - Default: `980`
-- Clicking a reachable card sets `topCardEventId` on `pointerup` via `bindPointerClick` from [`pointerClickOrDrag.ts`](src/lib/utils/pointerClickOrDrag.ts): selection fires only if pointer movement stays below `POINTER_DRAG_THRESHOLD_PX` (5px), otherwise the event bubbles to `Main.svelte` for pan. Do not use `stopPropagation` on card `pointerdown`.
-- Deselect via `Main.svelte` `stopDragging`: on a tap (movement ≤ `POINTER_DRAG_THRESHOLD_PX`) outside `[data-event-card]` and `[data-geological-period-card]`, call `Content.deselectCards()`. Use the pointerdown target (not pointerup target) because pointer capture retargets events. Do not use per-card `clickOutside` — it races with selection.
-- Geological period cards use `topCardGeologicalPeriodId` in `Content.svelte` (stable id, not visible index) with the same `bindPointerClick` click-or-drag pattern as event cards.
+- Geological period cards use depth-based z-index from `getGeologicalPeriodCardGeometry()` (base `100`, selected `1000`).
+- Clicking a card sets selection on `pointerup` via `bindPointerClick` from [`pointerClickOrDrag.ts`](src/lib/utils/pointerClickOrDrag.ts): selection fires only if pointer movement stays below `POINTER_DRAG_THRESHOLD_PX` (5px), otherwise the event bubbles to `Main.svelte` for pan. Do not use `stopPropagation` on card `pointerdown`.
+- Deselect via `Main.svelte` `stopDragging`: on a tap (movement ≤ `POINTER_DRAG_THRESHOLD_PX`) outside `[data-event-card]`, `[data-geological-period-card]`, and `[data-geological-period-popover]`, call `Content.deselectCards()`. Use the pointerdown target (not pointerup target) because pointer capture retargets events. Do not use per-card `clickOutside` — it races with selection.
+- Selecting one card type clears the other (`topCardType` enforces mutual exclusivity).
 
 ## Vertical Stacking (Phase 2 — not yet implemented)
 
-All events currently share a flat Y position (`getEventYPosition()` returns `20` in `Content.svelte`). Phase 2 will add:
+All events currently share a flat Y position. Phase 2 will add:
 
 - Overlap detection on **rendered** card bounds (horizontal intersection after edge clamping), not date proximity.
 - Vertical lane stacking with 25px peek spacing between overlapping cards.
 - Uniform lane compression when the stack exceeds content height.
 - Layout logic in a dedicated `eventCardLayout.ts` util.
 
-## Event Styling
+## Styling
 
-- Use consistent event card styling with Tailwind classes (rose palette, gradient backgrounds).
-- Marker lines extend from the timeline up to event cards via `height: {yPosition + 12}px`.
-- Localize text with `$currentLocale`: event names, descriptions, and dates via `formatDate(event.date, $currentLocale)`.
-- Empty and loading states in `Content.svelte` use locale-aware messages from the `messages` map.
+- Event cards use theme tokens: `bg-surface-raised`, `border-accent/35`, `ring-accent/30` when selected. No hard-coded color palettes.
+- Geological period cards use data-driven `color` with CSS gradients; selection adds `border-selection-outline` and scale transform via `getGeologicalPeriodSelectionTransform()`.
+- Localize text with `$currentLocale`: event names, descriptions, and dates via `formatDate(event.date, $currentLocale)`; geological period names via `layout.name[$currentLocale]`.
 
-## Performance Considerations
+## Performance
 
-- Filter visible events with `$derived` based on `leftEdgeYear` / `rightEdgeYear` viewport boundaries.
-- Prefer Svelte 5 runes (`$derived`, `$state`, `$props`) over legacy reactive statements.
+- Filter visible events with `$derived` based on `leftEdgeYear` / `rightEdgeYear` viewport boundaries (point-date filter today; range-overlap filter planned for uncertainty spans).
+- Build visible geological period layouts with `$derived` via `buildVisibleGeologicalPeriodLayouts()`.
+- Prefer Svelte 5 runes (`$derived`, `$state`, `$props`, `$effect`) over legacy reactive statements.
+
+## Planned work
+
+Do not implement these unless explicitly asked. Full specs live in `docs/plans/`:
+
+- **Timeline as content background** ([`timeline-as-content-background.md`](docs/plans/timeline-as-content-background.md)) — merge tick grid into `Content`, reserved label band at bottom.
+- **Uncertainty spans** ([`geological-periods-and-uncertainty-spans.md`](docs/plans/geological-periods-and-uncertainty-spans.md)) — events zone (bottom 50%), zoom-dependent span mode, `EventSpanCard.svelte`, shared `spanPosition.ts`, range-overlap visibility filter.
+
+When implementing planned work, update this rule accordingly.
