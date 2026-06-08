@@ -2,6 +2,7 @@
 import { onMount } from "svelte"
 import EventCard from "$lib/components/main/content/EventCard.svelte"
 import PeriodCard from "$lib/components/main/content/PeriodCard.svelte"
+import PeriodPopover from "$lib/components/main/content/PeriodPopover.svelte"
 import { PERIODS_ZONE_HEIGHT_RATIO } from "$lib/constants"
 import { displaySettings } from "$lib/stores/displayStore"
 import { currentLocale } from "$lib/stores/localeStore"
@@ -18,8 +19,10 @@ interface Props {
 let { viewportWidth, yearsPerPixel, leftEdgeYear, rightEdgeYear }: Props =
 	$props()
 
+let contentElement: HTMLDivElement | undefined = $state()
 let periodsZoneElement: HTMLDivElement | undefined = $state()
 let periodsZoneHeight = $state(0)
+let contentHeight = $state(0)
 
 // Load events and periods from JSON files
 let events: Event[] = $state([])
@@ -68,6 +71,18 @@ $effect(() => {
 	return () => observer.disconnect()
 })
 
+$effect(() => {
+	if (!contentElement) return
+
+	const observer = new ResizeObserver(() => {
+		contentHeight = contentElement?.clientHeight ?? 0
+	})
+	observer.observe(contentElement)
+	contentHeight = contentElement.clientHeight
+
+	return () => observer.disconnect()
+})
+
 // Filter events that are visible in the current viewport
 const visibleEvents = $derived(
 	events.filter((event) => {
@@ -77,6 +92,13 @@ const visibleEvents = $derived(
 
 const visiblePeriodLayouts = $derived(
 	buildVisiblePeriodLayouts(periods, leftEdgeYear, rightEdgeYear),
+)
+
+const selectedPeriodLayout = $derived(
+	topCardType === "period" && topCardPeriodId != null
+		? (visiblePeriodLayouts.find((layout) => layout.id === topCardPeriodId) ??
+				null)
+		: null,
 )
 
 function getEventYPosition(): number {
@@ -120,6 +142,7 @@ const messages = {
 </script>
 
 <div
+	bind:this={contentElement}
 	class="w-full flex-[4] bg-background border-b border-border overflow-hidden relative"
 >
 	{#if isLoading}
@@ -175,6 +198,17 @@ const messages = {
 					</div>
 				{/if}
 			</div>
+			{#if selectedPeriodLayout && $displaySettings.showPeriods}
+				<PeriodPopover
+					layout={selectedPeriodLayout}
+					zoneHeight={periodsZoneHeight}
+					{contentHeight}
+					{leftEdgeYear}
+					{rightEdgeYear}
+					{yearsPerPixel}
+					{viewportWidth}
+				/>
+			{/if}
 		{/if}
 	{/if}
 </div>

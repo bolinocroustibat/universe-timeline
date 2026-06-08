@@ -203,6 +203,153 @@ export function getAdjacentPeriodsInBand(
 	}
 }
 
+export type PeriodPopoverPlacement = "above" | "below"
+
+export type PeriodPopoverLayout = {
+	anchorX: number
+	anchorY: number
+	popoverLeft: number
+	popoverTop: number
+	placement: PeriodPopoverPlacement
+	arrowOffsetX: number
+	popoverWidth: number
+}
+
+const POPOVER_MAX_WIDTH = 280
+const POPOVER_SCREEN_PADDING = 16
+const POPOVER_GAP = 8
+const POPOVER_ESTIMATED_HEIGHT = 120
+
+export function getPeriodHorizontalPosition({
+	start,
+	end,
+	leftEdgeYear,
+	rightEdgeYear,
+	yearsPerPixel,
+}: {
+	start: number
+	end: number
+	leftEdgeYear: number
+	rightEdgeYear: number
+	yearsPerPixel: number
+}): { x: number; width: number; centerX: number } {
+	const startX = (start - leftEdgeYear) / yearsPerPixel
+	const endX = (end - leftEdgeYear) / yearsPerPixel
+	const rightEdgeX = (rightEdgeYear - leftEdgeYear) / yearsPerPixel
+
+	const clampedStartX = Math.max(0, startX)
+	const clampedEndX = Math.min(endX, rightEdgeX)
+	const width = clampedEndX - clampedStartX
+
+	return {
+		x: clampedStartX,
+		width,
+		centerX: clampedStartX + width / 2,
+	}
+}
+
+function clampPopoverCenterX(
+	centerX: number,
+	popoverWidth: number,
+	viewportWidth: number,
+): number {
+	const halfWidth = popoverWidth / 2
+	const minCenter = POPOVER_SCREEN_PADDING + halfWidth
+	const maxCenter = viewportWidth - POPOVER_SCREEN_PADDING - halfWidth
+
+	if (maxCenter <= minCenter) {
+		return viewportWidth / 2
+	}
+
+	return Math.min(Math.max(centerX, minCenter), maxCenter)
+}
+
+export function getPeriodPopoverLayout({
+	layout,
+	zoneHeight,
+	leftEdgeYear,
+	rightEdgeYear,
+	yearsPerPixel,
+	viewportWidth,
+	contentHeight,
+	isSelected,
+}: {
+	layout: PeriodWithLayout
+	zoneHeight: number
+	leftEdgeYear: number
+	rightEdgeYear: number
+	yearsPerPixel: number
+	viewportWidth: number
+	contentHeight: number
+	isSelected: boolean
+}): PeriodPopoverLayout | null {
+	if (
+		zoneHeight <= 0 ||
+		contentHeight <= 0 ||
+		viewportWidth <= 0 ||
+		!isPeriodVisible(layout, leftEdgeYear, rightEdgeYear)
+	) {
+		return null
+	}
+
+	const { centerX: anchorX } = getPeriodHorizontalPosition({
+		start: layout.start,
+		end: layout.end,
+		leftEdgeYear,
+		rightEdgeYear,
+		yearsPerPixel,
+	})
+
+	const cardGeometry = getPeriodCardGeometry({
+		depth: layout.depth,
+		zoneHeight,
+		isSelected,
+		hasVisibleDescendants: layout.hasVisibleDescendants,
+	})
+
+	if (cardGeometry.height <= 0) {
+		return null
+	}
+
+	const selectionTransform = getPeriodSelectionTransform({
+		zoneHeight,
+		cardHeight: cardGeometry.height,
+		bottom: cardGeometry.bottom,
+		isSelected,
+	})
+
+	const outerTop = zoneHeight - cardGeometry.bottom - cardGeometry.height
+	const visualTop =
+		outerTop +
+		(cardGeometry.height * (1 - selectionTransform.scaleY)) / 2 +
+		selectionTransform.translateY
+	const visualBottom =
+		visualTop + cardGeometry.height * selectionTransform.scaleY
+
+	const spaceAbove = visualTop
+	const placement: PeriodPopoverPlacement =
+		spaceAbove >= POPOVER_ESTIMATED_HEIGHT + POPOVER_GAP ? "above" : "below"
+
+	const anchorY = placement === "above" ? visualTop : visualBottom
+	const popoverWidth = Math.min(
+		POPOVER_MAX_WIDTH,
+		Math.max(0, viewportWidth - POPOVER_SCREEN_PADDING * 2),
+	)
+	const popoverLeft = clampPopoverCenterX(anchorX, popoverWidth, viewportWidth)
+	const popoverTop =
+		placement === "above" ? anchorY - POPOVER_GAP : anchorY + POPOVER_GAP
+
+	return {
+		anchorX,
+		anchorY,
+		popoverLeft,
+		popoverTop,
+		placement,
+		arrowOffsetX: anchorX - popoverLeft,
+		popoverWidth,
+	}
+}
+
 export function buildVisiblePeriodLayouts(
 	periods: Period[],
 	leftEdgeYear: number,

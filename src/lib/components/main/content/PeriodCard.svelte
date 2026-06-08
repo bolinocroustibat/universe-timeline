@@ -97,8 +97,6 @@ const selectionTransform = $derived(
 const HORIZONTAL_PADDING = 32
 const CHAR_WIDTH = 7.5
 const MIN_HEIGHT_TITLE = 28
-const MIN_HEIGHT_DESCRIPTION = 72
-const MIN_WIDTH_DESCRIPTION = 120
 
 const cardWidth = $derived(periodPosition().width)
 const cardHeight = $derived(cardGeometry.height)
@@ -107,14 +105,6 @@ const label = $derived(layout.name[$currentLocale])
 const titleFits = $derived(
 	cardWidth >= label.length * CHAR_WIDTH + HORIZONTAL_PADDING &&
 		cardHeight >= MIN_HEIGHT_TITLE,
-)
-
-const showDescription = $derived(
-	titleFits &&
-		isSelected &&
-		!!layout.description[$currentLocale] &&
-		cardHeight >= MIN_HEIGHT_DESCRIPTION &&
-		cardWidth >= MIN_WIDTH_DESCRIPTION,
 )
 </script>
 
@@ -139,14 +129,9 @@ const showDescription = $derived(
 		>
 			{#if titleFits}
 				<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
-					<span class="w-full min-w-0 text-sm font-semibold mb-1 shrink-0 text-center whitespace-nowrap">
+					<span class="w-full min-w-0 text-sm font-semibold shrink-0 text-center whitespace-nowrap">
 						{label}
 					</span>
-					{#if showDescription}
-						<div class="w-full min-w-0 text-[13px] leading-relaxed text-center opacity-90 overflow-hidden line-clamp-3">
-							{layout.description[$currentLocale]}
-						</div>
-					{/if}
 				</div>
 			{/if}
 		</div>
