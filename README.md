@@ -71,24 +71,18 @@ Production releases are triggered by pushing a version tag. The [deploy workflow
 
 Future UX improvements to tackle:
 
-### Event uncertainty spans
-
-Full spec: [docs/plans/geological-periods-and-uncertainty-spans.md](docs/plans/geological-periods-and-uncertainty-spans.md).
-
-- [ ] **Zoom-dependent event uncertainty spans** — When `dateUncertainty` is visually meaningful at the current zoom, render an event as a horizontal span in the **events zone** (lower band); otherwise keep the point marker + card.
+- [ ] **1 — Zoom-dependent event uncertainty spans** — When `dateUncertainty` is visually meaningful at the current zoom, render an event as a horizontal span in the **events zone** (lower band); otherwise keep the point marker + card. Full spec: [docs/plans/geological-periods-and-uncertainty-spans.md](docs/plans/geological-periods-and-uncertainty-spans.md).
   - Add `eventUncertainty.ts`: `getEventDateRange`, pixel-width threshold with hysteresis (enter span ≥ 12 px, exit < 8 px)
   - Split `Content.svelte` into geological periods zone (top 50%) + events zone (bottom 50%)
   - New `EventSpanCard.svelte` in the events zone; shared `spanPosition.ts` with `GeologicalPeriodCard`
   - Range-overlap visibility filter (not point-date only); `formatDateRange` / `formatDateWithUncertainty` in `formatters.ts`
   - Extend `Event` type with optional `color` + `getEventColor()` fallback (no bulk `events.jsonc` changes yet)
   - Data files stay separate (`events.jsonc` / `periods.jsonc`)
-
-**Follow-ups:** lane stacking for overlapping event spans/cards; populating `color` in `events.jsonc`; geological period uncertainty rendering (`startUncertainty` / `endUncertainty`).
-
-### Other improvements
-
-- [ ] **Timeline navigator** — Dedicated strip (~48–56px) between `TimelineZone` and the footer, outside `pan-container`. **Horizontal** layout, same axis as the main timeline (Big Bang left, today right): upper row is a linear track with a scrollbar-style thumb (**position** = viewport center year; **fixed minimum width**, not proportional span); lower row shows the formatted center date centered under the thumb (edge-clamped), plus zoom tier label from `tierId` in `src/lib/constants/zoom.ts`. Draggable thumb for coarse navigation; label updates live while panning.
-- [ ] **(Optional) Merge content and timeline** — Reclaim vertical space for the navigator by combining `Content` and `TimelineZone` into one canvas: the current timeline (ticks and date labels) becomes the **background** of the events zone; event cards sit above it. Geological periods stay in the upper band.
-- [ ] **Shareable URLs** — Encode viewport state in the query string (e.g. `?at=-4540000000&zoom=8`) so users can link directly to a date and zoom level.
-- [ ] **Images in detail views** — Show event/geological-period images in expanded states (`EventCard`, `GeologicalPeriodPopover`); image paths already exist in `static/events.jsonc` and `static/periods.jsonc`.
-- [ ] **Date ranges for geological periods** — Display geological period start–end dates (with uncertainty when relevant) in detail views, matching how event cards already show `formatDate(event.date)`.
+- [ ] **2 — Lane stacking for overlapping event spans/cards** — When multiple events or uncertainty spans overlap horizontally, assign vertical lanes with peek spacing so each item stays readable and clickable.
+- [ ] **3 — Event colors in data** — Populate optional `color` per event in `events.jsonc` for span and card styling.
+- [ ] **4 — Geological period uncertainty rendering** — Render `startUncertainty` and `endUncertainty` as meaningful spans or ± ranges when zoom makes them visible.
+- [ ] **5 — Timeline navigator** — Dedicated strip (~48–56px) between `TimelineZone` and the footer, outside `pan-container`. **Horizontal** layout, same axis as the main timeline (Big Bang left, today right): upper row is a linear track with a scrollbar-style thumb (**position** = viewport center year; **fixed minimum width**, not proportional span); lower row shows the formatted center date centered under the thumb (edge-clamped), plus zoom tier label from `tierId` in `src/lib/constants/zoom.ts`. Draggable thumb for coarse navigation; label updates live while panning.
+- [ ] **6 — (Optional) Merge content and timeline** — Reclaim vertical space for the navigator by combining `Content` and `TimelineZone` into one canvas: the current timeline (ticks and date labels) becomes the **background** of the events zone; event cards sit above it. Geological periods stay in the upper band.
+- [ ] **7 — Shareable URLs** — Encode viewport state in the query string (e.g. `?at=-4540000000&zoom=8`) so users can link directly to a date and zoom level.
+- [ ] **8 — Images in detail views** — Show event/geological-period images in expanded states (`EventCard`, `GeologicalPeriodPopover`); image paths already exist in `static/events.jsonc` and `static/periods.jsonc`.
+- [ ] **9 — Date ranges for geological periods** — Display geological period start–end dates (with uncertainty when relevant) in detail views, matching how event cards already show `formatDate(event.date)`.
