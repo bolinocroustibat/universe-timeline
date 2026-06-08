@@ -66,3 +66,34 @@ docker compose up --build
 The app is available at [http://localhost:3000](http://localhost:3000) (override with `APP_PORT` in `.env`). Timeline data in `static/` is mounted into the container.
 
 Production releases are triggered by pushing a version tag. The [deploy workflow](.github/workflows/deploy.yaml) bumps the version, builds and pushes the Docker image to GHCR, redeploys via `docker compose`, then creates a GitHub Release and a Sentry release.
+
+## TODO
+
+Future UX improvements to tackle:
+
+### Geological periods rename + uncertainty spans
+
+Two-phase work; Phase 1 ships independently for naming clarity. Full spec: [docs/plans/geological-periods-and-uncertainty-spans.md](docs/plans/geological-periods-and-uncertainty-spans.md).
+
+- [ ] **Phase 1 — Rename to “geological periods”** — Full rename across types, files, store, UI, and DOM attributes. No behavior change beyond `localStorage` key migration (`showPeriods` → `showGeologicalPeriods`).
+  - `Period` → `GeologicalPeriod`; `PeriodCard` → `GeologicalPeriodCard`; `PeriodPopover` → `GeologicalPeriodPopover`; `periodLayout.ts` → `geologicalPeriodLayout.ts`
+  - `data-period-card` → `data-geological-period-card`; `data-period-popover` → `data-geological-period-popover`
+  - UI labels: “Geological periods” / “Périodes géologiques”
+  - Keep `static/periods.jsonc` filename and fetch URL unchanged
+- [ ] **Phase 2 — Zoom-dependent event uncertainty spans** — When `dateUncertainty` is visually meaningful at the current zoom, render an event as a horizontal span in the **events zone** (lower band); otherwise keep the point marker + card.
+  - Add `eventUncertainty.ts`: `getEventDateRange`, pixel-width threshold with hysteresis (enter span ≥ 12 px, exit < 8 px)
+  - Split `Content.svelte` into geological periods zone (top 50%) + events zone (bottom 50%)
+  - New `EventSpanCard.svelte` in the events zone; shared `spanPosition.ts` with `GeologicalPeriodCard`
+  - Range-overlap visibility filter (not point-date only); `formatDateRange` / `formatDateWithUncertainty` in `formatters.ts`
+  - Extend `Event` type with optional `color` + `getEventColor()` fallback (no bulk `events.jsonc` changes yet)
+  - Data files stay separate (`events.jsonc` / `periods.jsonc`)
+
+**Follow-ups (out of scope for Phase 2):** lane stacking for overlapping event spans/cards; populating `color` in `events.jsonc`; geological period uncertainty rendering (`startUncertainty` / `endUncertainty`).
+
+### Other improvements
+
+- [ ] **Timeline navigator** — Dedicated strip (~48–56px) between `TimelineZone` and the footer, outside `pan-container`. **Horizontal** layout, same axis as the main timeline (Big Bang left, today right): upper row is a linear track with a scrollbar-style thumb (**position** = viewport center year; **fixed minimum width**, not proportional span); lower row shows the formatted center date centered under the thumb (edge-clamped), plus zoom tier label from `tierId` in `src/lib/constants/zoom.ts`. Draggable thumb for coarse navigation; label updates live while panning.
+- [ ] **(Optional) Merge content and timeline** — Reclaim vertical space for the navigator by combining `Content` and `TimelineZone` into one canvas: the current timeline (ticks and date labels) becomes the **background** of the events zone; event cards sit above it. Geological periods stay in the upper band.
+- [ ] **Shareable URLs** — Encode viewport state in the query string (e.g. `?at=-4540000000&zoom=8`) so users can link directly to a date and zoom level.
+- [ ] **Images in detail views** — Show event/geological-period images in expanded states (`EventCard`, `GeologicalPeriodPopover`); image paths already exist in `static/events.jsonc` and `static/periods.jsonc`.
+- [ ] **Date ranges for geological periods** — Display geological period start–end dates (with uncertainty when relevant) in detail views, matching how event cards already show `formatDate(event.date)`.
