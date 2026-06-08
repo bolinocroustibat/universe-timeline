@@ -31,16 +31,16 @@ function toggleGeologicalPeriods() {
 
 <div class="flex items-end gap-3 sm:gap-4">
 	<ToggleSwitch
-		label={labels.events[$currentLocale]}
-		checked={$displaySettings.showEvents}
-		onToggle={toggleEvents}
-		ariaLabel="Toggle events display"
-	/>
-	<ToggleSwitch
 		label={labels.geologicalPeriods[$currentLocale]}
 		checked={$displaySettings.showGeologicalPeriods}
 		onToggle={toggleGeologicalPeriods}
 		ariaLabel="Toggle geological periods display"
+	/>
+	<ToggleSwitch
+		label={labels.events[$currentLocale]}
+		checked={$displaySettings.showEvents}
+		onToggle={toggleEvents}
+		ariaLabel="Toggle events display"
 	/>
 	<ToggleSwitch
 		label={labels.darkMode[$currentLocale]}
