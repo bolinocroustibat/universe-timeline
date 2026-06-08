@@ -37,5 +37,6 @@ services:
     volumes:
       - ./static:/app/static
     environment:
-      - VITE_ENV=${VITE_ENV}
+      - PUBLIC_ENV=${PUBLIC_ENV:-production}
+      - PUBLIC_SENTRY_DSN=${PUBLIC_SENTRY_DSN}
       - PUBLIC_DEBUG=${PUBLIC_DEBUG:-false}
