@@ -89,9 +89,7 @@ export function hasVisibleDescendants(
 	visiblePeriods: Period[],
 	byId: Map<number, Period>,
 ): boolean {
-	return visiblePeriods.some((period) =>
-		isDescendantOf(period, periodId, byId),
-	)
+	return visiblePeriods.some((period) => isDescendantOf(period, periodId, byId))
 }
 
 export function getNormalPeriodGeometry(
@@ -182,11 +180,7 @@ export function buildVisiblePeriodLayouts(
 			depth,
 			leftPeriod: left,
 			rightPeriod: right,
-			hasVisibleDescendants: hasVisibleDescendants(
-				period.id,
-				visible,
-				byId,
-			),
+			hasVisibleDescendants: hasVisibleDescendants(period.id, visible, byId),
 		}
 	})
 }
