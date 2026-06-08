@@ -22,6 +22,57 @@ export type PeriodCardGeometry = {
 const Z_INDEX_SELECTED = 1000
 const Z_INDEX_BASE = 100
 
+export const PERIOD_SELECTED_SCALE = 1.07
+
+export type PeriodSelectionTransform = {
+	scaleX: number
+	scaleY: number
+	translateY: number
+}
+
+export function getPeriodSelectionTransform({
+	zoneHeight,
+	cardHeight,
+	bottom,
+	isSelected,
+}: {
+	zoneHeight: number
+	cardHeight: number
+	bottom: number
+	isSelected: boolean
+}): PeriodSelectionTransform {
+	if (!isSelected || zoneHeight <= 0 || cardHeight <= 0) {
+		return { scaleX: 1, scaleY: 1, translateY: 0 }
+	}
+
+	const topGap = zoneHeight - bottom - cardHeight
+	const bottomGap = bottom
+
+	if (topGap <= 0 && bottomGap <= 0) {
+		return {
+			scaleX: PERIOD_SELECTED_SCALE,
+			scaleY: 1,
+			translateY: 0,
+		}
+	}
+
+	const overflow = (cardHeight * (PERIOD_SELECTED_SCALE - 1)) / 2
+	let translateY = 0
+
+	if (topGap < overflow) {
+		translateY += overflow - topGap
+	}
+	if (bottomGap < overflow) {
+		translateY -= overflow - bottomGap
+	}
+
+	return {
+		scaleX: PERIOD_SELECTED_SCALE,
+		scaleY: PERIOD_SELECTED_SCALE,
+		translateY,
+	}
+}
+
 export function getPeriodDepth(
 	period: Period,
 	byId: Map<number, Period>,

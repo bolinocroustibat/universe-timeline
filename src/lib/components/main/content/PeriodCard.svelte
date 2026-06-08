@@ -3,11 +3,10 @@ import { currentLocale } from "$lib/stores/localeStore"
 import { blendColors } from "$lib/utils/colors"
 import {
 	getPeriodCardGeometry,
+	getPeriodSelectionTransform,
 	type PeriodWithLayout,
 } from "$lib/utils/periodLayout"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
-
-const SELECTED_SCALE = 1.07
 
 interface Props {
 	layout: PeriodWithLayout
@@ -85,7 +84,15 @@ const cardGeometry = $derived(
 )
 
 const isSelected = $derived(isTopCard)
-const selectedScale = $derived(isSelected ? SELECTED_SCALE : 1)
+
+const selectionTransform = $derived(
+	getPeriodSelectionTransform({
+		zoneHeight,
+		cardHeight: cardGeometry.height,
+		bottom: cardGeometry.bottom,
+		isSelected,
+	}),
+)
 
 const HORIZONTAL_PADDING = 32
 const CHAR_WIDTH = 7.5
@@ -125,10 +132,10 @@ const showDescription = $derived(
 			class="h-full w-full origin-center transition-transform duration-200 ease-out motion-reduce:transition-none backdrop-blur-sm flex items-center justify-center px-2 font-medium shadow-sm overflow-hidden"
 			class:shadow-lg={isSelected}
 			class:shadow-md={!isSelected}
-			class:rounded-[4px]={isSelected}
+			class:rounded-[5px]={isSelected}
 			class:border-2={isSelected}
 			class:border-selection-outline={isSelected}
-			style="transform: scale({selectedScale}); {gradientBackground()}; color: var(--theme-on-media);"
+			style="transform: translateY({selectionTransform.translateY}px) scale({selectionTransform.scaleX}, {selectionTransform.scaleY}); {gradientBackground()}; color: var(--theme-on-media);"
 		>
 			{#if titleFits}
 				<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
