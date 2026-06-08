@@ -12,3 +12,12 @@ export const TIMELINE_MINOR_TICK_BOTTOM_GAP_PX = 6
 
 /** Gap between event marker tips and the top of the label band (px). */
 export const EVENT_MARKER_LABEL_BAND_GAP_PX = 8
+
+/** Total height of the timeline navigator strip below the content area (px). */
+export const TIMELINE_NAVIGATOR_HEIGHT_PX = 100
+
+/** Major tick interval on the navigator track — billions of years. */
+export const TIMELINE_NAVIGATOR_MAJOR_TICK_INTERVAL = 1_000_000_000
+
+/** Minor tick interval on the navigator track — hundred-million years. */
+export const TIMELINE_NAVIGATOR_MINOR_TICK_INTERVAL = 100_000_000

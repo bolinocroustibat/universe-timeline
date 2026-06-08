@@ -16,6 +16,10 @@ interface Props {
 	centerYear: number
 	isPastPresent: boolean
 	isBeforeStart: boolean
+	thumbCenterX: number
+	thumbLeftX: number
+	thumbWidth: number
+	centerTimelinePercent: number
 }
 
 let {
@@ -31,6 +35,10 @@ let {
 	centerYear,
 	isPastPresent,
 	isBeforeStart,
+	thumbCenterX,
+	thumbLeftX,
+	thumbWidth,
+	centerTimelinePercent,
 }: Props = $props()
 
 const minorLabelSpacingPx = $derived(
@@ -85,6 +93,15 @@ function closeDebugInfo() {
 			<div>Minor: {formatLargeNumber(minorTickInterval, $currentLocale)} years</div>
 			<div>Minor spacing: {minorLabelSpacingPx.toFixed(1)}px</div>
 			<div>Minor labels: {showMinorLabels ? "ON" : "OFF"} (min {MIN_MINOR_LABEL_SPACING_PX}px)</div>
+		</div>
+
+		<!-- Navigator Information -->
+		<div class="space-y-1">
+			<div class="text-accent font-semibold border-b border-border pb-1">Navigator</div>
+			<div>Thumb center: {thumbCenterX.toFixed(1)}px</div>
+			<div>Thumb left: {thumbLeftX.toFixed(1)}px</div>
+			<div>Thumb width: {thumbWidth}px</div>
+			<div>Center on axis: {centerTimelinePercent.toFixed(1)}%</div>
 		</div>
 
 		<!-- Technical Details -->

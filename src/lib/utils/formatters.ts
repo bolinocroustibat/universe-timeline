@@ -134,6 +134,54 @@ export function formatDate(
 	return baseString
 }
 
+const ZOOM_TIER_LABELS: Record<
+	string,
+	Record<SupportedLocales, string>
+> = {
+	universe: {
+		en: "Universe scale",
+		fr: "Échelle univers",
+	},
+	"hundred-million": {
+		en: "100 million years",
+		fr: "100 millions d'années",
+	},
+	"ten-million": {
+		en: "10 million years",
+		fr: "10 millions d'années",
+	},
+	million: {
+		en: "1 million years",
+		fr: "1 million d'années",
+	},
+	"hundred-thousand": {
+		en: "100 thousand years",
+		fr: "100 mille ans",
+	},
+	"ten-thousand": {
+		en: "10 thousand years",
+		fr: "10 mille ans",
+	},
+	thousand: {
+		en: "1 thousand years",
+		fr: "1 mille ans",
+	},
+	century: {
+		en: "Century scale",
+		fr: "Échelle centenaire",
+	},
+}
+
+/**
+ * Returns a localized human-readable label for a zoom tier id.
+ */
+export function formatZoomTierLabel(
+	tierId: string,
+	locale: SupportedLocales = "en",
+): string {
+	return ZOOM_TIER_LABELS[tierId]?.[locale] ?? tierId
+}
+
 /**
  * Formats a year into a century representation with BC/AD suffix
  * @param year - The year to format (negative for BC, positive for AD)
