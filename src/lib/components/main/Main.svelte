@@ -8,6 +8,7 @@ import DebugInfo from "$lib/components/main/DebugInfo.svelte"
 import TimelineZone from "$lib/components/main/TimelineZone.svelte"
 import { MAX_ZOOM_LEVEL, TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
+import { POINTER_DRAG_THRESHOLD_PX } from "$lib/utils/pointerClickOrDrag"
 import {
 	screenToTimelinePanDelta,
 	screenToTimelineX,
@@ -16,10 +17,12 @@ import {
 } from "$lib/utils/timelineCoordinates"
 
 let containerElement: HTMLDivElement | undefined = $state()
+let contentInstance: { deselectCards: () => void } | undefined = $state()
 let viewportWidth = $state(0)
 let isDragging = $state(false)
 let startClientX = $state(0)
 let startClientY = $state(0)
+let pointerDownTarget: Element | null = null
 let panStartLeftEdgeYearOffset = $state(0)
 // Current position (left edge of viewport)
 let leftEdgeYearOffset = $state(0)
@@ -59,8 +62,19 @@ function handleDragMove(e: PointerEvent) {
 	applyPanFromScreenDelta(deltaX)
 }
 
+function isCardTarget(target: Element | null): boolean {
+	return (
+		!!target?.closest("[data-event-card]") ||
+		!!target?.closest("[data-period-card]")
+	)
+}
+
 function stopDragging(e: PointerEvent) {
 	if (!isDragging || !containerElement) return
+
+	const moved = Math.hypot(e.clientX - startClientX, e.clientY - startClientY)
+	const tapTarget = pointerDownTarget
+	pointerDownTarget = null
 
 	isDragging = false
 	window.removeEventListener("pointermove", handleDragMove)
@@ -71,6 +85,10 @@ function stopDragging(e: PointerEvent) {
 		containerElement.releasePointerCapture(e.pointerId)
 	}
 	containerElement.style.cursor = "grab"
+
+	if (moved <= POINTER_DRAG_THRESHOLD_PX && !isCardTarget(tapTarget)) {
+		contentInstance?.deselectCards()
+	}
 }
 
 // Track scroll position and viewport width
@@ -149,6 +167,7 @@ let rightEdgeYear = $derived(
 function handlePointerDown(e: PointerEvent) {
 	if (!containerElement || e.button !== 0) return
 
+	pointerDownTarget = e.target as Element
 	isDragging = true
 	startClientX = e.clientX
 	startClientY = e.clientY
@@ -349,7 +368,8 @@ function stopPanning() {
 		onpointercancel={handlePointerCancel}
 		class="pan-container flex-1 w-full flex flex-col overflow-hidden cursor-grab select-none relative"
 	>
-		<Content 
+		<Content
+			bind:this={contentInstance}
 			{viewportWidth}
 			{yearsPerPixel}
 			{leftEdgeYear}

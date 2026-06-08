@@ -93,30 +93,14 @@ function handleEventHover(eventId: number | null) {
 }
 
 function handlePeriodClick(periodId: number) {
-	if (topCardType === "period" && topCardPeriodId === periodId) {
-		handleCardDeselect()
-		return
-	}
-
 	topCardType = "period"
 	topCardPeriodId = periodId
 }
 
-function handleCardDeselect() {
+export function deselectCards() {
 	topCardType = null
 	topCardEventId = null
 	topCardPeriodId = null
-}
-
-function handleContentClick(e: MouseEvent) {
-	const target = e.target as Element
-	if (
-		target.closest("[data-event-card]") ||
-		target.closest("[data-period-card]")
-	) {
-		return
-	}
-	handleCardDeselect()
 }
 
 const messages = {
@@ -135,10 +119,8 @@ const messages = {
 }
 </script>
 
-<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 <div
 	class="w-full flex-[4] bg-background border-b border-border overflow-hidden relative"
-	onclick={handleContentClick}
 >
 	{#if isLoading}
 		<div class="absolute inset-0 flex items-center justify-center">
