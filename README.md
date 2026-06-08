@@ -79,4 +79,4 @@ docker compose up --build
 
 The app is available at [http://localhost:3000](http://localhost:3000) (override with `APP_PORT` in `.env`). Timeline data in `static/` is mounted into the container.
 
-Production releases are triggered by pushing a version tag. The [deploy workflow](.github/workflows/deploy.yaml) bumps the version, builds and pushes the Docker image to GHCR, redeploys via `docker compose`, and creates a Sentry release.
+Production releases are triggered by pushing a version tag. The [deploy workflow](.github/workflows/deploy.yaml) bumps the version, builds and pushes the Docker image to GHCR, redeploys via `docker compose`, then creates a GitHub Release and a Sentry release.

@@ -5,6 +5,9 @@ on:
     tags:
       - '*'
 
+permissions:
+  contents: write
+
 jobs:
   bump-version:
     name: Bump version to ${{ github.ref_name }}
@@ -101,6 +104,22 @@ jobs:
               docker compose logs
               exit 1
             fi
+
+  create-github-release:
+    name: Create GitHub release ${{ github.ref_name }}
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: success()  # Only create GitHub release if deployment succeeded
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          generate_release_notes: true
 
   create-sentry-release:
     name: Create Sentry release ${{ github.ref_name }}
