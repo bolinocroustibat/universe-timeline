@@ -1,5 +1,5 @@
 # Build stage
-FROM oven/bun:latest as builder
+FROM oven/bun:slim AS builder
 WORKDIR /app
 
 # Copy package files
@@ -15,15 +15,15 @@ COPY . .
 RUN bun run build
 
 # Production stage
-FROM oven/bun:latest
+FROM oven/bun:slim
 WORKDIR /app
 
-# Copy built assets and dependencies
+# Copy built assets and production dependencies
 COPY --from=builder /app/build ./
 COPY --from=builder /app/package.json /app/bun.lock ./
-COPY --from=builder /app/node_modules ./node_modules
+RUN bun install --frozen-lockfile --production
 
-# Create volume mount point for SQLite database
+# Volume mount point for static timeline data
 VOLUME /app/static
 
 # Expose the application port
