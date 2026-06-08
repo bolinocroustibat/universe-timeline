@@ -14,18 +14,7 @@ An interactive web application for exploring and visualizing the complete histor
 
 ## 🔧 Environment Variables
 
-Copy `.env.example` to `.env` and adjust values as needed:
-
-```env
-# Host port for Docker (default: 3000)
-APP_PORT=3000
-
-# Environment (development, production, etc.)
-VITE_ENV=development
-
-# Enable debug mode (true/false)
-PUBLIC_DEBUG=false
-```
+Copy [`.env.example`](.env.example) to `.env` and adjust values as needed.
 
 ## 🤖 Coding modern Svelte with AI assistants like Cursor
 
