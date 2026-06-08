@@ -1,6 +1,6 @@
 # Timeline as content background
 
-Implementation plan for README UX **#1**. Prerequisite for UX **#2** (uncertainty spans) and UX **#6** (timeline navigator).
+Implementation plan for README UX **#1**. Prerequisite for UX **#2** (timeline navigator) and UX **#3** (uncertainty spans).
 
 ## Goal
 
@@ -78,7 +78,7 @@ Not required for v1. Optional later: slight opacity on geological period and eve
 └─────────────────────────────┘
         ↓ freed vertical space (flex ratio)
 ┌─────────────────────────────┐
-│  Navigator strip (UX #6)    │  future, below pan-container
+│  Navigator strip (UX #2)    │  future, below pan-container
 └─────────────────────────────┘
 ```
 
@@ -97,7 +97,7 @@ Not required for v1. Optional later: slight opacity on geological period and eve
    - Events: position cards/markers with `bottom >= TIMELINE_LABEL_BAND_HEIGHT_PX` (events zone sits between geological band and label band).
 7. **Revisit empty/hidden states** so they do not cover the label band.
 
-## Impact on UX #2
+## Impact on UX #3
 
 When implementing uncertainty spans, the events zone split is **above the label band**, not the full container height. Update [`geological-periods-and-uncertainty-spans.md`](geological-periods-and-uncertainty-spans.md) zone math accordingly.
 
@@ -106,4 +106,4 @@ When implementing uncertainty spans, the events zone split is **above the label 
 - `bun run check` and `bun run build` pass
 - Pan, zoom, and tick alignment behave identically to today
 - Date labels remain visible with geological periods and events at maximum density
-- Vertical space previously occupied by the dedicated timeline strip is reclaimed inside the content flex area (ready for UX #6 navigator below)
+- Vertical space previously occupied by the dedicated timeline strip is reclaimed inside the content flex area (ready for UX #2 navigator below)
