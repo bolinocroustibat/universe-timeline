@@ -134,10 +134,7 @@ export function formatDate(
 	return baseString
 }
 
-const ZOOM_TIER_LABELS: Record<
-	string,
-	Record<SupportedLocales, string>
-> = {
+const ZOOM_TIER_LABELS: Record<string, Record<SupportedLocales, string>> = {
 	universe: {
 		en: "Universe scale",
 		fr: "Échelle univers",

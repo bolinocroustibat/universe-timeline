@@ -6,11 +6,7 @@ import RightArrow from "$lib/components/main/ArrowRight.svelte"
 import Content from "$lib/components/main/content/Content.svelte"
 import DebugInfo from "$lib/components/main/DebugInfo.svelte"
 import TimelineNavigator from "$lib/components/main/TimelineNavigator.svelte"
-import {
-	MAX_ZOOM_LEVEL,
-	TIME_CONSTANTS,
-	ZOOM_SCALES,
-} from "$lib/constants"
+import { MAX_ZOOM_LEVEL, TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
 import { zoomLevel } from "$lib/stores/zoomStore"
 import { POINTER_DRAG_THRESHOLD_PX } from "$lib/utils/pointerClickOrDrag"
 import {
@@ -176,11 +172,7 @@ let rightEdgeYear = $derived(
 
 let navigatorTotalSpan = $derived(getTimelineTotalSpan())
 let navigatorThumbGeometry = $derived(
-	computeNavigatorThumb(
-		leftEdgeYear,
-		rightEdgeYear,
-		navigatorTrackWidth,
-	),
+	computeNavigatorThumb(leftEdgeYear, rightEdgeYear, navigatorTrackWidth),
 )
 let centerTimelinePercent = $derived(
 	navigatorTotalSpan > 0
@@ -279,11 +271,7 @@ function navigateToCenterYear(targetCenterYear: number) {
 
 function navigateToLeftEdgeYear(targetLeftEdgeYear: number) {
 	const offset = targetLeftEdgeYear - TIME_CONSTANTS.START_YEAR
-	leftEdgeYearOffset = clampLeftEdgeOffset(
-		offset,
-		viewportWidth,
-		yearsPerPixel,
-	)
+	leftEdgeYearOffset = clampLeftEdgeOffset(offset, viewportWidth, yearsPerPixel)
 }
 
 // Function to perform centered zooming

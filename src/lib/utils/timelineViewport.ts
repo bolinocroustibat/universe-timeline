@@ -24,9 +24,7 @@ export function computeCenteredLeftEdgeOffset(
 	yearsPerPixel: number,
 ): number {
 	const offset =
-		centerYear -
-		TIME_CONSTANTS.START_YEAR -
-		(viewportWidth * yearsPerPixel) / 2
+		centerYear - TIME_CONSTANTS.START_YEAR - (viewportWidth * yearsPerPixel) / 2
 
 	return clampLeftEdgeOffset(offset, viewportWidth, yearsPerPixel)
 }
