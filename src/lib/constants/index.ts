@@ -1,3 +1,4 @@
+export { SITE_DESCRIPTION, SITE_TITLE } from "./site"
 export {
 	FORCED_LANDSCAPE_MEDIA,
 	isForcedLandscape,
