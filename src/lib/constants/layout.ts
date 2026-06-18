@@ -16,8 +16,14 @@ export const EVENT_MARKER_LABEL_BAND_GAP_PX = 8
 /** Total height of the timeline navigator strip below the content area (px). */
 export const TIMELINE_NAVIGATOR_HEIGHT_PX = 100
 
+/** Share of navigator height used by the draggable thumb (0–1). */
+export const TIMELINE_NAVIGATOR_THUMB_HEIGHT_RATIO = 2 / 3
+
 /** Major tick interval on the navigator track — billions of years. */
 export const TIMELINE_NAVIGATOR_MAJOR_TICK_INTERVAL = 1_000_000_000
 
 /** Minor tick interval on the navigator track — hundred-million years. */
 export const TIMELINE_NAVIGATOR_MINOR_TICK_INTERVAL = 100_000_000
+
+/** Display size of milestone icons on the navigator track (px). */
+export const NAVIGATOR_MILESTONE_ICON_SIZE_PX = 48

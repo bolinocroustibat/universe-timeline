@@ -1,4 +1,6 @@
-import { TIME_CONSTANTS } from "$lib/constants"
+import { NAVIGATOR_MILESTONES, TIME_CONSTANTS } from "$lib/constants"
+import type { NavigatorMilestone } from "$lib/constants/navigatorMilestones"
+import type { TimelineTick } from "$lib/types"
 
 export interface NavigatorThumbGeometry {
 	leftX: number
@@ -74,13 +76,13 @@ export function buildNavigatorTickPositions(
 	trackWidth: number,
 	majorInterval: number,
 	minorInterval: number,
-): { major: number[]; minor: number[] } {
+): { major: TimelineTick[]; minor: TimelineTick[] } {
 	if (trackWidth <= 0 || majorInterval <= 0 || minorInterval <= 0) {
 		return { major: [], minor: [] }
 	}
 
-	const major: number[] = []
-	const minor: number[] = []
+	const major: TimelineTick[] = []
+	const minor: TimelineTick[] = []
 
 	const startMajorTick = Math.floor(TIME_CONSTANTS.START_YEAR / majorInterval)
 	const endMajorTick = Math.ceil(TIME_CONSTANTS.END_YEAR / majorInterval)
@@ -88,7 +90,10 @@ export function buildNavigatorTickPositions(
 	for (let tickIndex = startMajorTick; tickIndex <= endMajorTick; tickIndex++) {
 		const year = tickIndex * majorInterval
 		if (year >= TIME_CONSTANTS.START_YEAR && year <= TIME_CONSTANTS.END_YEAR) {
-			major.push(yearToTrackX(year, trackWidth))
+			major.push({
+				year,
+				position: yearToTrackX(year, trackWidth),
+			})
 		}
 	}
 
@@ -102,9 +107,28 @@ export function buildNavigatorTickPositions(
 			year <= TIME_CONSTANTS.END_YEAR &&
 			year % majorInterval !== 0
 		) {
-			minor.push(yearToTrackX(year, trackWidth))
+			minor.push({
+				year,
+				position: yearToTrackX(year, trackWidth),
+			})
 		}
 	}
 
 	return { major, minor }
+}
+
+export interface NavigatorMilestonePosition {
+	milestone: NavigatorMilestone
+	centerX: number
+}
+
+export function buildNavigatorMilestonePositions(
+	trackWidth: number,
+): NavigatorMilestonePosition[] {
+	if (trackWidth <= 0) return []
+
+	return NAVIGATOR_MILESTONES.map((milestone) => ({
+		milestone,
+		centerX: yearToTrackX(milestone.year, trackWidth),
+	}))
 }

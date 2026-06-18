@@ -1,12 +1,18 @@
 <script lang="ts">
 import {
+	NAVIGATOR_MILESTONE_ICON_SIZE_PX,
+	TIMELINE_MINOR_TICK_BOTTOM_GAP_PX,
 	TIMELINE_NAVIGATOR_HEIGHT_PX,
 	TIMELINE_NAVIGATOR_MAJOR_TICK_INTERVAL,
 	TIMELINE_NAVIGATOR_MINOR_TICK_INTERVAL,
+	TIMELINE_NAVIGATOR_THUMB_HEIGHT_RATIO,
 } from "$lib/constants"
+import { currentLocale } from "$lib/stores/localeStore"
 import { POINTER_DRAG_THRESHOLD_PX } from "$lib/utils/pointerClickOrDrag"
+import { formatDate } from "$lib/utils/formatters"
 import { screenToTimelineX } from "$lib/utils/timelineCoordinates"
 import {
+	buildNavigatorMilestonePositions,
 	buildNavigatorTickPositions,
 	computeNavigatorThumb,
 	trackXToYear,
@@ -30,7 +36,8 @@ let {
 	onTrackWidthChange,
 }: Props = $props()
 
-const thumbHeightPx = TIMELINE_NAVIGATOR_HEIGHT_PX * (2 / 3)
+const thumbHeightPx = TIMELINE_NAVIGATOR_HEIGHT_PX * TIMELINE_NAVIGATOR_THUMB_HEIGHT_RATIO
+const milestoneCenterYPx = $derived(thumbHeightPx / 2)
 
 let trackElement: HTMLDivElement | undefined = $state()
 let trackWidth = $state(0)
@@ -50,6 +57,7 @@ let navigatorTicks = $derived(
 		TIMELINE_NAVIGATOR_MINOR_TICK_INTERVAL,
 	),
 )
+let navigatorMilestones = $derived(buildNavigatorMilestonePositions(trackWidth))
 
 function updateTrackWidth() {
 	if (!trackElement) return
@@ -175,19 +183,29 @@ $effect(() => {
 	style:height="{TIMELINE_NAVIGATOR_HEIGHT_PX}px"
 	onpointerdown={handleTrackPointerDown}
 >
-	<div class="pointer-events-none absolute inset-0">
-		{#each navigatorTicks.minor as tickX (tickX)}
+	<div
+		class="pointer-events-none absolute inset-0 overflow-hidden text-xs"
+		style="--label-band-height: calc(1em + 4px)"
+	>
+		{#each navigatorTicks.minor as tick (tick.year)}
 			<div
-				class="absolute bottom-0 w-px bg-tick/50"
-				style:height="45%"
-				style:transform="translateX({tickX}px)"
+				class="absolute top-0 w-px bg-tick/70"
+				style="transform: translateX({tick.position}px); height: calc(100% - var(--label-band-height) - {TIMELINE_MINOR_TICK_BOTTOM_GAP_PX}px);"
 			></div>
 		{/each}
-		{#each navigatorTicks.major as tickX (tickX)}
+
+		{#each navigatorTicks.major as tick (tick.year)}
 			<div
-				class="absolute inset-y-0 w-px bg-tick"
-				style:transform="translateX({tickX}px)"
+				class="absolute top-0 w-px bg-tick"
+				style="transform: translateX({tick.position}px); bottom: var(--label-band-height);"
 			></div>
+			<div
+				class="absolute -translate-x-1/2 text-xs leading-none text-muted text-center whitespace-nowrap"
+				style:left="{tick.position}px"
+				style:bottom="0"
+			>
+				{formatDate(tick.year, $currentLocale, false)}
+			</div>
 		{/each}
 	</div>
 
@@ -205,4 +223,19 @@ $effect(() => {
 		aria-valuenow={centerYear}
 		onpointerdown={handleThumbPointerDown}
 	></div>
+
+	<div class="pointer-events-none absolute inset-0 z-20 overflow-hidden">
+		{#each navigatorMilestones as { milestone, centerX } (milestone.id)}
+			<img
+				src={milestone.icon}
+				alt={milestone.label[$currentLocale]}
+				class="absolute object-contain"
+				style:left="{centerX}px"
+				style:top="{milestoneCenterYPx}px"
+				style:width="{NAVIGATOR_MILESTONE_ICON_SIZE_PX}px"
+				style:height="{NAVIGATOR_MILESTONE_ICON_SIZE_PX}px"
+				style:transform="translate(-50%, -50%)"
+			/>
+		{/each}
+	</div>
 </div>
