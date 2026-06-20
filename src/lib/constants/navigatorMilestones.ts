@@ -1,5 +1,5 @@
-import { TIME_CONSTANTS } from "./timeline"
 import type { LocalizedText } from "$lib/types"
+import { TIME_CONSTANTS } from "./timeline"
 
 export interface NavigatorMilestone {
 	id: string

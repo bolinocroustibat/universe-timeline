@@ -8,8 +8,8 @@ import {
 	TIMELINE_NAVIGATOR_THUMB_HEIGHT_RATIO,
 } from "$lib/constants"
 import { currentLocale } from "$lib/stores/localeStore"
-import { POINTER_DRAG_THRESHOLD_PX } from "$lib/utils/pointerClickOrDrag"
 import { formatDate } from "$lib/utils/formatters"
+import { POINTER_DRAG_THRESHOLD_PX } from "$lib/utils/pointerClickOrDrag"
 import { screenToTimelineX } from "$lib/utils/timelineCoordinates"
 import {
 	buildNavigatorMilestonePositions,
@@ -36,7 +36,8 @@ let {
 	onTrackWidthChange,
 }: Props = $props()
 
-const thumbHeightPx = TIMELINE_NAVIGATOR_HEIGHT_PX * TIMELINE_NAVIGATOR_THUMB_HEIGHT_RATIO
+const thumbHeightPx =
+	TIMELINE_NAVIGATOR_HEIGHT_PX * TIMELINE_NAVIGATOR_THUMB_HEIGHT_RATIO
 const milestoneCenterYPx = $derived(thumbHeightPx / 2)
 
 let trackElement: HTMLDivElement | undefined = $state()
