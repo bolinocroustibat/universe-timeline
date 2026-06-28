@@ -40,7 +40,7 @@ function sliderTickPosition(level: number): string {
 <div class="flex items-center gap-3">
 	<button
 		onclick={decreaseZoom}
-		class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-border text-muted hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+		class="w-8 h-8 flex items-center justify-center rounded-full cursor-pointer hover:bg-border text-muted hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
 		disabled={$zoomLevel <= 1}
 		aria-label="Zoom out"
 	>
@@ -77,7 +77,7 @@ function sliderTickPosition(level: number): string {
 
 	<button
 		onclick={increaseZoom}
-		class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-border text-muted hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+		class="w-8 h-8 flex items-center justify-center rounded-full cursor-pointer hover:bg-border text-muted hover:text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
 		disabled={$zoomLevel >= MAX_ZOOM_LEVEL}
 		aria-label="Zoom in"
 	>

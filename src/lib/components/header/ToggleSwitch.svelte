@@ -16,7 +16,7 @@ let { label, checked, ariaLabel, onToggle }: Props = $props()
 	</label>
 	<button
 		onclick={onToggle}
-		class="relative inline-flex h-3 w-6 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-offset-1 focus:ring-offset-surface {checked ? 'bg-accent' : 'bg-border'}"
+		class="relative inline-flex h-3 w-6 items-center rounded-full cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-offset-1 focus:ring-offset-surface {checked ? 'bg-accent' : 'bg-border'}"
 		role="switch"
 		aria-checked={checked}
 		aria-label={ariaLabel}

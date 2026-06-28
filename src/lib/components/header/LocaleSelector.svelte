@@ -38,7 +38,7 @@ onMount(() => {
 	<!-- Locale Button -->
 	<button
 		onclick={toggleDropdown}
-		class="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-muted hover:text-foreground hover:bg-border rounded-md transition-colors duration-200"
+		class="flex items-center space-x-2 px-3 py-2 text-sm font-medium cursor-pointer text-muted hover:text-foreground hover:bg-border rounded-md transition-colors duration-200"
 		aria-label="Select locale"
 	>
 		<span>{getLocaleName($currentLocale)}</span>
@@ -61,7 +61,7 @@ onMount(() => {
 				{#each locales as locale}
 					<button
 						onclick={() => selectLocale(locale)}
-						class="w-full flex items-center justify-between px-4 py-2 text-sm text-muted hover:text-foreground hover:bg-border transition-colors duration-200 {locale === $currentLocale ? 'bg-border text-foreground' : ''}"
+						class="w-full flex items-center justify-between px-4 py-2 text-sm cursor-pointer text-muted hover:text-foreground hover:bg-border transition-colors duration-200 {locale === $currentLocale ? 'bg-border text-foreground' : ''}"
 						aria-label="Switch to {getLocaleName(locale)}"
 					>
 						<span>{getLocaleName(locale)}</span>
