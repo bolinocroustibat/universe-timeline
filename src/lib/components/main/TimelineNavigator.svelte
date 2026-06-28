@@ -90,6 +90,7 @@ function handleThumbPointerDown(e: PointerEvent) {
 	isDraggingThumb = true
 	grabOffsetX = getPointerTrackX(e.clientX, e.clientY) - thumbGeometry.leftX
 	trackElement.setPointerCapture(e.pointerId)
+	trackElement.style.cursor = "grabbing"
 
 	window.addEventListener("pointermove", handleThumbPointerMove, {
 		passive: false,
@@ -123,6 +124,7 @@ function handleThumbPointerUp(e: PointerEvent) {
 	if (trackElement.hasPointerCapture(e.pointerId)) {
 		trackElement.releasePointerCapture(e.pointerId)
 	}
+	trackElement.style.cursor = ""
 }
 
 function handleTrackPointerDown(e: PointerEvent) {
@@ -212,9 +214,7 @@ $effect(() => {
 
 	<div
 		data-navigator-thumb
-		class="absolute top-0 z-10 rounded border border-accent bg-black/25 {isDraggingThumb
-			? 'cursor-grabbing'
-			: 'cursor-grab'}"
+		class="absolute top-0 z-10 rounded border border-accent bg-black/25 cursor-grab"
 		style:left="{thumbGeometry.leftX}px"
 		style:width="{thumbGeometry.width}px"
 		style:height="{thumbHeightPx}px"
