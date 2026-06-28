@@ -5,7 +5,10 @@ from pathlib import Path
 from typing import Any
 
 # Files to process
-FILES_TO_PROCESS = [Path("static/events.json"), Path("static/periods.json")]
+FILES_TO_PROCESS = [
+	Path("static/events.jsonc"),
+	Path("static/geologicalPeriods.jsonc"),
+]
 
 
 def reorder_lang_keys(obj: dict[str, Any] | Any) -> dict[str, Any] | Any:

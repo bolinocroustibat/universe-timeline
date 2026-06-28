@@ -38,8 +38,7 @@ let events: Event[] = $state([])
 let geologicalPeriods: GeologicalPeriod[] = $state([])
 let isLoading = $state(true)
 
-// Track which card is on top (type, event id, or geological period id)
-let topCardType = $state<"event" | "geological_period" | null>(null)
+let topCardType = $state<"event" | "geologicalPeriod" | null>(null)
 let topCardEventId = $state<number | null>(null)
 let topCardGeologicalPeriodId = $state<number | null>(null)
 let hoveredCardEventId = $state<number | null>(null)
@@ -49,7 +48,7 @@ onMount(async () => {
 	try {
 		const [eventsResponse, geologicalPeriodsResponse] = await Promise.all([
 			fetch("/events.jsonc"),
-			fetch("/periods.jsonc"),
+			fetch("/geologicalPeriods.jsonc"),
 		])
 
 		if (!eventsResponse.ok) {
@@ -109,7 +108,7 @@ const visibleGeologicalPeriodLayouts = $derived(
 )
 
 const selectedGeologicalPeriodLayout = $derived(
-	topCardType === "geological_period" && topCardGeologicalPeriodId != null
+	topCardType === "geologicalPeriod" && topCardGeologicalPeriodId != null
 		? (visibleGeologicalPeriodLayouts.find(
 				(layout) => layout.id === topCardGeologicalPeriodId,
 			) ?? null)
@@ -130,7 +129,7 @@ function handleEventHover(eventId: number | null) {
 }
 
 function handleGeologicalPeriodClick(geologicalPeriodId: number) {
-	topCardType = "geological_period"
+	topCardType = "geologicalPeriod"
 	topCardGeologicalPeriodId = geologicalPeriodId
 }
 
