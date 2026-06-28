@@ -1,19 +1,16 @@
 <script lang="ts">
 interface Props {
 	disabled?: boolean
-	onMouseDown: () => void
-	onMouseUp: () => void
-	onMouseLeave: () => void
+	onPointerDown: () => void
 }
 
-let { disabled = false, onMouseDown, onMouseUp, onMouseLeave }: Props = $props()
+let { disabled = false, onPointerDown }: Props = $props()
 </script>
 
 <button
+	data-pan-arrow
 	{disabled}
-	onmousedown={onMouseDown}
-	onmouseup={onMouseUp}
-	onmouseleave={onMouseLeave}
+	onpointerdown={onPointerDown}
 	class="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-surface/90 border border-border rounded-full shadow-lg flex items-center justify-center z-[1001] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:scale-100 hover:bg-border hover:shadow-xl hover:scale-110 hover:cursor-pointer"
 	aria-label="Pan timeline left"
 >

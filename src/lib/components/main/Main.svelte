@@ -188,6 +188,7 @@ let canPanLater = $derived(
 
 function handlePointerDown(e: PointerEvent) {
 	if (!containerElement || e.button !== 0) return
+	if ((e.target as Element).closest("[data-pan-arrow]")) return
 
 	pointerDownTarget = e.target as Element
 	isDragging = true
@@ -301,7 +302,6 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 }
 
 // Arrow panning functions
-let isPanning = $state(false)
 let panInterval: ReturnType<typeof setInterval> | undefined = $state()
 
 function panEarlier() {
@@ -332,22 +332,29 @@ function panLater() {
 
 function startPanEarlier() {
 	if (!canPanEarlier) return
-	isPanning = true
+	stopPanning()
+	panEarlier()
 	panInterval = setInterval(panEarlier, 16) // ~60fps for smooth movement
+	window.addEventListener("pointerup", stopPanning)
+	window.addEventListener("pointercancel", stopPanning)
 }
 
 function startPanLater() {
 	if (!canPanLater) return
-	isPanning = true
+	stopPanning()
+	panLater()
 	panInterval = setInterval(panLater, 16) // ~60fps for smooth movement
+	window.addEventListener("pointerup", stopPanning)
+	window.addEventListener("pointercancel", stopPanning)
 }
 
 function stopPanning() {
-	isPanning = false
 	if (panInterval) {
 		clearInterval(panInterval)
 		panInterval = undefined
 	}
+	window.removeEventListener("pointerup", stopPanning)
+	window.removeEventListener("pointercancel", stopPanning)
 }
 
 function handleNavigatorTrackWidthChange(width: number) {
@@ -397,18 +404,8 @@ function handleNavigatorTrackWidthChange(width: number) {
 		/>
 
 		<!-- Navigation arrows -->
-		<LeftArrow
-			disabled={!canPanEarlier}
-			onMouseDown={startPanEarlier}
-			onMouseUp={stopPanning}
-			onMouseLeave={stopPanning}
-		/>
-		<RightArrow
-			disabled={!canPanLater}
-			onMouseDown={startPanLater}
-			onMouseUp={stopPanning}
-			onMouseLeave={stopPanning}
-		/>
+		<LeftArrow disabled={!canPanEarlier} onPointerDown={startPanEarlier} />
+		<RightArrow disabled={!canPanLater} onPointerDown={startPanLater} />
 	</div>
 
 	<TimelineNavigator
