@@ -50,8 +50,7 @@ function applyPanFromScreenDelta(deltaX: number) {
 		panStartLeftEdgeYearOffset - deltaX * yearsPerPixel
 	leftEdgeYearOffset = clampLeftEdgeOffset(
 		newLeftEdgeYearOffset,
-		viewportWidth,
-		yearsPerPixel,
+		viewportYearSpan,
 	)
 }
 
@@ -183,7 +182,7 @@ let centerTimelinePercent = $derived(
 )
 let canPanEarlier = $derived(canPanEarlierInViewport(leftEdgeYearOffset))
 let canPanLater = $derived(
-	canPanLaterInViewport(leftEdgeYearOffset, viewportWidth, yearsPerPixel),
+	canPanLaterInViewport(leftEdgeYearOffset, viewportYearSpan),
 )
 
 function handlePointerDown(e: PointerEvent) {
@@ -252,8 +251,7 @@ function handleWheel(e: WheelEvent) {
 			leftEdgeYearOffset + panLayoutDelta * yearsPerPixel
 		leftEdgeYearOffset = clampLeftEdgeOffset(
 			newLeftEdgeYearOffset,
-			viewportWidth,
-			yearsPerPixel,
+			viewportYearSpan,
 		)
 	} else if (zoomScreenDelta !== 0) {
 		const zoomDirection = zoomScreenDelta > 0 ? -1 : 1 // Positive = zoom out
@@ -273,12 +271,13 @@ function navigateToCenterYear(targetCenterYear: number) {
 		targetCenterYear,
 		viewportWidth,
 		yearsPerPixel,
+		viewportYearSpan,
 	)
 }
 
 function navigateToLeftEdgeYear(targetLeftEdgeYear: number) {
 	const offset = targetLeftEdgeYear - TIME_CONSTANTS.START_YEAR
-	leftEdgeYearOffset = clampLeftEdgeOffset(offset, viewportWidth, yearsPerPixel)
+	leftEdgeYearOffset = clampLeftEdgeOffset(offset, viewportYearSpan)
 }
 
 // Function to perform centered zooming
@@ -298,6 +297,7 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 		oldCenterYear,
 		viewportWidth,
 		newYearsPerPixel,
+		newViewportYearSpan,
 	)
 }
 
@@ -309,8 +309,7 @@ function panEarlier() {
 	const newLeftEdgeYearOffset = leftEdgeYearOffset - panDistance * yearsPerPixel
 	leftEdgeYearOffset = clampLeftEdgeOffset(
 		newLeftEdgeYearOffset,
-		viewportWidth,
-		yearsPerPixel,
+		viewportYearSpan,
 	)
 	if (!canPanEarlier) {
 		stopPanning()
@@ -322,8 +321,7 @@ function panLater() {
 	const newLeftEdgeYearOffset = leftEdgeYearOffset + panDistance * yearsPerPixel
 	leftEdgeYearOffset = clampLeftEdgeOffset(
 		newLeftEdgeYearOffset,
-		viewportWidth,
-		yearsPerPixel,
+		viewportYearSpan,
 	)
 	if (!canPanLater) {
 		stopPanning()

@@ -1,3 +1,5 @@
+import { TIME_CONSTANTS } from "./timeline"
+
 // Default zoom level
 export const DEFAULT_ZOOM_LEVEL = 1
 
@@ -19,7 +21,7 @@ type TickTier = {
 	viewportYearSpans: number[]
 }
 
-// 29 zoom levels — numeric values must match the previous flat ZOOM_SCALES array.
+// 29 zoom levels. Level 1 span is derived from TIME_CONSTANTS in buildZoomScales().
 const TICK_TIERS: TickTier[] = [
 	{
 		id: "universe",
@@ -76,8 +78,9 @@ const TICK_TIERS: TickTier[] = [
 
 function buildZoomScales(): ZoomScale[] {
 	let level = 1
+	const fullTimelineSpan = TIME_CONSTANTS.END_YEAR - TIME_CONSTANTS.START_YEAR
 
-	return TICK_TIERS.flatMap((tier) =>
+	const scales = TICK_TIERS.flatMap((tier) =>
 		tier.viewportYearSpans.map((viewportYearSpan) => ({
 			level: level++,
 			tierId: tier.id,
@@ -86,6 +89,12 @@ function buildZoomScales(): ZoomScale[] {
 			minorTickInterval: tier.minorTickInterval,
 		})),
 	)
+
+	if (scales.length > 0) {
+		scales[0].viewportYearSpan = fullTimelineSpan
+	}
+
+	return scales
 }
 
 export const ZOOM_SCALES = buildZoomScales()
