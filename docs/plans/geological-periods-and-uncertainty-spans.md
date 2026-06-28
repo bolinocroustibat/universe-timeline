@@ -2,6 +2,8 @@
 
 Implementation plan for zoom-dependent event uncertainty spans (README UX **#3**). The [README TODO](../../README.md#todo) lists a short summary; this document is the full spec.
 
+**Status:** Implemented. See [`eventLayout.ts`](../../src/lib/utils/eventLayout.ts), [`eventSpan.ts`](../../src/lib/utils/eventSpan.ts), [`spanPosition.ts`](../../src/lib/utils/spanPosition.ts), and [`EventCard.svelte`](../../src/lib/components/main/content/EventCard.svelte).
+
 **Prerequisite:** complete README UX **#1** (timeline as content background) first. Uncertainty spans and the events/geological zones should render above the shared [`TimelineGrid`](../../src/lib/components/main/content/TimelineGrid.svelte) tick layer inside `Content`.
 
 ## Architecture overview
@@ -9,7 +11,7 @@ Implementation plan for zoom-dependent event uncertainty spans (README UX **#3**
 ```mermaid
 flowchart TB
   subgraph data [Static data - unchanged filenames]
-    periodsJsonc["periods.jsonc"]
+    geologicalPeriodsJsonc["geologicalPeriods.jsonc"]
     eventsJsonc["events.jsonc"]
   end
 
@@ -25,152 +27,64 @@ flowchart TB
   end
 
   subgraph eventRender [Event rendering]
-    uncertainty["eventUncertainty.ts"]
-    pointCard["EventCard.svelte - point mode"]
-    spanCard["EventSpanCard.svelte - span mode"]
+    eventSpan["eventSpan.ts"]
+    eventLayout["eventLayout.ts"]
+    spanPosition["spanPosition.ts"]
+    eventCard["EventCard.svelte"]
   end
 
-  periodsJsonc --> geoLayout --> geoCard --> geoZone
+  geologicalPeriodsJsonc --> geoLayout --> geoCard --> geoZone
   geoCard --> geoPopover
-  eventsJsonc --> uncertainty
-  uncertainty -->|"span width >= threshold"| spanCard --> eventsZone
-  uncertainty -->|"span width < threshold"| pointCard --> eventsZone
+  eventsJsonc --> eventSpan --> eventLayout --> eventCard --> eventsZone
+  spanPosition --> geoCard
+  spanPosition --> eventLayout
 ```
 
 ---
 
-## Zoom-dependent uncertainty spans
+## Implemented behavior
 
-When `dateUncertainty` is visually meaningful at the current zoom, render an event as a horizontal span in the **events zone** (lower band); otherwise keep the existing point marker + card.
+### Date range
 
-Data files stay separate (`events.jsonc` / `periods.jsonc`). No merge.
+`getEventDateRange()` in [`eventSpan.ts`](../../src/lib/utils/eventSpan.ts):
 
-### 1. Extend `Event` type for future colors
+- `{ start, end } = date ± dateUncertainty/2` when uncertainty is present
+- Point range at `date` when `dateUncertainty` is `null` or `0`
 
-In [`src/lib/types/index.ts`](../../src/lib/types/index.ts):
+### Display tiers (no hysteresis)
 
-```ts
-export interface Event {
-  // ...existing fields...
-  /** Optional display color (hex). Falls back to theme accent when absent. */
-  color?: string | null
-  dateUncertainty: number | null  // align type with JSONC (some entries are null)
-}
-```
+| Tier | Condition |
+|------|-----------|
+| `point` | No uncertainty, or span `< 1px` |
+| `range` | `1px ≤ span < EVENT_CARD_WIDTH` |
+| `period` | `span ≥ EVENT_CARD_WIDTH` |
 
-- Add `getEventColor(event: Event): string` in a small util (e.g. [`src/lib/utils/eventColors.ts`](../../src/lib/utils/eventColors.ts)) defaulting to `var(--theme-accent)` or a fixed palette entry.
-- **Do not bulk-populate** `events.jsonc` colors in this phase; the field is optional so spans and future point cards can use per-event colors when data is added later.
+### Shared span positioning
 
-### 2. Uncertainty threshold utility
+[`spanPosition.ts`](../../src/lib/utils/spanPosition.ts) — `getClampedSpanPosition()` used by geological periods and events.
 
-New [`src/lib/utils/eventUncertainty.ts`](../../src/lib/utils/eventUncertainty.ts):
+### Events zone
 
-| Function | Purpose |
-|----------|---------|
-| `getEventDateRange(event)` | Returns `{ start, end }` from `date ± uncertainty/2`; `null` uncertainty → zero-width range at `date` |
-| `getEventSpanWidthPx(range, yearsPerPixel)` | Pixel width of the uncertainty span |
-| `isEventSpanMode(event, yearsPerPixel, previousMode?)` | Pixel threshold with hysteresis |
+Bottom 50% of the foreground area above the label band (`EVENTS_ZONE_HEIGHT_RATIO` in [`layout.ts`](../../src/lib/constants/layout.ts)).
 
-**Proposed defaults** (tunable constants in same file):
+### Vertical lane stacking
 
-- Enter span mode: span width ≥ **12 px**
-- Exit span mode: span width < **8 px**
-- `dateUncertainty` is `null` or `0` → always point mode
+[`eventLayout.ts`](../../src/lib/utils/eventLayout.ts) — overlap on rendered card + anchor bounds, greedy lanes, uniform compression.
 
-Hysteresis avoids flicker when zooming near the boundary.
+### Edge blur
 
-### 3. Shared horizontal span positioning
+[`SpanBand.svelte`](../../src/lib/components/main/content/SpanBand.svelte) + [`spanBandStyle.ts`](../../src/lib/utils/spanBandStyle.ts) — shared with geological periods (neighbor blending for periods; `fadeEdges` for event period tier).
 
-Extract a pure function from the positioning logic in [`GeologicalPeriodCard.svelte`](../../src/lib/components/main/content/GeologicalPeriodCard.svelte) into [`src/lib/utils/spanPosition.ts`](../../src/lib/utils/spanPosition.ts):
+### 1px marker alignment
 
-```ts
-getClampedSpanPosition({ start, end, leftEdgeYear, rightEdgeYear, yearsPerPixel })
-// → { x, width }
-```
-
-Used by both `GeologicalPeriodCard` (refactor) and new `EventSpanCard`.
-
-### 4. Explicit two-zone layout in Content
-
-Builds on UX **#1**: full-height tick grid + reserved bottom label band ([`timeline-as-content-background.md`](timeline-as-content-background.md)). Foreground bands sit **above** `TIMELINE_LABEL_BAND_HEIGHT_PX`:
-
-```text
-┌─────────────────────────────────────┐
-│  Geological periods zone (top 50%*) │
-├─────────────────────────────────────┤
-│  Events zone (bottom 50%*)          │
-│    - EventSpanCard (uncertainty)    │
-│    - EventCard (point mode)         │
-├─────────────────────────────────────┤
-│  Label band (UX #1 — not covered)   │
-└─────────────────────────────────────┘
-* Of the area above the label band.
-```
-
-- Add `eventsZoneElement` + `eventsZoneHeight` (mirror geological zone `ResizeObserver` pattern in [`Content.svelte`](../../src/lib/components/main/content/Content.svelte))
-- Add `EVENTS_ZONE_HEIGHT_RATIO = 1 - GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO` in [`layout.ts`](../../src/lib/constants/layout.ts)
-- Pin events zone above the label band (not `bottom: 0` on the full container)
-- Move `EventCard` positioning to be relative to the events zone height (not full content height)
-
-### 5. New `EventSpanCard.svelte`
-
-Lower-band counterpart to `GeologicalPeriodCard`, but simpler:
-
-- Input: `event`, viewport props, `zoneHeight`, selection/hover state
-- Position via `getClampedSpanPosition(getEventDateRange(event), ...)`
-- Background: `event.color ?? getEventColor(event)` (solid fill; no left/right neighbor gradient unless desired later)
-- Optional thin center tick at `event.date` so the best-estimate date remains visible on the span
-- `data-event-span-card` attribute (distinct from `data-event-card` for deselect logic)
-- Same `bindPointerClick` / z-index tiers as event cards
-- Title inside span when width/height permit (reuse char-width heuristic from geological card)
-- Selected state: popover or expanded inline detail showing **date range** via new formatter
-
-### 6. Bifurcate event rendering in Content
-
-Replace flat `visibleEvents` loop with:
-
-```ts
-const visibleEvents = $derived(/* range-overlap filter, not point-only */)
-
-const eventDisplayModes = $derived(
-  visibleEvents.map(event => ({
-    event,
-    mode: isEventSpanMode(event, yearsPerPixel) ? "span" : "point",
-  }))
-)
-```
-
-**Visibility filter change** (important): overlap test on date range, not `event.date` alone:
-
-```
-range.end >= leftEdgeYear && range.start <= rightEdgeYear
-```
-
-Render `{#if mode === "span"}` → `EventSpanCard`, else → `EventCard`.
-
-Selection state stays on `topCardEventId` for both modes (same event, different representation).
-
-Update [`Main.svelte`](../../src/lib/components/main/Main.svelte) deselect targets: `[data-event-card]`, `[data-event-span-card]`, `[data-geological-period-card]`, `[data-geological-period-popover]`.
-
-### 7. Date range formatting
-
-Extend [`formatters.ts`](../../src/lib/utils/formatters.ts):
-
-- `formatDateRange(start, end, locale)` for span detail labels
-- `formatDateWithUncertainty(date, uncertainty, locale)` for point-mode cards (show `±` when uncertainty exists but span is too narrow to render)
-
-Use in `EventSpanCard` detail and optionally in selected `EventCard`.
-
-### 8. Documentation
-
-Update [`.cursor/rules/event-handling.mdc`](../../.cursor/rules/event-handling.mdc) with span-mode rules, new data attributes, and events-zone positioning. Remove completed items from [`README.md`](../../README.md) TODO and this plan when done.
+Point-tier markers use `w-px` and `snapLayoutX()` — same positioning formula as timeline ticks.
 
 ---
 
-## Out of scope (follow-ups)
+## Remaining follow-ups
 
-- Lane stacking for overlapping event spans/cards (existing Phase 2 vertical stacking TODO)
-- Populating `color` in `events.jsonc`
-- Merging `periods.jsonc` and `events.jsonc`
+- **Per-event colors** — optional `color` field on events (type + `getEventColor()` util)
+- **Date range formatting** — `formatDateRange()` / `formatDateWithUncertainty()` in [`formatters.ts`](../../src/lib/utils/formatters.ts)
+- **Timeline as content background** (README UX #1) — label band refactor
 - Geological period uncertainty rendering (`startUncertainty` / `endUncertainty`) — separate future task
 - Images in detail views

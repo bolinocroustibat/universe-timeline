@@ -41,7 +41,7 @@ export interface Event {
 	 * For example: if date = -3600000000 and dateUncertainty = 500000000,
 	 * the event range is from -3850000000 to -3350000000 (±250 million years).
 	 */
-	dateUncertainty: number
+	dateUncertainty: number | null
 	name: LocalizedText
 	description: LocalizedText
 	image: string

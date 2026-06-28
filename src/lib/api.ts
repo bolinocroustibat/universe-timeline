@@ -2,7 +2,7 @@ import type { Event, GeologicalPeriod } from "$lib/types"
 
 export async function fetchGeologicalPeriods(): Promise<GeologicalPeriod[]> {
 	try {
-		const response = await fetch("/src/data/periods.json")
+		const response = await fetch("/geologicalPeriods.jsonc")
 		if (!response.ok) {
 			throw new Error("Failed to fetch geological periods")
 		}
@@ -15,7 +15,7 @@ export async function fetchGeologicalPeriods(): Promise<GeologicalPeriod[]> {
 
 export async function fetchEvents(): Promise<Event[]> {
 	try {
-		const response = await fetch("/src/data/events.json")
+		const response = await fetch("/events.jsonc")
 		if (!response.ok) {
 			throw new Error("Failed to fetch events")
 		}

@@ -1,5 +1,6 @@
 import { GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO } from "$lib/constants"
 import type { GeologicalPeriod } from "$lib/types"
+import { getClampedSpanPosition } from "$lib/utils/spanPosition"
 
 export type GeologicalPeriodIndex = {
 	byId: Map<number, GeologicalPeriod>
@@ -250,19 +251,15 @@ export function getGeologicalPeriodHorizontalPosition({
 	rightEdgeYear: number
 	yearsPerPixel: number
 }): { x: number; width: number; centerX: number } {
-	const startX = (start - leftEdgeYear) / yearsPerPixel
-	const endX = (end - leftEdgeYear) / yearsPerPixel
-	const rightEdgeX = (rightEdgeYear - leftEdgeYear) / yearsPerPixel
+	const { x, width, centerX } = getClampedSpanPosition({
+		start,
+		end,
+		leftEdgeYear,
+		rightEdgeYear,
+		yearsPerPixel,
+	})
 
-	const clampedStartX = Math.max(0, startX)
-	const clampedEndX = Math.min(endX, rightEdgeX)
-	const width = clampedEndX - clampedStartX
-
-	return {
-		x: clampedStartX,
-		width,
-		centerX: clampedStartX + width / 2,
-	}
+	return { x, width, centerX }
 }
 
 function clampPopoverCenterX(

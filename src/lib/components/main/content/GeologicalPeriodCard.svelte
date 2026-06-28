@@ -1,12 +1,13 @@
 <script lang="ts">
 import { currentLocale } from "$lib/stores/localeStore"
-import { blendColors } from "$lib/utils/colors"
 import {
 	type GeologicalPeriodWithLayout,
 	getGeologicalPeriodCardGeometry,
 	getGeologicalPeriodSelectionTransform,
 } from "$lib/utils/geologicalPeriodLayout"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
+import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
+import { getClampedSpanPosition } from "$lib/utils/spanPosition"
 
 interface Props {
 	layout: GeologicalPeriodWithLayout
@@ -28,46 +29,24 @@ let {
 	onCardClick,
 }: Props = $props()
 
-const spanPosition = $derived(() => {
-	const startX = (layout.start - leftEdgeYear) / yearsPerPixel
-	const endX = (layout.end - leftEdgeYear) / yearsPerPixel
-	const rightEdgeX = (rightEdgeYear - leftEdgeYear) / yearsPerPixel
-
-	const clampedStartX = Math.max(0, startX)
-	const clampedEndX = Math.min(endX, rightEdgeX)
-	const width = clampedEndX - clampedStartX
-
-	return {
-		x: clampedStartX,
-		width: width,
-	}
-})
+const spanPosition = $derived(() =>
+	getClampedSpanPosition({
+		start: layout.start,
+		end: layout.end,
+		leftEdgeYear,
+		rightEdgeYear,
+		yearsPerPixel,
+	}),
+)
 
 const gradientBackground = $derived(() => {
 	const currentColor = layout.color || "#3d4558"
-	const leftColor = layout.leftGeologicalPeriod?.color || currentColor
-	const rightColor = layout.rightGeologicalPeriod?.color || currentColor
 
-	const leftBlend = layout.leftGeologicalPeriod
-		? blendColors(leftColor, currentColor)
-		: currentColor
-	const rightBlend = layout.rightGeologicalPeriod
-		? blendColors(currentColor, rightColor)
-		: currentColor
-
-	if (!layout.leftGeologicalPeriod && !layout.rightGeologicalPeriod) {
-		return `background-color: ${currentColor};`
-	}
-
-	if (layout.leftGeologicalPeriod && !layout.rightGeologicalPeriod) {
-		return `background: linear-gradient(to right, ${leftBlend} 0%, ${currentColor} 10%, ${currentColor} 100%);`
-	}
-
-	if (!layout.leftGeologicalPeriod && layout.rightGeologicalPeriod) {
-		return `background: linear-gradient(to right, ${currentColor} 0%, ${currentColor} 90%, ${rightBlend} 100%);`
-	}
-
-	return `background: linear-gradient(to right, ${leftBlend} 0%, ${currentColor} 10%, ${currentColor} 90%,${rightBlend} 100%);`
+	return getSpanBandBackgroundStyle({
+		color: currentColor,
+		leftNeighborColor: layout.leftGeologicalPeriod?.color ?? null,
+		rightNeighborColor: layout.rightGeologicalPeriod?.color ?? null,
+	})
 })
 
 const isVisible = $derived(
