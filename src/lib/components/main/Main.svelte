@@ -20,6 +20,8 @@ import {
 	getTimelineTotalSpan,
 } from "$lib/utils/timelineNavigator"
 import {
+	canPanEarlier as canPanEarlierInViewport,
+	canPanLater as canPanLaterInViewport,
 	clampLeftEdgeOffset,
 	computeCenteredLeftEdgeOffset,
 } from "$lib/utils/timelineViewport"
@@ -179,6 +181,10 @@ let centerTimelinePercent = $derived(
 		? ((centerYear - TIME_CONSTANTS.START_YEAR) / navigatorTotalSpan) * 100
 		: 0,
 )
+let canPanEarlier = $derived(canPanEarlierInViewport(leftEdgeYearOffset))
+let canPanLater = $derived(
+	canPanLaterInViewport(leftEdgeYearOffset, viewportWidth, yearsPerPixel),
+)
 
 function handlePointerDown(e: PointerEvent) {
 	if (!containerElement || e.button !== 0) return
@@ -298,17 +304,7 @@ function performCenteredZoom(newZoomLevel: number, targetCenterYear?: number) {
 let isPanning = $state(false)
 let panInterval: ReturnType<typeof setInterval> | undefined = $state()
 
-function panLeft() {
-	const panDistance = viewportWidth * 0.01 // Pan 1% of viewport width per step
-	const newLeftEdgeYearOffset = leftEdgeYearOffset + panDistance * yearsPerPixel
-	leftEdgeYearOffset = clampLeftEdgeOffset(
-		newLeftEdgeYearOffset,
-		viewportWidth,
-		yearsPerPixel,
-	)
-}
-
-function panRight() {
+function panEarlier() {
 	const panDistance = viewportWidth * 0.01 // Pan 1% of viewport width per step
 	const newLeftEdgeYearOffset = leftEdgeYearOffset - panDistance * yearsPerPixel
 	leftEdgeYearOffset = clampLeftEdgeOffset(
@@ -316,16 +312,34 @@ function panRight() {
 		viewportWidth,
 		yearsPerPixel,
 	)
+	if (!canPanEarlier) {
+		stopPanning()
+	}
 }
 
-function startPanLeft() {
-	isPanning = true
-	panInterval = setInterval(panLeft, 16) // ~60fps for smooth movement
+function panLater() {
+	const panDistance = viewportWidth * 0.01 // Pan 1% of viewport width per step
+	const newLeftEdgeYearOffset = leftEdgeYearOffset + panDistance * yearsPerPixel
+	leftEdgeYearOffset = clampLeftEdgeOffset(
+		newLeftEdgeYearOffset,
+		viewportWidth,
+		yearsPerPixel,
+	)
+	if (!canPanLater) {
+		stopPanning()
+	}
 }
 
-function startPanRight() {
+function startPanEarlier() {
+	if (!canPanEarlier) return
 	isPanning = true
-	panInterval = setInterval(panRight, 16) // ~60fps for smooth movement
+	panInterval = setInterval(panEarlier, 16) // ~60fps for smooth movement
+}
+
+function startPanLater() {
+	if (!canPanLater) return
+	isPanning = true
+	panInterval = setInterval(panLater, 16) // ~60fps for smooth movement
 }
 
 function stopPanning() {
@@ -384,12 +398,14 @@ function handleNavigatorTrackWidthChange(width: number) {
 
 		<!-- Navigation arrows -->
 		<LeftArrow
-			onMouseDown={startPanRight}
+			disabled={!canPanEarlier}
+			onMouseDown={startPanEarlier}
 			onMouseUp={stopPanning}
 			onMouseLeave={stopPanning}
 		/>
 		<RightArrow
-			onMouseDown={startPanLeft}
+			disabled={!canPanLater}
+			onMouseDown={startPanLater}
 			onMouseUp={stopPanning}
 			onMouseLeave={stopPanning}
 		/>

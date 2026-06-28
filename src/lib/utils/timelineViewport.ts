@@ -1,5 +1,20 @@
 import { TIME_CONSTANTS } from "$lib/constants"
 
+export function getMaxLeftEdgeOffset(
+	viewportWidth: number,
+	yearsPerPixel: number,
+): number {
+	if (viewportWidth <= 0 || yearsPerPixel <= 0) {
+		return 0
+	}
+
+	const viewportSpan = viewportWidth * yearsPerPixel
+	return Math.max(
+		0,
+		TIME_CONSTANTS.END_YEAR - TIME_CONSTANTS.START_YEAR - viewportSpan,
+	)
+}
+
 export function clampLeftEdgeOffset(
 	offset: number,
 	viewportWidth: number,
@@ -9,13 +24,23 @@ export function clampLeftEdgeOffset(
 		return Math.max(0, offset)
 	}
 
-	const viewportSpan = viewportWidth * yearsPerPixel
-	const maxOffset =
-		TIME_CONSTANTS.END_YEAR - TIME_CONSTANTS.START_YEAR - viewportSpan
+	const maxOffset = getMaxLeftEdgeOffset(viewportWidth, yearsPerPixel)
 
 	if (offset < 0) return 0
-	if (offset > maxOffset) return Math.max(0, maxOffset)
+	if (offset > maxOffset) return maxOffset
 	return offset
+}
+
+export function canPanEarlier(leftEdgeYearOffset: number): boolean {
+	return leftEdgeYearOffset > 0
+}
+
+export function canPanLater(
+	leftEdgeYearOffset: number,
+	viewportWidth: number,
+	yearsPerPixel: number,
+): boolean {
+	return leftEdgeYearOffset < getMaxLeftEdgeOffset(viewportWidth, yearsPerPixel)
 }
 
 export function computeCenteredLeftEdgeOffset(

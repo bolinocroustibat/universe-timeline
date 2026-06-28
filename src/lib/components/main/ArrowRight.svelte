@@ -1,18 +1,20 @@
 <script lang="ts">
 interface Props {
+	disabled?: boolean
 	onMouseDown: () => void
 	onMouseUp: () => void
 	onMouseLeave: () => void
 }
 
-let { onMouseDown, onMouseUp, onMouseLeave }: Props = $props()
+let { disabled = false, onMouseDown, onMouseUp, onMouseLeave }: Props = $props()
 </script>
 
 <button
+	{disabled}
 	onmousedown={onMouseDown}
 	onmouseup={onMouseUp}
 	onmouseleave={onMouseLeave}
-	class="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-surface/90 hover:bg-border border border-border rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 hover:cursor-pointer flex items-center justify-center z-[1001]"
+	class="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-surface/90 border border-border rounded-full shadow-lg flex items-center justify-center z-[1001] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:scale-100 hover:bg-border hover:shadow-xl hover:scale-110 hover:cursor-pointer"
 	aria-label="Pan timeline right"
 >
 	<svg 
