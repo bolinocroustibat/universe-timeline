@@ -13,7 +13,7 @@ alwaysApply: false
 - **Geological periods zone** — absolute overlay at the top of the content area (above the label band), height `GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO` (50%) from [`layout.ts`](src/lib/constants/layout.ts). Renders `GeologicalPeriodCard` items from layouts built by [`geologicalPeriodLayout.ts`](src/lib/utils/geologicalPeriodLayout.ts).
 - **Events zone** — absolute overlay at the bottom of the content area (above the label band), height `EVENTS_ZONE_HEIGHT_RATIO` (50%) from [`layout.ts`](src/lib/constants/layout.ts). Renders `EventCard` items from layouts built by [`eventLayout.ts`](src/lib/utils/eventLayout.ts).
 - **Visibility toggles** — `$displaySettings.showEvents` and `$displaySettings.showGeologicalPeriods` from [`displayStore.ts`](src/lib/stores/displayStore.ts) gate each layer independently. Empty/hidden states use locale-aware messages from the `messages` map in `Content.svelte`.
-- Data loads on mount from `/events.jsonc` and `/geologicalPeriods.jsonc`.
+- Data loads on mount via [`fetchEvents()`](src/lib/api.ts) and [`fetchGeologicalPeriods()`](src/lib/api.ts) from [`api.ts`](src/lib/api.ts).
 
 ## Shared span positioning
 
@@ -58,7 +58,11 @@ Events are visible when their date range overlaps the viewport (`isEventRangeVis
 
 - Horizontal span positioning uses `getClampedSpanPosition()` from [`spanPosition.ts`](src/lib/utils/spanPosition.ts); [`geologicalPeriodLayout.ts`](src/lib/utils/geologicalPeriodLayout.ts) exposes `getGeologicalPeriodHorizontalPosition()` as a thin wrapper.
 - Vertical geometry (height, bottom offset, z-index by depth) comes from `getGeologicalPeriodCardGeometry()` in [`geologicalPeriodLayout.ts`](src/lib/utils/geologicalPeriodLayout.ts). Child periods occupy `GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO` (50%) of the parent height.
-- Card backgrounds use per-period `color` from data with neighbor blending via `getSpanBandBackgroundStyle()` in [`spanBandStyle.ts`](src/lib/utils/spanBandStyle.ts). Text uses `var(--theme-on-media)`.
+- Card backgrounds use per-period `color` resolved at load time with neighbor blending via `getSpanBandBackgroundStyle()` in [`spanBandStyle.ts`](src/lib/utils/spanBandStyle.ts). Text uses `var(--theme-on-media)`.
+- **Color resolution** — [`geologicalPeriodColors.ts`](src/lib/utils/geologicalPeriodColors.ts) via `resolveGeologicalPeriodColors()` in [`fetchGeologicalPeriods()`](src/lib/api.ts):
+  - Eons (`parentPeriodId === null`) use the explicit `color` from [`geologicalPeriods.jsonc`](static/geologicalPeriods.jsonc).
+  - Child periods without `color` receive LCH variations derived from their resolved parent (chroma.js).
+  - Optional `color` on any period overrides derivation and becomes the base for its own children.
 - When selected, a period shows [`GeologicalPeriodPopover.svelte`](src/lib/components/main/content/GeologicalPeriodPopover.svelte) (`data-geological-period-popover`, z-index `1100`) with layout from `getGeologicalPeriodPopoverLayout()`.
 
 ## Click-to-Front

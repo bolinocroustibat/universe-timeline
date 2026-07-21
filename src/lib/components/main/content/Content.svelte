@@ -1,5 +1,6 @@
 <script lang="ts">
 import { onMount } from "svelte"
+import { fetchEvents, fetchGeologicalPeriods } from "$lib/api"
 import EventCard from "$lib/components/main/content/EventCard.svelte"
 import GeologicalPeriodCard from "$lib/components/main/content/GeologicalPeriodCard.svelte"
 import GeologicalPeriodPopover from "$lib/components/main/content/GeologicalPeriodPopover.svelte"
@@ -52,20 +53,13 @@ let hoveredCardEventId = $state<number | null>(null)
 // Load events and geological periods on component mount
 onMount(async () => {
 	try {
-		const [eventsResponse, geologicalPeriodsResponse] = await Promise.all([
-			fetch("/events.jsonc"),
-			fetch("/geologicalPeriods.jsonc"),
+		const [loadedEvents, loadedGeologicalPeriods] = await Promise.all([
+			fetchEvents(),
+			fetchGeologicalPeriods(),
 		])
 
-		if (!eventsResponse.ok) {
-			throw new Error(`HTTP error! status: ${eventsResponse.status}`)
-		}
-		if (!geologicalPeriodsResponse.ok) {
-			throw new Error(`HTTP error! status: ${geologicalPeriodsResponse.status}`)
-		}
-
-		events = await eventsResponse.json()
-		geologicalPeriods = await geologicalPeriodsResponse.json()
+		events = loadedEvents
+		geologicalPeriods = loadedGeologicalPeriods
 	} catch (error) {
 		console.error("Content: Failed to load data:", error)
 	} finally {
