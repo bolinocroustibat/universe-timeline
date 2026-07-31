@@ -1,4 +1,5 @@
 import type { Event } from "$lib/types"
+import { pigmentMix } from "$lib/utils/spanBandPigment"
 
 export const DEFAULT_EVENT_COLOR = "#3d4558"
 
@@ -22,8 +23,12 @@ export function getEventMarkerGradientStops(
 				color: `color-mix(in srgb, ${color} 40%, transparent)`,
 			},
 			{
+				offset: "45%",
+				color: `color-mix(in srgb, ${color} 52%, transparent)`,
+			},
+			{
 				offset: "100%",
-				color: `color-mix(in srgb, ${color} 60%, transparent)`,
+				color: `color-mix(in srgb, ${color} 62%, transparent)`,
 			},
 		]
 	}
@@ -31,18 +36,46 @@ export function getEventMarkerGradientStops(
 	return [
 		{
 			offset: "0%",
-			color: `color-mix(in srgb, ${color} 65%, black)`,
+			color: pigmentMix(color, 52, "black"),
+		},
+		{
+			offset: "38%",
+			color: pigmentMix(color, 68, "black"),
+		},
+		{
+			offset: "72%",
+			color: color,
 		},
 		{
 			offset: "100%",
-			color: color,
+			color: pigmentMix(color, 90, "white"),
 		},
 	]
 }
 
-/** Vertical panel gradient aligned with connector card foreground fills. */
+/** Vertical panel gradient with uneven pigment pooling toward the base. */
 export function getEventPanelBackgroundStyle(color: string): string {
-	return `background: linear-gradient(to top, ${color}, color-mix(in srgb, ${color} 65%, black));`
+	return `background-color: ${color}; background-image: radial-gradient(ellipse 90% 70% at 22% 18%, ${pigmentMix(color, 78, "white")} 0%, transparent 68%), radial-gradient(ellipse 80% 60% at 78% 82%, ${pigmentMix(color, 72, "black")} 0%, transparent 62%), linear-gradient(to top, ${pigmentMix(color, 52, "black")} 0%, ${pigmentMix(color, 68, "black")} 38%, ${color} 72%, ${pigmentMix(color, 90, "white")} 100%);`
+}
+
+/** Horizontal pigment drift overlay for SVG connector fills. */
+export function getEventPigmentHorizontalStops(
+	color: string,
+): EventMarkerGradientStop[] {
+	return [
+		{
+			offset: "0%",
+			color: pigmentMix(color, 84, "white"),
+		},
+		{
+			offset: "48%",
+			color: `color-mix(in srgb, ${color} 38%, transparent)`,
+		},
+		{
+			offset: "100%",
+			color: pigmentMix(color, 78, "black"),
+		},
+	]
 }
 
 export function getEventConnectorStroke(

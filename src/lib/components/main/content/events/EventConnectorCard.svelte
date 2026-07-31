@@ -1,10 +1,10 @@
 <script lang="ts">
-import { SURFACE_GRAIN_PATTERN_ID } from "$lib/constants/surfaceGrain"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event } from "$lib/types"
 import {
 	getEventConnectorStroke,
 	getEventMarkerGradientStops,
+	getEventPigmentHorizontalStops,
 } from "$lib/utils/eventColors"
 import {
 	buildEventConnectorPath,
@@ -126,6 +126,8 @@ const pathD = $derived(
 
 const gradientStops = $derived(getEventMarkerGradientStops(eventColor, variant))
 const gradientId = $derived(`event-connector-gradient-${shapeId}`)
+const pigmentGradientId = $derived(`event-connector-pigment-${shapeId}`)
+const pigmentStops = $derived(getEventPigmentHorizontalStops(eventColor))
 const stroke = $derived(
 	getEventConnectorStroke(eventColor, isSelected, isHovered),
 )
@@ -195,6 +197,18 @@ $effect(() => {
 					<stop offset={stop.offset} stop-color={stop.color} />
 				{/each}
 			</linearGradient>
+			<linearGradient
+				id={pigmentGradientId}
+				gradientUnits="objectBoundingBox"
+				x1="0"
+				y1="0"
+				x2="1"
+				y2="0"
+			>
+				{#each pigmentStops as stop (stop.offset)}
+					<stop offset={stop.offset} stop-color={stop.color} />
+				{/each}
+			</linearGradient>
 		</defs>
 		<path
 			d={pathD}
@@ -204,8 +218,8 @@ $effect(() => {
 		/>
 		<path
 			d={pathD}
-			fill="url(#{SURFACE_GRAIN_PATTERN_ID})"
-			class="surface-grain-overlay"
+			fill="url(#{pigmentGradientId})"
+			class="pointer-events-none"
 		/>
 	</svg>
 

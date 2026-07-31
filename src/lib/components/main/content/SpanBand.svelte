@@ -2,7 +2,7 @@
 import type { Snippet } from "svelte"
 
 /**
- * Shared span fill wrapper (backdrop blur + gradient background + grain overlay).
+ * Shared span fill wrapper (backdrop blur + pigment background layers).
  *
  * Corner radius belongs on the outer container (see `getSpanBandBorderRadius()` in
  * [`spanBandCorners.ts`]($lib/utils/spanBandCorners.ts)).
