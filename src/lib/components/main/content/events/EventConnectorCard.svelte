@@ -134,6 +134,12 @@ const description = $derived(event.description[$currentLocale])
 const contentLeft = $derived(cardX - bbox.left)
 const contentClipCornerRadiusStyle = getEventCardTopCornerRadiusStyle()
 
+function handleCardClick(): void {
+	if (!connectorOnly) {
+		onCardClick?.(event.id)
+	}
+}
+
 $effect(() => {
 	if (connectorOnly || !contentEl) {
 		return
@@ -178,7 +184,7 @@ $effect(() => {
 	<svg
 		class="absolute inset-0 overflow-visible"
 		viewBox="0 0 {bbox.width} {bbox.height}"
-		aria-hidden="true"
+		aria-hidden={connectorOnly}
 	>
 		<defs>
 			<linearGradient
@@ -211,27 +217,37 @@ $effect(() => {
 			fill="url(#{gradientId})"
 			stroke={stroke.stroke}
 			stroke-width={stroke.strokeWidth}
+			class="pointer-events-none"
 		/>
 		<path
 			d={pathD}
 			fill="url(#{pigmentGradientId})"
 			class="pointer-events-none"
 		/>
+		{#if !connectorOnly}
+			<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+			<path
+				d={pathD}
+				fill="white"
+				fill-opacity="0.001"
+				stroke="none"
+				style="pointer-events: all;"
+				class="cursor-pointer outline-none"
+				use:bindPointerClick={handleCardClick}
+				onpointerenter={onPointerEnter}
+				onpointerleave={onPointerLeave}
+			/>
+		{/if}
 	</svg>
 
 	{#if !connectorOnly}
-		<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 		<div
-			class="absolute top-0 overflow-hidden pointer-events-auto"
+			class="absolute top-0 overflow-hidden pointer-events-none"
 			style="left: {contentLeft}px; width: {cardWidth}px; height: {measuredCardHeight}px; {contentClipCornerRadiusStyle}"
-			use:bindPointerClick={() => onCardClick?.(event.id)}
-			onpointerenter={onPointerEnter}
-			onpointerleave={onPointerLeave}
 		>
 			<div
 				bind:this={contentEl}
-				class="p-4 cursor-pointer text-on-media bg-transparent box-border"
-				tabindex="0"
+				class="p-4 text-on-media bg-transparent box-border"
 			>
 				<div class="font-semibold mb-2 transition-all duration-200 text-sm line-clamp-2">
 					{label}
@@ -240,7 +256,12 @@ $effect(() => {
 					{formatDate(event.date, $currentLocale)}
 				</div>
 				{#if isSelected && description}
-					<div class="text-on-media/90 leading-relaxed transition-all duration-200 text-xs">
+					<!-- svelte-ignore a11y_no_static_element_interactions -->
+					<div
+						class="pointer-events-auto text-on-media/90 leading-relaxed transition-all duration-200 text-xs"
+						onpointerenter={onPointerEnter}
+						onpointerleave={onPointerLeave}
+					>
 						{description}
 					</div>
 				{/if}

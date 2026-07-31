@@ -10,6 +10,7 @@ import {
 	EVENT_Z_INDEX_SELECTED,
 } from "$lib/utils/eventLayout"
 import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
+import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 
 /**
  * Paint layer for event visuals.
@@ -68,6 +69,23 @@ const spanBackground = $derived(
 
 const label = $derived(layout.event.name[$currentLocale])
 
+const PERIOD_DETAIL_GAP_PX = 8
+
+const periodHitWidth = $derived.by(() => {
+	if (!isPeriodTier || !spanBand) {
+		return null
+	}
+
+	const left = Math.min(layout.card.x, layout.anchor.x)
+	const width =
+		Math.max(
+			layout.card.x + layout.card.width,
+			layout.anchor.x + layout.anchor.width,
+		) - left
+
+	return { left, width }
+})
+
 function handlePointerEnter() {
 	onCardHover(layout.event.id)
 }
@@ -107,7 +125,7 @@ function handlePointerLeave() {
 			eventId={layout.event.id}
 			layer="foreground"
 			{isSelected}
-			isHovered={false}
+			isHovered={isHovered && !isSelected}
 			{eventColor}
 			{label}
 			lane={layout.lane}
@@ -123,14 +141,29 @@ function handlePointerLeave() {
 			onPointerLeave={handlePointerLeave}
 		/>
 
-		{#if layout.event.description[$currentLocale]}
+		{#if layout.event.description[$currentLocale] && periodHitWidth}
+			<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+			<div
+				data-event-card
+				class="absolute cursor-pointer outline-none"
+				style="left: {periodHitWidth.left}px; width: {periodHitWidth.width}px; bottom: {spanBand.bottom + spanBand.height}px; height: {PERIOD_DETAIL_GAP_PX}px; z-index: {zIndex};"
+				use:bindPointerClick={() => onCardClick(layout.event.id)}
+				onpointerenter={handlePointerEnter}
+				onpointerleave={handlePointerLeave}
+				aria-hidden="true"
+			></div>
+
 			<EventDetailCard
 				event={layout.event}
 				{eventColor}
 				cardX={layout.card.x}
-				cardBottom={spanBand.bottom + spanBand.height + 8}
+				cardBottom={spanBand.bottom + spanBand.height + PERIOD_DETAIL_GAP_PX}
 				cardWidth={layout.card.width}
 				{zIndex}
+				isHovered={isHovered && !isSelected}
+				onCardClick={onCardClick}
+				onPointerEnter={handlePointerEnter}
+				onPointerLeave={handlePointerLeave}
 			/>
 		{/if}
 	{:else if layout.tier === "range" || layout.tier === "point"}

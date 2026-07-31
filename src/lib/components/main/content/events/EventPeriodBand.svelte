@@ -67,18 +67,17 @@ const cornerRadiusStyle = $derived(
 )
 </script>
 
-<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 <div
 	data-event-card
 	data-event-layer={layer}
 	data-selected={isSelected || undefined}
-	class="absolute cursor-pointer overflow-hidden box-border"
+	class="absolute cursor-pointer overflow-hidden box-border outline-none"
 	style="left: {anchorX}px; width: {anchorWidth}px; bottom: {spanBottom}px; height: {spanHeight}px; z-index: {zIndex}; {cornerRadiusStyle} {borderStyle}"
 	title="{label}"
 	use:bindPointerClick={() => onCardClick(eventId)}
 	onpointerenter={onPointerEnter}
 	onpointerleave={onPointerLeave}
-	tabindex="0"
 >
 	<SpanBand
 		backgroundStyle={spanBackground}

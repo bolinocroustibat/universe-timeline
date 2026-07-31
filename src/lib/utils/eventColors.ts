@@ -80,16 +80,9 @@ export function getEventPigmentHorizontalStops(
 
 export function getEventConnectorStroke(
 	color: string,
-	selected: boolean,
+	_selected: boolean,
 	hovered: boolean,
 ): { stroke: string; strokeWidth: number } {
-	if (selected) {
-		return {
-			stroke: color,
-			strokeWidth: 2,
-		}
-	}
-
 	if (hovered) {
 		return {
 			stroke: `color-mix(in srgb, ${color} 55%, transparent)`,

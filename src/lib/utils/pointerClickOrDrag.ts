@@ -1,6 +1,9 @@
 export const POINTER_DRAG_THRESHOLD_PX = 5
 
-export function bindPointerClick(node: HTMLElement, onClick: () => void) {
+export function bindPointerClick(
+	node: HTMLElement | SVGElement,
+	onClick: () => void,
+) {
 	let startX = 0
 	let startY = 0
 	let pointerId = -1
@@ -31,8 +34,8 @@ export function bindPointerClick(node: HTMLElement, onClick: () => void) {
 		}
 	}
 
-	function handlePointerDown(e: PointerEvent) {
-		if (e.button !== 0) return
+	function handlePointerDown(e: Event) {
+		if (!(e instanceof PointerEvent) || e.button !== 0) return
 
 		startX = e.clientX
 		startY = e.clientY
@@ -44,12 +47,14 @@ export function bindPointerClick(node: HTMLElement, onClick: () => void) {
 		window.addEventListener("pointercancel", handlePointerUp)
 	}
 
-	node.addEventListener("pointerdown", handlePointerDown)
+	const pointerDownListener = handlePointerDown as EventListener
+
+	node.addEventListener("pointerdown", pointerDownListener)
 
 	return {
 		destroy() {
 			cleanup()
-			node.removeEventListener("pointerdown", handlePointerDown)
+			node.removeEventListener("pointerdown", pointerDownListener)
 		},
 	}
 }
