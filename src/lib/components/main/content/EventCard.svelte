@@ -8,13 +8,17 @@ import {
 } from "$lib/utils/eventLayout"
 import { formatDate } from "$lib/utils/formatters"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
+import {
+	getEventCardBorderStyle,
+	getEventColor,
+	getEventDetailCardStyle,
+	getEventMarkerStyle,
+} from "$lib/utils/eventColors"
 import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
 
 const HORIZONTAL_PADDING = 32
 const CHAR_WIDTH = 7.5
 const MIN_HEIGHT_TITLE = 28
-const EVENT_SPAN_COLOR =
-	"color-mix(in srgb, var(--theme-accent) 55%, var(--theme-accent-secondary) 45%)"
 
 /**
  * Paint layer for event visuals.
@@ -68,11 +72,27 @@ const backgroundZIndex = $derived(
 		: MARKER_BACKGROUND_Z_BASE + layout.lane,
 )
 
+const eventColor = $derived(getEventColor(layout.event))
+
 const spanBackground = $derived(
 	getSpanBandBackgroundStyle({
-		color: EVENT_SPAN_COLOR,
+		color: eventColor,
 		fadeEdges: true,
 	}),
+)
+
+const markerBackgroundStyle = $derived(
+	getEventMarkerStyle(eventColor, "background"),
+)
+const markerForegroundStyle = $derived(
+	getEventMarkerStyle(eventColor, "foreground"),
+)
+const cardBorderStyle = $derived(
+	getEventCardBorderStyle(eventColor, isSelected, isHovered),
+)
+const detailCardStyle = $derived(getEventDetailCardStyle(eventColor))
+const periodSpanBorderStyle = $derived(
+	isSelected ? `border-color: ${eventColor};` : "",
 )
 
 const label = $derived(layout.event.name[$currentLocale])
@@ -127,14 +147,14 @@ function handlePointerLeave() {
 	{:else if layout.tier === "range" && !isSelected}
 		<div
 			data-event-layer="background"
-			class="absolute pointer-events-none bg-gradient-to-t from-accent/60 to-accent-secondary/40"
-			style="left: {layout.anchor.x}px; width: {layout.anchor.width}px; bottom: 0; height: {layout.markerHeight}px; z-index: {backgroundZIndex};"
+			class="absolute pointer-events-none"
+			style="left: {layout.anchor.x}px; width: {layout.anchor.width}px; bottom: 0; height: {layout.markerHeight}px; z-index: {backgroundZIndex}; {markerBackgroundStyle}"
 		></div>
 	{:else if layout.tier === "point" && !isSelected}
 		<div
 			data-event-layer="background"
-			class="absolute w-px bg-gradient-to-t from-accent/60 to-accent-secondary/40 pointer-events-none"
-			style="transform: translateX({layout.anchor.x}px); bottom: 0; height: {layout.markerHeight}px; z-index: {backgroundZIndex}; clip-path: polygon(0 0, 100% 0, 50% 100%);"
+			class="absolute w-px pointer-events-none"
+			style="transform: translateX({layout.anchor.x}px); bottom: 0; height: {layout.markerHeight}px; z-index: {backgroundZIndex}; clip-path: polygon(0 0, 100% 0, 50% 100%); {markerBackgroundStyle}"
 		></div>
 	{/if}
 {/if}
@@ -146,8 +166,8 @@ function handlePointerLeave() {
 			data-event-card
 			data-event-layer="foreground"
 			data-selected={isSelected || undefined}
-			class="absolute cursor-pointer overflow-hidden shadow-sm shadow-lg rounded-[5px] border-2 border-selection-outline"
-			style="left: {layout.anchor.x}px; width: {layout.anchor.width}px; bottom: {spanBand.bottom}px; height: {spanBand.height}px; z-index: {zIndex};"
+			class="absolute cursor-pointer overflow-hidden shadow-sm shadow-lg rounded-[5px] border-2"
+			style="left: {layout.anchor.x}px; width: {layout.anchor.width}px; bottom: {spanBand.bottom}px; height: {spanBand.height}px; z-index: {zIndex}; {periodSpanBorderStyle}"
 			title="{label}"
 			use:bindPointerClick={() => onCardClick(layout.event.id)}
 			onpointerenter={handlePointerEnter}
@@ -175,8 +195,8 @@ function handlePointerLeave() {
 				data-event-card
 				data-event-layer="foreground"
 				data-selected={isSelected || undefined}
-				class="absolute rounded-xl p-4 border-2 border-accent bg-surface-raised ring-1 ring-accent/30 overflow-hidden"
-				style="left: {layout.card.x}px; bottom: {spanBand.bottom + spanBand.height + 8}px; z-index: {zIndex}; width: {layout.card.width}px;"
+				class="absolute rounded-xl p-4 border-2 bg-surface-raised overflow-hidden"
+				style="left: {layout.card.x}px; bottom: {spanBand.bottom + spanBand.height + 8}px; z-index: {zIndex}; width: {layout.card.width}px; {detailCardStyle}"
 			>
 				<div class="font-semibold text-foreground mb-2 text-sm">
 					{label}
@@ -193,16 +213,16 @@ function handlePointerLeave() {
 		{#if layout.tier === "range" && isSelected}
 			<div
 				data-event-layer="foreground"
-				class="absolute pointer-events-none bg-gradient-to-t from-accent to-accent-secondary"
-				style="left: {layout.anchor.x}px; width: {layout.anchor.width}px; bottom: 0; height: {layout.markerHeight}px; z-index: {zIndex - 1};"
+				class="absolute pointer-events-none"
+				style="left: {layout.anchor.x}px; width: {layout.anchor.width}px; bottom: 0; height: {layout.markerHeight}px; z-index: {zIndex - 1}; {markerForegroundStyle}"
 			></div>
 		{/if}
 
 		{#if layout.tier === "point" && isSelected}
 			<div
 				data-event-layer="foreground"
-				class="absolute w-px bg-gradient-to-t from-accent to-accent-secondary pointer-events-none"
-				style="transform: translateX({layout.anchor.x}px); bottom: 0; height: {layout.markerHeight}px; z-index: {zIndex - 1}; clip-path: polygon(0 0, 100% 0, 50% 100%);"
+				class="absolute w-px pointer-events-none"
+				style="transform: translateX({layout.anchor.x}px); bottom: 0; height: {layout.markerHeight}px; z-index: {zIndex - 1}; clip-path: polygon(0 0, 100% 0, 50% 100%); {markerForegroundStyle}"
 			></div>
 		{/if}
 
@@ -211,8 +231,8 @@ function handlePointerLeave() {
 			data-event-card
 			data-event-layer="foreground"
 			data-selected={isSelected || undefined}
-			class="absolute rounded-xl p-4 border-2 border-accent/35 cursor-pointer transition-colors duration-300 transition-shadow duration-300 overflow-hidden bg-surface-raised {isSelected ? 'border-accent ring-1 ring-accent/30' : 'hover:border-accent/55'}"
-			style="left: {layout.card.x}px; bottom: {layout.bottom}px; z-index: {zIndex}; width: {layout.card.width}px;"
+			class="absolute rounded-xl p-4 border-2 cursor-pointer transition-colors duration-300 transition-shadow duration-300 overflow-hidden bg-surface-raised"
+			style="left: {layout.card.x}px; bottom: {layout.bottom}px; z-index: {zIndex}; width: {layout.card.width}px; {cardBorderStyle}"
 			use:bindPointerClick={() => onCardClick(layout.event.id)}
 			onpointerenter={handlePointerEnter}
 			onpointerleave={handlePointerLeave}

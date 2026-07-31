@@ -60,6 +60,7 @@ function createEvent(overrides: Partial<Event> = {}): Event {
 	return {
 		id: 1,
 		parentPeriodId: null,
+		color: "#3d4558",
 		date: 1000,
 		dateUncertainty: null,
 		name: { en: "Event", fr: "Événement" },

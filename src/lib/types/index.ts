@@ -34,6 +34,7 @@ export interface GeologicalPeriod {
 export interface Event {
 	id: number
 	parentPeriodId: number | null
+	color: string
 	date: number
 	/**
 	 * Date uncertainty in years. The event could have occurred between
