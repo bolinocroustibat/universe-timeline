@@ -1,26 +1,23 @@
 <script lang="ts">
 import ToggleSwitch from "$lib/components/header/ToggleSwitch.svelte"
+import { debugEnabled, toggleDebugEnabled } from "$lib/stores/debugStore"
 import { displaySettings } from "$lib/stores/displayStore"
 import { currentLocale } from "$lib/stores/localeStore"
 import { colorScheme, toggleColorScheme } from "$lib/stores/themeStore"
 
 const labels = {
-	events: {
-		en: "Events",
-		fr: "Événements",
-	},
 	geologicalPeriods: {
 		en: "Geological periods",
 		fr: "Périodes géologiques",
+	},
+	debug: {
+		en: "Debug",
+		fr: "Debug",
 	},
 	darkMode: {
 		en: "Dark mode",
 		fr: "Mode sombre",
 	},
-}
-
-function toggleEvents() {
-	$displaySettings.showEvents = !$displaySettings.showEvents
 }
 
 function toggleGeologicalPeriods() {
@@ -37,10 +34,10 @@ function toggleGeologicalPeriods() {
 		ariaLabel="Toggle geological periods display"
 	/>
 	<ToggleSwitch
-		label={labels.events[$currentLocale]}
-		checked={$displaySettings.showEvents}
-		onToggle={toggleEvents}
-		ariaLabel="Toggle events display"
+		label={labels.debug[$currentLocale]}
+		checked={$debugEnabled}
+		onToggle={toggleDebugEnabled}
+		ariaLabel="Toggle debug mode"
 	/>
 	<ToggleSwitch
 		label={labels.darkMode[$currentLocale]}

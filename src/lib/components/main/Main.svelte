@@ -1,12 +1,12 @@
 <script lang="ts">
 import { onMount } from "svelte"
-import { env } from "$env/dynamic/public"
 import LeftArrow from "$lib/components/main/ArrowLeft.svelte"
 import RightArrow from "$lib/components/main/ArrowRight.svelte"
 import Content from "$lib/components/main/content/Content.svelte"
 import DebugInfo from "$lib/components/main/DebugInfo.svelte"
 import TimelineNavigator from "$lib/components/main/TimelineNavigator.svelte"
 import { MAX_ZOOM_LEVEL, TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
+import { debugEnabled } from "$lib/stores/debugStore"
 import { zoomLevel } from "$lib/stores/zoomStore"
 import { POINTER_DRAG_THRESHOLD_PX } from "$lib/utils/pointerClickOrDrag"
 import {
@@ -361,7 +361,7 @@ function handleNavigatorTrackWidthChange(width: number) {
 </script>
 
 <main class="flex-1 w-full overflow-hidden flex flex-col">
-	{#if env.PUBLIC_DEBUG === "true"}
+	{#if $debugEnabled}
 		<DebugInfo
 			zoomLevel={$zoomLevel}
 			{viewportYearSpan}

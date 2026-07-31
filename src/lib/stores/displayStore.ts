@@ -8,7 +8,6 @@ const getInitialDisplaySettings = () => {
 			try {
 				const parsed = JSON.parse(saved)
 				return {
-					showEvents: parsed.showEvents ?? true,
 					showGeologicalPeriods:
 						parsed.showGeologicalPeriods ?? parsed.showPeriods ?? true,
 				}
@@ -18,7 +17,6 @@ const getInitialDisplaySettings = () => {
 		}
 	}
 	return {
-		showEvents: true,
 		showGeologicalPeriods: true,
 	}
 }
