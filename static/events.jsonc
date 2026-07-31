@@ -2,6 +2,7 @@
 	{
 		"id": 1,
 		"parentPeriodId": null,
+		"color": "#5B21B6",
 		"date": -13787000000,
 		"dateUncertainty": 20000000,
 		"name": {
@@ -17,6 +18,7 @@
 	{
 		"id": 2,
 		"parentPeriodId": null,
+		"color": "#F59E0B",
 		"date": -13700000000,
 		"dateUncertainty": 500000000,
 		"name": {
@@ -32,6 +34,7 @@
 	{
 		"id": 76,
 		"parentPeriodId": null,
+		"color": "#EF4444",
 		"date": -13000000000,
 		"dateUncertainty": 1000000000,
 		"name": {
@@ -47,6 +50,7 @@
 	{
 		"id": 77,
 		"parentPeriodId": null,
+		"color": "#4338CA",
 		"date": -12000000000,
 		"dateUncertainty": 2000000000,
 		"name": {
@@ -62,6 +66,7 @@
 	{
 		"id": 78,
 		"parentPeriodId": null,
+		"color": "#0891B2",
 		"date": -10000000000,
 		"dateUncertainty": 2000000000,
 		"name": {
@@ -77,6 +82,7 @@
 	{
 		"id": 79,
 		"parentPeriodId": null,
+		"color": "#64748B",
 		"date": -8000000000,
 		"dateUncertainty": 2000000000,
 		"name": {
@@ -92,6 +98,7 @@
 	{
 		"id": 80,
 		"parentPeriodId": null,
+		"color": "#CA8A04",
 		"date": -6000000000,
 		"dateUncertainty": 2000000000,
 		"name": {
@@ -107,6 +114,7 @@
 	{
 		"id": 81,
 		"parentPeriodId": null,
+		"color": "#EA580C",
 		"date": -4567000000,
 		"dateUncertainty": 50000000,
 		"name": {
@@ -122,6 +130,7 @@
 	{
 		"id": 3,
 		"parentPeriodId": null,
+		"color": "#0D9488",
 		"date": -4540000000,
 		"dateUncertainty": 50000000,
 		"name": {
@@ -137,6 +146,7 @@
 	{
 		"id": 4,
 		"parentPeriodId": null,
+		"color": "#78716C",
 		"date": -4533000000,
 		"dateUncertainty": 100000000,
 		"name": {
@@ -152,6 +162,7 @@
 	{
 		"id": 5,
 		"parentPeriodId": null,
+		"color": "#059669",
 		"date": -3800000000,
 		"dateUncertainty": 200000000,
 		"name": {
@@ -167,6 +178,7 @@
 	{
 		"id": 6,
 		"parentPeriodId": null,
+		"color": "#14B8A6",
 		"date": -542000000,
 		"dateUncertainty": 1000000,
 		"name": {
@@ -182,6 +194,7 @@
 	{
 		"id": 7,
 		"parentPeriodId": null,
+		"color": "#7F1D1D",
 		"date": -251000000,
 		"dateUncertainty": 1000000,
 		"name": {
@@ -197,6 +210,7 @@
 	{
 		"id": 8,
 		"parentPeriodId": null,
+		"color": "#166534",
 		"date": -230000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -212,6 +226,7 @@
 	{
 		"id": 9,
 		"parentPeriodId": null,
+		"color": "#16A34A",
 		"date": -11400,
 		"dateUncertainty": 1000,
 		"name": {
@@ -227,6 +242,7 @@
 	{
 		"id": 11,
 		"parentPeriodId": null,
+		"color": "#78716C",
 		"date": -3500,
 		"dateUncertainty": 500,
 		"name": {
@@ -242,6 +258,7 @@
 	{
 		"id": 12,
 		"parentPeriodId": null,
+		"color": "#F97316",
 		"date": -563,
 		"dateUncertainty": 50,
 		"name": {
@@ -257,6 +274,7 @@
 	{
 		"id": 13,
 		"parentPeriodId": null,
+		"color": "#FBBF24",
 		"date": -5,
 		"dateUncertainty": 5,
 		"name": {
@@ -272,6 +290,7 @@
 	{
 		"id": 14,
 		"parentPeriodId": null,
+		"color": "#6B21A8",
 		"date": 476,
 		"dateUncertainty": 10,
 		"name": {
@@ -287,6 +306,7 @@
 	{
 		"id": 15,
 		"parentPeriodId": null,
+		"color": "#D4A574",
 		"date": 570,
 		"dateUncertainty": 10,
 		"name": {
@@ -302,6 +322,7 @@
 	{
 		"id": 16,
 		"parentPeriodId": null,
+		"color": "#047857",
 		"date": 632,
 		"dateUncertainty": 10,
 		"name": {
@@ -317,6 +338,7 @@
 	{
 		"id": 17,
 		"parentPeriodId": null,
+		"color": "#1E3A8A",
 		"date": 1492,
 		"dateUncertainty": null,
 		"name": {
@@ -332,6 +354,7 @@
 	{
 		"id": 21,
 		"parentPeriodId": null,
+		"color": "#7C3AED",
 		"date": -11000000000,
 		"dateUncertainty": 1000000000,
 		"name": {
@@ -347,6 +370,7 @@
 	{
 		"id": 22,
 		"parentPeriodId": null,
+		"color": "#A855F7",
 		"date": -10000000000,
 		"dateUncertainty": 500000000,
 		"name": {
@@ -362,6 +386,7 @@
 	{
 		"id": 23,
 		"parentPeriodId": null,
+		"color": "#57534E",
 		"date": -66000000,
 		"dateUncertainty": 1000000,
 		"name": {
@@ -377,6 +402,7 @@
 	{
 		"id": 24,
 		"parentPeriodId": null,
+		"color": "#78350F",
 		"date": -600000000,
 		"dateUncertainty": 50000000,
 		"name": {
@@ -392,6 +418,7 @@
 	{
 		"id": 25,
 		"parentPeriodId": null,
+		"color": "#D97706",
 		"date": -160000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -407,6 +434,7 @@
 	{
 		"id": 26,
 		"parentPeriodId": null,
+		"color": "#65A30D",
 		"date": -440000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -422,6 +450,7 @@
 	{
 		"id": 27,
 		"parentPeriodId": null,
+		"color": "#92400E",
 		"date": -300000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -437,6 +466,7 @@
 	{
 		"id": 28,
 		"parentPeriodId": null,
+		"color": "#A16207",
 		"date": -200000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -452,6 +482,7 @@
 	{
 		"id": 29,
 		"parentPeriodId": null,
+		"color": "#2563EB",
 		"date": -150000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -467,6 +498,7 @@
 	{
 		"id": 30,
 		"parentPeriodId": null,
+		"color": "#CA8A04",
 		"date": -55000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -482,6 +514,7 @@
 	{
 		"id": 31,
 		"parentPeriodId": null,
+		"color": "#84CC16",
 		"date": -7000000,
 		"dateUncertainty": 500000,
 		"name": {
@@ -497,6 +530,7 @@
 	{
 		"id": 32,
 		"parentPeriodId": null,
+		"color": "#D4A574",
 		"date": -4000000,
 		"dateUncertainty": 500000,
 		"name": {
@@ -512,6 +546,7 @@
 	{
 		"id": 33,
 		"parentPeriodId": null,
+		"color": "#57534E",
 		"date": -2500000,
 		"dateUncertainty": 200000,
 		"name": {
@@ -527,6 +562,7 @@
 	{
 		"id": 34,
 		"parentPeriodId": null,
+		"color": "#EA580C",
 		"date": -2000000,
 		"dateUncertainty": 200000,
 		"name": {
@@ -542,6 +578,7 @@
 	{
 		"id": 35,
 		"parentPeriodId": null,
+		"color": "#B45309",
 		"date": -300000,
 		"dateUncertainty": 50000,
 		"name": {
@@ -557,6 +594,7 @@
 	{
 		"id": 36,
 		"parentPeriodId": null,
+		"color": "#DC2626",
 		"date": -40000,
 		"dateUncertainty": 5000,
 		"name": {
@@ -572,6 +610,7 @@
 	{
 		"id": 37,
 		"parentPeriodId": null,
+		"color": "#7DD3FC",
 		"date": -12000,
 		"dateUncertainty": 1000,
 		"name": {
@@ -587,6 +626,7 @@
 	{
 		"id": 38,
 		"parentPeriodId": null,
+		"color": "#EAB308",
 		"date": -8000,
 		"dateUncertainty": 1000,
 		"name": {
@@ -602,6 +642,7 @@
 	{
 		"id": 39,
 		"parentPeriodId": null,
+		"color": "#D97706",
 		"date": -3000,
 		"dateUncertainty": 500,
 		"name": {
@@ -617,6 +658,7 @@
 	{
 		"id": 40,
 		"parentPeriodId": null,
+		"color": "#1D4ED8",
 		"date": -776,
 		"dateUncertainty": null,
 		"name": {
@@ -632,6 +674,7 @@
 	{
 		"id": 41,
 		"parentPeriodId": null,
+		"color": "#DC2626",
 		"date": -753,
 		"dateUncertainty": 10,
 		"name": {
@@ -647,6 +690,7 @@
 	{
 		"id": 42,
 		"parentPeriodId": null,
+		"color": "#B91C1C",
 		"date": -221,
 		"dateUncertainty": 10,
 		"name": {
@@ -662,6 +706,7 @@
 	{
 		"id": 43,
 		"parentPeriodId": null,
+		"color": "#D6D3D1",
 		"date": 105,
 		"dateUncertainty": 10,
 		"name": {
@@ -677,6 +722,7 @@
 	{
 		"id": 44,
 		"parentPeriodId": null,
+		"color": "#1E293B",
 		"date": 1455,
 		"dateUncertainty": null,
 		"name": {
@@ -692,6 +738,7 @@
 	{
 		"id": 45,
 		"parentPeriodId": null,
+		"color": "#1D4ED8",
 		"date": 1789,
 		"dateUncertainty": null,
 		"name": {
@@ -707,6 +754,7 @@
 	{
 		"id": 46,
 		"parentPeriodId": null,
+		"color": "#94A3B8",
 		"date": 1903,
 		"dateUncertainty": null,
 		"name": {
@@ -722,6 +770,7 @@
 	{
 		"id": 47,
 		"parentPeriodId": null,
+		"color": "#6366F1",
 		"date": 1969,
 		"dateUncertainty": null,
 		"name": {
@@ -737,6 +786,7 @@
 	{
 		"id": 48,
 		"parentPeriodId": null,
+		"color": "#991B1B",
 		"date": -252000000,
 		"dateUncertainty": 2000000,
 		"name": {
@@ -752,6 +802,7 @@
 	{
 		"id": 49,
 		"parentPeriodId": null,
+		"color": "#C2410C",
 		"date": -201000000,
 		"dateUncertainty": 1000000,
 		"name": {
@@ -767,6 +818,7 @@
 	{
 		"id": 50,
 		"parentPeriodId": null,
+		"color": "#B45309",
 		"date": -180000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -782,6 +834,7 @@
 	{
 		"id": 51,
 		"parentPeriodId": null,
+		"color": "#0284C7",
 		"date": -135000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -797,6 +850,7 @@
 	{
 		"id": 52,
 		"parentPeriodId": null,
+		"color": "#0E7490",
 		"date": -100000000,
 		"dateUncertainty": 10000000,
 		"name": {
@@ -812,6 +866,7 @@
 	{
 		"id": 53,
 		"parentPeriodId": null,
+		"color": "#6B7280",
 		"date": -50000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -827,6 +882,7 @@
 	{
 		"id": 54,
 		"parentPeriodId": null,
+		"color": "#38BDF8",
 		"date": -34000000,
 		"dateUncertainty": 2000000,
 		"name": {
@@ -842,6 +898,7 @@
 	{
 		"id": 55,
 		"parentPeriodId": null,
+		"color": "#15803D",
 		"date": -25000000,
 		"dateUncertainty": 5000000,
 		"name": {
@@ -857,6 +914,7 @@
 	{
 		"id": 56,
 		"parentPeriodId": null,
+		"color": "#C2410C",
 		"date": -2000000,
 		"dateUncertainty": 500000,
 		"name": {
@@ -872,6 +930,7 @@
 	{
 		"id": 57,
 		"parentPeriodId": null,
+		"color": "#44403C",
 		"date": -750000,
 		"dateUncertainty": 100000,
 		"name": {
@@ -887,6 +946,7 @@
 	{
 		"id": 58,
 		"parentPeriodId": null,
+		"color": "#EF4444",
 		"date": -39000,
 		"dateUncertainty": 2000,
 		"name": {
@@ -902,6 +962,7 @@
 	{
 		"id": 59,
 		"parentPeriodId": null,
+		"color": "#93C5FD",
 		"date": -12800,
 		"dateUncertainty": 300,
 		"name": {
@@ -917,6 +978,7 @@
 	{
 		"id": 60,
 		"parentPeriodId": null,
+		"color": "#FBBF24",
 		"date": -11600,
 		"dateUncertainty": 100,
 		"name": {
@@ -932,6 +994,7 @@
 	{
 		"id": 61,
 		"parentPeriodId": null,
+		"color": "#374151",
 		"date": -5350,
 		"dateUncertainty": 100,
 		"name": {
@@ -947,6 +1010,7 @@
 	{
 		"id": 62,
 		"parentPeriodId": null,
+		"color": "#0EA5E9",
 		"date": -1628,
 		"dateUncertainty": null,
 		"name": {
@@ -962,6 +1026,7 @@
 	{
 		"id": 63,
 		"parentPeriodId": null,
+		"color": "#DC2626",
 		"date": -79,
 		"dateUncertainty": null,
 		"name": {
@@ -977,6 +1042,7 @@
 	{
 		"id": 64,
 		"parentPeriodId": null,
+		"color": "#292524",
 		"date": 1883,
 		"dateUncertainty": null,
 		"name": {
@@ -992,6 +1058,7 @@
 	{
 		"id": 65,
 		"parentPeriodId": null,
+		"color": "#A8A29E",
 		"date": 1980,
 		"dateUncertainty": null,
 		"name": {
@@ -1007,6 +1074,7 @@
 	{
 		"id": 68,
 		"parentPeriodId": null,
+		"color": "#B91C1C",
 		"date": -110000,
 		"dateUncertainty": 5000,
 		"name": {
@@ -1022,6 +1090,7 @@
 	{
 		"id": 70,
 		"parentPeriodId": null,
+		"color": "#FDE047",
 		"date": 1006,
 		"dateUncertainty": null,
 		"name": {
@@ -1037,6 +1106,7 @@
 	{
 		"id": 71,
 		"parentPeriodId": null,
+		"color": "#2DD4BF",
 		"date": 1054,
 		"dateUncertainty": null,
 		"name": {
@@ -1052,6 +1122,7 @@
 	{
 		"id": 72,
 		"parentPeriodId": null,
+		"color": "#22D3EE",
 		"date": 1181,
 		"dateUncertainty": null,
 		"name": {
@@ -1067,6 +1138,7 @@
 	{
 		"id": 73,
 		"parentPeriodId": null,
+		"color": "#7E22CE",
 		"date": 1572,
 		"dateUncertainty": null,
 		"name": {
@@ -1082,6 +1154,7 @@
 	{
 		"id": 74,
 		"parentPeriodId": null,
+		"color": "#4338CA",
 		"date": 1604,
 		"dateUncertainty": null,
 		"name": {
@@ -1097,6 +1170,7 @@
 	{
 		"id": 75,
 		"parentPeriodId": null,
+		"color": "#EC4899",
 		"date": 1987,
 		"dateUncertainty": null,
 		"name": {
