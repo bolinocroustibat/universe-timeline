@@ -238,17 +238,37 @@ const messages = {
 					style="height: {EVENTS_ZONE_HEIGHT_RATIO * 100}%"
 				>
 					{#if $displaySettings.showEvents}
-						{#each eventLayouts as layout (layout.event.id)}
-							<EventCard
-								{layout}
-								zoneHeight={eventsZoneHeight}
-								isTopCard={topCardType === "event" &&
-									topCardEventId === layout.event.id}
-								isHovered={hoveredCardEventId === layout.event.id}
-								onCardClick={handleEventClick}
-								onCardHover={handleEventHover}
-							/>
-						{/each}
+						<!-- Uncertainty visuals (period spans, range bars, point ticks) sit behind cards. -->
+						<div class="absolute inset-0 z-0">
+							{#each eventLayouts as layout (`${layout.event.id}-background`)}
+								<EventCard
+									{layout}
+									layer="background"
+									zoneHeight={eventsZoneHeight}
+									isTopCard={topCardType === "event" &&
+										topCardEventId === layout.event.id}
+									isHovered={hoveredCardEventId === layout.event.id}
+									onCardClick={handleEventClick}
+									onCardHover={handleEventHover}
+								/>
+							{/each}
+						</div>
+
+						<!-- Cards and the active event's own uncertainty visuals render in front. -->
+						<div class="absolute inset-0 z-10">
+							{#each eventLayouts as layout (layout.event.id)}
+								<EventCard
+									{layout}
+									layer="foreground"
+									zoneHeight={eventsZoneHeight}
+									isTopCard={topCardType === "event" &&
+										topCardEventId === layout.event.id}
+									isHovered={hoveredCardEventId === layout.event.id}
+									onCardClick={handleEventClick}
+									onCardHover={handleEventHover}
+								/>
+							{/each}
+						</div>
 					{:else}
 						<div class="absolute inset-0 flex items-center justify-center">
 							<div class="text-muted">
