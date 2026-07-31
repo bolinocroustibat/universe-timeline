@@ -2,8 +2,11 @@ import { describe, expect, test } from "bun:test"
 import type { Event } from "$lib/types"
 import {
 	buildEventLayouts,
+	EVENT_CARD_HEIGHT,
 	EVENT_CARD_WIDTH,
 	EVENT_LANE_PEEK_GAP_PX,
+	EVENT_Z_INDEX_MAX_DEFAULT,
+	EVENT_Z_INDEX_SELECTED,
 	getEventCardXPosition,
 } from "$lib/utils/eventLayout"
 import { getClampedSpanPosition } from "$lib/utils/spanPosition"
@@ -144,8 +147,28 @@ describe("buildEventLayouts", () => {
 		expect(layouts[1]?.bottom).toBeGreaterThan(layouts[0]?.bottom ?? 0)
 	})
 
+	test("uses natural lane step from collapsed card height", () => {
+		const peekGap = EVENT_LANE_PEEK_GAP_PX
+		const naturalLaneStep = EVENT_CARD_HEIGHT + peekGap
+		const zoneHeight = naturalLaneStep + EVENT_CARD_HEIGHT
+
+		const layouts = buildEventLayouts({
+			events: [
+				createEvent({ id: 1, date: 5000 }),
+				createEvent({ id: 2, date: 5050 }),
+			],
+			leftEdgeYear: 0,
+			rightEdgeYear: 10_000,
+			yearsPerPixel: 10,
+			viewportWidth: 1000,
+			zoneHeight,
+		})
+
+		expect(layouts[1]?.bottom).toBe(naturalLaneStep)
+	})
+
 	test("compresses lane spacing when stack exceeds zone height", () => {
-		const cardHeight = 72
+		const cardHeight = EVENT_CARD_HEIGHT
 		const peekGap = EVENT_LANE_PEEK_GAP_PX
 		const zoneHeight = cardHeight + peekGap + 10
 
@@ -167,7 +190,7 @@ describe("buildEventLayouts", () => {
 	})
 
 	test("does not compress unrelated groups when another group has a deep stack", () => {
-		const cardHeight = 72
+		const cardHeight = EVENT_CARD_HEIGHT
 		const peekGap = EVENT_LANE_PEEK_GAP_PX
 		const naturalLaneStep = cardHeight + peekGap
 		// Fits a 2-lane group at natural spacing, but not a 3-lane group.
@@ -208,5 +231,26 @@ describe("buildEventLayouts", () => {
 		// Right group is compressed to fit three lanes in the same zone height.
 		expect(rightGroup[1]?.bottom ?? 0).toBeLessThan(naturalLaneStep)
 		expect(rightGroup[2]?.bottom ?? 0).toBeLessThan(naturalLaneStep * 2)
+	})
+
+	test("caps default z-index below selected for deep stacks", () => {
+		const events = Array.from({ length: 25 }, (_, index) =>
+			createEvent({ id: index + 1, date: 9950 + index }),
+		)
+
+		const layouts = buildEventLayouts({
+			events,
+			leftEdgeYear: 0,
+			rightEdgeYear: 10_000,
+			yearsPerPixel: 10,
+			viewportWidth: 1000,
+			zoneHeight: 300,
+		})
+
+		expect(layouts.every((layout) => layout.zIndexBase <= EVENT_Z_INDEX_MAX_DEFAULT)).toBe(
+			true,
+		)
+		expect(layouts[24]?.zIndexBase).toBe(EVENT_Z_INDEX_MAX_DEFAULT)
+		expect(EVENT_Z_INDEX_SELECTED).toBeGreaterThan(EVENT_Z_INDEX_MAX_DEFAULT)
 	})
 })

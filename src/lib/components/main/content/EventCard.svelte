@@ -2,12 +2,13 @@
 import SpanBand from "$lib/components/main/content/SpanBand.svelte"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { EventLayout } from "$lib/utils/eventLayout"
+import {
+	EVENT_Z_INDEX_HOVERED,
+	EVENT_Z_INDEX_SELECTED,
+} from "$lib/utils/eventLayout"
 import { formatDate } from "$lib/utils/formatters"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
-
-const Z_INDEX_SELECTED = 1000
-const Z_INDEX_HOVERED = 999
 
 const HORIZONTAL_PADDING = 32
 const CHAR_WIDTH = 7.5
@@ -50,9 +51,9 @@ const spanBand = $derived(layout.spanBand)
 
 const zIndex = $derived(
 	isTopCard
-		? Z_INDEX_SELECTED
+		? EVENT_Z_INDEX_SELECTED
 		: isHovered
-			? Z_INDEX_HOVERED
+			? EVENT_Z_INDEX_HOVERED
 			: layout.zIndexBase,
 )
 
@@ -217,7 +218,7 @@ function handlePointerLeave() {
 			onpointerleave={handlePointerLeave}
 			tabindex="0"
 		>
-			<div class="font-semibold text-foreground mb-2 transition-all duration-200 text-sm">
+			<div class="font-semibold text-foreground mb-2 transition-all duration-200 text-sm line-clamp-2">
 				{layout.event.name[$currentLocale]}
 			</div>
 			<div class="text-muted font-medium mb-2 transition-all duration-200 text-xs">

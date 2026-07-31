@@ -11,11 +11,20 @@ import {
 } from "$lib/utils/spanPosition"
 
 export const EVENT_CARD_WIDTH = 200
-export const EVENT_CARD_HEIGHT = 72
+/** Collapsed card height (padding + 2-line title + date). Measured from rendered EventCard. */
+export const EVENT_CARD_HEIGHT = 128
 export const EVENT_LANE_PEEK_GAP_PX = 25
 export const EVENT_MARKER_EXTENSION_PX = 12
 export const EVENT_CARD_SCREEN_PADDING = 0
 export const EVENT_Z_INDEX_BASE = 980
+export const EVENT_Z_INDEX_HOVERED = 999
+export const EVENT_Z_INDEX_SELECTED = 1000
+/** Default z-index ceiling — keeps selected cards above any deep stack. */
+export const EVENT_Z_INDEX_MAX_DEFAULT = EVENT_Z_INDEX_HOVERED - 1
+
+export function computeEventZIndexBase(lane: number): number {
+	return Math.min(EVENT_Z_INDEX_BASE + lane, EVENT_Z_INDEX_MAX_DEFAULT)
+}
 
 export type EventDisplayTier = "point" | "range" | "period"
 
@@ -409,7 +418,7 @@ export function buildEventLayouts(
 				bottom: spanBand.bottom,
 				markerHeight: 0,
 				spanBand,
-				zIndexBase: EVENT_Z_INDEX_BASE + lane,
+				zIndexBase: computeEventZIndexBase(lane),
 			}
 		}
 
@@ -422,7 +431,7 @@ export function buildEventLayouts(
 			bottom,
 			markerHeight,
 			spanBand: null,
-			zIndexBase: EVENT_Z_INDEX_BASE + lane,
+			zIndexBase: computeEventZIndexBase(lane),
 		}
 	})
 }
