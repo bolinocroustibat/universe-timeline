@@ -426,11 +426,13 @@ export function buildEventLayouts(
 
 		const bottom =
 			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + lane * laneStep
+		const connectorHeight = bottom - EVENT_CARD_MIN_BOTTOM_OFFSET_PX
+
 		return {
 			...draft,
 			lane,
 			bottom,
-			markerHeight: bottom,
+			markerHeight: connectorHeight,
 			spanBand: null,
 			zIndexBase: computeEventZIndexBase(lane),
 		}

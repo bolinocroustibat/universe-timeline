@@ -1,6 +1,8 @@
 import { describe, expect, test } from "bun:test"
 import {
+	buildEventConnectorPath,
 	buildEventDateMarkerPath,
+	getEventConnectorBBox,
 	getEventDateMarkerBBox,
 } from "$lib/utils/eventDateMarkerPath"
 
@@ -103,6 +105,38 @@ describe("buildEventDateMarkerPath", () => {
 
 		expect(path.startsWith("M 100 80")).toBe(true)
 		expect(path).toContain("L 100 80")
+		expect(path).toContain("Z")
+	})
+})
+
+describe("buildEventConnectorPath", () => {
+	test("includes rounded top corners and connector funnel", () => {
+		const cardHeight = 128
+		const markerHeight = 80
+		const bbox = getEventConnectorBBox({
+			topLeft: 100,
+			topRight: 300,
+			bottomLeft: 180,
+			bottomRight: 220,
+			height: markerHeight,
+			cardHeight,
+		})
+
+		const path = buildEventConnectorPath(
+			{
+				topLeft: 100,
+				topRight: 300,
+				bottomLeft: 180,
+				bottomRight: 220,
+				height: markerHeight,
+				cardHeight,
+			},
+			bbox.left,
+		)
+
+		expect(bbox.height).toBe(cardHeight + markerHeight)
+		expect(path).toContain("A 12 12")
+		expect(path.startsWith("M 80 208")).toBe(true)
 		expect(path).toContain("Z")
 	})
 })

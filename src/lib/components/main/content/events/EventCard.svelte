@@ -1,13 +1,9 @@
 <script lang="ts">
-import EventDateMarker from "$lib/components/main/content/events/EventDateMarker.svelte"
+import EventConnectorCard from "$lib/components/main/content/events/EventConnectorCard.svelte"
 import EventDetailCard from "$lib/components/main/content/events/EventDetailCard.svelte"
 import EventPeriodBand from "$lib/components/main/content/events/EventPeriodBand.svelte"
 import { currentLocale } from "$lib/stores/localeStore"
-import {
-	getEventCardBorderStyle,
-	getEventColor,
-	getEventDetailCardStyle,
-} from "$lib/utils/eventColors"
+import { getEventColor } from "$lib/utils/eventColors"
 import type { EventLayout } from "$lib/utils/eventLayout"
 import {
 	EVENT_Z_INDEX_HOVERED,
@@ -19,7 +15,7 @@ import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
  * Paint layer for event visuals.
  *
  * - background: uncertainty visuals that must stay behind every card — inactive
- *   period span bands, and range/point date markers (the bar or tick below a card).
+ *   period span bands, and range/point connector funnels (below a card).
  * - foreground: interactive cards, plus the active event's own uncertainty visuals.
  */
 export type EventCardLayer = "background" | "foreground"
@@ -56,7 +52,7 @@ const zIndex = $derived(
 			: layout.zIndexBase,
 )
 
-/** Range/point markers sit below period span bands within the background layer. */
+/** Range/point connectors sit below period span bands within the background layer. */
 const MARKER_BACKGROUND_Z_BASE = 0
 const PERIOD_BACKGROUND_Z_BASE = 100
 
@@ -78,13 +74,6 @@ const spanBackground = $derived(
 
 const markerBackgroundVariant = "background" as const
 const markerForegroundVariant = "foreground" as const
-const cardBorderStyle = $derived(
-	getEventCardBorderStyle(eventColor, isSelected, isHovered),
-)
-const detailCardStyle = $derived(getEventDetailCardStyle(eventColor))
-const periodSpanBorderStyle = $derived(
-	isSelected ? `border-color: ${eventColor};` : "",
-)
 
 const label = $derived(layout.event.name[$currentLocale])
 
@@ -103,6 +92,8 @@ function handlePointerLeave() {
 			eventId={layout.event.id}
 			layer="background"
 			{isSelected}
+			isHovered={isHovered && !isSelected}
+			{eventColor}
 			{label}
 			anchorX={layout.anchor.x}
 			anchorWidth={layout.anchor.width}
@@ -114,10 +105,12 @@ function handlePointerLeave() {
 			onPointerEnter={handlePointerEnter}
 			onPointerLeave={handlePointerLeave}
 		/>
-	{:else if layout.tier === "range" && !isSelected}
-		<EventDateMarker
-			tier="range"
+	{:else if (layout.tier === "range" || layout.tier === "point") && !isSelected}
+		<EventConnectorCard
+			event={layout.event}
+			tier={layout.tier}
 			layer="background"
+			connectorOnly={true}
 			cardX={layout.card.x}
 			cardWidth={layout.card.width}
 			anchorX={layout.anchor.x}
@@ -126,21 +119,9 @@ function handlePointerLeave() {
 			zIndex={backgroundZIndex}
 			eventColor={eventColor}
 			variant={markerBackgroundVariant}
-			markerId="{layout.event.id}-background"
-		/>
-	{:else if layout.tier === "point" && !isSelected}
-		<EventDateMarker
-			tier="point"
-			layer="background"
-			cardX={layout.card.x}
-			cardWidth={layout.card.width}
-			anchorX={layout.anchor.x}
-			anchorWidth={layout.anchor.width}
-			markerHeight={layout.markerHeight}
-			zIndex={backgroundZIndex}
-			eventColor={eventColor}
-			variant={markerBackgroundVariant}
-			markerId="{layout.event.id}-background"
+			shapeId="{layout.event.id}-background"
+			{isSelected}
+			isHovered={false}
 		/>
 	{/if}
 {/if}
@@ -151,6 +132,8 @@ function handlePointerLeave() {
 			eventId={layout.event.id}
 			layer="foreground"
 			{isSelected}
+			isHovered={false}
+			{eventColor}
 			{label}
 			anchorX={layout.anchor.x}
 			anchorWidth={layout.anchor.width}
@@ -158,7 +141,6 @@ function handlePointerLeave() {
 			spanHeight={spanBand.height}
 			{zIndex}
 			{spanBackground}
-			borderStyle={periodSpanBorderStyle}
 			onCardClick={onCardClick}
 			onPointerEnter={handlePointerEnter}
 			onPointerLeave={handlePointerLeave}
@@ -167,59 +149,30 @@ function handlePointerLeave() {
 		{#if layout.event.description[$currentLocale]}
 			<EventDetailCard
 				event={layout.event}
-				variant="period"
-				layer="foreground"
-				{isSelected}
+				{eventColor}
 				cardX={layout.card.x}
 				cardBottom={spanBand.bottom + spanBand.height + 8}
 				cardWidth={layout.card.width}
 				{zIndex}
-				cardStyle={detailCardStyle}
 			/>
 		{/if}
-	{:else if !isPeriodTier}
-		{#if layout.tier === "range" && isSelected}
-			<EventDateMarker
-				tier="range"
-				layer="foreground"
-				cardX={layout.card.x}
-				cardWidth={layout.card.width}
-				anchorX={layout.anchor.x}
-				anchorWidth={layout.anchor.width}
-				markerHeight={layout.markerHeight}
-				zIndex={zIndex - 1}
-				eventColor={eventColor}
-				variant={markerForegroundVariant}
-				markerId="{layout.event.id}-foreground"
-			/>
-		{/if}
-
-		{#if layout.tier === "point" && isSelected}
-			<EventDateMarker
-				tier="point"
-				layer="foreground"
-				cardX={layout.card.x}
-				cardWidth={layout.card.width}
-				anchorX={layout.anchor.x}
-				anchorWidth={layout.anchor.width}
-				markerHeight={layout.markerHeight}
-				zIndex={zIndex - 1}
-				eventColor={eventColor}
-				variant={markerForegroundVariant}
-				markerId="{layout.event.id}-foreground"
-			/>
-		{/if}
-
-		<EventDetailCard
+	{:else if layout.tier === "range" || layout.tier === "point"}
+		<EventConnectorCard
 			event={layout.event}
-			variant="interactive"
+			tier={layout.tier}
 			layer="foreground"
-			{isSelected}
+			connectorOnly={false}
 			cardX={layout.card.x}
-			cardBottom={layout.bottom}
 			cardWidth={layout.card.width}
+			anchorX={layout.anchor.x}
+			anchorWidth={layout.anchor.width}
+			markerHeight={layout.markerHeight}
 			{zIndex}
-			cardStyle={cardBorderStyle}
+			eventColor={eventColor}
+			variant={markerForegroundVariant}
+			shapeId="{layout.event.id}-foreground"
+			{isSelected}
+			isHovered={isHovered && !isSelected}
 			onCardClick={onCardClick}
 			onPointerEnter={handlePointerEnter}
 			onPointerLeave={handlePointerLeave}

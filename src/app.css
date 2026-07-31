@@ -67,40 +67,6 @@
   color utility to any element that depends on these defaults.
 */
 @layer components {
-	[data-event-card] {
-		background-color: var(--theme-surface-raised);
-		box-shadow:
-			0 0 0 1px color-mix(in srgb, var(--theme-accent) 20%, transparent),
-			0 10px 15px -3px rgb(0 0 0 / 0.35),
-			0 4px 6px -2px rgb(0 0 0 / 0.2);
-	}
-
-	[data-theme="dark"] [data-event-card] {
-		backdrop-filter: blur(12px);
-	}
-
-	[data-event-card][data-selected] {
-		box-shadow:
-			0 0 0 1px color-mix(in srgb, var(--theme-accent) 50%, transparent),
-			0 0 20px color-mix(in srgb, var(--theme-accent) 15%, transparent),
-			0 10px 25px -5px rgb(0 0 0 / 0.5);
-	}
-
-	[data-theme="light"] [data-event-card] {
-		box-shadow:
-			0 0 0 1px color-mix(in srgb, var(--theme-accent) 35%, transparent),
-			0 4px 14px -3px color-mix(in srgb, var(--theme-accent) 18%, transparent),
-			0 2px 4px -1px rgb(15 23 42 / 0.06);
-	}
-
-	[data-theme="light"] [data-event-card][data-selected] {
-		box-shadow:
-			0 0 0 1px color-mix(in srgb, var(--theme-accent) 55%, transparent),
-			0 0 16px color-mix(in srgb, var(--theme-accent) 22%, transparent),
-			0 6px 20px -4px
-			color-mix(in srgb, var(--theme-accent-secondary) 15%, transparent);
-	}
-
 	[data-theme="light"] [data-geological-period-card] {
 		backdrop-filter: none;
 	}

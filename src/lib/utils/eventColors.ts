@@ -40,19 +40,50 @@ export function getEventMarkerGradientStops(
 	]
 }
 
-export function getEventCardBorderStyle(
-	color: string,
-	selected: boolean,
-	hovered = false,
-): string {
-	if (selected) {
-		return `border-color: ${color}; box-shadow: 0 0 0 1px color-mix(in srgb, ${color} 30%, transparent);`
-	}
-
-	const mix = hovered ? 55 : 35
-	return `border-color: color-mix(in srgb, ${color} ${mix}%, transparent);`
+/** Vertical panel gradient aligned with connector card foreground fills. */
+export function getEventPanelBackgroundStyle(color: string): string {
+	return `background: linear-gradient(to top, ${color}, color-mix(in srgb, ${color} 65%, black));`
 }
 
-export function getEventDetailCardStyle(color: string): string {
-	return `border-color: ${color}; box-shadow: 0 0 0 1px color-mix(in srgb, ${color} 30%, transparent);`
+export function getEventConnectorStroke(
+	color: string,
+	selected: boolean,
+	hovered: boolean,
+): { stroke: string; strokeWidth: number } {
+	if (selected) {
+		return {
+			stroke: color,
+			strokeWidth: 2,
+		}
+	}
+
+	if (hovered) {
+		return {
+			stroke: `color-mix(in srgb, ${color} 55%, transparent)`,
+			strokeWidth: 1.5,
+		}
+	}
+
+	return {
+		stroke: "transparent",
+		strokeWidth: 0,
+	}
+}
+
+export function getEventPanelBorderStyle(
+	color: string,
+	selected: boolean,
+	hovered: boolean,
+): string {
+	const { stroke, strokeWidth } = getEventConnectorStroke(
+		color,
+		selected,
+		hovered,
+	)
+
+	if (strokeWidth === 0) {
+		return "border: 2px solid transparent"
+	}
+
+	return `border: ${strokeWidth}px solid ${stroke}`
 }

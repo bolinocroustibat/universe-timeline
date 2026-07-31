@@ -1,5 +1,6 @@
 <script lang="ts">
 import SpanBand from "$lib/components/main/content/SpanBand.svelte"
+import { getEventPanelBorderStyle } from "$lib/utils/eventColors"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 
 const HORIZONTAL_PADDING = 32
@@ -10,6 +11,8 @@ interface Props {
 	eventId: number
 	layer: "background" | "foreground"
 	isSelected: boolean
+	isHovered: boolean
+	eventColor: string
 	label: string
 	anchorX: number
 	anchorWidth: number
@@ -17,7 +20,6 @@ interface Props {
 	spanHeight: number
 	zIndex: number
 	spanBackground: string
-	borderStyle?: string
 	onCardClick: (eventId: number) => void
 	onPointerEnter: () => void
 	onPointerLeave: () => void
@@ -27,6 +29,8 @@ let {
 	eventId,
 	layer,
 	isSelected,
+	isHovered,
+	eventColor,
 	label,
 	anchorX,
 	anchorWidth,
@@ -34,7 +38,6 @@ let {
 	spanHeight,
 	zIndex,
 	spanBackground,
-	borderStyle = "",
 	onCardClick,
 	onPointerEnter,
 	onPointerLeave,
@@ -45,10 +48,8 @@ const titleFitsInSpan = $derived(
 		spanHeight >= MIN_HEIGHT_TITLE,
 )
 
-const containerClass = $derived(
-	isSelected
-		? "absolute cursor-pointer overflow-hidden shadow-sm shadow-lg rounded-[5px] border-2"
-		: "absolute cursor-pointer overflow-hidden shadow-sm shadow-md",
+const borderStyle = $derived(
+	getEventPanelBorderStyle(eventColor, isSelected, isHovered),
 )
 </script>
 
@@ -57,7 +58,7 @@ const containerClass = $derived(
 	data-event-card
 	data-event-layer={layer}
 	data-selected={isSelected || undefined}
-	class={containerClass}
+	class="absolute cursor-pointer overflow-hidden rounded-[5px] box-border"
 	style="left: {anchorX}px; width: {anchorWidth}px; bottom: {spanBottom}px; height: {spanHeight}px; z-index: {zIndex}; {borderStyle}"
 	title="{label}"
 	use:bindPointerClick={() => onCardClick(eventId)}
@@ -67,7 +68,7 @@ const containerClass = $derived(
 >
 	<SpanBand
 		backgroundStyle={spanBackground}
-		class="flex items-center justify-center px-2 font-medium text-on-media"
+		class="flex h-full w-full items-center justify-center px-2 font-medium text-on-media"
 	>
 		{#if titleFitsInSpan}
 			<span class="w-full min-w-0 text-sm font-semibold shrink-0 text-center whitespace-nowrap">

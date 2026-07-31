@@ -29,7 +29,7 @@ Edge-blur span backgrounds use [`spanBandStyle.ts`](src/lib/utils/spanBandStyle.
 
 ## Event positioning
 
-All event geometry is computed in [`eventLayout.ts`](src/lib/utils/eventLayout.ts) via `buildEventLayouts()` and passed to [`EventCard.svelte`](src/lib/components/main/content/events/EventCard.svelte) as an `EventLayout` object. Components do not compute their own X/Y. Visual variants are split into [`EventPeriodBand.svelte`](src/lib/components/main/content/events/EventPeriodBand.svelte), [`EventDateMarker.svelte`](src/lib/components/main/content/events/EventDateMarker.svelte), and [`EventDetailCard.svelte`](src/lib/components/main/content/events/EventDetailCard.svelte).
+All event geometry is computed in [`eventLayout.ts`](src/lib/utils/eventLayout.ts) via `buildEventLayouts()` and passed to [`EventCard.svelte`](src/lib/components/main/content/events/EventCard.svelte) as an `EventLayout` object. Components do not compute their own X/Y. Visual variants are split into [`EventPeriodBand.svelte`](src/lib/components/main/content/events/EventPeriodBand.svelte), [`EventConnectorCard.svelte`](src/lib/components/main/content/events/EventConnectorCard.svelte), and [`EventDetailCard.svelte`](src/lib/components/main/content/events/EventDetailCard.svelte) (period detail only).
 
 Date ranges come from [`eventSpan.ts`](src/lib/utils/eventSpan.ts): `date ± dateUncertainty/2` when uncertainty exists; otherwise a point at `date`.
 
@@ -41,7 +41,9 @@ Date ranges come from [`eventSpan.ts`](src/lib/utils/eventSpan.ts): `date ± dat
 | `range` | `1px ≤ span < CARD_WIDTH` | Date span at zone bottom; SVG connector narrows to anchor width |
 | `period` | `span ≥ CARD_WIDTH` | Full-height span band with edge fade (`SpanBand`) |
 
-**Date markers (`EventDateMarker`)** — for `point` and `range` tiers, an SVG funnel connects the card bottom (full card width) to the anchor span at the zone floor. Side edges use cubic Bézier curves; path geometry is built by [`eventDateMarkerPath.ts`](src/lib/utils/eventDateMarkerPath.ts). Marker height equals `layout.bottom` (card bottom offset). Gradients come from `getEventMarkerGradientStops()` in [`eventColors.ts`](src/lib/utils/eventColors.ts).
+**Connector cards (`EventConnectorCard`)** — for `point` and `range` tiers, a unified SVG shape (rounded-top card body + Bézier funnel) connects the card to the anchor span above the timeline clearance line. The shape sits at `bottom: EVENT_CARD_MIN_BOTTOM_OFFSET_PX` (same floor margin as period span bands). `markerHeight` is the connector segment only (`layout.bottom - EVENT_CARD_MIN_BOTTOM_OFFSET_PX`), not the full card offset. Text content is an HTML overlay without its own background or border. Path geometry is built by [`eventDateMarkerPath.ts`](src/lib/utils/eventDateMarkerPath.ts). Card height is measured at runtime via `ResizeObserver`. Uses `data-event-connector` alongside `data-event-card`.
+
+**Period tier** — `EventPeriodBand` renders the colored span via `SpanBand`; `EventDetailCard` shows the description panel above the band when selected. Both use event-color styling from [`eventColors.ts`](src/lib/utils/eventColors.ts).
 
 Cards are centered on the best-estimate date with viewport edge clamping (`getEventCardXPosition()`).
 
@@ -84,7 +86,8 @@ Events are visible when their date range overlaps the viewport (`isEventRangeVis
 
 ## Styling
 
-- Event cards use theme tokens: `bg-surface-raised`, `border-accent/35`, `ring-accent/30` when selected. Period-tier spans use accent gradient via `SpanBand`.
+- Event visuals use per-event `color` from [`eventColors.ts`](src/lib/utils/eventColors.ts): connector SVG fills/gradients (`EventConnectorCard`), period span bands (`SpanBand` + `getSpanBandBackgroundStyle()`), period detail panels (`EventDetailCard`), and selection borders via `getEventConnectorStroke()` / `getEventPanelBorderStyle()`. Text on colored surfaces uses `text-on-media`.
+- `data-event-card` is a semantic hook for click-outside deselection only — no global CSS in [`app.css`](src/app.css).
 - Geological period cards use data-driven `color` with CSS gradients; selection adds `border-selection-outline` and scale transform via `getGeologicalPeriodSelectionTransform()`.
 - Localize text with `$currentLocale`: event names, descriptions, and dates via `formatDate(event.date, $currentLocale)`; geological period names via `layout.name[$currentLocale]`.
 
