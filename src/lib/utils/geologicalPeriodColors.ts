@@ -75,13 +75,12 @@ export function resolveGeologicalPeriodColors(
 		}
 
 		const parentColor = resolveColor(period.parentPeriodId)
-		const autoDerivedSiblings = (childrenByParent.get(period.parentPeriodId) ?? [])
+		const autoDerivedSiblings = (
+			childrenByParent.get(period.parentPeriodId) ?? []
+		)
 			.filter((sibling) => !sibling.color)
 			.sort((a, b) => a.start - b.start)
-		const colors = deriveSiblingColors(
-			parentColor,
-			autoDerivedSiblings.length,
-		)
+		const colors = deriveSiblingColors(parentColor, autoDerivedSiblings.length)
 		const index = autoDerivedSiblings.findIndex(
 			(sibling) => sibling.id === periodId,
 		)

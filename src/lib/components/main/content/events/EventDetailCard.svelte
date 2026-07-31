@@ -18,14 +18,8 @@ interface Props {
 	zIndex: number
 }
 
-let {
-	event,
-	eventColor,
-	cardX,
-	cardBottom,
-	cardWidth,
-	zIndex,
-}: Props = $props()
+let { event, eventColor, cardX, cardBottom, cardWidth, zIndex }: Props =
+	$props()
 
 const label = $derived(event.name[$currentLocale])
 const description = $derived(event.description[$currentLocale])

@@ -1,4 +1,6 @@
 <script lang="ts">
+import { tick } from "svelte"
+import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "$lib/constants"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event } from "$lib/types"
 import {
@@ -12,13 +14,11 @@ import {
 	getEventConnectorBBox,
 	getEventDateMarkerBBox,
 } from "$lib/utils/eventDateMarkerPath"
-import { formatDate } from "$lib/utils/formatters"
-import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "$lib/constants"
 import type { EventDisplayTier } from "$lib/utils/eventLayout"
 import { EVENT_CARD_HEIGHT } from "$lib/utils/eventLayout"
-import { getEventCardTopCornerRadiusStyle } from "$lib/utils/spanBandCorners"
-import { tick } from "svelte"
+import { formatDate } from "$lib/utils/formatters"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
+import { getEventCardTopCornerRadiusStyle } from "$lib/utils/spanBandCorners"
 
 function measureCardHeight(element: HTMLDivElement): number {
 	return Math.ceil(element.getBoundingClientRect().height)
@@ -72,13 +72,9 @@ let measuredCardHeight = $state(EVENT_CARD_HEIGHT)
 const topLeft = $derived(cardX)
 const topRight = $derived(cardX + cardWidth)
 const bottomLeft = $derived(anchorX)
-const bottomRight = $derived(
-	tier === "point" ? anchorX : anchorX + anchorWidth,
-)
+const bottomRight = $derived(tier === "point" ? anchorX : anchorX + anchorWidth)
 
-const cardHeight = $derived(
-	connectorOnly ? 0 : measuredCardHeight,
-)
+const cardHeight = $derived(connectorOnly ? 0 : measuredCardHeight)
 
 const bbox = $derived(
 	connectorOnly

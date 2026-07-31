@@ -44,7 +44,9 @@ export function getEventPeriodBandCornerFlags(
 	}
 }
 
-export function getSpanBandCornerRadiusStyle(flags: SpanBandCornerFlags): string {
+export function getSpanBandCornerRadiusStyle(
+	flags: SpanBandCornerFlags,
+): string {
 	return `border-radius: ${getSpanBandBorderRadius(flags)};`
 }
 

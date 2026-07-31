@@ -15,13 +15,11 @@
 	},
 	"overrides": [
 		{
-			"includes": [
-				"**/*.svelte"
-			],
+			"includes": ["**/*.svelte"],
 			"linter": {
 				"rules": {
 					"style": {
-						"useConst": "off",
+						"useConst": "off"
 						// "useImportType": "off" // keep "off" as advised by Biome for Svelte projects as it's not supported yet, but let's try it out
 					},
 					"correctness": {

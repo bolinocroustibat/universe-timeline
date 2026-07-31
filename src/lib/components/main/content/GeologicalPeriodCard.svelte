@@ -1,11 +1,11 @@
 <script lang="ts">
+import SpanBand from "$lib/components/main/content/SpanBand.svelte"
 import { currentLocale } from "$lib/stores/localeStore"
 import {
 	type GeologicalPeriodWithLayout,
 	getGeologicalPeriodCardGeometry,
 	getGeologicalPeriodSelectionTransform,
 } from "$lib/utils/geologicalPeriodLayout"
-import SpanBand from "$lib/components/main/content/SpanBand.svelte"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
 import { getClampedSpanPosition } from "$lib/utils/spanPosition"

@@ -14,7 +14,9 @@ describe("getSpanBandBorderRadius", () => {
 				roundTopLeft: true,
 				roundTopRight: true,
 			}),
-		).toBe(`${SPAN_BAND_CORNER_RADIUS_PX}px ${SPAN_BAND_CORNER_RADIUS_PX}px 0px 0px`)
+		).toBe(
+			`${SPAN_BAND_CORNER_RADIUS_PX}px ${SPAN_BAND_CORNER_RADIUS_PX}px 0px 0px`,
+		)
 	})
 
 	test("returns zero radius when no corners are rounded", () => {

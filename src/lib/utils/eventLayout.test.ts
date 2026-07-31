@@ -273,9 +273,9 @@ describe("buildEventLayouts", () => {
 			zoneHeight: 300,
 		})
 
-		expect(layouts.every((layout) => layout.zIndexBase <= EVENT_Z_INDEX_MAX_DEFAULT)).toBe(
-			true,
-		)
+		expect(
+			layouts.every((layout) => layout.zIndexBase <= EVENT_Z_INDEX_MAX_DEFAULT),
+		).toBe(true)
 		expect(layouts[24]?.zIndexBase).toBe(EVENT_Z_INDEX_MAX_DEFAULT)
 		expect(EVENT_Z_INDEX_SELECTED).toBeGreaterThan(EVENT_Z_INDEX_MAX_DEFAULT)
 	})

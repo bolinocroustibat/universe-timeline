@@ -13,7 +13,10 @@ const basePeriod = {
 	name: { en: "Test", fr: "Test" },
 	description: { en: "Test", fr: "Test" },
 	image: null,
-} satisfies Omit<GeologicalPeriodSource, "id" | "parentPeriodId" | "start" | "end">
+} satisfies Omit<
+	GeologicalPeriodSource,
+	"id" | "parentPeriodId" | "start" | "end"
+>
 
 describe("deriveSiblingColors", () => {
 	test("returns parent color for a single child", () => {
@@ -146,7 +149,9 @@ describe("resolveGeologicalPeriodColors", () => {
 		]
 
 		const resolved = resolveGeologicalPeriodColors(periods)
-		const lightness = resolved.slice(1).map((period) => getLightness(period.color))
+		const lightness = resolved
+			.slice(1)
+			.map((period) => getLightness(period.color))
 
 		expect(lightness[0]).toBeLessThan(lightness[1])
 		expect(lightness[1]).toBeLessThan(lightness[2])

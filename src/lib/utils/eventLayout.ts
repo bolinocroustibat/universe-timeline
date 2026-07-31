@@ -1,5 +1,5 @@
-import type { Event } from "$lib/types"
 import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "$lib/constants"
+import type { Event } from "$lib/types"
 import {
 	getEventDateRange,
 	getEventSpanWidthPx,
@@ -59,7 +59,12 @@ type BuildEventLayoutsParams = {
 
 type EventLayoutDraft = Omit<
 	EventLayout,
-	"lane" | "maxLaneInGroup" | "bottom" | "markerHeight" | "spanBand" | "zIndexBase"
+	| "lane"
+	| "maxLaneInGroup"
+	| "bottom"
+	| "markerHeight"
+	| "spanBand"
+	| "zIndexBase"
 >
 
 /** Per-group vertical spacing derived from that group's lane count only. */
@@ -426,8 +431,7 @@ export function buildEventLayouts(
 			}
 		}
 
-		const bottom =
-			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + lane * laneStep
+		const bottom = EVENT_CARD_MIN_BOTTOM_OFFSET_PX + lane * laneStep
 		const connectorHeight = bottom - EVENT_CARD_MIN_BOTTOM_OFFSET_PX
 
 		return {
