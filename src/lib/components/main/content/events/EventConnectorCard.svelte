@@ -183,7 +183,10 @@ $effect(() => {
 >
 	<svg
 		class="absolute inset-0 overflow-visible"
+		width={bbox.width}
+		height={bbox.height}
 		viewBox="0 0 {bbox.width} {bbox.height}"
+		preserveAspectRatio="none"
 		aria-hidden={connectorOnly}
 	>
 		<defs>
