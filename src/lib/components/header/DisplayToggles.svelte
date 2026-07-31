@@ -1,9 +1,9 @@
 <script lang="ts">
+import ThemeToggle from "$lib/components/header/ThemeToggle.svelte"
 import ToggleSwitch from "$lib/components/header/ToggleSwitch.svelte"
 import { debugEnabled, toggleDebugEnabled } from "$lib/stores/debugStore"
 import { displaySettings } from "$lib/stores/displayStore"
 import { currentLocale } from "$lib/stores/localeStore"
-import { colorScheme, toggleColorScheme } from "$lib/stores/themeStore"
 
 const labels = {
 	geologicalPeriods: {
@@ -13,10 +13,6 @@ const labels = {
 	debug: {
 		en: "Debug",
 		fr: "Debug",
-	},
-	darkMode: {
-		en: "Dark mode",
-		fr: "Mode sombre",
 	},
 }
 
@@ -39,10 +35,5 @@ function toggleGeologicalPeriods() {
 		onToggle={toggleDebugEnabled}
 		ariaLabel="Toggle debug mode"
 	/>
-	<ToggleSwitch
-		label={labels.darkMode[$currentLocale]}
-		checked={$colorScheme === "dark"}
-		onToggle={toggleColorScheme}
-		ariaLabel={labels.darkMode[$currentLocale]}
-	/>
+	<ThemeToggle />
 </div>

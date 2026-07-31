@@ -16,13 +16,17 @@ let { label, checked, ariaLabel, onToggle }: Props = $props()
 	</label>
 	<button
 		onclick={onToggle}
-		class="relative inline-flex h-3 w-6 items-center rounded-full cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-offset-1 focus:ring-offset-surface {checked ? 'bg-accent' : 'bg-border'}"
+		class="relative inline-flex h-3 w-6 items-center rounded-full border cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-offset-1 focus:ring-offset-surface {checked
+			? 'border-accent bg-accent'
+			: 'border-muted bg-border'}"
 		role="switch"
 		aria-checked={checked}
 		aria-label={ariaLabel}
 	>
 		<span
-			class="inline-block h-2 w-2 transform rounded-full bg-foreground transition-transform duration-200 {checked ? 'translate-x-3' : 'translate-x-0.5'}"
+			class="inline-block h-2 w-2 transform rounded-full border transition-transform duration-200 {checked
+				? 'translate-x-3 border-on-media/80 bg-on-media'
+				: 'translate-x-0.5 border-muted bg-surface-raised'}"
 		></span>
 	</button>
 </div>
