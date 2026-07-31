@@ -14,9 +14,9 @@ import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
 /**
  * Paint layer for event visuals.
  *
- * - background: uncertainty visuals that must stay behind every card — inactive
- *   period span bands, and range/point connector funnels (below a card).
- * - foreground: interactive cards, plus the active event's own uncertainty visuals.
+ * - background: inactive period span bands that must stay behind every card.
+ * - foreground: interactive cards (range/point connectors) and the active
+ *   event's own period uncertainty visuals.
  */
 export type EventCardLayer = "background" | "foreground"
 
@@ -52,16 +52,10 @@ const zIndex = $derived(
 			: layout.zIndexBase,
 )
 
-/** Range/point connectors sit below period span bands within the background layer. */
-const MARKER_BACKGROUND_Z_BASE = 0
 const PERIOD_BACKGROUND_Z_BASE = 100
 
 /** Stacking order among background visuals only (that layer sits below all cards). */
-const backgroundZIndex = $derived(
-	isPeriodTier
-		? PERIOD_BACKGROUND_Z_BASE + layout.lane
-		: MARKER_BACKGROUND_Z_BASE + layout.lane,
-)
+const backgroundZIndex = $derived(PERIOD_BACKGROUND_Z_BASE + layout.lane)
 
 const eventColor = $derived(getEventColor(layout.event))
 
@@ -71,9 +65,6 @@ const spanBackground = $derived(
 		fadeEdges: true,
 	}),
 )
-
-const markerBackgroundVariant = "background" as const
-const markerForegroundVariant = "foreground" as const
 
 const label = $derived(layout.event.name[$currentLocale])
 
@@ -106,24 +97,6 @@ function handlePointerLeave() {
 			onCardClick={onCardClick}
 			onPointerEnter={handlePointerEnter}
 			onPointerLeave={handlePointerLeave}
-		/>
-	{:else if (layout.tier === "range" || layout.tier === "point") && !isSelected}
-		<EventConnectorCard
-			event={layout.event}
-			tier={layout.tier}
-			layer="background"
-			connectorOnly={true}
-			cardX={layout.card.x}
-			cardWidth={layout.card.width}
-			anchorX={layout.anchor.x}
-			anchorWidth={layout.anchor.width}
-			markerHeight={layout.markerHeight}
-			zIndex={backgroundZIndex}
-			eventColor={eventColor}
-			variant={markerBackgroundVariant}
-			shapeId="{layout.event.id}-background"
-			{isSelected}
-			isHovered={false}
 		/>
 	{/if}
 {/if}
@@ -173,7 +146,7 @@ function handlePointerLeave() {
 			markerHeight={layout.markerHeight}
 			{zIndex}
 			eventColor={eventColor}
-			variant={markerForegroundVariant}
+			variant="foreground"
 			shapeId="{layout.event.id}-foreground"
 			{isSelected}
 			isHovered={isHovered && !isSelected}
