@@ -1,7 +1,7 @@
 <script lang="ts">
 import { onMount } from "svelte"
 import { fetchEvents, fetchGeologicalPeriods } from "$lib/api"
-import EventCard from "$lib/components/main/content/EventCard.svelte"
+import EventCard from "$lib/components/main/content/events/EventCard.svelte"
 import GeologicalPeriodCard from "$lib/components/main/content/GeologicalPeriodCard.svelte"
 import GeologicalPeriodPopover from "$lib/components/main/content/GeologicalPeriodPopover.svelte"
 import TimelineGrid from "$lib/components/main/content/TimelineGrid.svelte"
