@@ -53,6 +53,12 @@ type EventLayoutDraft = Omit<
 	"lane" | "bottom" | "markerHeight" | "spanBand" | "zIndexBase"
 >
 
+/** Per-group vertical spacing derived from that group's lane count only. */
+type GroupVerticalLayout = {
+	laneStep: number
+	maxLane: number
+}
+
 export function getEventCardXPosition({
 	centerX,
 	viewportWidth,
@@ -191,6 +197,11 @@ function buildEventLayoutDraft(
 	}
 }
 
+/**
+ * Greedy lane assignment for a single collision group.
+ * Events are processed left-to-right; each event reuses the first lane whose
+ * previous occupant ends at or before its own left edge.
+ */
 function assignLanes(drafts: EventLayoutDraft[]): number[] {
 	if (drafts.length === 0) {
 		return []
@@ -225,6 +236,10 @@ function assignLanes(drafts: EventLayoutDraft[]): number[] {
 	return drafts.map((_, index) => laneByIndex.get(index) ?? 0)
 }
 
+/**
+ * Lane step within one collision group. Uses the natural card height + peek gap
+ * when the group fits; compresses only when this group's stack exceeds zone height.
+ */
 function computeLaneStep(
 	zoneHeight: number,
 	maxLane: number,
@@ -245,6 +260,102 @@ function computeLaneStep(
 	return Math.max(0, (zoneHeight - cardHeight) / maxLane)
 }
 
+/**
+ * Partition event indices into collision groups (connected components).
+ *
+ * Two events belong to the same group when their horizontal footprints overlap,
+ * directly or through a chain (A overlaps B, B overlaps C → one group).
+ *
+ * Groups are independent for vertical layout: a deep stack on the right must not
+ * compress spacing for unrelated cards on the left.
+ */
+function findCollisionGroups(drafts: EventLayoutDraft[]): number[][] {
+	const sortedIndices = drafts
+		.map((_, index) => index)
+		.sort((a, b) => {
+			const draftA = drafts[a]
+			const draftB = drafts[b]
+			if (!draftA || !draftB) return 0
+			return draftA.collisionLeft - draftB.collisionLeft
+		})
+
+	const groups: number[][] = []
+	let currentGroup: number[] = []
+	let groupRight = -Infinity
+
+	for (const index of sortedIndices) {
+		const draft = drafts[index]
+		if (!draft) continue
+
+		// Strict `<`: touching edges (left === previous right) stay in separate groups,
+		// matching assignLanes which treats that as non-overlapping.
+		if (currentGroup.length === 0 || draft.collisionLeft < groupRight) {
+			currentGroup.push(index)
+			groupRight = Math.max(groupRight, draft.collisionRight)
+			continue
+		}
+
+		groups.push(currentGroup)
+		currentGroup = [index]
+		groupRight = draft.collisionRight
+	}
+
+	if (currentGroup.length > 0) {
+		groups.push(currentGroup)
+	}
+
+	return groups
+}
+
+/** Assign lane numbers within one collision group (each group starts at lane 0). */
+function assignLanesForGroup(
+	drafts: EventLayoutDraft[],
+	groupIndices: number[],
+): Map<number, number> {
+	const groupDrafts: EventLayoutDraft[] = []
+	const validIndices: number[] = []
+
+	for (const index of groupIndices) {
+		const draft = drafts[index]
+		if (!draft) continue
+		groupDrafts.push(draft)
+		validIndices.push(index)
+	}
+
+	const groupLanes = assignLanes(groupDrafts)
+	const laneByIndex = new Map<number, number>()
+
+	validIndices.forEach((index, groupPosition) => {
+		laneByIndex.set(index, groupLanes[groupPosition] ?? 0)
+	})
+
+	return laneByIndex
+}
+
+function computeGroupVerticalLayout(
+	groupIndices: number[],
+	laneByIndex: Map<number, number>,
+	zoneHeight: number,
+	cardHeight: number,
+	peekGap: number,
+): GroupVerticalLayout {
+	const maxLane = Math.max(
+		0,
+		...groupIndices.map((index) => laneByIndex.get(index) ?? 0),
+	)
+
+	return {
+		maxLane,
+		laneStep: computeLaneStep(zoneHeight, maxLane, cardHeight, peekGap),
+	}
+}
+
+/**
+ * Build final layouts in three stages:
+ * 1. Horizontal geometry + collision boxes per event
+ * 2. Lane assignment partitioned by collision group
+ * 3. Vertical spacing computed independently per group
+ */
 export function buildEventLayouts(
 	params: BuildEventLayoutsParams,
 ): EventLayout[] {
@@ -261,13 +372,33 @@ export function buildEventLayouts(
 	}
 
 	const drafts = events.map((event) => buildEventLayoutDraft(event, params))
+	const collisionGroups = findCollisionGroups(drafts)
 
-	const lanes = assignLanes(drafts)
-	const maxLane = Math.max(0, ...lanes)
-	const laneStep = computeLaneStep(zoneHeight, maxLane, cardHeight, peekGap)
+	const laneByIndex = new Map<number, number>()
+	const groupLayoutByIndex = new Map<number, GroupVerticalLayout>()
+
+	for (const groupIndices of collisionGroups) {
+		const groupLanes = assignLanesForGroup(drafts, groupIndices)
+		const groupLayout = computeGroupVerticalLayout(
+			groupIndices,
+			groupLanes,
+			zoneHeight,
+			cardHeight,
+			peekGap,
+		)
+
+		for (const index of groupIndices) {
+			laneByIndex.set(index, groupLanes.get(index) ?? 0)
+			groupLayoutByIndex.set(index, groupLayout)
+		}
+	}
 
 	return drafts.map((draft, index) => {
-		const lane = lanes[index] ?? 0
+		const lane = laneByIndex.get(index) ?? 0
+		const { laneStep, maxLane } = groupLayoutByIndex.get(index) ?? {
+			laneStep: computeLaneStep(zoneHeight, 0, cardHeight, peekGap),
+			maxLane: 0,
+		}
 
 		if (draft.tier === "period") {
 			const spanBand = getEventSpanBandGeometry(lane, maxLane, zoneHeight)

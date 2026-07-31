@@ -165,4 +165,48 @@ describe("buildEventLayouts", () => {
 
 		expect(layouts[1]?.bottom).toBeLessThan(cardHeight + peekGap)
 	})
+
+	test("does not compress unrelated groups when another group has a deep stack", () => {
+		const cardHeight = 72
+		const peekGap = EVENT_LANE_PEEK_GAP_PX
+		const naturalLaneStep = cardHeight + peekGap
+		// Fits a 2-lane group at natural spacing, but not a 3-lane group.
+		const zoneHeight = naturalLaneStep + cardHeight + 1
+
+		const layouts = buildEventLayouts({
+			events: [
+				// Left group: two overlapping cards.
+				createEvent({ id: 1, date: 5000 }),
+				createEvent({ id: 2, date: 5050 }),
+				// Right group: three cards clamped to the same viewport edge.
+				createEvent({ id: 3, date: 9950 }),
+				createEvent({ id: 4, date: 9960 }),
+				createEvent({ id: 5, date: 9970 }),
+			],
+			leftEdgeYear: 0,
+			rightEdgeYear: 10_000,
+			yearsPerPixel: 10,
+			viewportWidth: 1000,
+			zoneHeight,
+			cardHeight,
+			peekGap,
+		})
+
+		const leftGroup = layouts.filter((layout) =>
+			[1, 2].includes(layout.event.id),
+		)
+		const rightGroup = layouts.filter((layout) =>
+			[3, 4, 5].includes(layout.event.id),
+		)
+
+		expect(leftGroup).toHaveLength(2)
+		expect(rightGroup).toHaveLength(3)
+
+		// Left group keeps natural spacing because it only needs two lanes.
+		expect(leftGroup[1]?.bottom).toBe(naturalLaneStep)
+
+		// Right group is compressed to fit three lanes in the same zone height.
+		expect(rightGroup[1]?.bottom ?? 0).toBeLessThan(naturalLaneStep)
+		expect(rightGroup[2]?.bottom ?? 0).toBeLessThan(naturalLaneStep * 2)
+	})
 })
