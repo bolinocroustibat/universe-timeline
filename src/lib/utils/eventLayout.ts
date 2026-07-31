@@ -1,4 +1,5 @@
 import type { Event } from "$lib/types"
+import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "$lib/constants"
 import {
 	getEventDateRange,
 	getEventSpanWidthPx,
@@ -96,16 +97,18 @@ export function getEventSpanBandGeometry(
 	lane: number,
 	maxLane: number,
 	zoneHeight: number,
+	minBottomOffset = EVENT_CARD_MIN_BOTTOM_OFFSET_PX,
 ): { bottom: number; height: number } {
-	if (zoneHeight <= 0) {
-		return { bottom: 0, height: 0 }
+	if (zoneHeight <= minBottomOffset) {
+		return { bottom: minBottomOffset, height: 0 }
 	}
 
+	const usableHeight = zoneHeight - minBottomOffset
 	const bandCount = maxLane + 1
-	const bandHeight = zoneHeight / bandCount
+	const bandHeight = usableHeight / bandCount
 
 	return {
-		bottom: lane * bandHeight,
+		bottom: minBottomOffset + lane * bandHeight,
 		height: bandHeight,
 	}
 }
@@ -254,19 +257,21 @@ function computeLaneStep(
 	maxLane: number,
 	cardHeight: number,
 	peekGap: number,
+	minBottomOffset = EVENT_CARD_MIN_BOTTOM_OFFSET_PX,
 ): number {
 	const naturalLaneStep = cardHeight + peekGap
+	const usableZoneHeight = Math.max(0, zoneHeight - minBottomOffset)
 
-	if (zoneHeight <= 0 || maxLane <= 0) {
+	if (usableZoneHeight <= 0 || maxLane <= 0) {
 		return naturalLaneStep
 	}
 
 	const requiredHeight = maxLane * naturalLaneStep + cardHeight
-	if (requiredHeight <= zoneHeight) {
+	if (requiredHeight <= usableZoneHeight) {
 		return naturalLaneStep
 	}
 
-	return Math.max(0, (zoneHeight - cardHeight) / maxLane)
+	return Math.max(0, (usableZoneHeight - cardHeight) / maxLane)
 }
 
 /**
@@ -422,7 +427,8 @@ export function buildEventLayouts(
 			}
 		}
 
-		const bottom = lane * laneStep
+		const bottom =
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + lane * laneStep
 		const markerHeight = bottom + markerExtension
 
 		return {

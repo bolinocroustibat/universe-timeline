@@ -16,6 +16,9 @@ export const TIMELINE_MINOR_TICK_BOTTOM_GAP_PX = 6
 /** Gap between event marker tips and the top of the label band (px). */
 export const EVENT_MARKER_LABEL_BAND_GAP_PX = 8
 
+/** Minimum clearance between event cards/spans and the events zone floor (px). */
+export const EVENT_CARD_MIN_BOTTOM_OFFSET_PX = 24
+
 /** Total height of the timeline navigator strip below the content area (px). */
 export const TIMELINE_NAVIGATOR_HEIGHT_PX = 100
 
