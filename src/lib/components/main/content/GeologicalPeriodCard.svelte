@@ -1,5 +1,10 @@
 <script lang="ts">
 import SpanBand from "$lib/components/main/content/SpanBand.svelte"
+import {
+	GEOLOGICAL_PERIOD_BACKGROUND_OPACITY,
+	GEOLOGICAL_PERIOD_HOVER_OPACITY,
+	GEOLOGICAL_PERIOD_SELECTED_OPACITY,
+} from "$lib/constants"
 import { currentLocale } from "$lib/stores/localeStore"
 import {
 	type GeologicalPeriodWithLayout,
@@ -17,7 +22,11 @@ interface Props {
 	rightEdgeYear: number
 	yearsPerPixel: number
 	isTopCard: boolean
+	isHovered?: boolean
+	layer?: "background" | "foreground"
 	onCardClick: (geologicalPeriodId: number) => void
+	onPointerEnter?: () => void
+	onPointerLeave?: () => void
 }
 
 let {
@@ -27,7 +36,11 @@ let {
 	rightEdgeYear,
 	yearsPerPixel,
 	isTopCard,
+	isHovered = false,
+	layer = "background",
 	onCardClick,
+	onPointerEnter,
+	onPointerLeave,
 }: Props = $props()
 
 const spanPosition = $derived(() =>
@@ -47,6 +60,7 @@ const gradientBackground = $derived(() => {
 		color: currentColor,
 		leftNeighborColor: layout.leftGeologicalPeriod?.color ?? null,
 		rightNeighborColor: layout.rightGeologicalPeriod?.color ?? null,
+		fadeEdges: layer === "background",
 	})
 })
 
@@ -60,6 +74,7 @@ const cardGeometry = $derived(
 		zoneHeight,
 		isSelected: isTopCard,
 		hasVisibleDescendants: layout.hasVisibleDescendants,
+		layer,
 	}),
 )
 
@@ -86,22 +101,37 @@ const titleFits = $derived(
 	cardWidth >= label.length * CHAR_WIDTH + HORIZONTAL_PADDING &&
 		cardHeight >= MIN_HEIGHT_TITLE,
 )
+
+const showLabel = $derived(
+	layer === "foreground" ? titleFits : titleFits && (isSelected || isHovered),
+)
+
+const bandOpacity = $derived(
+	isSelected
+		? GEOLOGICAL_PERIOD_SELECTED_OPACITY
+		: isHovered
+			? GEOLOGICAL_PERIOD_HOVER_OPACITY
+			: GEOLOGICAL_PERIOD_BACKGROUND_OPACITY,
+)
 </script>
 
 {#if isVisible && cardHeight > 0}
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 	<div
 		data-geological-period-card
-		class="absolute overflow-visible cursor-pointer"
-		style="left: {spanPosition().x}px; width: {spanPosition().width}px; bottom: {cardGeometry.bottom}px; height: {cardHeight}px; z-index: {cardGeometry.zIndex};"
+		data-geological-period-layer={layer}
+		class="absolute overflow-visible cursor-pointer transition-opacity duration-200 ease-out motion-reduce:transition-none"
+		style="left: {spanPosition().x}px; width: {spanPosition().width}px; bottom: {cardGeometry.bottom}px; height: {cardHeight}px; z-index: {cardGeometry.zIndex}; opacity: {bandOpacity};"
 		title="{layout.name[$currentLocale]}"
 		use:bindPointerClick={() => onCardClick(layout.id)}
+		onpointerenter={onPointerEnter}
+		onpointerleave={onPointerLeave}
 		tabindex="0"
 	>
 		<div
-			class="h-full w-full origin-center transition-transform duration-200 ease-out motion-reduce:transition-none shadow-sm overflow-hidden"
-			class:shadow-lg={isSelected}
-			class:shadow-md={!isSelected}
+			class="h-full w-full origin-center transition-transform duration-200 ease-out motion-reduce:transition-none overflow-hidden"
+			class:shadow-lg={isSelected && layer === "foreground"}
+			class:shadow-sm={!isSelected && layer === "foreground"}
 			class:rounded-[5px]={isSelected}
 			class:border-2={isSelected}
 			class:border-selection-outline={isSelected}
@@ -111,7 +141,7 @@ const titleFits = $derived(
 				backgroundStyle={gradientBackground()}
 				class="flex h-full w-full items-center justify-center px-2 font-medium"
 			>
-				{#if titleFits}
+				{#if showLabel}
 					<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
 						<span class="w-full min-w-0 text-sm font-semibold shrink-0 text-center whitespace-nowrap">
 							{label}

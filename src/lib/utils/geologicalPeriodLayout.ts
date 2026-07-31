@@ -22,6 +22,8 @@ export type GeologicalPeriodCardGeometry = {
 
 const Z_INDEX_SELECTED = 1000
 const Z_INDEX_BASE = 100
+const Z_INDEX_BACKGROUND_BASE = 10
+const Z_INDEX_BACKGROUND_SELECTED = 20
 
 export const GEOLOGICAL_PERIOD_SELECTED_SCALE = 1.07
 
@@ -180,11 +182,13 @@ export function getGeologicalPeriodCardGeometry({
 	zoneHeight,
 	isSelected,
 	hasVisibleDescendants: hasDescendants,
+	layer = "foreground",
 }: {
 	depth: number
 	zoneHeight: number
 	isSelected: boolean
 	hasVisibleDescendants: boolean
+	layer?: "background" | "foreground"
 }): GeologicalPeriodCardGeometry {
 	const { height: nominalHeight, bottom } = getNormalGeologicalPeriodGeometry(
 		depth,
@@ -195,10 +199,15 @@ export function getGeologicalPeriodCardGeometry({
 			? nominalHeight * GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO
 			: nominalHeight
 
+	const zIndexBase =
+		layer === "background" ? Z_INDEX_BACKGROUND_BASE : Z_INDEX_BASE
+	const zIndexSelected =
+		layer === "background" ? Z_INDEX_BACKGROUND_SELECTED : Z_INDEX_SELECTED
+
 	return {
 		height,
 		bottom,
-		zIndex: isSelected ? Z_INDEX_SELECTED : Z_INDEX_BASE + depth,
+		zIndex: isSelected ? zIndexSelected : zIndexBase + depth,
 	}
 }
 
@@ -281,6 +290,7 @@ function clampPopoverCenterX(
 export function getGeologicalPeriodPopoverLayout({
 	layout,
 	zoneHeight,
+	zoneOffsetFromTop,
 	leftEdgeYear,
 	rightEdgeYear,
 	yearsPerPixel,
@@ -290,6 +300,8 @@ export function getGeologicalPeriodPopoverLayout({
 }: {
 	layout: GeologicalPeriodWithLayout
 	zoneHeight: number
+	/** Distance from the top of the content foreground area to the top of the period strip. */
+	zoneOffsetFromTop: number
 	leftEdgeYear: number
 	rightEdgeYear: number
 	yearsPerPixel: number
@@ -319,6 +331,7 @@ export function getGeologicalPeriodPopoverLayout({
 		zoneHeight,
 		isSelected,
 		hasVisibleDescendants: layout.hasVisibleDescendants,
+		layer: "background",
 	})
 
 	if (cardGeometry.height <= 0) {
@@ -332,7 +345,8 @@ export function getGeologicalPeriodPopoverLayout({
 		isSelected,
 	})
 
-	const outerTop = zoneHeight - cardGeometry.bottom - cardGeometry.height
+	const outerTop =
+		zoneOffsetFromTop + (zoneHeight - cardGeometry.bottom - cardGeometry.height)
 	const visualTop =
 		outerTop +
 		(cardGeometry.height * (1 - selectionTransform.scaleY)) / 2 +
@@ -368,11 +382,23 @@ export function buildVisibleGeologicalPeriodLayouts(
 	geologicalPeriods: GeologicalPeriod[],
 	leftEdgeYear: number,
 	rightEdgeYear: number,
+	maxDepth: number | null = null,
 ): GeologicalPeriodWithLayout[] {
+	if (maxDepth === null) {
+		return []
+	}
+
 	const { byId, depthById } = buildGeologicalPeriodIndex(geologicalPeriods)
-	const visible = geologicalPeriods.filter((geologicalPeriod) =>
-		isGeologicalPeriodVisible(geologicalPeriod, leftEdgeYear, rightEdgeYear),
-	)
+	const visible = geologicalPeriods.filter((geologicalPeriod) => {
+		if (
+			!isGeologicalPeriodVisible(geologicalPeriod, leftEdgeYear, rightEdgeYear)
+		) {
+			return false
+		}
+
+		const depth = depthById.get(geologicalPeriod.id) ?? 0
+		return depth <= maxDepth
+	})
 
 	const byDepth = new Map<number, GeologicalPeriod[]>()
 	for (const geologicalPeriod of visible) {

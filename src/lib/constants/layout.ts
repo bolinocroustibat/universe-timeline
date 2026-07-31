@@ -1,11 +1,11 @@
 /** Each child geological period occupies this fraction of its parent's height (0–1). */
 export const GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO = 0.5
 
-/** Share of the content area height used by the geological periods zone (0–1). */
-export const GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO = 0.5
-
-/** Share of the content area height used by the events zone (0–1). */
-export const EVENTS_ZONE_HEIGHT_RATIO = 1 - GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO
+/**
+ * Share of the content zone height used by the geological-period background strip (0–1).
+ * Bands render at the bottom of the content area, behind event cards.
+ */
+export const GEOLOGICAL_PERIODS_BACKGROUND_HEIGHT_RATIO = 0.2
 
 /** Height of minor tick stubs above the label band (px). */
 export const TIMELINE_MINOR_TICK_HEIGHT_PX = 12

@@ -10,6 +10,7 @@ const Z_INDEX_POPOVER = 1100
 interface Props {
 	layout: GeologicalPeriodWithLayout
 	zoneHeight: number
+	zoneOffsetFromTop: number
 	contentHeight: number
 	leftEdgeYear: number
 	rightEdgeYear: number
@@ -20,6 +21,7 @@ interface Props {
 let {
 	layout,
 	zoneHeight,
+	zoneOffsetFromTop,
 	contentHeight,
 	leftEdgeYear,
 	rightEdgeYear,
@@ -31,6 +33,7 @@ const popoverLayout = $derived(
 	getGeologicalPeriodPopoverLayout({
 		layout,
 		zoneHeight,
+		zoneOffsetFromTop,
 		leftEdgeYear,
 		rightEdgeYear,
 		yearsPerPixel,

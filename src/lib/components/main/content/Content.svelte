@@ -5,16 +5,14 @@ import EventCard from "$lib/components/main/content/events/EventCard.svelte"
 import GeologicalPeriodCard from "$lib/components/main/content/GeologicalPeriodCard.svelte"
 import GeologicalPeriodPopover from "$lib/components/main/content/GeologicalPeriodPopover.svelte"
 import TimelineGrid from "$lib/components/main/content/TimelineGrid.svelte"
-import {
-	EVENTS_ZONE_HEIGHT_RATIO,
-	GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO,
-} from "$lib/constants"
+import { GEOLOGICAL_PERIODS_BACKGROUND_HEIGHT_RATIO } from "$lib/constants"
 import { displaySettings } from "$lib/stores/displayStore"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event, GeologicalPeriod } from "$lib/types"
 import { buildEventLayouts } from "$lib/utils/eventLayout"
 import { getEventDateRange, isEventRangeVisible } from "$lib/utils/eventSpan"
 import { buildVisibleGeologicalPeriodLayouts } from "$lib/utils/geologicalPeriodLayout"
+import { getMaxGeologicalPeriodDepth } from "$lib/utils/geologicalPeriodVisibility"
 
 interface Props {
 	zoomLevel: number
@@ -35,10 +33,8 @@ let {
 }: Props = $props()
 
 let contentElement: HTMLDivElement | undefined = $state()
-let geologicalPeriodsZoneElement: HTMLDivElement | undefined = $state()
-let eventsZoneElement: HTMLDivElement | undefined = $state()
-let geologicalPeriodsZoneHeight = $state(0)
-let eventsZoneHeight = $state(0)
+let contentZoneElement: HTMLDivElement | undefined = $state()
+let contentZoneHeight = $state(0)
 let contentHeight = $state(0)
 
 let events: Event[] = $state([])
@@ -49,8 +45,8 @@ let topCardType = $state<"event" | "geologicalPeriod" | null>(null)
 let topCardEventId = $state<number | null>(null)
 let topCardGeologicalPeriodId = $state<number | null>(null)
 let hoveredCardEventId = $state<number | null>(null)
+let hoveredGeologicalPeriodId = $state<number | null>(null)
 
-// Load events and geological periods on component mount
 onMount(async () => {
 	try {
 		const [loadedEvents, loadedGeologicalPeriods] = await Promise.all([
@@ -68,26 +64,13 @@ onMount(async () => {
 })
 
 $effect(() => {
-	if (!geologicalPeriodsZoneElement) return
+	if (!contentZoneElement) return
 
 	const observer = new ResizeObserver(() => {
-		geologicalPeriodsZoneHeight =
-			geologicalPeriodsZoneElement?.clientHeight ?? 0
+		contentZoneHeight = contentZoneElement?.clientHeight ?? 0
 	})
-	observer.observe(geologicalPeriodsZoneElement)
-	geologicalPeriodsZoneHeight = geologicalPeriodsZoneElement.clientHeight
-
-	return () => observer.disconnect()
-})
-
-$effect(() => {
-	if (!eventsZoneElement) return
-
-	const observer = new ResizeObserver(() => {
-		eventsZoneHeight = eventsZoneElement?.clientHeight ?? 0
-	})
-	observer.observe(eventsZoneElement)
-	eventsZoneHeight = eventsZoneElement.clientHeight
+	observer.observe(contentZoneElement)
+	contentZoneHeight = contentZoneElement.clientHeight
 
 	return () => observer.disconnect()
 })
@@ -104,6 +87,16 @@ $effect(() => {
 	return () => observer.disconnect()
 })
 
+const geologicalPeriodStripHeight = $derived(
+	Math.round(contentZoneHeight * GEOLOGICAL_PERIODS_BACKGROUND_HEIGHT_RATIO),
+)
+
+const geologicalPeriodStripOffsetFromTop = 0
+
+const maxGeologicalPeriodDepth = $derived(
+	getMaxGeologicalPeriodDepth(viewportYearSpan, leftEdgeYear, rightEdgeYear),
+)
+
 const visibleEvents = $derived(
 	events.filter((event) =>
 		isEventRangeVisible(getEventDateRange(event), leftEdgeYear, rightEdgeYear),
@@ -117,7 +110,7 @@ const eventLayouts = $derived(
 		rightEdgeYear,
 		yearsPerPixel,
 		viewportWidth,
-		zoneHeight: eventsZoneHeight,
+		zoneHeight: contentZoneHeight,
 	}),
 )
 
@@ -126,6 +119,7 @@ const visibleGeologicalPeriodLayouts = $derived(
 		geologicalPeriods,
 		leftEdgeYear,
 		rightEdgeYear,
+		$displaySettings.showGeologicalPeriods ? maxGeologicalPeriodDepth : null,
 	),
 )
 
@@ -151,6 +145,10 @@ function handleGeologicalPeriodClick(geologicalPeriodId: number) {
 	topCardGeologicalPeriodId = geologicalPeriodId
 }
 
+function handleGeologicalPeriodHover(geologicalPeriodId: number | null) {
+	hoveredGeologicalPeriodId = geologicalPeriodId
+}
+
 export function deselectCards() {
 	topCardType = null
 	topCardEventId = null
@@ -160,11 +158,9 @@ export function deselectCards() {
 const messages = {
 	en: {
 		loading: "Loading...",
-		geologicalPeriodsHidden: "Geological periods are hidden.",
 	},
 	fr: {
 		loading: "Chargement...",
-		geologicalPeriodsHidden: "Les périodes géologiques sont masquées.",
 	},
 }
 </script>
@@ -189,46 +185,38 @@ const messages = {
 			<div class="text-muted">{messages[$currentLocale].loading}</div>
 		</div>
 	{:else}
-		<div class="absolute inset-x-0 top-0 bottom-[1em]">
-			<div
-				bind:this={geologicalPeriodsZoneElement}
-				class="absolute top-0 left-0 right-0 overflow-hidden"
-				style="height: {GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO * 100}%"
-			>
-				{#if $displaySettings.showGeologicalPeriods}
+		<div bind:this={contentZoneElement} class="absolute inset-x-0 top-0 bottom-[1em]">
+			{#if $displaySettings.showGeologicalPeriods && visibleGeologicalPeriodLayouts.length > 0}
+				<div
+					class="absolute inset-x-0 top-0 overflow-hidden"
+					style="height: {geologicalPeriodStripHeight}px"
+				>
 					{#each visibleGeologicalPeriodLayouts as layout (layout.id)}
 						<GeologicalPeriodCard
 							{layout}
-							zoneHeight={geologicalPeriodsZoneHeight}
+							zoneHeight={geologicalPeriodStripHeight}
 							{leftEdgeYear}
 							{rightEdgeYear}
 							{yearsPerPixel}
+							layer="background"
 							isTopCard={topCardType === "geologicalPeriod" &&
 								topCardGeologicalPeriodId === layout.id}
+							isHovered={hoveredGeologicalPeriodId === layout.id}
 							onCardClick={handleGeologicalPeriodClick}
+							onPointerEnter={() => handleGeologicalPeriodHover(layout.id)}
+							onPointerLeave={() => handleGeologicalPeriodHover(null)}
 						/>
 					{/each}
-				{:else}
-					<div class="absolute inset-0 flex items-center justify-center">
-						<div class="text-muted">
-							{messages[$currentLocale].geologicalPeriodsHidden}
-						</div>
-					</div>
-				{/if}
-			</div>
+				</div>
+			{/if}
 
-			<div
-				bind:this={eventsZoneElement}
-				class="absolute bottom-0 left-0 right-0 overflow-hidden"
-				style="height: {EVENTS_ZONE_HEIGHT_RATIO * 100}%"
-			>
-				<!-- Uncertainty visuals (period spans, range bars, point ticks) sit behind cards. -->
+			<div class="absolute inset-0 overflow-hidden">
 				<div class="absolute inset-0 z-0">
 					{#each eventLayouts as layout (`${layout.event.id}-background`)}
 						<EventCard
 							{layout}
 							layer="background"
-							zoneHeight={eventsZoneHeight}
+							zoneHeight={contentZoneHeight}
 							isTopCard={topCardType === "event" &&
 								topCardEventId === layout.event.id}
 							isHovered={hoveredCardEventId === layout.event.id}
@@ -238,13 +226,12 @@ const messages = {
 					{/each}
 				</div>
 
-				<!-- Cards and the active event's own uncertainty visuals render in front. -->
 				<div class="absolute inset-0 z-10">
 					{#each eventLayouts as layout (layout.event.id)}
 						<EventCard
 							{layout}
 							layer="foreground"
-							zoneHeight={eventsZoneHeight}
+							zoneHeight={contentZoneHeight}
 							isTopCard={topCardType === "event" &&
 								topCardEventId === layout.event.id}
 							isHovered={hoveredCardEventId === layout.event.id}
@@ -259,7 +246,8 @@ const messages = {
 		{#if selectedGeologicalPeriodLayout && $displaySettings.showGeologicalPeriods}
 			<GeologicalPeriodPopover
 				layout={selectedGeologicalPeriodLayout}
-				zoneHeight={geologicalPeriodsZoneHeight}
+				zoneHeight={geologicalPeriodStripHeight}
+				zoneOffsetFromTop={geologicalPeriodStripOffsetFromTop}
 				{contentHeight}
 				{leftEdgeYear}
 				{rightEdgeYear}
