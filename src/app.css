@@ -21,6 +21,8 @@
 		var(--theme-on-media) 82%,
 		var(--theme-accent) 18%
 	);
+	--span-band-grain-opacity: 0.035;
+	--span-band-grain-filter: invert(1);
 }
 
 [data-theme="light"] {
@@ -40,6 +42,8 @@
 		var(--theme-on-media) 88%,
 		var(--theme-accent) 12%
 	);
+	--span-band-grain-opacity: 0.045;
+	--span-band-grain-filter: none;
 }
 
 /* Registers Tailwind utilities (bg-background, text-accent, …) */
@@ -67,6 +71,34 @@
   color utility to any element that depends on these defaults.
 */
 @layer components {
+	.span-band {
+		position: relative;
+	}
+
+	.span-band::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background-image: url("/textures/noise.png");
+		background-repeat: repeat;
+		background-size: 256px 256px;
+		opacity: var(--span-band-grain-opacity);
+		filter: var(--span-band-grain-filter);
+	}
+
+	.span-band > * {
+		position: relative;
+		z-index: 1;
+	}
+
+	.surface-grain-overlay {
+		opacity: var(--span-band-grain-opacity);
+		filter: var(--span-band-grain-filter);
+		pointer-events: none;
+	}
+
 	[data-theme="light"] [data-geological-period-card] {
 		backdrop-filter: none;
 	}

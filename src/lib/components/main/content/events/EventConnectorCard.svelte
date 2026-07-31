@@ -1,4 +1,5 @@
 <script lang="ts">
+import { SURFACE_GRAIN_PATTERN_ID } from "$lib/constants/surfaceGrain"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event } from "$lib/types"
 import {
@@ -200,6 +201,11 @@ $effect(() => {
 			fill="url(#{gradientId})"
 			stroke={stroke.stroke}
 			stroke-width={stroke.strokeWidth}
+		/>
+		<path
+			d={pathD}
+			fill="url(#{SURFACE_GRAIN_PATTERN_ID})"
+			class="surface-grain-overlay"
 		/>
 	</svg>
 

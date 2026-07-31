@@ -5,6 +5,7 @@ import {
 	getGeologicalPeriodCardGeometry,
 	getGeologicalPeriodSelectionTransform,
 } from "$lib/utils/geologicalPeriodLayout"
+import SpanBand from "$lib/components/main/content/SpanBand.svelte"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
 import { getClampedSpanPosition } from "$lib/utils/spanPosition"
@@ -97,25 +98,27 @@ const titleFits = $derived(
 		use:bindPointerClick={() => onCardClick(layout.id)}
 		tabindex="0"
 	>
-		<!-- Follow-up: replace `rounded-[5px]` with `getSpanBandBorderRadius()` from
-		     spanBandCorners.ts using leftGeologicalPeriod / rightGeologicalPeriod.
-		     Optionally wrap content in SpanBand.svelte for DRY markup. -->
 		<div
-			class="h-full w-full origin-center transition-transform duration-200 ease-out motion-reduce:transition-none backdrop-blur-sm flex items-center justify-center px-2 font-medium shadow-sm overflow-hidden"
+			class="h-full w-full origin-center transition-transform duration-200 ease-out motion-reduce:transition-none shadow-sm overflow-hidden"
 			class:shadow-lg={isSelected}
 			class:shadow-md={!isSelected}
 			class:rounded-[5px]={isSelected}
 			class:border-2={isSelected}
 			class:border-selection-outline={isSelected}
-			style="transform: translateY({selectionTransform.translateY}px) scale({selectionTransform.scaleX}, {selectionTransform.scaleY}); {gradientBackground()}; color: var(--theme-on-media);"
+			style="transform: translateY({selectionTransform.translateY}px) scale({selectionTransform.scaleX}, {selectionTransform.scaleY}); color: var(--theme-on-media);"
 		>
-			{#if titleFits}
-				<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
-					<span class="w-full min-w-0 text-sm font-semibold shrink-0 text-center whitespace-nowrap">
-						{label}
-					</span>
-				</div>
-			{/if}
+			<SpanBand
+				backgroundStyle={gradientBackground()}
+				class="flex h-full w-full items-center justify-center px-2 font-medium"
+			>
+				{#if titleFits}
+					<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
+						<span class="w-full min-w-0 text-sm font-semibold shrink-0 text-center whitespace-nowrap">
+							{label}
+						</span>
+					</div>
+				{/if}
+			</SpanBand>
 		</div>
 	</div>
 {/if}

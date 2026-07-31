@@ -1,4 +1,5 @@
 <script lang="ts">
+import SpanBand from "$lib/components/main/content/SpanBand.svelte"
 import { currentLocale } from "$lib/stores/localeStore"
 import type { Event } from "$lib/types"
 import {
@@ -38,16 +39,19 @@ const cornerRadiusStyle = getEventCardCornerRadiusStyle()
 
 <div
 	data-event-card
-	class="absolute p-4 overflow-hidden text-on-media"
-	style="left: {cardX}px; bottom: {cardBottom}px; z-index: {zIndex}; width: {cardWidth}px; {cornerRadiusStyle} {panelBackgroundStyle} {panelBorderStyle}"
+	class="absolute overflow-hidden text-on-media"
+	style="left: {cardX}px; bottom: {cardBottom}px; z-index: {zIndex}; width: {cardWidth}px; {cornerRadiusStyle} {panelBorderStyle}"
 >
-	<div class="font-semibold mb-2 text-sm">
-		{label}
-	</div>
-	<div class="text-on-media/80 font-medium mb-2 text-xs">
-		{formatDate(event.date, $currentLocale)}
-	</div>
-	<div class="text-on-media/90 leading-relaxed text-xs">
-		{description}
+	<SpanBand backgroundStyle={panelBackgroundStyle} class="absolute inset-0" />
+	<div class="relative z-[1] p-4">
+		<div class="font-semibold mb-2 text-sm">
+			{label}
+		</div>
+		<div class="text-on-media/80 font-medium mb-2 text-xs">
+			{formatDate(event.date, $currentLocale)}
+		</div>
+		<div class="text-on-media/90 leading-relaxed text-xs">
+			{description}
+		</div>
 	</div>
 </div>
