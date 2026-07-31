@@ -37,6 +37,7 @@ export type EventLayout = {
 	collisionLeft: number
 	collisionRight: number
 	lane: number
+	maxLaneInGroup: number
 	bottom: number
 	markerHeight: number
 	spanBand: { bottom: number; height: number } | null
@@ -58,7 +59,7 @@ type BuildEventLayoutsParams = {
 
 type EventLayoutDraft = Omit<
 	EventLayout,
-	"lane" | "bottom" | "markerHeight" | "spanBand" | "zIndexBase"
+	"lane" | "maxLaneInGroup" | "bottom" | "markerHeight" | "spanBand" | "zIndexBase"
 >
 
 /** Per-group vertical spacing derived from that group's lane count only. */
@@ -417,6 +418,7 @@ export function buildEventLayouts(
 			return {
 				...draft,
 				lane,
+				maxLaneInGroup: maxLane,
 				bottom: spanBand.bottom,
 				markerHeight: 0,
 				spanBand,
@@ -431,6 +433,7 @@ export function buildEventLayouts(
 		return {
 			...draft,
 			lane,
+			maxLaneInGroup: maxLane,
 			bottom,
 			markerHeight: connectorHeight,
 			spanBand: null,

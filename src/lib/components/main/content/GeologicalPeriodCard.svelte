@@ -97,6 +97,9 @@ const titleFits = $derived(
 		use:bindPointerClick={() => onCardClick(layout.id)}
 		tabindex="0"
 	>
+		<!-- Follow-up: replace `rounded-[5px]` with `getSpanBandBorderRadius()` from
+		     spanBandCorners.ts using leftGeologicalPeriod / rightGeologicalPeriod.
+		     Optionally wrap content in SpanBand.svelte for DRY markup. -->
 		<div
 			class="h-full w-full origin-center transition-transform duration-200 ease-out motion-reduce:transition-none backdrop-blur-sm flex items-center justify-center px-2 font-medium shadow-sm overflow-hidden"
 			class:shadow-lg={isSelected}

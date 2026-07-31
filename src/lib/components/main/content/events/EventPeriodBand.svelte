@@ -1,6 +1,10 @@
 <script lang="ts">
 import SpanBand from "$lib/components/main/content/SpanBand.svelte"
 import { getEventPanelBorderStyle } from "$lib/utils/eventColors"
+import {
+	getEventPeriodBandCornerFlags,
+	getSpanBandCornerRadiusStyle,
+} from "$lib/utils/spanBandCorners"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 
 const HORIZONTAL_PADDING = 32
@@ -14,6 +18,8 @@ interface Props {
 	isHovered: boolean
 	eventColor: string
 	label: string
+	lane: number
+	maxLaneInGroup: number
 	anchorX: number
 	anchorWidth: number
 	spanBottom: number
@@ -32,6 +38,8 @@ let {
 	isHovered,
 	eventColor,
 	label,
+	lane,
+	maxLaneInGroup,
 	anchorX,
 	anchorWidth,
 	spanBottom,
@@ -51,6 +59,10 @@ const titleFitsInSpan = $derived(
 const borderStyle = $derived(
 	getEventPanelBorderStyle(eventColor, isSelected, isHovered),
 )
+
+const cornerRadiusStyle = $derived(
+	getSpanBandCornerRadiusStyle(getEventPeriodBandCornerFlags(lane, maxLaneInGroup)),
+)
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
@@ -58,8 +70,8 @@ const borderStyle = $derived(
 	data-event-card
 	data-event-layer={layer}
 	data-selected={isSelected || undefined}
-	class="absolute cursor-pointer overflow-hidden rounded-[5px] box-border"
-	style="left: {anchorX}px; width: {anchorWidth}px; bottom: {spanBottom}px; height: {spanHeight}px; z-index: {zIndex}; {borderStyle}"
+	class="absolute cursor-pointer overflow-hidden box-border"
+	style="left: {anchorX}px; width: {anchorWidth}px; bottom: {spanBottom}px; height: {spanHeight}px; z-index: {zIndex}; {cornerRadiusStyle} {borderStyle}"
 	title="{label}"
 	use:bindPointerClick={() => onCardClick(eventId)}
 	onpointerenter={onPointerEnter}

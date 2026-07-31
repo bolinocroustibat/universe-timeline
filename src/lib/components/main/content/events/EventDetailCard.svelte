@@ -6,6 +6,7 @@ import {
 	getEventPanelBorderStyle,
 } from "$lib/utils/eventColors"
 import { formatDate } from "$lib/utils/formatters"
+import { getEventCardCornerRadiusStyle } from "$lib/utils/spanBandCorners"
 
 interface Props {
 	event: Event
@@ -32,12 +33,13 @@ const panelBackgroundStyle = $derived(getEventPanelBackgroundStyle(eventColor))
 const panelBorderStyle = $derived(
 	getEventPanelBorderStyle(eventColor, true, false),
 )
+const cornerRadiusStyle = getEventCardCornerRadiusStyle()
 </script>
 
 <div
 	data-event-card
-	class="absolute rounded-xl p-4 overflow-hidden text-on-media"
-	style="left: {cardX}px; bottom: {cardBottom}px; z-index: {zIndex}; width: {cardWidth}px; {panelBackgroundStyle} {panelBorderStyle}"
+	class="absolute p-4 overflow-hidden text-on-media"
+	style="left: {cardX}px; bottom: {cardBottom}px; z-index: {zIndex}; width: {cardWidth}px; {cornerRadiusStyle} {panelBackgroundStyle} {panelBorderStyle}"
 >
 	<div class="font-semibold mb-2 text-sm">
 		{label}

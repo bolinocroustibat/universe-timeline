@@ -135,7 +135,7 @@ describe("buildEventConnectorPath", () => {
 		)
 
 		expect(bbox.height).toBe(cardHeight + markerHeight)
-		expect(path).toContain("A 12 12")
+		expect(path).toContain("A 10 10")
 		expect(path.startsWith("M 80 208")).toBe(true)
 		expect(path).toContain("Z")
 	})

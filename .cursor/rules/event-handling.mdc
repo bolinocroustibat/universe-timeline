@@ -43,7 +43,7 @@ Date ranges come from [`eventSpan.ts`](src/lib/utils/eventSpan.ts): `date ± dat
 
 **Connector cards (`EventConnectorCard`)** — for `point` and `range` tiers, a unified SVG shape (rounded-top card body + Bézier funnel) connects the card to the anchor span above the timeline clearance line. The shape sits at `bottom: EVENT_CARD_MIN_BOTTOM_OFFSET_PX` (same floor margin as period span bands). `markerHeight` is the connector segment only (`layout.bottom - EVENT_CARD_MIN_BOTTOM_OFFSET_PX`), not the full card offset. Text content is an HTML overlay without its own background or border. Path geometry is built by [`eventDateMarkerPath.ts`](src/lib/utils/eventDateMarkerPath.ts). Card height is measured at runtime via `ResizeObserver`. Uses `data-event-connector` alongside `data-event-card`.
 
-**Period tier** — `EventPeriodBand` renders the colored span via `SpanBand`; `EventDetailCard` shows the description panel above the band when selected. Both use event-color styling from [`eventColors.ts`](src/lib/utils/eventColors.ts).
+**Period tier** — `EventPeriodBand` renders the colored span via `SpanBand`; top corners use `SPAN_BAND_CORNER_RADIUS_PX` (10px, shared with connector cards and detail panels) when `lane === maxLaneInGroup` via [`spanBandCorners.ts`](src/lib/utils/spanBandCorners.ts).
 
 Cards are centered on the best-estimate date with viewport edge clamping (`getEventCardXPosition()`).
 

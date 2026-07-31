@@ -15,6 +15,7 @@ import { formatDate } from "$lib/utils/formatters"
 import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "$lib/constants"
 import type { EventDisplayTier } from "$lib/utils/eventLayout"
 import { EVENT_CARD_HEIGHT } from "$lib/utils/eventLayout"
+import { getEventCardTopCornerRadiusStyle } from "$lib/utils/spanBandCorners"
 import { tick } from "svelte"
 import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
 
@@ -132,6 +133,7 @@ const label = $derived(event.name[$currentLocale])
 const description = $derived(event.description[$currentLocale])
 
 const contentLeft = $derived(cardX - bbox.left)
+const contentClipCornerRadiusStyle = getEventCardTopCornerRadiusStyle()
 
 $effect(() => {
 	if (connectorOnly || !contentEl) {
@@ -204,8 +206,8 @@ $effect(() => {
 	{#if !connectorOnly}
 		<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_tabindex, a11y_no_static_element_interactions -->
 		<div
-			class="absolute top-0 overflow-hidden rounded-t-xl pointer-events-auto"
-			style="left: {contentLeft}px; width: {cardWidth}px; height: {measuredCardHeight}px;"
+			class="absolute top-0 overflow-hidden pointer-events-auto"
+			style="left: {contentLeft}px; width: {cardWidth}px; height: {measuredCardHeight}px; {contentClipCornerRadiusStyle}"
 			use:bindPointerClick={() => onCardClick?.(event.id)}
 			onpointerenter={onPointerEnter}
 			onpointerleave={onPointerLeave}

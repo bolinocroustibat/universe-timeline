@@ -95,6 +95,8 @@ function handlePointerLeave() {
 			isHovered={isHovered && !isSelected}
 			{eventColor}
 			{label}
+			lane={layout.lane}
+			maxLaneInGroup={layout.maxLaneInGroup}
 			anchorX={layout.anchor.x}
 			anchorWidth={layout.anchor.width}
 			spanBottom={spanBand.bottom}
@@ -135,6 +137,8 @@ function handlePointerLeave() {
 			isHovered={false}
 			{eventColor}
 			{label}
+			lane={layout.lane}
+			maxLaneInGroup={layout.maxLaneInGroup}
 			anchorX={layout.anchor.x}
 			anchorWidth={layout.anchor.width}
 			spanBottom={spanBand.bottom}
