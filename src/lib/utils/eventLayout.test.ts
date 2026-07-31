@@ -163,9 +163,7 @@ describe("buildEventLayouts", () => {
 		})
 
 		expect(layouts[0]?.bottom).toBe(EVENT_CARD_MIN_BOTTOM_OFFSET_PX)
-		expect(layouts[0]?.markerHeight).toBe(
-			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + 12,
-		)
+		expect(layouts[0]?.markerHeight).toBe(EVENT_CARD_MIN_BOTTOM_OFFSET_PX)
 	})
 
 	test("uses natural lane step from collapsed card height", () => {

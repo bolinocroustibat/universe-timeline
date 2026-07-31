@@ -37,9 +37,11 @@ Date ranges come from [`eventSpan.ts`](src/lib/utils/eventSpan.ts): `date ± dat
 
 | Tier | Condition | Anchor |
 |------|-----------|--------|
-| `point` | No uncertainty, or span `< 1px` | 1px marker (`w-px`) at `date`, aligned with ticks |
-| `range` | `1px ≤ span < CARD_WIDTH` | Horizontal bar at zone bottom + center tick at `date` |
+| `point` | No uncertainty, or span `< 1px` | Point at `date`; SVG connector narrows to anchor |
+| `range` | `1px ≤ span < CARD_WIDTH` | Date span at zone bottom; SVG connector narrows to anchor width |
 | `period` | `span ≥ CARD_WIDTH` | Full-height span band with edge fade (`SpanBand`) |
+
+**Date markers (`EventDateMarker`)** — for `point` and `range` tiers, an SVG funnel connects the card bottom (full card width) to the anchor span at the zone floor. Side edges use cubic Bézier curves; path geometry is built by [`eventDateMarkerPath.ts`](src/lib/utils/eventDateMarkerPath.ts). Marker height equals `layout.bottom` (card bottom offset). Gradients come from `getEventMarkerGradientStops()` in [`eventColors.ts`](src/lib/utils/eventColors.ts).
 
 Cards are centered on the best-estimate date with viewport edge clamping (`getEventCardXPosition()`).
 

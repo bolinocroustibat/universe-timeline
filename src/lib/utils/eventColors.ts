@@ -6,15 +6,38 @@ export function getEventColor(event: Pick<Event, "color">): string {
 	return event.color
 }
 
-export function getEventMarkerStyle(
+export type EventMarkerGradientStop = {
+	offset: string
+	color: string
+}
+
+export function getEventMarkerGradientStops(
 	color: string,
 	variant: "background" | "foreground",
-): string {
+): EventMarkerGradientStop[] {
 	if (variant === "background") {
-		return `background: linear-gradient(to top, color-mix(in srgb, ${color} 60%, transparent), color-mix(in srgb, ${color} 40%, transparent));`
+		return [
+			{
+				offset: "0%",
+				color: `color-mix(in srgb, ${color} 40%, transparent)`,
+			},
+			{
+				offset: "100%",
+				color: `color-mix(in srgb, ${color} 60%, transparent)`,
+			},
+		]
 	}
 
-	return `background: linear-gradient(to top, ${color}, color-mix(in srgb, ${color} 65%, black));`
+	return [
+		{
+			offset: "0%",
+			color: `color-mix(in srgb, ${color} 65%, black)`,
+		},
+		{
+			offset: "100%",
+			color: color,
+		},
+	]
 }
 
 export function getEventCardBorderStyle(

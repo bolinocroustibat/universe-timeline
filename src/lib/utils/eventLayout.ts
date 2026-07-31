@@ -15,7 +15,6 @@ export const EVENT_CARD_WIDTH = 200
 /** Collapsed card height (padding + 2-line title + date). Measured from rendered EventCard. */
 export const EVENT_CARD_HEIGHT = 128
 export const EVENT_LANE_PEEK_GAP_PX = 25
-export const EVENT_MARKER_EXTENSION_PX = 12
 export const EVENT_CARD_SCREEN_PADDING = 0
 export const EVENT_Z_INDEX_BASE = 980
 export const EVENT_Z_INDEX_HOVERED = 999
@@ -55,7 +54,6 @@ type BuildEventLayoutsParams = {
 	cardWidth?: number
 	cardHeight?: number
 	peekGap?: number
-	markerExtension?: number
 }
 
 type EventLayoutDraft = Omit<
@@ -378,7 +376,6 @@ export function buildEventLayouts(
 		zoneHeight,
 		cardHeight = EVENT_CARD_HEIGHT,
 		peekGap = EVENT_LANE_PEEK_GAP_PX,
-		markerExtension = EVENT_MARKER_EXTENSION_PX,
 	} = params
 
 	if (events.length === 0 || zoneHeight <= 0) {
@@ -429,13 +426,11 @@ export function buildEventLayouts(
 
 		const bottom =
 			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + lane * laneStep
-		const markerHeight = bottom + markerExtension
-
 		return {
 			...draft,
 			lane,
 			bottom,
-			markerHeight,
+			markerHeight: bottom,
 			spanBand: null,
 			zIndexBase: computeEventZIndexBase(lane),
 		}

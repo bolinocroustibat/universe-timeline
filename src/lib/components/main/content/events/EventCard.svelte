@@ -7,7 +7,6 @@ import {
 	getEventCardBorderStyle,
 	getEventColor,
 	getEventDetailCardStyle,
-	getEventMarkerStyle,
 } from "$lib/utils/eventColors"
 import type { EventLayout } from "$lib/utils/eventLayout"
 import {
@@ -77,12 +76,8 @@ const spanBackground = $derived(
 	}),
 )
 
-const markerBackgroundStyle = $derived(
-	getEventMarkerStyle(eventColor, "background"),
-)
-const markerForegroundStyle = $derived(
-	getEventMarkerStyle(eventColor, "foreground"),
-)
+const markerBackgroundVariant = "background" as const
+const markerForegroundVariant = "foreground" as const
 const cardBorderStyle = $derived(
 	getEventCardBorderStyle(eventColor, isSelected, isHovered),
 )
@@ -123,21 +118,29 @@ function handlePointerLeave() {
 		<EventDateMarker
 			tier="range"
 			layer="background"
+			cardX={layout.card.x}
+			cardWidth={layout.card.width}
 			anchorX={layout.anchor.x}
 			anchorWidth={layout.anchor.width}
 			markerHeight={layout.markerHeight}
 			zIndex={backgroundZIndex}
-			markerStyle={markerBackgroundStyle}
+			eventColor={eventColor}
+			variant={markerBackgroundVariant}
+			markerId="{layout.event.id}-background"
 		/>
 	{:else if layout.tier === "point" && !isSelected}
 		<EventDateMarker
 			tier="point"
 			layer="background"
+			cardX={layout.card.x}
+			cardWidth={layout.card.width}
 			anchorX={layout.anchor.x}
 			anchorWidth={layout.anchor.width}
 			markerHeight={layout.markerHeight}
 			zIndex={backgroundZIndex}
-			markerStyle={markerBackgroundStyle}
+			eventColor={eventColor}
+			variant={markerBackgroundVariant}
+			markerId="{layout.event.id}-background"
 		/>
 	{/if}
 {/if}
@@ -179,11 +182,15 @@ function handlePointerLeave() {
 			<EventDateMarker
 				tier="range"
 				layer="foreground"
+				cardX={layout.card.x}
+				cardWidth={layout.card.width}
 				anchorX={layout.anchor.x}
 				anchorWidth={layout.anchor.width}
 				markerHeight={layout.markerHeight}
 				zIndex={zIndex - 1}
-				markerStyle={markerForegroundStyle}
+				eventColor={eventColor}
+				variant={markerForegroundVariant}
+				markerId="{layout.event.id}-foreground"
 			/>
 		{/if}
 
@@ -191,11 +198,15 @@ function handlePointerLeave() {
 			<EventDateMarker
 				tier="point"
 				layer="foreground"
+				cardX={layout.card.x}
+				cardWidth={layout.card.width}
 				anchorX={layout.anchor.x}
 				anchorWidth={layout.anchor.width}
 				markerHeight={layout.markerHeight}
 				zIndex={zIndex - 1}
-				markerStyle={markerForegroundStyle}
+				eventColor={eventColor}
+				variant={markerForegroundVariant}
+				markerId="{layout.event.id}-foreground"
 			/>
 		{/if}
 
