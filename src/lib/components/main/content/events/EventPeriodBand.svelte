@@ -13,7 +13,6 @@ const MIN_HEIGHT_TITLE = 28
 
 interface Props {
 	eventId: number
-	layer: "background" | "foreground"
 	isSelected: boolean
 	isHovered: boolean
 	eventColor: string
@@ -33,7 +32,6 @@ interface Props {
 
 let {
 	eventId,
-	layer,
 	isSelected,
 	isHovered,
 	eventColor,
@@ -70,7 +68,6 @@ const cornerRadiusStyle = $derived(
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 <div
 	data-event-card
-	data-event-layer={layer}
 	data-selected={isSelected || undefined}
 	class="absolute cursor-pointer overflow-hidden box-border outline-none"
 	style="left: {anchorX}px; width: {anchorWidth}px; bottom: {spanBottom}px; height: {spanHeight}px; z-index: {zIndex}; {cornerRadiusStyle} {borderStyle}"

@@ -222,29 +222,10 @@ const messages = {
 				class="absolute bottom-0 left-0 right-0 overflow-hidden"
 				style="height: {EVENTS_ZONE_HEIGHT_RATIO * 100}%"
 			>
-				<!-- Uncertainty visuals (period spans, range bars, point ticks) sit behind cards. -->
-				<div class="absolute inset-0 z-0">
-					{#each eventLayouts as layout (`${layout.event.id}-background`)}
-						<EventCard
-							{layout}
-							layer="background"
-							zoneHeight={eventsZoneHeight}
-							isTopCard={topCardType === "event" &&
-								topCardEventId === layout.event.id}
-							isHovered={hoveredCardEventId === layout.event.id}
-							onCardClick={handleEventClick}
-							onCardHover={handleEventHover}
-						/>
-					{/each}
-				</div>
-
-				<!-- Cards and the active event's own uncertainty visuals render in front. -->
-				<div class="absolute inset-0 z-10">
+				<div class="absolute inset-0">
 					{#each eventLayouts as layout (layout.event.id)}
 						<EventCard
 							{layout}
-							layer="foreground"
-							zoneHeight={eventsZoneHeight}
 							isTopCard={topCardType === "event" &&
 								topCardEventId === layout.event.id}
 							isHovered={hoveredCardEventId === layout.event.id}

@@ -27,7 +27,6 @@ function measureCardHeight(element: HTMLDivElement): number {
 interface Props {
 	event: Event
 	tier: Extract<EventDisplayTier, "range" | "point">
-	layer: "background" | "foreground"
 	connectorOnly: boolean
 	cardX: number
 	cardWidth: number
@@ -36,7 +35,6 @@ interface Props {
 	markerHeight: number
 	zIndex: number
 	eventColor: string
-	variant: "background" | "foreground"
 	shapeId: string
 	isSelected: boolean
 	isHovered: boolean
@@ -48,7 +46,6 @@ interface Props {
 let {
 	event,
 	tier,
-	layer,
 	connectorOnly,
 	cardX,
 	cardWidth,
@@ -57,7 +54,6 @@ let {
 	markerHeight,
 	zIndex,
 	eventColor,
-	variant,
 	shapeId,
 	isSelected,
 	isHovered,
@@ -120,7 +116,7 @@ const pathD = $derived(
 			),
 )
 
-const gradientStops = $derived(getEventMarkerGradientStops(eventColor, variant))
+const gradientStops = $derived(getEventMarkerGradientStops(eventColor, "foreground"))
 const gradientId = $derived(`event-connector-gradient-${shapeId}`)
 const pigmentGradientId = $derived(`event-connector-pigment-${shapeId}`)
 const pigmentStops = $derived(getEventPigmentHorizontalStops(eventColor))
@@ -177,7 +173,6 @@ $effect(() => {
 	class="absolute pointer-events-none"
 	data-event-connector={!connectorOnly || undefined}
 	data-event-card={!connectorOnly || undefined}
-	data-event-layer={layer}
 	data-selected={!connectorOnly && isSelected ? true : undefined}
 	style="left: {bbox.left}px; bottom: {EVENT_CARD_MIN_BOTTOM_OFFSET_PX}px; width: {bbox.width}px; height: {bbox.height}px; z-index: {zIndex};"
 >
