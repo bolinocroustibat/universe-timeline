@@ -1,12 +1,12 @@
 import * as Sentry from "@sentry/sveltekit"
 import { handleErrorWithSentry, replayIntegration } from "@sentry/sveltekit"
-import { env } from "$env/dynamic/public"
+import { PUBLIC_ENV, PUBLIC_SENTRY_DSN } from "$app/env/public"
 
-const sentryEnvironment = env.PUBLIC_ENV ?? "unknown"
+const sentryEnvironment = PUBLIC_ENV
 
 Sentry.init({
-	dsn: env.PUBLIC_SENTRY_DSN,
-	enabled: Boolean(env.PUBLIC_SENTRY_DSN) && sentryEnvironment !== "local",
+	dsn: PUBLIC_SENTRY_DSN,
+	enabled: Boolean(PUBLIC_SENTRY_DSN) && sentryEnvironment !== "local",
 	environment: sentryEnvironment,
 	release: __APP_VERSION__,
 	// If you don't want to use Session Replay, just remove the line below:
@@ -18,8 +18,6 @@ Sentry.init({
 	// If the entire session is not sampled, use the below sample rate to sample
 	// sessions when an error occurs.
 	replaysOnErrorSampleRate: 1.0,
-	// Enable logs to be sent to Sentry
-	enableLogs: true,
 })
 
 // If you have a custom error handler, pass it to `handleErrorWithSentry`

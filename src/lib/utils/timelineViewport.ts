@@ -1,4 +1,4 @@
-import { TIME_CONSTANTS } from "$lib/constants"
+import { TIME_CONSTANTS } from "#lib/constants/index.js"
 
 export function getMaxLeftEdgeOffset(viewportYearSpan: number): number {
 	return Math.max(

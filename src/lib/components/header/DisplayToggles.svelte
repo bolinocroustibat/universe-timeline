@@ -1,9 +1,9 @@
 <script lang="ts">
-import ThemeToggle from "$lib/components/header/ThemeToggle.svelte"
-import ToggleSwitch from "$lib/components/header/ToggleSwitch.svelte"
-import { debugEnabled, toggleDebugEnabled } from "$lib/stores/debugStore"
-import { displaySettings } from "$lib/stores/displayStore"
-import { currentLocale } from "$lib/stores/localeStore"
+import ThemeToggle from "#lib/components/header/ThemeToggle.svelte"
+import ToggleSwitch from "#lib/components/header/ToggleSwitch.svelte"
+import { debugEnabled, toggleDebugEnabled } from "#lib/stores/debugStore.js"
+import { displaySettings } from "#lib/stores/displayStore.js"
+import { currentLocale } from "#lib/stores/localeStore.js"
 
 const labels = {
 	geologicalPeriods: {

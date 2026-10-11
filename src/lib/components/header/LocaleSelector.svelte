@@ -1,6 +1,6 @@
 <script lang="ts">
-import { currentLocale, getLocaleName } from "$lib/stores/localeStore"
-import type { SupportedLocales } from "$lib/types"
+import { currentLocale, getLocaleName } from "#lib/stores/localeStore.js"
+import type { SupportedLocales } from "#lib/types/index.js"
 
 let isOpen = $state(false)
 let dropdownRef: HTMLDivElement | undefined

@@ -1,5 +1,5 @@
 <script lang="ts">
-import Zoom from "$lib/components/footer/Zoom.svelte"
+import Zoom from "#lib/components/footer/Zoom.svelte"
 </script>
 
 <footer class="h-12 bg-background border-t border-border flex-shrink-0">

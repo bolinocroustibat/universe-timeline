@@ -1,6 +1,6 @@
 <script lang="ts">
-import { MAX_ZOOM_LEVEL } from "$lib/constants"
-import { zoomLevel } from "$lib/stores/zoomStore"
+import { MAX_ZOOM_LEVEL } from "#lib/constants/index.js"
+import { zoomLevel } from "#lib/stores/zoomStore.js"
 
 const SLIDER_TICK_STEP = 2
 

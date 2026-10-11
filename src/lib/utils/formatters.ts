@@ -1,4 +1,4 @@
-import type { SupportedLocales } from "$lib/types"
+import type { SupportedLocales } from "#lib/types/index.js"
 
 type TimeLocale = {
 	numbers: {

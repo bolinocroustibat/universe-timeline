@@ -1,7 +1,7 @@
 /** Fraction of marker height used to place Bézier control points along each side. */
 export const EVENT_MARKER_CURVE_RATIO = 0.35
 
-import { SPAN_BAND_CORNER_RADIUS_PX } from "$lib/constants/layout"
+import { SPAN_BAND_CORNER_RADIUS_PX } from "#lib/constants/layout.js"
 
 /** @deprecated Use {@link SPAN_BAND_CORNER_RADIUS_PX} from layout constants. */
 export const EVENT_CONNECTOR_CARD_CORNER_RADIUS = SPAN_BAND_CORNER_RADIUS_PX

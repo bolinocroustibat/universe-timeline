@@ -1,11 +1,11 @@
 import { describe, expect, test } from "bun:test"
-import { SPAN_BAND_CORNER_RADIUS_PX } from "$lib/constants/layout"
+import { SPAN_BAND_CORNER_RADIUS_PX } from "#lib/constants/layout.js"
 import {
 	getEventCardCornerRadiusStyle,
 	getEventCardTopCornerRadiusStyle,
 	getEventPeriodBandCornerFlags,
 	getSpanBandBorderRadius,
-} from "$lib/utils/spanBandCorners"
+} from "#lib/utils/spanBandCorners.js"
 
 describe("getSpanBandBorderRadius", () => {
 	test("rounds only requested corners", () => {

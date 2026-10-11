@@ -21,4 +21,4 @@ Commit `bun.lock` as the single lockfile. Do not add `package-lock.json`, `pnpm-
 
 ## Note
 
-`svelte-adapter-bun` is the SvelteKit **adapter** name, not a different package manager. The app still runs with Bun in production.
+`@sveltejs/adapter-bun` is the SvelteKit **adapter**, not a different package manager. The app still runs with Bun in production. Production builds must use Bun (`bun run --bun build`).

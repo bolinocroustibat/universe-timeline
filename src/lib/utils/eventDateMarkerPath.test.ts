@@ -4,7 +4,7 @@ import {
 	buildEventDateMarkerPath,
 	getEventConnectorBBox,
 	getEventDateMarkerBBox,
-} from "$lib/utils/eventDateMarkerPath"
+} from "#lib/utils/eventDateMarkerPath.js"
 
 describe("getEventDateMarkerBBox", () => {
 	test("computes bbox spanning card and anchor", () => {

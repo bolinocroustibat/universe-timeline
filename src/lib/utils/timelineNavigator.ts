@@ -1,6 +1,6 @@
-import { NAVIGATOR_MILESTONES, TIME_CONSTANTS } from "$lib/constants"
-import type { NavigatorMilestone } from "$lib/constants/navigatorMilestones"
-import type { TimelineTick } from "$lib/types"
+import { NAVIGATOR_MILESTONES, TIME_CONSTANTS } from "#lib/constants/index.js"
+import type { NavigatorMilestone } from "#lib/constants/navigatorMilestones.js"
+import type { TimelineTick } from "#lib/types/index.js"
 
 export interface NavigatorThumbGeometry {
 	leftX: number

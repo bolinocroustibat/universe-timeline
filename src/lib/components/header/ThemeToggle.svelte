@@ -1,6 +1,6 @@
 <script lang="ts">
-import { currentLocale } from "$lib/stores/localeStore"
-import { colorScheme, toggleColorScheme } from "$lib/stores/themeStore"
+import { currentLocale } from "#lib/stores/localeStore.js"
+import { colorScheme, toggleColorScheme } from "#lib/stores/themeStore.js"
 
 const labels = {
 	switchToDark: {

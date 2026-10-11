@@ -1,8 +1,8 @@
-import type { Event, GeologicalPeriod } from "$lib/types"
+import type { Event, GeologicalPeriod } from "#lib/types/index.js"
 import {
 	type GeologicalPeriodSource,
 	resolveGeologicalPeriodColors,
-} from "$lib/utils/geologicalPeriodColors"
+} from "#lib/utils/geologicalPeriodColors.js"
 
 export async function fetchGeologicalPeriods(): Promise<GeologicalPeriod[]> {
 	try {

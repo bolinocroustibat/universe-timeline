@@ -1,18 +1,16 @@
 import * as Sentry from "@sentry/sveltekit"
 import { handleErrorWithSentry, sentryHandle } from "@sentry/sveltekit"
 import { sequence } from "@sveltejs/kit/hooks"
-import { env } from "$env/dynamic/public"
+import { PUBLIC_ENV, PUBLIC_SENTRY_DSN } from "$app/env/public"
 
-const sentryEnvironment = env.PUBLIC_ENV ?? "unknown"
+const sentryEnvironment = PUBLIC_ENV
 
 Sentry.init({
-	dsn: env.PUBLIC_SENTRY_DSN,
-	enabled: Boolean(env.PUBLIC_SENTRY_DSN) && sentryEnvironment !== "local",
+	dsn: PUBLIC_SENTRY_DSN,
+	enabled: Boolean(PUBLIC_SENTRY_DSN) && sentryEnvironment !== "local",
 	environment: sentryEnvironment,
 	release: __APP_VERSION__,
 	tracesSampleRate: 1.0,
-	// Enable logs to be sent to Sentry
-	enableLogs: true,
 	// uncomment the line below to enable Spotlight (https://spotlightjs.com)
 	// spotlight: import.meta.env.DEV,
 })

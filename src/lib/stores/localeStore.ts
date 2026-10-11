@@ -1,5 +1,5 @@
 import { writable } from "svelte/store"
-import type { SupportedLocales } from "$lib/types"
+import type { SupportedLocales } from "#lib/types/index.js"
 
 // Get initial locale from localStorage or default to English
 const getInitialLocale = (): SupportedLocales => {

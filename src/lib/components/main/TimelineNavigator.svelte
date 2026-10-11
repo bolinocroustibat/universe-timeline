@@ -6,17 +6,17 @@ import {
 	TIMELINE_NAVIGATOR_MAJOR_TICK_INTERVAL,
 	TIMELINE_NAVIGATOR_MINOR_TICK_INTERVAL,
 	TIMELINE_NAVIGATOR_THUMB_HEIGHT_RATIO,
-} from "$lib/constants"
-import { currentLocale } from "$lib/stores/localeStore"
-import { formatDate } from "$lib/utils/formatters"
-import { POINTER_DRAG_THRESHOLD_PX } from "$lib/utils/pointerClickOrDrag"
-import { screenToTimelineX } from "$lib/utils/timelineCoordinates"
+} from "#lib/constants/index.js"
+import { currentLocale } from "#lib/stores/localeStore.js"
+import { formatDate } from "#lib/utils/formatters.js"
+import { POINTER_DRAG_THRESHOLD_PX } from "#lib/utils/pointerClickOrDrag.js"
+import { screenToTimelineX } from "#lib/utils/timelineCoordinates.js"
 import {
 	buildNavigatorMilestonePositions,
 	buildNavigatorTickPositions,
 	computeNavigatorThumb,
 	trackXToYear,
-} from "$lib/utils/timelineNavigator"
+} from "#lib/utils/timelineNavigator.js"
 
 interface Props {
 	leftEdgeYear: number

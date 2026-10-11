@@ -1,5 +1,5 @@
-import { blendColors } from "$lib/utils/colors"
-import { buildPigmentBackgroundStyle } from "$lib/utils/spanBandPigment"
+import { blendColors } from "#lib/utils/colors.js"
+import { buildPigmentBackgroundStyle } from "#lib/utils/spanBandPigment.js"
 
 export type SpanBandGradientOptions = {
 	color: string

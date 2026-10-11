@@ -1,9 +1,9 @@
 <script lang="ts">
-import { currentLocale } from "$lib/stores/localeStore"
+import { currentLocale } from "#lib/stores/localeStore.js"
 import {
 	type GeologicalPeriodWithLayout,
 	getGeologicalPeriodPopoverLayout,
-} from "$lib/utils/geologicalPeriodLayout"
+} from "#lib/utils/geologicalPeriodLayout.js"
 
 const Z_INDEX_POPOVER = 1100
 

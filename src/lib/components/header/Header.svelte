@@ -1,8 +1,8 @@
 <script lang="ts">
-import DisplayToggles from "$lib/components/header/DisplayToggles.svelte"
-import LocaleSelector from "$lib/components/header/LocaleSelector.svelte"
-import { SITE_TITLE } from "$lib/constants/site"
-import { currentLocale } from "$lib/stores/localeStore"
+import DisplayToggles from "#lib/components/header/DisplayToggles.svelte"
+import LocaleSelector from "#lib/components/header/LocaleSelector.svelte"
+import { SITE_TITLE } from "#lib/constants/site.js"
+import { currentLocale } from "#lib/stores/localeStore.js"
 </script>
 
 <header class="h-14 bg-surface border-b border-border flex-shrink-0">

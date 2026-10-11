@@ -1,5 +1,5 @@
 import chroma from "chroma-js"
-import type { GeologicalPeriod } from "$lib/types"
+import type { GeologicalPeriod } from "#lib/types/index.js"
 
 export type GeologicalPeriodSource = Omit<GeologicalPeriod, "color"> & {
 	color?: string

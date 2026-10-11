@@ -1,24 +1,24 @@
 <script lang="ts">
 import { tick } from "svelte"
-import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "$lib/constants"
-import { currentLocale } from "$lib/stores/localeStore"
-import type { Event } from "$lib/types"
+import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "#lib/constants/index.js"
+import { currentLocale } from "#lib/stores/localeStore.js"
+import type { Event } from "#lib/types/index.js"
 import {
 	getEventConnectorStroke,
 	getEventMarkerGradientStops,
 	getEventPigmentHorizontalStops,
-} from "$lib/utils/eventColors"
+} from "#lib/utils/eventColors.js"
 import {
 	buildEventConnectorPath,
 	buildEventDateMarkerPath,
 	getEventConnectorBBox,
 	getEventDateMarkerBBox,
-} from "$lib/utils/eventDateMarkerPath"
-import type { EventDisplayTier } from "$lib/utils/eventLayout"
-import { EVENT_CARD_HEIGHT } from "$lib/utils/eventLayout"
-import { formatDate } from "$lib/utils/formatters"
-import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
-import { getEventCardTopCornerRadiusStyle } from "$lib/utils/spanBandCorners"
+} from "#lib/utils/eventDateMarkerPath.js"
+import type { EventDisplayTier } from "#lib/utils/eventLayout.js"
+import { EVENT_CARD_HEIGHT } from "#lib/utils/eventLayout.js"
+import { formatDate } from "#lib/utils/formatters.js"
+import { bindPointerClick } from "#lib/utils/pointerClickOrDrag.js"
+import { getEventCardTopCornerRadiusStyle } from "#lib/utils/spanBandCorners.js"
 
 function measureCardHeight(element: HTMLDivElement): number {
 	return Math.ceil(element.getBoundingClientRect().height)
@@ -116,7 +116,9 @@ const pathD = $derived(
 			),
 )
 
-const gradientStops = $derived(getEventMarkerGradientStops(eventColor, "foreground"))
+const gradientStops = $derived(
+	getEventMarkerGradientStops(eventColor, "foreground"),
+)
 const gradientId = $derived(`event-connector-gradient-${shapeId}`)
 const pigmentGradientId = $derived(`event-connector-pigment-${shapeId}`)
 const pigmentStops = $derived(getEventPigmentHorizontalStops(eventColor))

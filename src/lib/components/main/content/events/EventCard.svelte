@@ -1,16 +1,16 @@
 <script lang="ts">
-import EventConnectorCard from "$lib/components/main/content/events/EventConnectorCard.svelte"
-import EventDetailCard from "$lib/components/main/content/events/EventDetailCard.svelte"
-import EventPeriodBand from "$lib/components/main/content/events/EventPeriodBand.svelte"
-import { currentLocale } from "$lib/stores/localeStore"
-import { getEventColor } from "$lib/utils/eventColors"
-import type { EventLayout } from "$lib/utils/eventLayout"
+import EventConnectorCard from "#lib/components/main/content/events/EventConnectorCard.svelte"
+import EventDetailCard from "#lib/components/main/content/events/EventDetailCard.svelte"
+import EventPeriodBand from "#lib/components/main/content/events/EventPeriodBand.svelte"
+import { currentLocale } from "#lib/stores/localeStore.js"
+import { getEventColor } from "#lib/utils/eventColors.js"
+import type { EventLayout } from "#lib/utils/eventLayout.js"
 import {
 	EVENT_Z_INDEX_HOVERED,
 	EVENT_Z_INDEX_SELECTED,
-} from "$lib/utils/eventLayout"
-import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
-import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
+} from "#lib/utils/eventLayout.js"
+import { bindPointerClick } from "#lib/utils/pointerClickOrDrag.js"
+import { getSpanBandBackgroundStyle } from "#lib/utils/spanBandStyle.js"
 
 interface Props {
 	layout: EventLayout
@@ -20,13 +20,7 @@ interface Props {
 	onCardHover: (eventId: number | null) => void
 }
 
-let {
-	layout,
-	isTopCard,
-	isHovered,
-	onCardClick,
-	onCardHover,
-}: Props = $props()
+let { layout, isTopCard, isHovered, onCardClick, onCardHover }: Props = $props()
 
 const isSelected = $derived(isTopCard)
 const isPeriodTier = $derived(layout.tier === "period")

@@ -11,19 +11,20 @@ RUN bun install --frozen-lockfile
 # Copy the remaining source code (respecting .dockerignore)
 COPY . .
 
-# Build the application
+# Official adapter-bun needs the Bun runtime, not Vite's Node shebang
 RUN bun run build
 
 # --- Production stage ---
 FROM oven/bun:slim
 WORKDIR /app
 
-# Copy the compiled build output from the builder stage
-COPY --from=builder /app/build ./
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/build ./build
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/bun.lock ./
 
-# Create volume mount point for static files
-VOLUME /app/static
+RUN bun install --production --frozen-lockfile
+
+# Timeline JSONC files can be mounted over build/client at runtime
 
 # Expose the application port
 EXPOSE 3000
@@ -38,4 +39,4 @@ ENV HOST_HEADER=host
 ENV PROTOCOL_HEADER=x-forwarded-proto
 
 # Start the application
-CMD ["bun", "index.js"]
+CMD ["bun", "./build"]

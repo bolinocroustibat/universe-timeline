@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "$lib/constants"
-import type { Event } from "$lib/types"
+import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "#lib/constants/index.js"
+import type { Event } from "#lib/types/index.js"
 import {
 	buildEventLayouts,
 	EVENT_CARD_HEIGHT,
@@ -9,8 +9,8 @@ import {
 	EVENT_Z_INDEX_MAX_DEFAULT,
 	EVENT_Z_INDEX_SELECTED,
 	getEventCardXPosition,
-} from "$lib/utils/eventLayout"
-import { getClampedSpanPosition } from "$lib/utils/spanPosition"
+} from "#lib/utils/eventLayout.js"
+import { getClampedSpanPosition } from "#lib/utils/spanPosition.js"
 
 describe("getClampedSpanPosition", () => {
 	test("clamps span to viewport edges", () => {

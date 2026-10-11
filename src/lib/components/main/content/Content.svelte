@@ -1,20 +1,20 @@
 <script lang="ts">
 import { onMount } from "svelte"
-import { fetchEvents, fetchGeologicalPeriods } from "$lib/api"
-import EventCard from "$lib/components/main/content/events/EventCard.svelte"
-import GeologicalPeriodCard from "$lib/components/main/content/GeologicalPeriodCard.svelte"
-import GeologicalPeriodPopover from "$lib/components/main/content/GeologicalPeriodPopover.svelte"
-import TimelineGrid from "$lib/components/main/content/TimelineGrid.svelte"
+import { fetchEvents, fetchGeologicalPeriods } from "#lib/api.js"
+import EventCard from "#lib/components/main/content/events/EventCard.svelte"
+import GeologicalPeriodCard from "#lib/components/main/content/GeologicalPeriodCard.svelte"
+import GeologicalPeriodPopover from "#lib/components/main/content/GeologicalPeriodPopover.svelte"
+import TimelineGrid from "#lib/components/main/content/TimelineGrid.svelte"
 import {
 	EVENTS_ZONE_HEIGHT_RATIO,
 	GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO,
-} from "$lib/constants"
-import { displaySettings } from "$lib/stores/displayStore"
-import { currentLocale } from "$lib/stores/localeStore"
-import type { Event, GeologicalPeriod } from "$lib/types"
-import { buildEventLayouts } from "$lib/utils/eventLayout"
-import { getEventDateRange, isEventRangeVisible } from "$lib/utils/eventSpan"
-import { buildVisibleGeologicalPeriodLayouts } from "$lib/utils/geologicalPeriodLayout"
+} from "#lib/constants/index.js"
+import { displaySettings } from "#lib/stores/displayStore.js"
+import { currentLocale } from "#lib/stores/localeStore.js"
+import type { Event, GeologicalPeriod } from "#lib/types/index.js"
+import { buildEventLayouts } from "#lib/utils/eventLayout.js"
+import { getEventDateRange, isEventRangeVisible } from "#lib/utils/eventSpan.js"
+import { buildVisibleGeologicalPeriodLayouts } from "#lib/utils/geologicalPeriodLayout.js"
 
 interface Props {
 	zoomLevel: number

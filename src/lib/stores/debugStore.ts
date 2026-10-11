@@ -1,5 +1,5 @@
-import { env } from "$env/dynamic/public"
 import { writable } from "svelte/store"
+import { PUBLIC_DEBUG } from "$app/env/public"
 
 const STORAGE_KEY = "debugEnabled"
 
@@ -9,7 +9,8 @@ const getInitialDebugEnabled = (): boolean => {
 		if (saved === "true") return true
 		if (saved === "false") return false
 	}
-	return env.PUBLIC_DEBUG === "true"
+
+	return PUBLIC_DEBUG === "true"
 }
 
 export const debugEnabled = writable(getInitialDebugEnabled())

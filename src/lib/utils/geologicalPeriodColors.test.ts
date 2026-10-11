@@ -1,10 +1,10 @@
 import { describe, expect, test } from "bun:test"
-import type { GeologicalPeriodSource } from "$lib/utils/geologicalPeriodColors"
+import type { GeologicalPeriodSource } from "#lib/utils/geologicalPeriodColors.js"
 import {
 	deriveSiblingColors,
 	getLightness,
 	resolveGeologicalPeriodColors,
-} from "$lib/utils/geologicalPeriodColors"
+} from "#lib/utils/geologicalPeriodColors.js"
 
 const basePeriod = {
 	startUncertainty: 0,

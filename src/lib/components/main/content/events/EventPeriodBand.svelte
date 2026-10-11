@@ -1,11 +1,11 @@
 <script lang="ts">
-import SpanBand from "$lib/components/main/content/SpanBand.svelte"
-import { getEventPanelBorderStyle } from "$lib/utils/eventColors"
-import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
+import SpanBand from "#lib/components/main/content/SpanBand.svelte"
+import { getEventPanelBorderStyle } from "#lib/utils/eventColors.js"
+import { bindPointerClick } from "#lib/utils/pointerClickOrDrag.js"
 import {
 	getEventPeriodBandCornerFlags,
 	getSpanBandCornerRadiusStyle,
-} from "$lib/utils/spanBandCorners"
+} from "#lib/utils/spanBandCorners.js"
 
 const HORIZONTAL_PADDING = 32
 const CHAR_WIDTH = 7.5

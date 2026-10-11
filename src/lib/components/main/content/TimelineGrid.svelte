@@ -5,10 +5,10 @@ import {
 	TIMELINE_MINOR_TICK_BOTTOM_GAP_PX,
 	TIMELINE_MINOR_TICK_HEIGHT_PX,
 	ZOOM_SCALES,
-} from "$lib/constants"
-import { currentLocale } from "$lib/stores/localeStore"
-import type { TimelineTick } from "$lib/types"
-import { formatDate } from "$lib/utils/formatters"
+} from "#lib/constants/index.js"
+import { currentLocale } from "#lib/stores/localeStore.js"
+import type { TimelineTick } from "#lib/types/index.js"
+import { formatDate } from "#lib/utils/formatters.js"
 
 interface Props {
 	zoomLevel: number

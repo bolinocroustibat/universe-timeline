@@ -1,4 +1,4 @@
-import type { LocalizedText } from "$lib/types"
+import type { LocalizedText } from "#lib/types/index.js"
 
 export const SITE_TITLE: LocalizedText = {
 	en: "The Timeline of the Universe",

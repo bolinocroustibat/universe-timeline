@@ -3,7 +3,7 @@ import {
 	getClampedSpanPosition,
 	snapLayoutX,
 	yearToLayoutX,
-} from "$lib/utils/spanPosition"
+} from "#lib/utils/spanPosition.js"
 
 describe("yearToLayoutX", () => {
 	test("maps years to layout pixels", () => {

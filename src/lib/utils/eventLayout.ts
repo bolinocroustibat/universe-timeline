@@ -1,15 +1,15 @@
-import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "$lib/constants"
-import type { Event } from "$lib/types"
+import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "#lib/constants/index.js"
+import type { Event } from "#lib/types/index.js"
 import {
 	getEventDateRange,
 	getEventSpanWidthPx,
 	hasEventDateUncertainty,
-} from "$lib/utils/eventSpan"
+} from "#lib/utils/eventSpan.js"
 import {
 	getClampedSpanPosition,
 	snapLayoutX,
 	yearToLayoutX,
-} from "$lib/utils/spanPosition"
+} from "#lib/utils/spanPosition.js"
 
 export const EVENT_CARD_WIDTH = 200
 /** Collapsed card height (padding + 2-line title + date). Measured from rendered EventCard. */

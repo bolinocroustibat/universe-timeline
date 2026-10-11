@@ -63,7 +63,7 @@ Copy `.env.example` to `.env`, then build and run the app:
 docker compose up --build
 ```
 
-The app is available at [http://localhost:3000](http://localhost:3000) (override with `APP_PORT` in `.env`). Timeline data in `static/` is mounted into the container.
+The app is available at [http://localhost:3000](http://localhost:3000) (override with `APP_PORT` in `.env`). Timeline data files from `static/` are mounted over the production client assets so they can be updated without rebuilding.
 
 Production releases are triggered by pushing a version tag. The [deploy workflow](.github/workflows/deploy.yaml) bumps the version, builds and pushes the Docker image to GHCR, redeploys via `docker compose`, then creates a GitHub Release and a Sentry release.
 

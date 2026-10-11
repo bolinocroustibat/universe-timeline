@@ -1,8 +1,8 @@
 <script lang="ts">
-import Footer from "$lib/components/footer/Footer.svelte"
-import Header from "$lib/components/header/Header.svelte"
-import { SITE_DESCRIPTION, SITE_TITLE } from "$lib/constants/site"
-import { currentLocale } from "$lib/stores/localeStore"
+import Footer from "#lib/components/footer/Footer.svelte"
+import Header from "#lib/components/header/Header.svelte"
+import { SITE_DESCRIPTION, SITE_TITLE } from "#lib/constants/site.js"
+import { currentLocale } from "#lib/stores/localeStore.js"
 import "../app.css"
 </script>
 

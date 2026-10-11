@@ -1,5 +1,5 @@
-import type { Event } from "$lib/types"
-import { pigmentMix } from "$lib/utils/spanBandPigment"
+import type { Event } from "#lib/types/index.js"
+import { pigmentMix } from "#lib/utils/spanBandPigment.js"
 
 export const DEFAULT_EVENT_COLOR = "#3d4558"
 

@@ -1,4 +1,4 @@
-import type { LocalizedText } from "$lib/types"
+import type { LocalizedText } from "#lib/types/index.js"
 import { TIME_CONSTANTS } from "./timeline"
 
 export interface NavigatorMilestone {

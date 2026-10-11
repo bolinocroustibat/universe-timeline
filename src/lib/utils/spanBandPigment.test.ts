@@ -2,8 +2,8 @@ import { describe, expect, it } from "bun:test"
 import {
 	buildPigmentBackgroundStyle,
 	getPigmentBackgroundLayers,
-} from "$lib/utils/spanBandPigment"
-import { getSpanBandBackgroundStyle } from "$lib/utils/spanBandStyle"
+} from "#lib/utils/spanBandPigment.js"
+import { getSpanBandBackgroundStyle } from "#lib/utils/spanBandStyle.js"
 
 describe("getPigmentBackgroundLayers", () => {
 	it("returns mesh, drift, and depth gradients", () => {

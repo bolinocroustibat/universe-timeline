@@ -35,7 +35,8 @@ services:
     ports:
       - "${APP_PORT:-3000}:3000"
     volumes:
-      - ./static:/app/static
+      - ./static/events.jsonc:/app/build/client/events.jsonc
+      - ./static/geologicalPeriods.jsonc:/app/build/client/geologicalPeriods.jsonc
     environment:
       - PUBLIC_ENV=${PUBLIC_ENV:-production}
       - PUBLIC_SENTRY_DSN=${PUBLIC_SENTRY_DSN}

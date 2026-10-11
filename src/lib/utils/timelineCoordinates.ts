@@ -1,4 +1,4 @@
-import { isForcedLandscape } from "$lib/constants"
+import { isForcedLandscape } from "#lib/constants/index.js"
 
 interface TimelineMetrics {
 	screenAxisX: number

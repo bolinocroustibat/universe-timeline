@@ -1,7 +1,7 @@
 <script lang="ts">
-import { MIN_MINOR_LABEL_SPACING_PX } from "$lib/constants"
-import { currentLocale } from "$lib/stores/localeStore"
-import { formatDate, formatLargeNumber } from "$lib/utils/formatters"
+import { MIN_MINOR_LABEL_SPACING_PX } from "#lib/constants/index.js"
+import { currentLocale } from "#lib/stores/localeStore.js"
+import { formatDate, formatLargeNumber } from "#lib/utils/formatters.js"
 
 interface Props {
 	zoomLevel: number

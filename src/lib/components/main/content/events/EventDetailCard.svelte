@@ -1,14 +1,14 @@
 <script lang="ts">
-import SpanBand from "$lib/components/main/content/SpanBand.svelte"
-import { currentLocale } from "$lib/stores/localeStore"
-import type { Event } from "$lib/types"
+import SpanBand from "#lib/components/main/content/SpanBand.svelte"
+import { currentLocale } from "#lib/stores/localeStore.js"
+import type { Event } from "#lib/types/index.js"
 import {
 	getEventPanelBackgroundStyle,
 	getEventPanelBorderStyle,
-} from "$lib/utils/eventColors"
-import { formatDate } from "$lib/utils/formatters"
-import { bindPointerClick } from "$lib/utils/pointerClickOrDrag"
-import { getEventCardCornerRadiusStyle } from "$lib/utils/spanBandCorners"
+} from "#lib/utils/eventColors.js"
+import { formatDate } from "#lib/utils/formatters.js"
+import { bindPointerClick } from "#lib/utils/pointerClickOrDrag.js"
+import { getEventCardCornerRadiusStyle } from "#lib/utils/spanBandCorners.js"
 
 interface Props {
 	event: Event

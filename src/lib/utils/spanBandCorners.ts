@@ -1,4 +1,4 @@
-import { SPAN_BAND_CORNER_RADIUS_PX } from "$lib/constants/layout"
+import { SPAN_BAND_CORNER_RADIUS_PX } from "#lib/constants/layout.js"
 
 export type SpanBandCornerFlags = {
 	roundTopLeft?: boolean

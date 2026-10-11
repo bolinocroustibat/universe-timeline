@@ -1,30 +1,34 @@
 <script lang="ts">
 import { onMount } from "svelte"
-import LeftArrow from "$lib/components/main/ArrowLeft.svelte"
-import RightArrow from "$lib/components/main/ArrowRight.svelte"
-import Content from "$lib/components/main/content/Content.svelte"
-import DebugInfo from "$lib/components/main/DebugInfo.svelte"
-import TimelineNavigator from "$lib/components/main/TimelineNavigator.svelte"
-import { MAX_ZOOM_LEVEL, TIME_CONSTANTS, ZOOM_SCALES } from "$lib/constants"
-import { debugEnabled } from "$lib/stores/debugStore"
-import { zoomLevel } from "$lib/stores/zoomStore"
-import { POINTER_DRAG_THRESHOLD_PX } from "$lib/utils/pointerClickOrDrag"
+import LeftArrow from "#lib/components/main/ArrowLeft.svelte"
+import RightArrow from "#lib/components/main/ArrowRight.svelte"
+import Content from "#lib/components/main/content/Content.svelte"
+import DebugInfo from "#lib/components/main/DebugInfo.svelte"
+import TimelineNavigator from "#lib/components/main/TimelineNavigator.svelte"
+import {
+	MAX_ZOOM_LEVEL,
+	TIME_CONSTANTS,
+	ZOOM_SCALES,
+} from "#lib/constants/index.js"
+import { debugEnabled } from "#lib/stores/debugStore.js"
+import { zoomLevel } from "#lib/stores/zoomStore.js"
+import { POINTER_DRAG_THRESHOLD_PX } from "#lib/utils/pointerClickOrDrag.js"
 import {
 	screenToTimelinePanDelta,
 	screenToTimelineX,
 	wheelDeltaToTimelinePanDelta,
 	wheelDeltaToZoomDelta,
-} from "$lib/utils/timelineCoordinates"
+} from "#lib/utils/timelineCoordinates.js"
 import {
 	computeNavigatorThumb,
 	getTimelineTotalSpan,
-} from "$lib/utils/timelineNavigator"
+} from "#lib/utils/timelineNavigator.js"
 import {
 	canPanEarlier as canPanEarlierInViewport,
 	canPanLater as canPanLaterInViewport,
 	clampLeftEdgeOffset,
 	computeCenteredLeftEdgeOffset,
-} from "$lib/utils/timelineViewport"
+} from "#lib/utils/timelineViewport.js"
 
 let containerElement: HTMLDivElement | undefined = $state()
 let contentInstance: { deselectCards: () => void } | undefined = $state()

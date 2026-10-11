@@ -1,4 +1,4 @@
-import type { Event } from "$lib/types"
+import type { Event } from "#lib/types/index.js"
 
 export type EventDateRange = {
 	start: number

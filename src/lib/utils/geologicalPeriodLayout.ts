@@ -1,6 +1,6 @@
-import { GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO } from "$lib/constants"
-import type { GeologicalPeriod } from "$lib/types"
-import { getClampedSpanPosition } from "$lib/utils/spanPosition"
+import { GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO } from "#lib/constants/index.js"
+import type { GeologicalPeriod } from "#lib/types/index.js"
+import { getClampedSpanPosition } from "#lib/utils/spanPosition.js"
 
 export type GeologicalPeriodIndex = {
 	byId: Map<number, GeologicalPeriod>
