@@ -5,6 +5,7 @@ import {
 	buildEventLayouts,
 	EVENT_CARD_HEIGHT,
 	EVENT_CARD_WIDTH,
+	EVENT_CONNECTOR_MIN_HEIGHT_PX,
 	EVENT_LANE_PEEK_GAP_PX,
 	EVENT_Z_INDEX_MAX_DEFAULT,
 	EVENT_Z_INDEX_SELECTED,
@@ -98,46 +99,48 @@ describe("buildEventLayouts", () => {
 		})
 
 		expect(layouts[0]?.tier).toBe("range")
+		expect(layouts[0]?.card.width).toBe(EVENT_CARD_WIDTH)
 		expect(layouts[0]?.anchor.width).toBeGreaterThanOrEqual(1)
 		expect(layouts[0]?.anchor.width).toBeLessThan(EVENT_CARD_WIDTH)
+		expect(layouts[0]?.markerHeight).toBe(EVENT_CONNECTOR_MIN_HEIGHT_PX)
 	})
 
-	test("uses period tier when span is at least card width", () => {
+	test("widens the text block to the span and drops the funnel when the span is wider", () => {
 		const layouts = buildEventLayouts({
 			events: [createEvent({ date: 5000, dateUncertainty: 5000 })],
 			...baseParams,
 		})
 
-		expect(layouts[0]?.tier).toBe("period")
-		expect(layouts[0]?.showEdgeBlur).toBe(true)
-		expect(layouts[0]?.anchor.width).toBeGreaterThanOrEqual(EVENT_CARD_WIDTH)
-		expect(layouts[0]?.spanBand).toEqual({
-			bottom: EVENT_CARD_MIN_BOTTOM_OFFSET_PX,
-			height: 300 - EVENT_CARD_MIN_BOTTOM_OFFSET_PX,
-		})
+		expect(layouts[0]?.tier).toBe("range")
+		expect(layouts[0]?.anchor.width).toBeGreaterThan(EVENT_CARD_WIDTH)
+		expect(layouts[0]?.card.width).toBe(layouts[0]?.anchor.width)
+		expect(layouts[0]?.card.x).toBe(layouts[0]?.anchor.x)
+		expect(layouts[0]?.markerHeight).toBe(0)
+		expect(layouts[0]?.bottom).toBe(EVENT_CARD_MIN_BOTTOM_OFFSET_PX)
 	})
 
-	test("assigns overlapping period spans to stacked vertical bands", () => {
+	test("stacks overlapping wide spans as plain blocks", () => {
+		const naturalLaneStep = EVENT_CARD_HEIGHT + EVENT_LANE_PEEK_GAP_PX
+		const zoneHeight =
+			naturalLaneStep + EVENT_CARD_HEIGHT + EVENT_CARD_MIN_BOTTOM_OFFSET_PX
+
 		const layouts = buildEventLayouts({
 			events: [
 				createEvent({ id: 1, date: 5000, dateUncertainty: 5000 }),
 				createEvent({ id: 2, date: 5200, dateUncertainty: 5000 }),
 			],
 			...baseParams,
+			zoneHeight,
 		})
 
 		expect(layouts).toHaveLength(2)
-		expect(layouts.every((layout) => layout.tier === "period")).toBe(true)
 		expect(layouts[0]?.lane).toBe(0)
 		expect(layouts[1]?.lane).toBe(1)
-		expect(layouts[0]?.spanBand?.height).toBe(
-			(300 - EVENT_CARD_MIN_BOTTOM_OFFSET_PX) / 2,
-		)
-		expect(layouts[1]?.spanBand?.height).toBe(
-			(300 - EVENT_CARD_MIN_BOTTOM_OFFSET_PX) / 2,
-		)
-		expect(layouts[1]?.spanBand?.bottom).toBeGreaterThan(
-			layouts[0]?.spanBand?.bottom ?? 0,
+		expect(layouts[0]?.markerHeight).toBe(0)
+		expect(layouts[1]?.markerHeight).toBe(naturalLaneStep)
+		expect(layouts[0]?.bottom).toBe(EVENT_CARD_MIN_BOTTOM_OFFSET_PX)
+		expect(layouts[1]?.bottom).toBe(
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + naturalLaneStep,
 		)
 	})
 
@@ -162,15 +165,21 @@ describe("buildEventLayouts", () => {
 			...baseParams,
 		})
 
-		expect(layouts[0]?.bottom).toBe(EVENT_CARD_MIN_BOTTOM_OFFSET_PX)
-		expect(layouts[0]?.markerHeight).toBe(0)
+		expect(layouts[0]?.bottom).toBe(
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + EVENT_CONNECTOR_MIN_HEIGHT_PX,
+		)
+		expect(layouts[0]?.markerHeight).toBe(EVENT_CONNECTOR_MIN_HEIGHT_PX)
+		expect(layouts[0]?.anchor.width).toBe(1)
 	})
 
 	test("uses natural lane step from collapsed card height", () => {
 		const peekGap = EVENT_LANE_PEEK_GAP_PX
 		const naturalLaneStep = EVENT_CARD_HEIGHT + peekGap
 		const zoneHeight =
-			naturalLaneStep + EVENT_CARD_HEIGHT + EVENT_CARD_MIN_BOTTOM_OFFSET_PX
+			naturalLaneStep +
+			EVENT_CARD_HEIGHT +
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX +
+			EVENT_CONNECTOR_MIN_HEIGHT_PX
 
 		const layouts = buildEventLayouts({
 			events: [
@@ -184,9 +193,13 @@ describe("buildEventLayouts", () => {
 			zoneHeight,
 		})
 
-		expect(layouts[0]?.bottom).toBe(EVENT_CARD_MIN_BOTTOM_OFFSET_PX)
+		expect(layouts[0]?.bottom).toBe(
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + EVENT_CONNECTOR_MIN_HEIGHT_PX,
+		)
 		expect(layouts[1]?.bottom).toBe(
-			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + naturalLaneStep,
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX +
+				EVENT_CONNECTOR_MIN_HEIGHT_PX +
+				naturalLaneStep,
 		)
 	})
 
@@ -218,7 +231,11 @@ describe("buildEventLayouts", () => {
 		const naturalLaneStep = cardHeight + peekGap
 		// Fits a 2-lane group at natural spacing, but not a 3-lane group.
 		const zoneHeight =
-			naturalLaneStep + cardHeight + 1 + EVENT_CARD_MIN_BOTTOM_OFFSET_PX
+			naturalLaneStep +
+			cardHeight +
+			1 +
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX +
+			EVENT_CONNECTOR_MIN_HEIGHT_PX
 
 		const layouts = buildEventLayouts({
 			events: [
@@ -249,14 +266,21 @@ describe("buildEventLayouts", () => {
 		expect(leftGroup).toHaveLength(2)
 		expect(rightGroup).toHaveLength(3)
 
+		const naturalRaisedBottom =
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX +
+			EVENT_CONNECTOR_MIN_HEIGHT_PX +
+			naturalLaneStep
+
 		// Left group keeps natural spacing because it only needs two lanes.
-		expect(leftGroup[1]?.bottom).toBe(
-			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + naturalLaneStep,
-		)
+		expect(leftGroup[1]?.bottom).toBe(naturalRaisedBottom)
 
 		// Right group is compressed to fit three lanes in the same zone height.
-		expect(rightGroup[1]?.bottom ?? 0).toBeLessThan(naturalLaneStep)
-		expect(rightGroup[2]?.bottom ?? 0).toBeLessThan(naturalLaneStep * 2)
+		expect(rightGroup[1]?.bottom ?? 0).toBeLessThan(naturalRaisedBottom)
+		expect(rightGroup[2]?.bottom ?? 0).toBeLessThan(
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX +
+				EVENT_CONNECTOR_MIN_HEIGHT_PX +
+				naturalLaneStep * 2,
+		)
 	})
 
 	test("caps default z-index below selected for deep stacks", () => {

@@ -1,7 +1,6 @@
 <script lang="ts">
 import DetailPopover from "#lib/components/main/content/DetailPopover.svelte"
 import EventConnectorCard from "#lib/components/main/content/events/EventConnectorCard.svelte"
-import EventPeriodBand from "#lib/components/main/content/events/EventPeriodBand.svelte"
 import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "#lib/constants/index.js"
 import { currentLocale } from "#lib/stores/localeStore.js"
 import type { DetailContentParts } from "#lib/utils/detailContentFit.js"
@@ -20,7 +19,6 @@ import {
 	EVENT_Z_INDEX_SELECTED,
 } from "#lib/utils/eventLayout.js"
 import { formatDate } from "#lib/utils/formatters.js"
-import { getSpanBandBackgroundStyle } from "#lib/utils/spanBandStyle.js"
 
 interface Props {
 	layout: EventLayout
@@ -43,8 +41,6 @@ let {
 }: Props = $props()
 
 const isSelected = $derived(isTopCard)
-const isPeriodTier = $derived(layout.tier === "period")
-const spanBand = $derived(layout.spanBand)
 
 const zIndex = $derived(
 	isTopCard
@@ -55,13 +51,6 @@ const zIndex = $derived(
 )
 
 const eventColor = $derived(getEventColor(layout.event))
-
-const spanBackground = $derived(
-	getSpanBandBackgroundStyle({
-		color: eventColor,
-		fadeEdges: true,
-	}),
-)
 
 const label = $derived(layout.event.name[$currentLocale])
 const description = $derived(layout.event.description[$currentLocale])
@@ -78,30 +67,15 @@ const detailParts = $derived.by((): DetailContentParts | null => {
 	}
 })
 
-const periodInlineDetail = $derived.by(() => {
-	if (!isPeriodTier || !spanBand || !isSelected || !detailParts) {
-		return false
-	}
-
-	return detailContentFitsInContainer(
-		detailParts,
-		layout.anchor.width,
-		spanBand.height,
-	)
-})
-
 const connectorMaxInlineHeight = $derived(
 	Math.max(
 		0,
-		zoneHeight -
-			EVENT_CARD_MIN_BOTTOM_OFFSET_PX -
-			layout.markerHeight -
-			8,
+		zoneHeight - EVENT_CARD_MIN_BOTTOM_OFFSET_PX - layout.markerHeight - 8,
 	),
 )
 
 const connectorInlineDetail = $derived.by(() => {
-	if (isPeriodTier || !isSelected || !detailParts) {
+	if (!isSelected || !detailParts) {
 		return false
 	}
 
@@ -113,15 +87,7 @@ const connectorInlineDetail = $derived.by(() => {
 })
 
 const detailPopoverLayout = $derived.by(() => {
-	if (!isSelected || !detailParts || zoneHeight <= 0) {
-		return null
-	}
-
-	if (isPeriodTier && periodInlineDetail) {
-		return null
-	}
-
-	if (!isPeriodTier && connectorInlineDetail) {
+	if (!isSelected || !detailParts || zoneHeight <= 0 || connectorInlineDetail) {
 		return null
 	}
 
@@ -133,29 +99,14 @@ const detailPopoverLayout = $derived.by(() => {
 		popoverWidth,
 	)
 
-	if (isPeriodTier && spanBand) {
-		const anchorTopFromBottom = spanBand.bottom + spanBand.height
-
-		return getBottomAnchoredDetailPopoverLayout({
-			anchorX: layout.card.x + layout.card.width / 2,
-			anchorTopFromBottom,
-			anchorBottomFromBottom: spanBand.bottom,
-			zoneHeight,
-			popoverWidth,
-			viewportWidth,
-			estimatedPopoverHeight: estimatedHeight,
-		})
-	}
-
 	const anchorTopFromBottom =
-		EVENT_CARD_MIN_BOTTOM_OFFSET_PX +
-		layout.markerHeight +
-		EVENT_CARD_HEIGHT
+		EVENT_CARD_MIN_BOTTOM_OFFSET_PX + layout.markerHeight + EVENT_CARD_HEIGHT
 
 	return getBottomAnchoredDetailPopoverLayout({
 		anchorX: layout.card.x + layout.card.width / 2,
 		anchorTopFromBottom,
-		anchorBottomFromBottom: EVENT_CARD_MIN_BOTTOM_OFFSET_PX + layout.markerHeight,
+		anchorBottomFromBottom:
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX + layout.markerHeight,
 		zoneHeight,
 		popoverWidth,
 		viewportWidth,
@@ -183,47 +134,26 @@ function handlePointerLeave() {
 }
 </script>
 
-{#if isPeriodTier && spanBand}
-	<EventPeriodBand
-		eventId={layout.event.id}
-		{isSelected}
-		isHovered={isHovered && !isSelected}
-		{eventColor}
-		{label}
-		lane={layout.lane}
-		maxLaneInGroup={layout.maxLaneInGroup}
-		anchorX={layout.anchor.x}
-		anchorWidth={layout.anchor.width}
-		spanBottom={spanBand.bottom}
-		spanHeight={spanBand.height}
-		{zIndex}
-		{spanBackground}
-		detailParts={periodInlineDetail ? detailParts : null}
-		onCardClick={onCardClick}
-		onPointerEnter={handlePointerEnter}
-		onPointerLeave={handlePointerLeave}
-	/>
-{:else if layout.tier === "range" || layout.tier === "point"}
-	<EventConnectorCard
-		event={layout.event}
-		tier={layout.tier}
-		connectorOnly={false}
-		cardX={layout.card.x}
-		cardWidth={layout.card.width}
-		anchorX={layout.anchor.x}
-		anchorWidth={layout.anchor.width}
-		markerHeight={layout.markerHeight}
-		{zIndex}
-		eventColor={eventColor}
-		shapeId="{layout.event.id}-foreground"
-		{isSelected}
-		isHovered={isHovered && !isSelected}
-		inlineDetail={connectorInlineDetail}
-		onCardClick={onCardClick}
-		onPointerEnter={handlePointerEnter}
-		onPointerLeave={handlePointerLeave}
-	/>
-{/if}
+<EventConnectorCard
+	event={layout.event}
+	tier={layout.tier}
+	connectorOnly={false}
+	cardX={layout.card.x}
+	cardWidth={layout.card.width}
+	anchorX={layout.anchor.x}
+	anchorWidth={layout.anchor.width}
+	markerHeight={layout.markerHeight}
+	bottom={layout.bottom - layout.markerHeight}
+	{zIndex}
+	eventColor={eventColor}
+	shapeId="{layout.event.id}-foreground"
+	{isSelected}
+	isHovered={isHovered && !isSelected}
+	inlineDetail={connectorInlineDetail}
+	onCardClick={onCardClick}
+	onPointerEnter={handlePointerEnter}
+	onPointerLeave={handlePointerLeave}
+/>
 
 {#if detailPopoverLayout && detailParts}
 	<DetailPopover

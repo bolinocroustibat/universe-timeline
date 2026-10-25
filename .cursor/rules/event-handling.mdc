@@ -11,7 +11,7 @@ alwaysApply: false
 ## Layout
 
 - **Geological periods zone** — top flex item in the content area (above the label band), basis `GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO` (50%) from [`layout.ts`](src/lib/constants/layout.ts). Rendered only when `$displaySettings.showGeologicalPeriods` is on. Renders `GeologicalPeriodCard` items from layouts built by [`geologicalPeriodLayout.ts`](src/lib/utils/geologicalPeriodLayout.ts).
-- **Events zone** — flex item that fills the remaining content area above the label band (the full area when geological periods are hidden). Renders [`EventCard`](src/lib/components/main/content/events/EventCard.svelte) items from layouts built by [`eventLayout.ts`](src/lib/utils/eventLayout.ts). Lane stacking and span bands follow the measured zone height.
+- **Events zone** — flex item that fills the remaining content area above the label band (the full area when geological periods are hidden). Renders [`EventCard`](src/lib/components/main/content/events/EventCard.svelte) items from layouts built by [`eventLayout.ts`](src/lib/utils/eventLayout.ts). Lane stacking follows the measured zone height.
 - **Visibility** — `$displaySettings.showGeologicalPeriods` from [`displayStore.ts`](src/lib/stores/displayStore.ts) shows or hides the geological periods zone. The loading state uses the locale-aware `messages` map in `Content.svelte`.
 - Data loads on mount via [`fetchEvents()`](src/lib/api.ts) and [`fetchGeologicalPeriods()`](src/lib/api.ts) from [`api.ts`](src/lib/api.ts).
 
@@ -29,29 +29,27 @@ Edge-blur span backgrounds use [`spanBandStyle.ts`](src/lib/utils/spanBandStyle.
 
 ## Event positioning
 
-All event geometry is computed in [`eventLayout.ts`](src/lib/utils/eventLayout.ts) via `buildEventLayouts()` and passed to [`EventCard.svelte`](src/lib/components/main/content/events/EventCard.svelte) as an `EventLayout` object. Components do not compute their own X/Y. Visual variants are split into [`EventPeriodBand.svelte`](src/lib/components/main/content/events/EventPeriodBand.svelte), [`EventConnectorCard.svelte`](src/lib/components/main/content/events/EventConnectorCard.svelte), [`DetailPanel.svelte`](src/lib/components/main/content/DetailPanel.svelte), and [`DetailPopover.svelte`](src/lib/components/main/content/DetailPopover.svelte).
+All event geometry is computed in [`eventLayout.ts`](src/lib/utils/eventLayout.ts) via `buildEventLayouts()` and passed to [`EventCard.svelte`](src/lib/components/main/content/events/EventCard.svelte) as an `EventLayout` object. Components do not compute their own X/Y. Every event is an [`EventConnectorCard.svelte`](src/lib/components/main/content/events/EventConnectorCard.svelte): a fixed-size card plus the same Bézier funnel. Detail uses [`DetailPanel.svelte`](src/lib/components/main/content/DetailPanel.svelte) inline when it fits the card, otherwise [`DetailPopover.svelte`](src/lib/components/main/content/DetailPopover.svelte).
 
 Date ranges come from [`eventSpan.ts`](src/lib/utils/eventSpan.ts): `date ± dateUncertainty/2` when uncertainty exists; otherwise a point at `date`.
 
 ### Display tiers (zoom-dependent)
 
-| Tier | Condition | Anchor |
+| Tier | Condition | Shape |
 |------|-----------|--------|
-| `point` | No uncertainty, or span `< 1px` | Point at `date`; SVG connector narrows to anchor |
-| `range` | `1px ≤ span < CARD_WIDTH` | Date span at zone bottom; SVG connector narrows to anchor width |
-| `period` | `span ≥ CARD_WIDTH` | Full-height span band with edge fade (`SpanBand`) |
+| `point` | No uncertainty, or span `< 1px` | Fixed-width card and a Bézier funnel down to a point at `date` |
+| `range`, span `≤` card width | `1px ≤ span ≤ EVENT_CARD_WIDTH` | Same card and funnel, bottom is the uncertainty span |
+| `range`, span wider than the card | span `> EVENT_CARD_WIDTH` | No funnel. The text block widens to the visible span, and the rectangle runs from the events-zone floor up to the top of that text |
 
-**Connector cards (`EventConnectorCard`)** — for `point` and `range` tiers, a unified SVG shape (rounded-top card body + Bézier funnel) connects the card to the anchor span above the timeline clearance line. The shape sits at `bottom: EVENT_CARD_MIN_BOTTOM_OFFSET_PX` (same floor margin as period span bands). `markerHeight` is the connector segment only (`layout.bottom - EVENT_CARD_MIN_BOTTOM_OFFSET_PX`), not the full card offset. Text content is an HTML overlay without its own background or border. Path geometry is built by [`eventDateMarkerPath.ts`](src/lib/utils/eventDateMarkerPath.ts). Card height is measured at runtime via `ResizeObserver`. Uses `data-event-connector` alongside `data-event-card`.
+**Connector cards (`EventConnectorCard`)** — one component for every event. A point or a span no wider than the card keeps the rounded card plus a Bézier funnel. The funnel always has at least `EVENT_CONNECTOR_MIN_HEIGHT_PX` of height, including lane 0, and raised lanes add `lane * laneStep`. A wider span drops the funnel: the text block uses the span's x and width, and the same rectangle continues straight down to `EVENT_CARD_MIN_BOTTOM_OFFSET_PX`. Its `markerHeight` is only the lane lift (`lane * laneStep`), so lane 0 is just the text block on the floor. The shape's CSS `bottom` is `layout.bottom - layout.markerHeight`. `markerHeight` is the funnel only. Text is an HTML overlay. Path geometry is built by [`eventDateMarkerPath.ts`](src/lib/utils/eventDateMarkerPath.ts). Card height is measured at runtime via `ResizeObserver`. Uses `data-event-connector` alongside `data-event-card`. Fit checks for inline detail live in [`detailContentFit.ts`](src/lib/utils/detailContentFit.ts).
 
-**Period tier** — `EventPeriodBand` renders the colored span via `SpanBand`; top corners use `SPAN_BAND_CORNER_RADIUS_PX` (10px, shared with connector cards and detail panels) when `lane === maxLaneInGroup` via [`spanBandCorners.ts`](src/lib/utils/spanBandCorners.ts). When selected, detail content uses [`DetailPanel.svelte`](src/lib/components/main/content/DetailPanel.svelte) inline when it fits the band; otherwise [`DetailPopover.svelte`](src/lib/components/main/content/DetailPopover.svelte) (shared surface style). Fit checks live in [`detailContentFit.ts`](src/lib/utils/detailContentFit.ts).
-
-Cards are centered on the best-estimate date with viewport edge clamping (`getEventCardXPosition()`).
+Fixed-width cards are centered on the best-estimate date with viewport edge clamping (`getEventCardXPosition()`).
 
 ### Vertical lane stacking
 
 - Overlap detection uses rendered horizontal footprint: `min(anchor.x, card.x)` to `max(anchor.x + anchor.width, card.x + card.width)`
 - Greedy lane assignment sorted by collision left edge
-- Default lane step: `EVENT_CARD_HEIGHT + EVENT_LANE_PEEK_GAP_PX` (25px peek)
+- Default lane step: `EVENT_CARD_HEIGHT + EVENT_LANE_PEEK_GAP_PX` (25px peek), above `EVENT_CONNECTOR_MIN_HEIGHT_PX`
 - Uniform compression when the stack exceeds `eventsZoneHeight`
 
 ### Visibility filter
@@ -75,7 +73,7 @@ Events are visible when their date range overlaps the viewport (`isEventRangeVis
   - `topCardType`: `"event" | "geologicalPeriod" | null`
   - `topCardEventId` / `topCardGeologicalPeriodId` — stable ids, not visible index
   - `hoveredCardEventId` + `onCardHover` — events only; raises cards temporarily while the pointer is over them
-- Z-index tiers on every event visual (period band, connector card, period detail panel):
+- Z-index tiers on every event connector:
   - Selected: `1000`
   - Hovered (not selected): `999`
   - Default: `980 + lane` (capped at `998`)
@@ -87,7 +85,7 @@ Events are visible when their date range overlaps the viewport (`isEventRangeVis
 
 ## Styling
 
-- Event visuals use per-event `color` from [`eventColors.ts`](src/lib/utils/eventColors.ts): connector SVG fills/gradients (`EventConnectorCard`), period span bands (`SpanBand` + `getSpanBandBackgroundStyle()`), inline detail panels (`DetailPanel`), and selection borders via `getEventConnectorStroke()` / `getEventPanelBorderStyle()`. Detached detail uses the shared surface popover (`DetailPopover`). Text on colored surfaces uses `text-on-media`.
+- Event visuals use per-event `color` from [`eventColors.ts`](src/lib/utils/eventColors.ts): connector SVG fills/gradients (`EventConnectorCard`) and selection borders via `getEventConnectorStroke()` / `getEventPanelBorderStyle()`. Detached detail uses the shared surface popover (`DetailPopover`). Text on colored surfaces uses `text-on-media`.
 - `data-event-card` is a semantic hook for click-outside deselection only — no global CSS in [`app.css`](src/app.css).
 - Geological period cards use data-driven `color` with CSS gradients; selection adds `border-selection-outline` and scale transform via `getGeologicalPeriodSelectionTransform()`.
 - Localize text with `$currentLocale`: event names, descriptions, and dates via `formatDate(event.date, $currentLocale)`; geological period names via `layout.name[$currentLocale]`.
@@ -105,6 +103,6 @@ Do not implement these unless explicitly asked. Full specs live in `docs/plans/`
 
 - **Timeline as content background** ([`timeline-as-content-background.md`](docs/plans/timeline-as-content-background.md)) — merge tick grid into `Content`, reserved label band at bottom.
 - **Per-event colors** — optional `color` field on events for span/card styling.
-- **Date range formatting** — `formatDateRange()` for period-tier detail labels.
+- **Date range formatting** — `formatDateRange()` for event detail labels.
 
 When implementing planned work, update this rule accordingly.

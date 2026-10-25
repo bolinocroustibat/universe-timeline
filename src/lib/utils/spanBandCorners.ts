@@ -29,28 +29,13 @@ export function getSpanBandBorderRadius(flags: SpanBandCornerFlags): string {
 	return `${topLeft}px ${topRight}px ${bottomRight}px ${bottomLeft}px`
 }
 
-/** Top corners rounded only on the highest lane of a vertical stack; bottom stays flat. */
-export function getEventPeriodBandCornerFlags(
-	lane: number,
-	maxLaneInGroup: number,
-): SpanBandCornerFlags {
-	const isTopLane = lane === maxLaneInGroup
-
-	return {
-		roundTopLeft: isTopLane,
-		roundTopRight: isTopLane,
-		roundBottomLeft: false,
-		roundBottomRight: false,
-	}
-}
-
 export function getSpanBandCornerRadiusStyle(
 	flags: SpanBandCornerFlags,
 ): string {
 	return `border-radius: ${getSpanBandBorderRadius(flags)};`
 }
 
-/** All corners — matches connector SVG path and period detail panels. */
+/** All corners — matches the connector card and detail panels. */
 export function getEventCardCornerRadiusStyle(): string {
 	return getSpanBandCornerRadiusStyle({
 		roundTopLeft: true,
@@ -60,7 +45,7 @@ export function getEventCardCornerRadiusStyle(): string {
 	})
 }
 
-/** Top corners only — matches connector card clip and period band top lane. */
+/** Top corners only — matches the connector card text clip. */
 export function getEventCardTopCornerRadiusStyle(): string {
 	return getSpanBandCornerRadiusStyle({
 		roundTopLeft: true,

@@ -15,6 +15,8 @@ export const EVENT_CARD_WIDTH = 200
 /** Collapsed card height (padding + 2-line title + date). Measured from rendered EventCard. */
 export const EVENT_CARD_HEIGHT = 128
 export const EVENT_LANE_PEEK_GAP_PX = 25
+/** Funnel height under a lane-0 card, so the date anchor stays visible on the scale. */
+export const EVENT_CONNECTOR_MIN_HEIGHT_PX = 80
 export const EVENT_CARD_SCREEN_PADDING = 0
 export const EVENT_Z_INDEX_BASE = 980
 export const EVENT_Z_INDEX_HOVERED = 999
@@ -26,7 +28,7 @@ export function computeEventZIndexBase(lane: number): number {
 	return Math.min(EVENT_Z_INDEX_BASE + lane, EVENT_Z_INDEX_MAX_DEFAULT)
 }
 
-export type EventDisplayTier = "point" | "range" | "period"
+export type EventDisplayTier = "point" | "range"
 
 export type EventLayout = {
 	event: Event
@@ -37,11 +39,8 @@ export type EventLayout = {
 	collisionLeft: number
 	collisionRight: number
 	lane: number
-	maxLaneInGroup: number
 	bottom: number
 	markerHeight: number
-	spanBand: { bottom: number; height: number } | null
-	showEdgeBlur: boolean
 	zIndexBase: number
 }
 
@@ -59,19 +58,8 @@ type BuildEventLayoutsParams = {
 
 type EventLayoutDraft = Omit<
 	EventLayout,
-	| "lane"
-	| "maxLaneInGroup"
-	| "bottom"
-	| "markerHeight"
-	| "spanBand"
-	| "zIndexBase"
+	"lane" | "bottom" | "markerHeight" | "zIndexBase"
 >
-
-/** Per-group vertical spacing derived from that group's lane count only. */
-type GroupVerticalLayout = {
-	laneStep: number
-	maxLane: number
-}
 
 export function getEventCardXPosition({
 	centerX,
@@ -97,40 +85,15 @@ export function getEventCardXPosition({
 	return cardX
 }
 
-export function getEventSpanBandGeometry(
-	lane: number,
-	maxLane: number,
-	zoneHeight: number,
-	minBottomOffset = EVENT_CARD_MIN_BOTTOM_OFFSET_PX,
-): { bottom: number; height: number } {
-	if (zoneHeight <= minBottomOffset) {
-		return { bottom: minBottomOffset, height: 0 }
-	}
-
-	const usableHeight = zoneHeight - minBottomOffset
-	const bandCount = maxLane + 1
-	const bandHeight = usableHeight / bandCount
-
-	return {
-		bottom: minBottomOffset + lane * bandHeight,
-		height: bandHeight,
-	}
-}
-
 function resolveEventDisplayTier(
 	spanWidthPx: number,
 	hasUncertainty: boolean,
-	cardWidth: number,
 ): EventDisplayTier {
 	if (!hasUncertainty || spanWidthPx < 1) {
 		return "point"
 	}
 
-	if (spanWidthPx < cardWidth) {
-		return "range"
-	}
-
-	return "period"
+	return "range"
 }
 
 function buildEventLayoutDraft(
@@ -148,7 +111,7 @@ function buildEventLayoutDraft(
 	const range = getEventDateRange(event)
 	const spanWidthPx = getEventSpanWidthPx(range, yearsPerPixel)
 	const hasUncertainty = hasEventDateUncertainty(event)
-	const tier = resolveEventDisplayTier(spanWidthPx, hasUncertainty, cardWidth)
+	const tier = resolveEventDisplayTier(spanWidthPx, hasUncertainty)
 
 	const clampedSpan = getClampedSpanPosition({
 		start: range.start,
@@ -159,33 +122,20 @@ function buildEventLayoutDraft(
 	})
 
 	const dateMarkerX = yearToLayoutX(range.center, leftEdgeYear, yearsPerPixel)
+	const snappedDateX = snapLayoutX(dateMarkerX)
 
-	let anchor: EventLayout["anchor"]
-
-	if (tier === "point") {
-		const x = snapLayoutX(dateMarkerX)
-		anchor = {
-			x,
-			width: 1,
-			centerX: x,
-		}
-	} else if (tier === "range") {
-		const startX = clampedSpan.startX
-		const endX = clampedSpan.endX
-		const x = Math.min(startX, endX)
-		const width = Math.max(1, Math.abs(endX - startX))
-		anchor = {
-			x,
-			width,
-			centerX: (startX + endX) / 2,
-		}
-	} else {
-		anchor = {
-			x: clampedSpan.x,
-			width: clampedSpan.width,
-			centerX: clampedSpan.centerX,
-		}
-	}
+	const anchor: EventLayout["anchor"] =
+		tier === "point"
+			? {
+					x: snappedDateX,
+					width: 1,
+					centerX: snappedDateX,
+				}
+			: {
+					x: clampedSpan.x,
+					width: Math.max(1, clampedSpan.width),
+					centerX: clampedSpan.centerX,
+				}
 
 	const cardX = getEventCardXPosition({
 		centerX: dateMarkerX,
@@ -193,13 +143,10 @@ function buildEventLayoutDraft(
 		cardWidth,
 	})
 
-	const card = { x: cardX, width: cardWidth }
-	const collisionLeft =
-		tier === "period" ? anchor.x : Math.min(anchor.x, card.x)
-	const collisionRight =
-		tier === "period"
-			? anchor.x + anchor.width
-			: Math.max(anchor.x + anchor.width, card.x + card.width)
+	const cardSpansEvent = tier === "range" && anchor.width > cardWidth
+	const card = cardSpansEvent
+		? { x: anchor.x, width: anchor.width }
+		: { x: cardX, width: cardWidth }
 
 	return {
 		event,
@@ -207,9 +154,8 @@ function buildEventLayoutDraft(
 		anchor,
 		dateMarkerX,
 		card,
-		collisionLeft,
-		collisionRight,
-		showEdgeBlur: tier === "period",
+		collisionLeft: Math.min(anchor.x, card.x),
+		collisionRight: Math.max(anchor.x + anchor.width, card.x + card.width),
 	}
 }
 
@@ -262,9 +208,13 @@ function computeLaneStep(
 	cardHeight: number,
 	peekGap: number,
 	minBottomOffset = EVENT_CARD_MIN_BOTTOM_OFFSET_PX,
+	minConnectorHeight = EVENT_CONNECTOR_MIN_HEIGHT_PX,
 ): number {
 	const naturalLaneStep = cardHeight + peekGap
-	const usableZoneHeight = Math.max(0, zoneHeight - minBottomOffset)
+	const usableZoneHeight = Math.max(
+		0,
+		zoneHeight - minBottomOffset - minConnectorHeight,
+	)
 
 	if (usableZoneHeight <= 0 || maxLane <= 0) {
 		return naturalLaneStep
@@ -350,22 +300,31 @@ function assignLanesForGroup(
 	return laneByIndex
 }
 
-function computeGroupVerticalLayout(
+function eventUsesFunnel(draft: EventLayoutDraft): boolean {
+	return draft.card.width <= EVENT_CARD_WIDTH
+}
+
+function computeGroupLaneStep(
 	groupIndices: number[],
 	laneByIndex: Map<number, number>,
 	zoneHeight: number,
 	cardHeight: number,
 	peekGap: number,
-): GroupVerticalLayout {
+	minConnectorHeight: number,
+): number {
 	const maxLane = Math.max(
 		0,
 		...groupIndices.map((index) => laneByIndex.get(index) ?? 0),
 	)
 
-	return {
+	return computeLaneStep(
+		zoneHeight,
 		maxLane,
-		laneStep: computeLaneStep(zoneHeight, maxLane, cardHeight, peekGap),
-	}
+		cardHeight,
+		peekGap,
+		EVENT_CARD_MIN_BOTTOM_OFFSET_PX,
+		minConnectorHeight,
+	)
 }
 
 /**
@@ -392,55 +351,44 @@ export function buildEventLayouts(
 	const collisionGroups = findCollisionGroups(drafts)
 
 	const laneByIndex = new Map<number, number>()
-	const groupLayoutByIndex = new Map<number, GroupVerticalLayout>()
+	const laneStepByIndex = new Map<number, number>()
 
 	for (const groupIndices of collisionGroups) {
 		const groupLanes = assignLanesForGroup(drafts, groupIndices)
-		const groupLayout = computeGroupVerticalLayout(
+		const hasFunnel = groupIndices.some((index) => {
+			const draft = drafts[index]
+			return draft != null && eventUsesFunnel(draft)
+		})
+		const laneStep = computeGroupLaneStep(
 			groupIndices,
 			groupLanes,
 			zoneHeight,
 			cardHeight,
 			peekGap,
+			hasFunnel ? EVENT_CONNECTOR_MIN_HEIGHT_PX : 0,
 		)
 
 		for (const index of groupIndices) {
 			laneByIndex.set(index, groupLanes.get(index) ?? 0)
-			groupLayoutByIndex.set(index, groupLayout)
+			laneStepByIndex.set(index, laneStep)
 		}
 	}
 
 	return drafts.map((draft, index) => {
 		const lane = laneByIndex.get(index) ?? 0
-		const { laneStep, maxLane } = groupLayoutByIndex.get(index) ?? {
-			laneStep: computeLaneStep(zoneHeight, 0, cardHeight, peekGap),
-			maxLane: 0,
-		}
-
-		if (draft.tier === "period") {
-			const spanBand = getEventSpanBandGeometry(lane, maxLane, zoneHeight)
-
-			return {
-				...draft,
-				lane,
-				maxLaneInGroup: maxLane,
-				bottom: spanBand.bottom,
-				markerHeight: 0,
-				spanBand,
-				zIndexBase: computeEventZIndexBase(lane),
-			}
-		}
-
-		const bottom = EVENT_CARD_MIN_BOTTOM_OFFSET_PX + lane * laneStep
-		const connectorHeight = bottom - EVENT_CARD_MIN_BOTTOM_OFFSET_PX
+		const laneStep =
+			laneStepByIndex.get(index) ??
+			computeLaneStep(zoneHeight, 0, cardHeight, peekGap)
+		const usesFunnel = eventUsesFunnel(draft)
+		const markerHeight =
+			(usesFunnel ? EVENT_CONNECTOR_MIN_HEIGHT_PX : 0) + lane * laneStep
+		const bottom = EVENT_CARD_MIN_BOTTOM_OFFSET_PX + markerHeight
 
 		return {
 			...draft,
 			lane,
-			maxLaneInGroup: maxLane,
 			bottom,
-			markerHeight: connectorHeight,
-			spanBand: null,
+			markerHeight,
 			zIndexBase: computeEventZIndexBase(lane),
 		}
 	})

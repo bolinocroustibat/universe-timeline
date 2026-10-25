@@ -1,7 +1,6 @@
 <script lang="ts">
 import { tick } from "svelte"
 import DetailPanel from "#lib/components/main/content/DetailPanel.svelte"
-import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "#lib/constants/index.js"
 import { currentLocale } from "#lib/stores/localeStore.js"
 import type { Event } from "#lib/types/index.js"
 import type { DetailContentParts } from "#lib/utils/detailContentFit.js"
@@ -17,7 +16,7 @@ import {
 	getEventDateMarkerBBox,
 } from "#lib/utils/eventDateMarkerPath.js"
 import type { EventDisplayTier } from "#lib/utils/eventLayout.js"
-import { EVENT_CARD_HEIGHT } from "#lib/utils/eventLayout.js"
+import { EVENT_CARD_HEIGHT, EVENT_CARD_WIDTH } from "#lib/utils/eventLayout.js"
 import { formatDate } from "#lib/utils/formatters.js"
 import { bindPointerClick } from "#lib/utils/pointerClickOrDrag.js"
 import { getEventCardTopCornerRadiusStyle } from "#lib/utils/spanBandCorners.js"
@@ -28,13 +27,14 @@ function measureCardHeight(element: HTMLDivElement): number {
 
 interface Props {
 	event: Event
-	tier: Extract<EventDisplayTier, "range" | "point">
+	tier: EventDisplayTier
 	connectorOnly: boolean
 	cardX: number
 	cardWidth: number
 	anchorX: number
 	anchorWidth: number
 	markerHeight: number
+	bottom: number
 	zIndex: number
 	eventColor: string
 	shapeId: string
@@ -55,6 +55,7 @@ let {
 	anchorX,
 	anchorWidth,
 	markerHeight,
+	bottom,
 	zIndex,
 	eventColor,
 	shapeId,
@@ -201,7 +202,7 @@ $effect(() => {
 	data-event-connector={!connectorOnly || undefined}
 	data-event-card={!connectorOnly || undefined}
 	data-selected={!connectorOnly && isSelected ? true : undefined}
-	style="left: {bbox.left}px; bottom: {EVENT_CARD_MIN_BOTTOM_OFFSET_PX}px; width: {bbox.width}px; height: {bbox.height}px; z-index: {zIndex};"
+	style="left: {bbox.left}px; bottom: {bottom}px; width: {bbox.width}px; height: {bbox.height}px; z-index: {zIndex};"
 >
 	<svg
 		class="absolute inset-0 overflow-visible"
@@ -269,7 +270,9 @@ $effect(() => {
 		>
 			<div
 				bind:this={contentEl}
-				class="p-4 text-on-media bg-transparent box-border"
+				class="p-4 text-on-media bg-transparent box-border {cardWidth > EVENT_CARD_WIDTH
+					? 'text-center'
+					: ''}"
 			>
 				{#if inlineDetail && detailParts}
 					<DetailPanel parts={detailParts} variant="on-media" class="p-0" />
