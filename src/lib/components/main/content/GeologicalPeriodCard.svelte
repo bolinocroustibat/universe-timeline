@@ -1,8 +1,11 @@
 <script lang="ts">
+import DetailPanel from "#lib/components/main/content/DetailPanel.svelte"
 import SpanBand from "#lib/components/main/content/SpanBand.svelte"
 import { currentLocale } from "#lib/stores/localeStore.js"
+import { detailTitleFitsInContainer } from "#lib/utils/detailContentFit.js"
 import {
 	type GeologicalPeriodWithLayout,
+	geologicalPeriodDetailFitsInline,
 	getGeologicalPeriodCardGeometry,
 	getGeologicalPeriodSelectionTransform,
 } from "#lib/utils/geologicalPeriodLayout.js"
@@ -74,17 +77,28 @@ const selectionTransform = $derived(
 	}),
 )
 
-const HORIZONTAL_PADDING = 32
-const CHAR_WIDTH = 7.5
-const MIN_HEIGHT_TITLE = 28
-
 const cardWidth = $derived(spanPosition().width)
 const cardHeight = $derived(cardGeometry.height)
 const label = $derived(layout.name[$currentLocale])
+const description = $derived(layout.description[$currentLocale])
+
+const detailParts = $derived(
+	description
+		? {
+				title: label,
+				description,
+			}
+		: null,
+)
+
+const inlineDetail = $derived(
+	isSelected &&
+		detailParts != null &&
+		geologicalPeriodDetailFitsInline(detailParts, cardWidth, cardHeight),
+)
 
 const titleFits = $derived(
-	cardWidth >= label.length * CHAR_WIDTH + HORIZONTAL_PADDING &&
-		cardHeight >= MIN_HEIGHT_TITLE,
+	detailTitleFitsInContainer(label, cardWidth, cardHeight),
 )
 </script>
 
@@ -111,7 +125,13 @@ const titleFits = $derived(
 				backgroundStyle={gradientBackground()}
 				class="flex h-full w-full items-center justify-center px-2 font-medium"
 			>
-				{#if titleFits}
+				{#if inlineDetail && detailParts}
+					<DetailPanel
+						parts={detailParts}
+						variant="on-media"
+						class="h-full w-full overflow-y-auto"
+					/>
+				{:else if titleFits}
 					<div class="flex flex-col items-center justify-center w-full h-full p-2 min-w-0 min-h-0 overflow-hidden">
 						<span class="w-full min-w-0 text-sm font-semibold shrink-0 text-center whitespace-nowrap">
 							{label}

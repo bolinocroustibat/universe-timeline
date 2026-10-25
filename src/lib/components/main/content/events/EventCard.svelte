@@ -1,26 +1,46 @@
 <script lang="ts">
+import DetailPopover from "#lib/components/main/content/DetailPopover.svelte"
 import EventConnectorCard from "#lib/components/main/content/events/EventConnectorCard.svelte"
-import EventDetailCard from "#lib/components/main/content/events/EventDetailCard.svelte"
 import EventPeriodBand from "#lib/components/main/content/events/EventPeriodBand.svelte"
+import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "#lib/constants/index.js"
 import { currentLocale } from "#lib/stores/localeStore.js"
+import type { DetailContentParts } from "#lib/utils/detailContentFit.js"
+import { detailContentFitsInContainer } from "#lib/utils/detailContentFit.js"
+import {
+	estimateDetailPopoverHeight,
+	getBottomAnchoredDetailPopoverLayout,
+	getDetailPopoverScrollMaxHeight,
+	getDetailPopoverWidth,
+} from "#lib/utils/detailPopoverLayout.js"
 import { getEventColor } from "#lib/utils/eventColors.js"
 import type { EventLayout } from "#lib/utils/eventLayout.js"
 import {
+	EVENT_CARD_HEIGHT,
 	EVENT_Z_INDEX_HOVERED,
 	EVENT_Z_INDEX_SELECTED,
 } from "#lib/utils/eventLayout.js"
-import { bindPointerClick } from "#lib/utils/pointerClickOrDrag.js"
+import { formatDate } from "#lib/utils/formatters.js"
 import { getSpanBandBackgroundStyle } from "#lib/utils/spanBandStyle.js"
 
 interface Props {
 	layout: EventLayout
+	zoneHeight: number
+	viewportWidth: number
 	isTopCard: boolean
 	isHovered: boolean
 	onCardClick: (eventId: number) => void
 	onCardHover: (eventId: number | null) => void
 }
 
-let { layout, isTopCard, isHovered, onCardClick, onCardHover }: Props = $props()
+let {
+	layout,
+	zoneHeight,
+	viewportWidth,
+	isTopCard,
+	isHovered,
+	onCardClick,
+	onCardHover,
+}: Props = $props()
 
 const isSelected = $derived(isTopCard)
 const isPeriodTier = $derived(layout.tier === "period")
@@ -44,23 +64,115 @@ const spanBackground = $derived(
 )
 
 const label = $derived(layout.event.name[$currentLocale])
+const description = $derived(layout.event.description[$currentLocale])
 
-const PERIOD_DETAIL_GAP_PX = 8
-
-const periodHitWidth = $derived.by(() => {
-	if (!isPeriodTier || !spanBand) {
+const detailParts = $derived.by((): DetailContentParts | null => {
+	if (!description) {
 		return null
 	}
 
-	const left = Math.min(layout.card.x, layout.anchor.x)
-	const width =
-		Math.max(
-			layout.card.x + layout.card.width,
-			layout.anchor.x + layout.anchor.width,
-		) - left
-
-	return { left, width }
+	return {
+		title: label,
+		subtitle: formatDate(layout.event.date, $currentLocale),
+		description,
+	}
 })
+
+const periodInlineDetail = $derived.by(() => {
+	if (!isPeriodTier || !spanBand || !isSelected || !detailParts) {
+		return false
+	}
+
+	return detailContentFitsInContainer(
+		detailParts,
+		layout.anchor.width,
+		spanBand.height,
+	)
+})
+
+const connectorMaxInlineHeight = $derived(
+	Math.max(
+		0,
+		zoneHeight -
+			EVENT_CARD_MIN_BOTTOM_OFFSET_PX -
+			layout.markerHeight -
+			8,
+	),
+)
+
+const connectorInlineDetail = $derived.by(() => {
+	if (isPeriodTier || !isSelected || !detailParts) {
+		return false
+	}
+
+	return detailContentFitsInContainer(
+		detailParts,
+		layout.card.width,
+		connectorMaxInlineHeight,
+	)
+})
+
+const detailPopoverLayout = $derived.by(() => {
+	if (!isSelected || !detailParts || zoneHeight <= 0) {
+		return null
+	}
+
+	if (isPeriodTier && periodInlineDetail) {
+		return null
+	}
+
+	if (!isPeriodTier && connectorInlineDetail) {
+		return null
+	}
+
+	const popoverWidth = getDetailPopoverWidth(viewportWidth)
+	const estimatedHeight = estimateDetailPopoverHeight(
+		detailParts.title,
+		detailParts.subtitle,
+		detailParts.description,
+		popoverWidth,
+	)
+
+	if (isPeriodTier && spanBand) {
+		const anchorTopFromBottom = spanBand.bottom + spanBand.height
+
+		return getBottomAnchoredDetailPopoverLayout({
+			anchorX: layout.card.x + layout.card.width / 2,
+			anchorTopFromBottom,
+			anchorBottomFromBottom: spanBand.bottom,
+			zoneHeight,
+			popoverWidth,
+			viewportWidth,
+			estimatedPopoverHeight: estimatedHeight,
+		})
+	}
+
+	const anchorTopFromBottom =
+		EVENT_CARD_MIN_BOTTOM_OFFSET_PX +
+		layout.markerHeight +
+		EVENT_CARD_HEIGHT
+
+	return getBottomAnchoredDetailPopoverLayout({
+		anchorX: layout.card.x + layout.card.width / 2,
+		anchorTopFromBottom,
+		anchorBottomFromBottom: EVENT_CARD_MIN_BOTTOM_OFFSET_PX + layout.markerHeight,
+		zoneHeight,
+		popoverWidth,
+		viewportWidth,
+		estimatedPopoverHeight: estimatedHeight,
+	})
+})
+
+const descriptionMaxHeight = $derived(
+	detailPopoverLayout && detailParts
+		? getDetailPopoverScrollMaxHeight(
+				detailParts.title,
+				detailParts.subtitle,
+				detailParts.description,
+				getDetailPopoverWidth(viewportWidth),
+			)
+		: undefined,
+)
 
 function handlePointerEnter() {
 	onCardHover(layout.event.id)
@@ -86,36 +198,11 @@ function handlePointerLeave() {
 		spanHeight={spanBand.height}
 		{zIndex}
 		{spanBackground}
+		detailParts={periodInlineDetail ? detailParts : null}
 		onCardClick={onCardClick}
 		onPointerEnter={handlePointerEnter}
 		onPointerLeave={handlePointerLeave}
 	/>
-
-	{#if isSelected && layout.event.description[$currentLocale] && periodHitWidth}
-		<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
-		<div
-			data-event-card
-			class="absolute cursor-pointer outline-none"
-			style="left: {periodHitWidth.left}px; width: {periodHitWidth.width}px; bottom: {spanBand.bottom + spanBand.height}px; height: {PERIOD_DETAIL_GAP_PX}px; z-index: {zIndex};"
-			use:bindPointerClick={() => onCardClick(layout.event.id)}
-			onpointerenter={handlePointerEnter}
-			onpointerleave={handlePointerLeave}
-			aria-hidden="true"
-		></div>
-
-		<EventDetailCard
-			event={layout.event}
-			{eventColor}
-			cardX={layout.card.x}
-			cardBottom={spanBand.bottom + spanBand.height + PERIOD_DETAIL_GAP_PX}
-			cardWidth={layout.card.width}
-			{zIndex}
-			isHovered={isHovered && !isSelected}
-			onCardClick={onCardClick}
-			onPointerEnter={handlePointerEnter}
-			onPointerLeave={handlePointerLeave}
-		/>
-	{/if}
 {:else if layout.tier === "range" || layout.tier === "point"}
 	<EventConnectorCard
 		event={layout.event}
@@ -131,8 +218,23 @@ function handlePointerLeave() {
 		shapeId="{layout.event.id}-foreground"
 		{isSelected}
 		isHovered={isHovered && !isSelected}
+		inlineDetail={connectorInlineDetail}
 		onCardClick={onCardClick}
 		onPointerEnter={handlePointerEnter}
 		onPointerLeave={handlePointerLeave}
+	/>
+{/if}
+
+{#if detailPopoverLayout && detailParts}
+	<DetailPopover
+		parts={detailParts}
+		layout={detailPopoverLayout}
+		{zIndex}
+		ariaLabel={label}
+		dataEventCard
+		onCardClick={() => onCardClick(layout.event.id)}
+		onPointerEnter={handlePointerEnter}
+		onPointerLeave={handlePointerLeave}
+		{descriptionMaxHeight}
 	/>
 {/if}

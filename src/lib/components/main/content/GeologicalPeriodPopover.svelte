@@ -1,5 +1,10 @@
 <script lang="ts">
+import DetailPopover from "#lib/components/main/content/DetailPopover.svelte"
 import { currentLocale } from "#lib/stores/localeStore.js"
+import {
+	getDetailPopoverScrollMaxHeight,
+	getDetailPopoverWidth,
+} from "#lib/utils/detailPopoverLayout.js"
 import {
 	type GeologicalPeriodWithLayout,
 	getGeologicalPeriodPopoverLayout,
@@ -27,6 +32,18 @@ let {
 	viewportWidth,
 }: Props = $props()
 
+const label = $derived(layout.name[$currentLocale])
+const description = $derived(layout.description[$currentLocale])
+
+const detailParts = $derived(
+	description
+		? {
+				title: label,
+				description,
+			}
+		: null,
+)
+
 const popoverLayout = $derived(
 	getGeologicalPeriodPopoverLayout({
 		layout,
@@ -37,71 +54,29 @@ const popoverLayout = $derived(
 		viewportWidth,
 		contentHeight,
 		isSelected: true,
+		detailParts,
 	}),
 )
 
-const label = $derived(layout.name[$currentLocale])
-const description = $derived(layout.description[$currentLocale])
+const descriptionMaxHeight = $derived(
+	popoverLayout && detailParts
+		? getDetailPopoverScrollMaxHeight(
+				detailParts.title,
+				undefined,
+				detailParts.description,
+				getDetailPopoverWidth(viewportWidth),
+			)
+		: undefined,
+)
 </script>
 
-{#if popoverLayout && description}
-	<div
-		data-geological-period-popover
-		role="dialog"
-		aria-label={label}
-		class="absolute pointer-events-auto"
-		class:popover-above={popoverLayout.placement === "above"}
-		class:popover-below={popoverLayout.placement === "below"}
-		style="left: {popoverLayout.popoverLeft}px; top: {popoverLayout.popoverTop}px; width: {popoverLayout.popoverWidth}px; z-index: {Z_INDEX_POPOVER}; --arrow-offset: {popoverLayout.arrowOffsetX}px;"
-	>
-		<div
-			class="rounded-xl border-2 border-accent/35 bg-surface-raised p-4 shadow-lg ring-1 ring-accent/30"
-		>
-			<div class="font-semibold text-foreground mb-2 text-sm">
-				{label}
-			</div>
-			<div class="text-foreground/90 leading-relaxed text-xs max-h-48 overflow-y-auto">
-				{description}
-			</div>
-		</div>
-	</div>
+{#if popoverLayout && detailParts}
+	<DetailPopover
+		parts={detailParts}
+		layout={popoverLayout}
+		zIndex={Z_INDEX_POPOVER}
+		ariaLabel={label}
+		dataGeologicalPeriodPopover
+		{descriptionMaxHeight}
+	/>
 {/if}
-
-<style>
-	.popover-above {
-		transform: translate(-50%, -100%);
-	}
-
-	.popover-below {
-		transform: translateX(-50%);
-	}
-
-	.popover-above > div::after,
-	.popover-below > div::after {
-		content: "";
-		position: absolute;
-		left: calc(50% + var(--arrow-offset));
-		transform: translateX(-50%);
-		border: 8px solid transparent;
-	}
-
-	.popover-above > div {
-		position: relative;
-	}
-
-	.popover-above > div::after {
-		top: 100%;
-		border-top-color: var(--theme-surface-raised);
-		filter: drop-shadow(0 1px 0 color-mix(in srgb, var(--theme-accent) 35%, transparent));
-	}
-
-	.popover-below > div {
-		position: relative;
-	}
-
-	.popover-below > div::after {
-		bottom: 100%;
-		border-bottom-color: var(--theme-surface-raised);
-		filter: drop-shadow(0 -1px 0 color-mix(in srgb, var(--theme-accent) 35%, transparent));
-	}
-</style>

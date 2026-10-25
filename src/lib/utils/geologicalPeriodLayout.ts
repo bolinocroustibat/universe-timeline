@@ -1,5 +1,15 @@
 import { GEOLOGICAL_PERIOD_CHILD_HEIGHT_RATIO } from "#lib/constants/index.js"
 import type { GeologicalPeriod } from "#lib/types/index.js"
+import {
+	detailContentFitsInContainer,
+	type DetailContentParts,
+} from "#lib/utils/detailContentFit.js"
+import {
+	type DetailPopoverLayout,
+	estimateDetailPopoverHeight,
+	getDetailPopoverWidth,
+	getTopAnchoredDetailPopoverLayout,
+} from "#lib/utils/detailPopoverLayout.js"
 import { getClampedSpanPosition } from "#lib/utils/spanPosition.js"
 
 export type GeologicalPeriodIndex = {
@@ -223,20 +233,8 @@ export function getAdjacentGeologicalPeriodsInBand(
 
 export type GeologicalPeriodPopoverPlacement = "above" | "below"
 
-export type GeologicalPeriodPopoverLayout = {
-	anchorX: number
-	anchorY: number
-	popoverLeft: number
-	popoverTop: number
-	placement: GeologicalPeriodPopoverPlacement
-	arrowOffsetX: number
-	popoverWidth: number
-}
-
-const POPOVER_MAX_WIDTH = 280
-const POPOVER_SCREEN_PADDING = 16
-const POPOVER_GAP = 8
-const POPOVER_ESTIMATED_HEIGHT = 120
+/** @deprecated Use {@link DetailPopoverLayout} from detailPopoverLayout.ts */
+export type GeologicalPeriodPopoverLayout = DetailPopoverLayout
 
 export function getGeologicalPeriodHorizontalPosition({
 	start,
@@ -262,20 +260,12 @@ export function getGeologicalPeriodHorizontalPosition({
 	return { x, width, centerX }
 }
 
-function clampPopoverCenterX(
-	centerX: number,
-	popoverWidth: number,
-	viewportWidth: number,
-): number {
-	const halfWidth = popoverWidth / 2
-	const minCenter = POPOVER_SCREEN_PADDING + halfWidth
-	const maxCenter = viewportWidth - POPOVER_SCREEN_PADDING - halfWidth
-
-	if (maxCenter <= minCenter) {
-		return viewportWidth / 2
-	}
-
-	return Math.min(Math.max(centerX, minCenter), maxCenter)
+export function geologicalPeriodDetailFitsInline(
+	parts: DetailContentParts,
+	cardWidth: number,
+	cardHeight: number,
+): boolean {
+	return detailContentFitsInContainer(parts, cardWidth, cardHeight)
 }
 
 export function getGeologicalPeriodPopoverLayout({
@@ -287,6 +277,7 @@ export function getGeologicalPeriodPopoverLayout({
 	viewportWidth,
 	contentHeight,
 	isSelected,
+	detailParts,
 }: {
 	layout: GeologicalPeriodWithLayout
 	zoneHeight: number
@@ -296,23 +287,26 @@ export function getGeologicalPeriodPopoverLayout({
 	viewportWidth: number
 	contentHeight: number
 	isSelected: boolean
-}): GeologicalPeriodPopoverLayout | null {
+	detailParts: DetailContentParts | null
+}): DetailPopoverLayout | null {
 	if (
 		zoneHeight <= 0 ||
 		contentHeight <= 0 ||
 		viewportWidth <= 0 ||
-		!isGeologicalPeriodVisible(layout, leftEdgeYear, rightEdgeYear)
+		!isGeologicalPeriodVisible(layout, leftEdgeYear, rightEdgeYear) ||
+		!detailParts?.description
 	) {
 		return null
 	}
 
-	const { centerX: anchorX } = getGeologicalPeriodHorizontalPosition({
-		start: layout.start,
-		end: layout.end,
-		leftEdgeYear,
-		rightEdgeYear,
-		yearsPerPixel,
-	})
+	const { centerX: anchorX, width: cardWidth } =
+		getGeologicalPeriodHorizontalPosition({
+			start: layout.start,
+			end: layout.end,
+			leftEdgeYear,
+			rightEdgeYear,
+			yearsPerPixel,
+		})
 
 	const cardGeometry = getGeologicalPeriodCardGeometry({
 		depth: layout.depth,
@@ -322,6 +316,16 @@ export function getGeologicalPeriodPopoverLayout({
 	})
 
 	if (cardGeometry.height <= 0) {
+		return null
+	}
+
+	if (
+		geologicalPeriodDetailFitsInline(
+			detailParts,
+			cardWidth,
+			cardGeometry.height,
+		)
+	) {
 		return null
 	}
 
@@ -340,28 +344,23 @@ export function getGeologicalPeriodPopoverLayout({
 	const visualBottom =
 		visualTop + cardGeometry.height * selectionTransform.scaleY
 
-	const spaceAbove = visualTop
-	const placement: GeologicalPeriodPopoverPlacement =
-		spaceAbove >= POPOVER_ESTIMATED_HEIGHT + POPOVER_GAP ? "above" : "below"
-
-	const anchorY = placement === "above" ? visualTop : visualBottom
-	const popoverWidth = Math.min(
-		POPOVER_MAX_WIDTH,
-		Math.max(0, viewportWidth - POPOVER_SCREEN_PADDING * 2),
-	)
-	const popoverLeft = clampPopoverCenterX(anchorX, popoverWidth, viewportWidth)
-	const popoverTop =
-		placement === "above" ? anchorY - POPOVER_GAP : anchorY + POPOVER_GAP
-
-	return {
-		anchorX,
-		anchorY,
-		popoverLeft,
-		popoverTop,
-		placement,
-		arrowOffsetX: anchorX - popoverLeft,
+	const popoverWidth = getDetailPopoverWidth(viewportWidth)
+	const estimatedPopoverHeight = estimateDetailPopoverHeight(
+		detailParts.title,
+		detailParts.subtitle,
+		detailParts.description,
 		popoverWidth,
-	}
+	)
+
+	return getTopAnchoredDetailPopoverLayout({
+		anchorX,
+		anchorTop: visualTop,
+		anchorBottom: visualBottom,
+		zoneTop: 0,
+		popoverWidth,
+		viewportWidth,
+		estimatedPopoverHeight,
+	})
 }
 
 export function buildVisibleGeologicalPeriodLayouts(

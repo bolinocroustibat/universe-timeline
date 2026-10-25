@@ -226,6 +226,8 @@ const messages = {
 					{#each eventLayouts as layout (layout.event.id)}
 						<EventCard
 							{layout}
+							zoneHeight={eventsZoneHeight}
+							{viewportWidth}
 							isTopCard={topCardType === "event" &&
 								topCardEventId === layout.event.id}
 							isHovered={hoveredCardEventId === layout.event.id}

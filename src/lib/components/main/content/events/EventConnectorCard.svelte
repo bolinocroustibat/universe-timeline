@@ -1,8 +1,10 @@
 <script lang="ts">
 import { tick } from "svelte"
+import DetailPanel from "#lib/components/main/content/DetailPanel.svelte"
 import { EVENT_CARD_MIN_BOTTOM_OFFSET_PX } from "#lib/constants/index.js"
 import { currentLocale } from "#lib/stores/localeStore.js"
 import type { Event } from "#lib/types/index.js"
+import type { DetailContentParts } from "#lib/utils/detailContentFit.js"
 import {
 	getEventConnectorStroke,
 	getEventMarkerGradientStops,
@@ -38,6 +40,7 @@ interface Props {
 	shapeId: string
 	isSelected: boolean
 	isHovered: boolean
+	inlineDetail: boolean
 	onCardClick?: (eventId: number) => void
 	onPointerEnter?: () => void
 	onPointerLeave?: () => void
@@ -57,6 +60,7 @@ let {
 	shapeId,
 	isSelected,
 	isHovered,
+	inlineDetail,
 	onCardClick,
 	onPointerEnter,
 	onPointerLeave,
@@ -70,7 +74,26 @@ const topRight = $derived(cardX + cardWidth)
 const bottomLeft = $derived(anchorX)
 const bottomRight = $derived(tier === "point" ? anchorX : anchorX + anchorWidth)
 
-const cardHeight = $derived(connectorOnly ? 0 : measuredCardHeight)
+const label = $derived(event.name[$currentLocale])
+const description = $derived(event.description[$currentLocale])
+
+const detailParts = $derived.by((): DetailContentParts | null => {
+	if (!description) {
+		return null
+	}
+
+	return {
+		title: label,
+		subtitle: formatDate(event.date, $currentLocale),
+		description,
+	}
+})
+
+const collapsedCardHeight = $derived(EVENT_CARD_HEIGHT)
+
+const cardHeight = $derived(
+	connectorOnly ? 0 : inlineDetail ? measuredCardHeight : collapsedCardHeight,
+)
 
 const bbox = $derived(
 	connectorOnly
@@ -126,9 +149,6 @@ const stroke = $derived(
 	getEventConnectorStroke(eventColor, isSelected, isHovered),
 )
 
-const label = $derived(event.name[$currentLocale])
-const description = $derived(event.description[$currentLocale])
-
 const contentLeft = $derived(cardX - bbox.left)
 const contentClipCornerRadiusStyle = getEventCardTopCornerRadiusStyle()
 
@@ -139,11 +159,10 @@ function handleCardClick(): void {
 }
 
 $effect(() => {
-	if (connectorOnly || !contentEl) {
+	if (connectorOnly || !contentEl || !inlineDetail) {
 		return
 	}
 
-	// Re-measure when content that affects layout changes.
 	void isSelected
 	void label
 	void description
@@ -168,6 +187,12 @@ $effect(() => {
 
 	observer.observe(contentEl)
 	return () => observer.disconnect()
+})
+
+$effect(() => {
+	if (!inlineDetail) {
+		measuredCardHeight = collapsedCardHeight
+	}
 })
 </script>
 
@@ -240,26 +265,20 @@ $effect(() => {
 	{#if !connectorOnly}
 		<div
 			class="absolute top-0 overflow-hidden pointer-events-none"
-			style="left: {contentLeft}px; width: {cardWidth}px; height: {measuredCardHeight}px; {contentClipCornerRadiusStyle}"
+			style="left: {contentLeft}px; width: {cardWidth}px; height: {cardHeight}px; {contentClipCornerRadiusStyle}"
 		>
 			<div
 				bind:this={contentEl}
 				class="p-4 text-on-media bg-transparent box-border"
 			>
-				<div class="font-semibold mb-2 transition-all duration-200 text-sm line-clamp-2">
-					{label}
-				</div>
-				<div class="text-on-media/80 font-medium mb-2 transition-all duration-200 text-xs">
-					{formatDate(event.date, $currentLocale)}
-				</div>
-				{#if isSelected && description}
-					<!-- svelte-ignore a11y_no_static_element_interactions -->
-					<div
-						class="pointer-events-auto text-on-media/90 leading-relaxed transition-all duration-200 text-xs"
-						onpointerenter={onPointerEnter}
-						onpointerleave={onPointerLeave}
-					>
-						{description}
+				{#if inlineDetail && detailParts}
+					<DetailPanel parts={detailParts} variant="on-media" class="p-0" />
+				{:else}
+					<div class="font-semibold mb-2 transition-all duration-200 text-sm line-clamp-2">
+						{label}
+					</div>
+					<div class="text-on-media/80 font-medium mb-2 transition-all duration-200 text-xs">
+						{formatDate(event.date, $currentLocale)}
 					</div>
 				{/if}
 			</div>
