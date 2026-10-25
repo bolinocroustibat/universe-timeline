@@ -5,10 +5,7 @@ import EventCard from "#lib/components/main/content/events/EventCard.svelte"
 import GeologicalPeriodCard from "#lib/components/main/content/GeologicalPeriodCard.svelte"
 import GeologicalPeriodPopover from "#lib/components/main/content/GeologicalPeriodPopover.svelte"
 import TimelineGrid from "#lib/components/main/content/TimelineGrid.svelte"
-import {
-	EVENTS_ZONE_HEIGHT_RATIO,
-	GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO,
-} from "#lib/constants/index.js"
+import { GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO } from "#lib/constants/index.js"
 import { displaySettings } from "#lib/stores/displayStore.js"
 import { currentLocale } from "#lib/stores/localeStore.js"
 import type { Event, GeologicalPeriod } from "#lib/types/index.js"
@@ -160,11 +157,9 @@ export function deselectCards() {
 const messages = {
 	en: {
 		loading: "Loading...",
-		geologicalPeriodsHidden: "Geological periods are hidden.",
 	},
 	fr: {
 		loading: "Chargement...",
-		geologicalPeriodsHidden: "Les périodes géologiques sont masquées.",
 	},
 }
 </script>
@@ -189,13 +184,13 @@ const messages = {
 			<div class="text-muted">{messages[$currentLocale].loading}</div>
 		</div>
 	{:else}
-		<div class="absolute inset-x-0 top-0 bottom-[1em]">
-			<div
-				bind:this={geologicalPeriodsZoneElement}
-				class="absolute top-0 left-0 right-0 overflow-hidden"
-				style="height: {GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO * 100}%"
-			>
-				{#if $displaySettings.showGeologicalPeriods}
+		<div class="absolute inset-x-0 top-0 bottom-[1em] flex flex-col">
+			{#if $displaySettings.showGeologicalPeriods}
+				<div
+					bind:this={geologicalPeriodsZoneElement}
+					class="relative w-full overflow-hidden"
+					style="flex: 0 0 {GEOLOGICAL_PERIODS_ZONE_HEIGHT_RATIO * 100}%"
+				>
 					{#each visibleGeologicalPeriodLayouts as layout (layout.id)}
 						<GeologicalPeriodCard
 							{layout}
@@ -208,19 +203,12 @@ const messages = {
 							onCardClick={handleGeologicalPeriodClick}
 						/>
 					{/each}
-				{:else}
-					<div class="absolute inset-0 flex items-center justify-center">
-						<div class="text-muted">
-							{messages[$currentLocale].geologicalPeriodsHidden}
-						</div>
-					</div>
-				{/if}
-			</div>
+				</div>
+			{/if}
 
 			<div
 				bind:this={eventsZoneElement}
-				class="absolute bottom-0 left-0 right-0 overflow-hidden"
-				style="height: {EVENTS_ZONE_HEIGHT_RATIO * 100}%"
+				class="relative min-h-0 w-full flex-1 overflow-hidden"
 			>
 				<div class="absolute inset-0">
 					{#each eventLayouts as layout (layout.event.id)}
