@@ -33,7 +33,7 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - "${APP_PORT:-3000}:3000"
+      - "127.0.0.1:${APP_PORT:-3000}:3000"
     volumes:
       - ./static/events.jsonc:/app/build/client/events.jsonc
       - ./static/geologicalPeriods.jsonc:/app/build/client/geologicalPeriods.jsonc
